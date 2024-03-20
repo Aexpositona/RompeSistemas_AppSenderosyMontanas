@@ -14,6 +14,7 @@ public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones>
 
     // Atributos
     private V vExcursiones;
+    private Datos datos; // Agrega un campo de instancia para Datos
 
     /**
      * Constructor de ControlExcursiones.
@@ -22,6 +23,7 @@ public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones>
      */
     public ControlExcursiones(V vExcursiones) {
         this.vExcursiones = vExcursiones;
+        this.datos = new Datos(); // Inicializa el campo de Datos
     }
 
     // Métodos
@@ -32,6 +34,6 @@ public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones>
      * @param excursion Excursión a añadir
      */
     public void añadirExcursion(E excursion) {
-        Datos.agregarExcursion(excursion);
+        datos.agregarExcursion(excursion); // Accede al método en la instancia de Datos
     }
 }

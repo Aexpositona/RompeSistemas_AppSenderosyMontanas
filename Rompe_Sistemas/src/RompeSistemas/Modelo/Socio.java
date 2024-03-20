@@ -2,21 +2,24 @@ package RompeSistemas.Modelo;
 
 /**
  * Clase abstracta que representa a un socio.
- * @param <T> Tipo de dato que representa el número de socio.
+ *
+ * @param <N> tipo genérico para el nombre del socio
+ * @param <T> tipo genérico para el número de socio
  */
-public abstract class Socio<T> {
+public abstract class Socio<N, T> {
 
-    private String nombre;
+    private N nombre;
     private T numero;
 
     // Constructores
 
     /**
      * Constructor de la clase Socio.
+     *
      * @param nombre El nombre del cliente
      * @param numero El número del cliente
      */
-    public Socio(String nombre, T numero) {
+    public Socio(N nombre, T numero) {
         this.nombre = nombre;
         this.numero = numero;
     }
@@ -32,14 +35,16 @@ public abstract class Socio<T> {
 
     /**
      * Método get() que devuelve el nombre del cliente.
+     *
      * @return El nombre del cliente
      */
-    public String getNombre() {
+    public N getNombre() {
         return nombre;
     }
 
     /**
      * Método get() que devuelve el número del cliente.
+     *
      * @return El número del cliente
      */
     public T getNumero() {
@@ -50,14 +55,16 @@ public abstract class Socio<T> {
 
     /**
      * Método set() que permite definir el nombre del cliente.
+     *
      * @param nombre El nombre del cliente
      */
-    public void setNombre(String nombre) {
+    public void setNombre(N nombre) {
         this.nombre = nombre;
     }
 
     /**
      * Método set() que permite definir el número del cliente.
+     *
      * @param numero El número del cliente
      */
     public void setNumero(T numero) {
@@ -66,6 +73,7 @@ public abstract class Socio<T> {
 
     /**
      * Método toString() que devuelve un String con los datos del cliente.
+     *
      * @return Un String con los datos del cliente, como el nombre y el número de socio
      */
     @Override

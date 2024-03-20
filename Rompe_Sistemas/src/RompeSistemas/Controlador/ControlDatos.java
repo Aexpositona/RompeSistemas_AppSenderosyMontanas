@@ -16,8 +16,11 @@ import RompeSistemas.Vista.VistaExcursiones;
  */
 public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends Socio, V extends VistaExcursiones> {
 
+    private Datos datos; // Agrega un campo de instancia para Datos
+
     // Constructor
     public ControlDatos() {
+        this.datos = new Datos(); // Inicializa el campo de Datos
     }
 
     // Métodos
@@ -29,7 +32,7 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      */
     public void comprobarSocio(S socio) {
         // Lógica para comprobar un socio
-        Datos.agregarSocio(socio); // Ejemplo de uso de Datos para agregar un socio
+        datos.agregarSocio(socio); // Accede al método en la instancia de Datos
     }
 
     /**
@@ -39,7 +42,7 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      */
     public void comprobarExcursion(E excursion) {
         // Lógica para comprobar una excursión
-        Datos.agregarExcursion(excursion); // Ejemplo de uso de Datos para agregar una excursión
+        datos.agregarExcursion(excursion); // Accede al método en la instancia de Datos
     }
 
     /**
@@ -49,6 +52,6 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      */
     public void comprobarInscripcion(I inscripcion) {
         // Lógica para comprobar una inscripción
-        Datos.agregarInscripcion(inscripcion); // Ejemplo de uso de Datos para agregar una inscripción
+        datos.agregarInscripcion(inscripcion); // Accede al método en la instancia de Datos
     }
 }

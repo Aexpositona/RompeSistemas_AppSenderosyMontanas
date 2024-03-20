@@ -2,12 +2,12 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 
-public class VistaSocios<A, B, C> {
+public class VistaSocios<A, M, L> {
 
     // Atributos
     private A vAñadirSocio;
-    private B vVistaModificarSeguro;
-    private C vVistaListarSocios;
+    private M vVistaModificarSeguro;
+    private L vVistaListarSocios;
 
     /**
      * Método constructor de la clase VistaSocios que recibe por parámetros las vistas de añadir socio, modificar seguro y listar socios
@@ -15,7 +15,7 @@ public class VistaSocios<A, B, C> {
      * @param vVistaModificarSeguro es la vista de modificar seguro
      * @param vVistaListarSocios es la vista de listar socios
      */
-    public VistaSocios(A vAñadirSocio, B vVistaModificarSeguro, C vVistaListarSocios) {
+    public VistaSocios(A vAñadirSocio, M vVistaModificarSeguro, L vVistaListarSocios) {
         this.vAñadirSocio = vAñadirSocio;
         this.vVistaModificarSeguro = vVistaModificarSeguro;
         this.vVistaListarSocios = vVistaListarSocios;

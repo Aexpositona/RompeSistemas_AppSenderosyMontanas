@@ -1,102 +1,71 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Modelo.Datos;
-import RompeSistemas.Modelo.Socio;
+import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.VistaSocios;
 
-/**
- * Controlador para la gestión de socios.
- *
- * @param <S> tipo de objeto Socio
- * @param <V> tipo de objeto VistaSocios
- */
 public class ControlSocios<S extends Socio, V extends VistaSocios> {
 
     // Atributos
     private V vSocios;
+    private Datos<S, ?, S> datos;
 
     /**
      * Constructor de ControlSocios.
-     *
      * @param vSocios VistaSocios asociada al controlador
      */
     public ControlSocios(V vSocios) {
         this.vSocios = vSocios;
+        this.datos = new Datos<>(); // Crear una instancia de Datos con el tipo Socio
     }
 
     // Métodos
 
     /**
      * Agrega un socio a través de la clase Datos.
-     *
-     * @param socio Socio a agregar
+     * @param numeroSocio   El número de socio
+     * @param nombre        El nombre del socio
+     * @param tipoSocio     El tipo de socio (ESTANDAR, FEDERADO, INFANTIL)
+     * @param numeroSocioTutor   El número de socio del tutor (para socios infantiles)
+     * @param nif           El NIF del socio (para socios estándar)
      */
-    public void addSocio(S socio) {
-        Datos.agregarSocio(socio);
+    public void addSocio(int numeroSocio, String nombre, String tipoSocio, int numeroSocioTutor, String nif) {
+        Socio nuevoSocio;
+        switch (tipoSocio.toUpperCase()) {
+            case "ESTANDAR":
+                nuevoSocio = new Estandar<>(nombre, numeroSocio, nif, obtenerSeguroEstandar());
+                break;
+            case "FEDERADO":
+                nuevoSocio = new Federado<>(nombre, numeroSocio, obtenerFederacion());
+                break;
+            case "INFANTIL":
+                nuevoSocio = new Infantil<>(nombre, numeroSocio, numeroSocioTutor);
+                break;
+            default:
+                // Tipo de socio no reconocido
+                System.out.println("Tipo de socio no válido.");
+                return;
+        }
+        // Agregamos el nuevo socio a través de la clase Datos
+        datos.agregarSocio((S) nuevoSocio);
+    }
+
+
+    /**
+     * Método para obtener el seguro estándar.
+     * @return El seguro estándar
+     */
+    private Seguro obtenerSeguroEstandar() {
+
+        return null;
     }
 
     /**
-     * Elimina un socio a través de la clase Datos.
-     *
-     * @param numero Número de socio a eliminar
+     * Método para obtener la federación para un socio federado.
+     * @return La federación del socio federado
      */
-    public void removeSocio(int numero) {
-        // Lógica para eliminar un socio a través de Datos
+    private Federacion obtenerFederacion() {
+
+        return null;
     }
 
-    /**
-     * Lista todos los socios a través de la clase Datos.
-     */
-    public void listSocios() {
-        // Lógica para listar socios a través de Datos
-    }
-
-    /**
-     * Lista los socios por tipo a través de la clase Datos.
-     */
-    public void listSociosTipo() {
-        // Lógica para listar socios por tipo a través de Datos
-    }
-
-    /**
-     * Genera la factura mensual para los socios a través de la clase Datos.
-     */
-    public void facturaMensualSocios() {
-        // Lógica para generar factura mensual para los socios a través de Datos
-    }
-
-    /**
-     * Muestra la vista para añadir un socio.
-     */
-    public void showVistaAñadirSocio() {
-        // Lógica para mostrar vista de añadir socio
-    }
-
-    /**
-     * Muestra la vista para listar socios.
-     */
-    public void showVistaListarSocios() {
-        // Lógica para mostrar vista de listar socios
-    }
-
-    /**
-     * Muestra la vista del menú principal.
-     */
-    public void showVistaMenuPrincipal() {
-        // Lógica para mostrar vista del menú principal
-    }
-
-    /**
-     * Muestra la vista de socios.
-     */
-    public void showVistaSocios() {
-        // Lógica para mostrar vista de socios
-    }
-
-    /**
-     * Maneja el botón "Atrás".
-     */
-    public void buttonAtras() {
-        // Lógica para manejar el botón "Atrás"
-    }
 }

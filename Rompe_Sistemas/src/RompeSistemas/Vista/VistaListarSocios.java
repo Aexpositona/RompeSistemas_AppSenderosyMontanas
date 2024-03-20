@@ -1,39 +1,40 @@
 package RompeSistemas.Vista;
 
-import RompeSistemas.Controlador.ControlSocios;
+public class VistaListarSocios<C, L> {
 
-public class VistaListarSocios {
     // Atributos
-    private ControlSocios cSocios;
-    private int tipoSocio;
-    private String tboxListado;
+    private C controlador;
+    private String tipoSocio;
+    private L listaSocios;
 
     /**
-     * Método constructor de la clase VistaListarSocios que recibe por parámetros el tipo de socio y el listado de socios
-     * @param tipoSocio es el tipo de socio
-     * @param tboxListado es el listado de socios
+     * Método constructor de la clase VistaListarSocios que recibe por parámetros el controlador, el tipo de socio y el listado de socios.
+     * @param controlador el controlador asociado a la vista
+     * @param tipoSocio el tipo de socio
+     * @param listaSocios el listado de socios
      */
-    public VistaListarSocios(int tipoSocio, String tboxListado) {
-        tipoSocio = tipoSocio;
-        this.tboxListado = tboxListado;
+    public VistaListarSocios(C controlador, String tipoSocio, L listaSocios) {
+        this.controlador = controlador;
+        this.tipoSocio = tipoSocio;
+        this.listaSocios = listaSocios;
     }
 
     /**
-     * Método para añadir un botón que nos permite listar los tipos de socios
+     * Método para añadir un botón que nos permite listar los tipos de socios.
      */
-    public void buttonListTipoSocio(){
-
-    }
-
-    /**
-     * Método para añadir un botón que nos permite listar los socios
-     */
-    public void buttonListSocios(){
+    public void buttonListarTiposSocio(){
 
     }
 
     /**
-     * Método para añadir un botón que nos permite ir hacia atrás
+     * Método para añadir un botón que nos permite listar los socios.
+     */
+    public void buttonListarSocios(){
+
+    }
+
+    /**
+     * Método para añadir un botón que nos permite ir hacia atrás.
      */
     public void buttonAtras() {
 
@@ -42,6 +43,4 @@ public class VistaListarSocios {
     public void show() {
         //TODO
     }
-
-
 }

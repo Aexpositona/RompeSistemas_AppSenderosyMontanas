@@ -18,6 +18,7 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
 
     // Atributos
     private V vistaInscripciones;
+    private Datos datos; // Agrega un campo de instancia para Datos
 
     /**
      * Constructor de ControlInscripciones.
@@ -26,6 +27,7 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
      */
     public ControlInscripciones(V vistaInscripciones) {
         this.vistaInscripciones = vistaInscripciones;
+        this.datos = new Datos(); // Inicializa el campo de Datos
     }
 
     // Métodos
@@ -33,21 +35,20 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
     /**
      * Agrega una inscripción utilizando la clase Datos.
      *
-     * @param numero   Número de inscripción
-     * @param socio    Socio que realiza la inscripción
-     * @param excursion Excursión a la que se inscribe el socio
+     * @param inscripcion Inscripción a agregar
+     * @param socio       Socio que realiza la inscripción
+     * @param excursion   Excursión a la que se inscribe el socio
      */
-    public void addInscripcion(int numero, S socio, E excursion) {
-        Inscripcion inscripcion = new Inscripcion(numero, socio, excursion);
-        Datos.agregarInscripcion(inscripcion);
+    public void addInscripcion(I inscripcion, S socio, E excursion) {
+        datos.agregarInscripcion(inscripcion);
     }
 
     /**
      * Elimina una inscripción utilizando la clase Datos.
      *
-     * @param numero Número de inscripción a eliminar
+     * @param inscripcion Número de inscripción a eliminar
      */
-    public void removeInscripcion(int numero) {
+    public void removeInscripcion(I inscripcion) {
         // Lógica para eliminar inscripción
     }
 

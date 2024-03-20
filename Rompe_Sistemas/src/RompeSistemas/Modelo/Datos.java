@@ -5,19 +5,21 @@ import java.util.List;
 
 /**
  * Clase que gestiona los datos del sistema.
- * @param <T> tipo genérico para los datos almacenados
+ * @param <E> tipo genérico para las excursiones
+ * @param <I> tipo genérico para las inscripciones
+ * @param <S> tipo genérico para los socios
  */
-public class Datos<T> {
+public class Datos<E, I, S> {
 
-    private static List<Excursion> excursiones = new ArrayList<>();
-    private static List<Inscripcion> inscripciones = new ArrayList<>();
-    private static List<Socio> socios = new ArrayList<>();
+    private List<E> excursiones = new ArrayList<>();
+    private List<I> inscripciones = new ArrayList<>();
+    private List<S> socios = new ArrayList<>();
 
     /**
      * Obtiene la lista de excursiones.
      * @return la lista de excursiones
      */
-    public static List<Excursion> getExcursiones() {
+    public List<E> getExcursiones() {
         return excursiones;
     }
 
@@ -25,7 +27,7 @@ public class Datos<T> {
      * Agrega una excursión a la lista.
      * @param excursion la excursión a agregar
      */
-    public static void agregarExcursion(Excursion excursion) {
+    public  void agregarExcursion(E excursion) {
         excursiones.add(excursion);
     }
 
@@ -33,7 +35,7 @@ public class Datos<T> {
      * Obtiene la lista de inscripciones.
      * @return la lista de inscripciones
      */
-    public static List<Inscripcion> getInscripciones() {
+    public  List<I> getInscripciones() {
         return inscripciones;
     }
 
@@ -41,7 +43,7 @@ public class Datos<T> {
      * Agrega una inscripción a la lista.
      * @param inscripcion la inscripción a agregar
      */
-    public static void agregarInscripcion(Inscripcion inscripcion) {
+    public  void agregarInscripcion(I inscripcion) {
         inscripciones.add(inscripcion);
     }
 
@@ -49,7 +51,7 @@ public class Datos<T> {
      * Obtiene la lista de socios.
      * @return la lista de socios
      */
-    public static List<Socio> getSocios() {
+    public  List<S> getSocios() {
         return socios;
     }
 
@@ -57,7 +59,7 @@ public class Datos<T> {
      * Agrega un socio a la lista.
      * @param socio el socio a agregar
      */
-    public static void agregarSocio(Socio socio) {
+    public  void agregarSocio(S socio) {
         socios.add(socio);
     }
 }

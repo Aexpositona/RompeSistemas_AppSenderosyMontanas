@@ -2,17 +2,17 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
 
-public class VistaInscripciones<T extends VistaAñadirInscripcion, U extends VistaListarInscripciones> {
+public class VistaInscripciones<A extends VistaAñadirInscripcion, L extends VistaListarInscripciones> {
 
-    public T vVistaAñadirInscripcion;
-    public U vVistaListarInscripciones;
+    public A vVistaAñadirInscripcion;
+    public L vVistaListarInscripciones;
 
     /**
      * Constructor de la clase VistaInscripciones que recibe por parámetros la vista de añadir inscripción y la vista de listar inscripciones
      * @param vVistaAñadirInscripcion es la vista de añadir inscripción
      * @param vVistaListarInscripciones es la vista de listar inscripciones
      */
-    public VistaInscripciones(T vVistaAñadirInscripcion, U vVistaListarInscripciones) {
+    public VistaInscripciones(A vVistaAñadirInscripcion, L vVistaListarInscripciones) {
         this.vVistaAñadirInscripcion = vVistaAñadirInscripcion;
         this.vVistaListarInscripciones = vVistaListarInscripciones;
     }

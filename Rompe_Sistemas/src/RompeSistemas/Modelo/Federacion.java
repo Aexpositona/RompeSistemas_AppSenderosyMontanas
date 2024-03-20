@@ -3,13 +3,13 @@ package RompeSistemas.Modelo;
 /**
  * Clase que representa una federación.
  *
- * @param <T> tipo de dato para el código
- * @param <U> tipo de dato para el nombre
+ * @param <C> tipo de dato para el código
+ * @param <N> tipo de dato para el nombre
  */
-public class Federacion<T, U> {
+public class Federacion<C, N> {
 
-    private T codigo;
-    private U nombre;
+    private C codigo;
+    private N nombre;
 
     // Métodos constructores
 
@@ -19,7 +19,7 @@ public class Federacion<T, U> {
      * @param codigo código de la federación
      * @param nombre nombre de la federación
      */
-    public Federacion(T codigo, U nombre) {
+    public Federacion(C codigo, N nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
     }
@@ -37,7 +37,7 @@ public class Federacion<T, U> {
      *
      * @return el código de la federación
      */
-    public T getCodigo() {
+    public C getCodigo() {
         return codigo;
     }
 
@@ -46,7 +46,7 @@ public class Federacion<T, U> {
      *
      * @return el nombre de la federación
      */
-    public U getNombre() {
+    public N getNombre() {
         return nombre;
     }
 
@@ -57,7 +57,7 @@ public class Federacion<T, U> {
      *
      * @param codigo el código de la federación
      */
-    public void setCodigo(T codigo) {
+    public void setCodigo(C codigo) {
         this.codigo = codigo;
     }
 
@@ -66,7 +66,7 @@ public class Federacion<T, U> {
      *
      * @param nombre el nombre de la federación
      */
-    public void setNombre(U nombre) {
+    public void setNombre(N nombre) {
         this.nombre = nombre;
     }
 

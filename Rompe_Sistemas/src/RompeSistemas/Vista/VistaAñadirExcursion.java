@@ -4,13 +4,13 @@ import java.util.Date;
 
 /**
  * Clase que representa la vista para añadir una excursión.
- * @param <D> Tipo de dato que representa la fecha de la excursión.
+ *
  */
-public class VistaAñadirExcursion<D> {
+public class VistaAñadirExcursion {
     // Atributos
     private String codigo;
     private String descripcion;
-    private D fecha;
+    private Date fecha;
     private float precio;
     private int dias;
 
@@ -22,7 +22,7 @@ public class VistaAñadirExcursion<D> {
      * @param precio es el precio de la excursión
      * @param dias son los días de la excursión
      */
-    public VistaAñadirExcursion(String codigo, String descripcion, D fecha, float precio, int dias) {
+    public VistaAñadirExcursion(String codigo, String descripcion, Date fecha, float precio, int dias) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.fecha = fecha;

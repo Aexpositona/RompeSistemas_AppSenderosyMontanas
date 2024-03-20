@@ -4,11 +4,12 @@ package RompeSistemas.Modelo;
  * Clase que representa a un socio estándar.
  *
  * @param <S> tipo genérico para Seguro
+ * @param <N> tipo genérico para NIF
  */
-public class Estandar<S extends Socio> extends Socio {
+public class Estandar<S extends Socio, N> extends Socio {
 
-    private String nif;
-    private S seguro;
+    private N nif;
+    private Seguro seguro;
 
     // Métodos constructores
 
@@ -20,9 +21,9 @@ public class Estandar<S extends Socio> extends Socio {
      * @param nif NIF del socio
      * @param seguro seguro del socio
      */
-    public Estandar(String nombre, int numero, String nif, S seguro) {
+    public Estandar(String nombre, int numero, String nif, Seguro seguro) {
         super(nombre, numero);
-        this.nif = nif;
+        this.nif = (N) nif;
         this.seguro = seguro;
     }
 
@@ -40,7 +41,7 @@ public class Estandar<S extends Socio> extends Socio {
      *
      * @return el NIF del socio
      */
-    public String getNif() {
+    public N getNif() {
         return nif;
     }
 
@@ -49,7 +50,7 @@ public class Estandar<S extends Socio> extends Socio {
      *
      * @return el seguro del socio
      */
-    public S getSeguro() {
+    public Seguro getSeguro() {
         return seguro;
     }
 
@@ -60,7 +61,7 @@ public class Estandar<S extends Socio> extends Socio {
      *
      * @param nif el NIF del socio
      */
-    public void setNif(String nif) {
+    public void setNif(N nif) {
         this.nif = nif;
     }
 
@@ -69,7 +70,7 @@ public class Estandar<S extends Socio> extends Socio {
      *
      * @param seguro el seguro del socio
      */
-    public void setSeguro(S seguro) {
+    public void setSeguro(Seguro seguro) {
         this.seguro = seguro;
     }
 

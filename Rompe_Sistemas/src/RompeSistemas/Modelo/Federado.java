@@ -4,20 +4,20 @@ package RompeSistemas.Modelo;
  * Clase que representa un socio federado.
  * @param <F> tipo genérico adicional
  */
-public class Federado<F> extends Socio {
+public class Federado<F, N> extends Socio {
 
-    private String nif;
+    private N nif;
     private F federaciones;
 
     // Constructores
     /**
      * Método constructor de la clase Federado que recibe como parámetros el nombre, el número, el NIF y la federación a la que pertenece el socio.
+     *
      * @param nombre el nombre del socio
      * @param numero el número del socio
-     * @param nif el NIF del socio
-     * @param federaciones la federación a la que pertenece el socio
+     * @param nif    el NIF del socio
      */
-    public Federado(String nombre, int numero, String nif, F federaciones) {
+    public Federado(String nombre, int numero, N nif) {
         super(nombre, numero);
         this.nif = nif;
         this.federaciones = federaciones;
@@ -34,7 +34,7 @@ public class Federado<F> extends Socio {
      * Obtiene el NIF del socio.
      * @return el NIF del socio
      */
-    public String getNif() {
+    public N getNif() {
         return nif;
     }
 
@@ -51,7 +51,7 @@ public class Federado<F> extends Socio {
      * Establece el NIF del socio.
      * @param nif el NIF del socio
      */
-    public void setNif(String nif) {
+    public void setNif(N nif) {
         this.nif = nif;
     }
 
