@@ -1,40 +1,35 @@
 package RompeSistemas.Modelo;
 
-/**
- * Enumeración que representa los diferentes tipos de seguros.
- */
 public enum Seguro {
 
     /**
      * Tipo de Seguro Básico
      */
-    BASICO(1, "Básico", 100.0f),
+    BASICO(1, "Básico"),
     /**
-     * Tipo de Seguro Completo
+     * Tipos de Seguro Completo
      */
-    COMPLETO(2, "Completo", 200.0f);
+    COMPLETO(2, "Completo");
 
-    // Atributos
+    //Atributos
     private int id;
-    private String nombre;
-    private float precio;
+    private  float precio;
+    private  String nombre;
 
-    // Métodos constructores
+
+    //Métodos constructores
     /**
-     * Método constructor de la clase Seguro que recibe por parámetros el código identificador, el nombre y el precio del seguro.
-     * @param id el código identificador del seguro
-     * @param nombre el nombre del seguro
-     * @param precio el precio del seguro
+     * Método constructor de la clase Seguro que recibe por parámetros el precio y el nombre del seguro
+     * @param id es el código identificador del seguro
+     * @param básico es el nombre del seguro
      */
-    Seguro(int id, String nombre, float precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
+    Seguro(int id, String básico) {
     }
 
-    // Métodos Getters
+    //Métodos Getters
+
     /**
-     * Método get() de la clase Seguro que nos devuelve el código identificador del seguro.
+     * Método get() de la clase Seguro que nos devuelve el código identificador del seguro
      * @return El código identificador del seguro
      */
     public int getId() {
@@ -42,7 +37,7 @@ public enum Seguro {
     }
 
     /**
-     * Método get() de la clase Seguro que nos devuelve el precio del seguro.
+     * Método get() de la clase Seguro que nos devuelve el precio del seguro
      * @return El precio del seguro
      */
     public float getPrecio() {
@@ -50,35 +45,38 @@ public enum Seguro {
     }
 
     /**
-     * Método get() de la clase Seguro que nos devuelve el nombre del seguro.
+     * Método get() de la clase Seguro que nos devuelve el nombre del seguro
      * @return El nombre del seguro
      */
     public String getNombre() {
         return nombre;
     }
 
-    // Métodos Setters
+    //Métodos Setters
+
     /**
-     * Método set() de la clase Seguro que nos permite definir el código identificador del seguro.
-     * @param id El código identificador del seguro
+     * Método set() de la clase Seguro que nos permite definir el código identificador del seguro
+     * @param id Es el código identificador del seguro
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Método set() de la clase Seguro que nos permite definir el precio del seguro.
-     * @param precio El precio del seguro
+     * Método set() de la clase Seguro que nos permite definir el precio del seguro
+     * @param precio Es el precio del seguro
      */
     public void setPrecio(float precio) {
         this.precio = precio;
     }
 
     /**
-     * Método set() de la clase Seguro que nos permite definir el nombre del seguro.
-     * @param nombre El nombre del seguro
+     * Método set() de la clase Seguro que nos permite definir el nombre del seguro
+     * @param nombre Es el nombre del seguro
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+
 }

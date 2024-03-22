@@ -4,20 +4,14 @@ import java.time.LocalDate;
 
 /**
  * Clase que representa una excursión.
- *
- * @param <C> tipo genérico para el código de la excursión
- * @param <D> tipo genérico para la descripción de la excursión
- * @param <F> tipo genérico para la fecha de la excursión
- * @param <R> tipo genérico para la duración de la excursión
- * @param <P> tipo genérico para el precio de la excursión
  */
-public class Excursion<C, D, F, R, P> {
+public class Excursion {
 
-    private C codigo;
-    private D descripcion;
-    private F fecha;
-    private R duracion;
-    private P precio;
+    private String codigo;
+    private String descripcion;
+    private LocalDate fecha;
+    private int duracion;
+    private double precio;
 
     // Métodos constructores
 
@@ -30,7 +24,7 @@ public class Excursion<C, D, F, R, P> {
      * @param duracion    duración de la excursión
      * @param precio      precio de la excursión
      */
-    public Excursion(C codigo, D descripcion, F fecha, R duracion, P precio) {
+    public Excursion(String codigo, String descripcion, LocalDate fecha, int duracion, double precio) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -51,7 +45,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @return el código de la excursión
      */
-    public C getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
@@ -60,7 +54,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @return la descripción de la excursión
      */
-    public D getDescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
@@ -69,7 +63,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @return la fecha de la excursión
      */
-    public F getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -78,7 +72,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @return la duración de la excursión
      */
-    public R getDuracion() {
+    public int getDuracion() {
         return duracion;
     }
 
@@ -87,7 +81,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @return el precio de la excursión
      */
-    public P getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
@@ -98,7 +92,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @param codigo el código de la excursión
      */
-    public void setCodigo(C codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -107,7 +101,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @param descripcion la descripción de la excursión
      */
-    public void setDescripcion(D descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -116,7 +110,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @param fecha la fecha de la excursión
      */
-    public void setFecha(F fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -125,7 +119,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @param duracion la duración de la excursión
      */
-    public void setDuracion(R duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
@@ -134,7 +128,7 @@ public class Excursion<C, D, F, R, P> {
      *
      * @param precio el precio de la excursión
      */
-    public void setPrecio(P precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
