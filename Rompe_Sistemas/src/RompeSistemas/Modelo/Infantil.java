@@ -23,6 +23,10 @@ public class Infantil extends Socio {
 
     }
 
+    @Override
+    public String getTipo() {
+        return "INFANTIL";
+    }
     /**
      * Método get() de la clase Infantil que nos devuelve el número de socio del tutor
      * @return El número de socio del tutor

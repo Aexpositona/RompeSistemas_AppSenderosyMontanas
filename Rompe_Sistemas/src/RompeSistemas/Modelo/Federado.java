@@ -29,6 +29,11 @@ public class Federado extends Socio {
 
     }
 
+    @Override
+    public String getTipo() {
+        return "FEDERADO";
+    }
+
     // Métodos Getters
     /**
      * Método get() de la clase Estandar que nos devuelve el NIF del socio

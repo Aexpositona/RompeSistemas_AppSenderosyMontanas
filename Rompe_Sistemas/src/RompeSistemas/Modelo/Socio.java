@@ -41,7 +41,11 @@ public abstract class Socio {
         return numero;
     }
 
-
+    /**
+     * Método get() de la clase Socio que nos devuelve el tipo del cliente
+     * @return
+     */
+    public abstract String getTipo();
     //Métodos Setters
     /**
      * Método set() de la clase Socio que nos permite definir el nombre del cliente
@@ -60,11 +64,19 @@ public abstract class Socio {
     }
 
     /**
+     * Método set() de la clase Socio que nos permite definir el tipo del cliente
+     * @param tipo Es el tipo del cliente
+     */
+    public void setTipo(String tipo) {
+    }
+    /**
      * Método toString() de la clase Socio que nos devuelve un String con los datos del cliente
      * @return Un String con los datos del cliente, como el nombre, el domicilio, el NIF y el email
      */
     @Override
     public String toString() {
-        return " Nombre: " + nombre + "\n Numero de socio: " + numero + "\n ";
+        return " Nombre: " + nombre + "\n Numero de socio: " + numero + "\n Tipo: " + "\n ";
     }
+
+
 }
