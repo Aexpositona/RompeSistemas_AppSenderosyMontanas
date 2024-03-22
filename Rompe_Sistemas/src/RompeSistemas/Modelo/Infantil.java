@@ -1,65 +1,53 @@
 package RompeSistemas.Modelo;
 
-/**
- * Clase que representa un socio infantil.
- *
- * @param <S> el tipo de socio que se inscribe
- * @param <N> el tipo de dato que representa el número de socio del tutor
- */
-public class Infantil<S extends Socio, N> extends Socio {
+public class Infantil extends Socio {
 
-    private N numSocioTutor;
+    private int numSocioTutor;
 
-    // Métodos constructores
-
+    //Métodos constructores
     /**
-     * Método constructor de la clase Infantil que recibe por parámetros el nombre, el número y el número de socio del tutor.
-     *
-     * @param nombre         el nombre del socio
-     * @param numero         el número del socio
-     * @param numSocioTutor el número de socio del tutor
+     * Método constructor de la clase Infantil que recibe por parámetros el nombre, el número y el numero de socio del tutor
+     * @param nombre es el nombre del socio
+     * @param numero es el número del socio
+     * @param numSocioTutor es el número de socio del tutor
      */
-    public Infantil(String nombre, int numero, N numSocioTutor) {
+    public Infantil(String nombre, int numero, int numSocioTutor){
         super(nombre, numero);
         this.numSocioTutor = numSocioTutor;
     }
 
     /**
-     * Método constructor por defecto para generar sobrecarga de constructores.
+     * Método constructor por defecto para generar sobrecarga de constructores
      */
-    public Infantil() {
+    public Infantil(){
 
     }
 
-    // Métodos Getters
-
     /**
-     * Obtiene el número de socio del tutor.
-     *
-     * @return el número de socio del tutor
+     * Método get() de la clase Infantil que nos devuelve el número de socio del tutor
+     * @return El número de socio del tutor
      */
-    public N getNumSocioTutor() {
+    //Métodos Getters
+    public int getnumSocioTutor(){
         return numSocioTutor;
     }
 
-    // Métodos Setters
+    //Métodos Setters
 
     /**
-     * Establece el número de socio del tutor.
-     *
-     * @param numSocioTutor el número de socio del tutor
+     * Método set() de la clase Infantil que nos permite definir el NIF del padre
+     * @param numSocioTutor Es el número de socio del tutor
      */
-    public void setNumSocioTutor(N numSocioTutor) {
+    public void setNumSocioTutor(int numSocioTutor){
         this.numSocioTutor = numSocioTutor;
     }
 
     /**
-     * Método toString() que devuelve un String con los datos del socio.
-     *
-     * @return un String con los datos del socio, incluyendo el nombre, el número del socio, el tipo de socio y el número de socio del tutor
+     * Método toString() de la clase Infantil que nos devuelve un String los datos del socio
+     * @return El nombre, el número del socio, el tipò de socio y el número de socio del tutor
      */
     @Override
-    public String toString() {
+    public String toString(){
         return super.toString() + "Tipo de socio: Infantil\n" + "NIF del padre: " + numSocioTutor + "}";
     }
 }

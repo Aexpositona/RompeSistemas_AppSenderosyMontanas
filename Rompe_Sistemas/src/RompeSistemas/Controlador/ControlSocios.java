@@ -32,13 +32,13 @@ public class ControlSocios<S extends Socio, V extends VistaSocios> {
         Socio nuevoSocio;
         switch (tipoSocio.toUpperCase()) {
             case "ESTANDAR":
-                nuevoSocio = new Estandar<>(nombre, numeroSocio, nif, obtenerSeguroEstandar());
+                nuevoSocio = new Estandar(nombre, numeroSocio, nif, obtenerSeguroEstandar());
                 break;
             case "FEDERADO":
-                nuevoSocio = new Federado<>(nombre, numeroSocio, obtenerFederacion());
+                nuevoSocio = new Federado(nombre, numeroSocio, obtenerFederacion());
                 break;
             case "INFANTIL":
-                nuevoSocio = new Infantil<>(nombre, numeroSocio, numeroSocioTutor);
+                nuevoSocio = new Infantil(nombre, numeroSocio, numeroSocioTutor);
                 break;
             default:
                 // Tipo de socio no reconocido

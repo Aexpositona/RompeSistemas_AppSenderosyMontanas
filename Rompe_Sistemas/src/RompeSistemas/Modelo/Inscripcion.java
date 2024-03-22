@@ -1,93 +1,77 @@
 package RompeSistemas.Modelo;
 
-/**
- * Clase que representa una inscripción a una excursión por parte de un socio.
- *
- * @param <S> el tipo de socio que se inscribe
- * @param <E> el tipo de excursión a la que se inscribe
- * @param <N> el tipo de dato que representa el número de inscripción
- */
-public class Inscripcion<S extends Socio, E extends Excursion, N> {
-    private N numero;
-    private S socio;
-    private E excursion;
+public class Inscripcion {
+    private int numero;
+    private Socio socios;
+    private Excursion excursiones;
 
-    // Métodos constructores
-
+    //Métodos constructores
     /**
-     * Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, el socio y la excursión.
-     *
-     * @param numero    el número que identifica la inscripción
-     * @param socio     el socio que se inscribe
-     * @param excursion la excursión a la que se inscribe
+     ** Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, los socios y las excursiones.
+     * @param numero es el número que identifica la inscripción
+     * @param socios es el socio que se inscribe
+     * @param excursiones es excursión a la que se inscribe
      */
-    public Inscripcion(N numero, S socio, E excursion) {
+    public Inscripcion(int numero, Socio socios, Excursion excursiones) {
         this.numero = numero;
-        this.socio = socio;
-        this.excursion = excursion;
+        this.socios = socios;
+        this.excursiones = excursiones;
     }
 
     /**
      * Método get() que nos devuelve el número de la inscripción.
-     *
-     * @return el número de la inscripción
+     * @return número de la inscripción.
      */
-    public N getNumero() {
+    public int getNumero() {
         return numero;
     }
 
     /**
-     * Método set() para definir el número de la inscripción.
-     *
-     * @param numero el número de la inscripción
+     * Método set() para definir el número de la inscripción
+     * @param numero número de la inscripción.
      */
-    public void setNumero(N numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
     /**
-     * Método get() que nos devuelve el socio que se inscribe.
-     *
-     * @return el socio que se inscribe
+     * Método get() nos devuelve el socio que se inscribe.
+     * @return socio que se inscribe.
      */
-    public S getSocio() {
-        return socio;
+    public Socio getSocios() {
+        return socios;
     }
 
     /**
      * Método set() para definir el socio que se inscribe.
-     *
-     * @param socio el socio que se inscribe
+     * @param socios socio que se inscribe.
      */
-    public void setSocio(S socio) {
-        this.socio = socio;
+    public void setSocios(Socio socios) {
+        this.socios = socios;
     }
 
     /**
-     * Método get() que nos devuelve la excursión a la que se inscribe.
-     *
-     * @return la excursión a la que se inscribe
+     * Método get() nos devuelve la excursión a la que se inscribe.
+     * @return excursion a la que se inscribe.
      */
-    public E getExcursion() {
-        return excursion;
+    public Excursion getExcursiones() {
+        return excursiones;
     }
 
     /**
-     * Método set() para definir la excursión a la que se inscribe.
-     *
-     * @param excursion la excursión a la que se inscribe
+     * Método set() para definir a la excursión a la que se inscribe.
+     * @param excursiones excursión a la que se inscribe.
      */
-    public void setExcursion(E excursion) {
-        this.excursion = excursion;
+    public void setExcursiones(Excursion excursiones) {
+        this.excursiones = excursiones;
     }
 
     /**
-     * Método toString() de la clase Inscripcion que nos devuelve los datos de la inscripción.
-     *
-     * @return el número, el socio y la excursión a la que se inscribe
+     * Método toString() de la clase inscripciones que nos devuelve los datos de la inscripción
+     * @return el número, el socio y la excursion a la que se inscribe.
      */
     @Override
     public String toString() {
-        return "Inscripción con número: " + numero + "\nSocio: " + socio + "\nExcursión: " + excursion;
+        return "Inscripción con número: "+ numero + "\nSocio:" + socios + "\nExcursions:" + excursiones;
     }
 }

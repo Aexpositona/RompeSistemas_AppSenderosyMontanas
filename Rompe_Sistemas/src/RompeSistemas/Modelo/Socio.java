@@ -1,83 +1,70 @@
 package RompeSistemas.Modelo;
 
-/**
- * Clase abstracta que representa a un socio.
- *
- * @param <N> tipo genérico para el nombre del socio
- * @param <T> tipo genérico para el número de socio
- */
-public abstract class Socio<N, T> {
+public abstract class Socio {
 
-    private N nombre;
-    private T numero;
+    private String nombre;
+    private int numero;
 
-    // Constructores
+    //Constructores
 
     /**
-     * Constructor de la clase Socio.
-     *
-     * @param nombre El nombre del cliente
-     * @param numero El número del cliente
+     * Constructor de la clase Socio
+     * @param nombre Es el nombre del cliente
+     * @param numero Es el número del cliente
      */
-    public Socio(N nombre, T numero) {
+    public Socio(String nombre, int numero) {
         this.nombre = nombre;
         this.numero = numero;
     }
 
     /**
-     * Constructor vacío para generar sobrecarga de constructores.
+     * Constructor vacío para generar sobrecarga de constructores
      */
     public Socio() {
 
     }
 
-    // Métodos Getters
-
+    //Métodos Getters
     /**
-     * Método get() que devuelve el nombre del cliente.
-     *
+     * Método get() de la clase Socio que nos devuelve el nombre del cliente
      * @return El nombre del cliente
      */
-    public N getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
     /**
-     * Método get() que devuelve el número del cliente.
-     *
-     * @return El número del cliente
+     * Método get() de la clase Socio que nos devuelve el número del cliente
+     * @return
      */
-    public T getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    // Métodos Setters
 
+    //Métodos Setters
     /**
-     * Método set() que permite definir el nombre del cliente.
-     *
-     * @param nombre El nombre del cliente
+     * Método set() de la clase Socio que nos permite definir el nombre del cliente
+     * @param nombre Es el nombre del cliente
      */
-    public void setNombre(N nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Método set() que permite definir el número del cliente.
-     *
-     * @param numero El número del cliente
+     * Método set() de la clase Socio que nos permite definir el número del cliente
+     * @param numero Es el número del cliente
      */
-    public void setNumero(T numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
     /**
-     * Método toString() que devuelve un String con los datos del cliente.
-     *
-     * @return Un String con los datos del cliente, como el nombre y el número de socio
+     * Método toString() de la clase Socio que nos devuelve un String con los datos del cliente
+     * @return Un String con los datos del cliente, como el nombre, el domicilio, el NIF y el email
      */
     @Override
     public String toString() {
-        return "Nombre: " + nombre + "\nNumero de socio: " + numero + "\n";
+        return " Nombre: " + nombre + "\n Numero de socio: " + numero + "\n ";
     }
 }

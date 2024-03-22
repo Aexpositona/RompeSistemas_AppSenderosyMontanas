@@ -1,71 +1,71 @@
 package RompeSistemas.Modelo;
 
-/**
- * Clase que representa un socio federado.
- * @param <F> tipo genérico adicional
- */
-public class Federado<F, N> extends Socio {
 
-    private N nif;
-    private F federaciones;
+public class Federado extends Socio {
+
+    private String nif;
+    private Federacion federaciones;
+
 
     // Constructores
     /**
-     * Método constructor de la clase Federado que recibe como parámetros el nombre, el número, el NIF y la federación a la que pertenece el socio.
+     * Metodo constructor de la clase Estandar que recibe como parámetros el nombre, el número, el NIF y la federación a la que pertenece el socio
      *
-     * @param nombre el nombre del socio
-     * @param numero el número del socio
-     * @param nif    el NIF del socio
+     * @param nombre       es el nombre del socio
+     * @param numero       es el numero del socio
+     * @param federaciones es la federación a la que pertenece el socio
      */
-    public Federado(String nombre, int numero, N nif) {
+    public Federado(String nombre, int numero, Federacion federaciones) {
         super(nombre, numero);
         this.nif = nif;
         this.federaciones = federaciones;
+
     }
 
     /**
-     * Método constructor por defecto para generar sobrecarga de constructores.
+     * Método constructor por defecto para generar sobrecarga de constructores
      */
     public Federado() {
+
     }
 
     // Métodos Getters
     /**
-     * Obtiene el NIF del socio.
-     * @return el NIF del socio
+     * Método get() de la clase Estandar que nos devuelve el NIF del socio
+     * @return El NIF del socio
      */
-    public N getNif() {
+    public String getNif() {
         return nif;
     }
 
     /**
-     * Obtiene la federación a la que pertenece el socio.
-     * @return la federación a la que pertenece el socio
+     * Método get() de la clase Estandar que nos devuelve la federación a la que pertenece el socio
+     * @return La federación a la que pertenece el socio
      */
-    public F getFederaciones() {
+    public Federacion getFederaciones() {
         return federaciones;
     }
 
     // Métodos Setters
     /**
-     * Establece el NIF del socio.
-     * @param nif el NIF del socio
+     * Método set() de la clase Estandar que nos permite definir el NIF del socio
+     * @param nif Es el NIF del socio
      */
-    public void setNif(N nif) {
+    public void setNif(String nif) {
         this.nif = nif;
     }
 
     /**
-     * Establece la federación a la que pertenece el socio.
-     * @param federaciones la federación a la que pertenece el socio
+     * Método set() de la clase Estandar que nos permite definir la federación a la que pertenece el socio
+     * @param federaciones Es la federación a la que pertenece el socio
      */
-    public void setFederaciones(F federaciones) {
+    public void setFederaciones(Federacion federaciones) {
         this.federaciones = federaciones;
     }
 
     /**
-     * Método toString() que devuelve un String con los datos del socio.
-     * @return un String con los datos del socio, incluyendo el nombre, el número, el tipo de socio, el NIF y la federación a la que pertenece
+     * Metodo toString() de la clase Estandar que nos devuelve un String con los datos del socio
+     * @return Un String con los datos del socio, como el nombre, el número, el tipo de socio, el NIF y la federación a la que pertenece
      */
     @Override
     public String toString() {
