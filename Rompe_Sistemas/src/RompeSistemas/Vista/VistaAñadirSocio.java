@@ -1,11 +1,21 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlSocios;
+import RompeSistemas.Modelo.Estandar;
+import RompeSistemas.Modelo.Federado;
+import RompeSistemas.Modelo.Infantil;
+import RompeSistemas.Modelo.Socio;
+
+import java.util.Scanner;
+
 public class VistaAñadirSocio {
 
     //Atributos
     private int tipoSocio;
     private int numeroSocio;
     private String nombre;
+    private VistaSocios vistaSocios;
+    private ControlSocios cSocios;
 
 
     /**
@@ -18,12 +28,59 @@ public class VistaAñadirSocio {
         this.tipoSocio = tipoSocio;
         this.numeroSocio = numeroSocio;
         this.nombre = nombre;
+        this.vistaSocios = vistaSocios;
+        this.cSocios = cSocios;
+
     }
 
     /**
+     * Método para mostrar la vista de añadir socio
+     */
+    public void show() {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+        while (running) {
+            System.out.println("Seleccione una opción: ");
+            System.out.println("1. Añadir socio");
+            System.out.println("0. Atrás");
+            String option = scanner.nextLine();
+            switch (option) {
+                case "1":
+                    buttonAñadir();
+                    break;
+                case "0":
+                    buttonAtras();
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        }
+    }
+    /**
      * Método para añadir un botón que nos permite añadir un socio
      */
+
     public void buttonAñadir() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("¿Qué tipo de socio quieres crear? (1: Federado, 2: Infantil, 3: Estandar)");
+        int tipo = scanner.nextInt();
+
+        switch (tipo) {
+            case 1:
+                cSocios.añadirFederado();
+                break;
+            case 2:
+                cSocios.añadirInfantil();
+                break;
+            case 3:
+                cSocios.añadirEstandar();
+                break;
+            default:
+                System.out.println("Tipo de socio no válido.");
+        }
     }
 
 
@@ -31,11 +88,8 @@ public class VistaAñadirSocio {
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras(){
-
-    }
-
-    public void show() {
-        //TODO
+        System.out.println("Volviendo a la vista anterior...");
+        vistaSocios.show();
     }
 
 }

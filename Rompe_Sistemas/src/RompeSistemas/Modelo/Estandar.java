@@ -24,12 +24,14 @@ public class Estandar extends Socio {
         this.seguro = seguro;
     }
 
+    @Override
+    public String getTipo() {
+        return "ESTANDAR";
+    }
     /**
      * Método constructor por defecto para generar sobrecarga de constructores.
      */
-    public Estandar() {
-        super();
-    }
+
 
     // Métodos Getters
 
