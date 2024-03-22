@@ -5,22 +5,21 @@ import RompeSistemas.Vista.VistaMenuPrincipal;
 /**
  * Controlador para la gestión del menú principal de la aplicación.
  *
- * @param <V> tipo genérico para VistaMenuPrincipal
  */
-public class ControlMenuPrincipal<V extends VistaMenuPrincipal> {
+public class ControlMenuPrincipal {
 
     // Atributos
-    private V vMenuPrincipal;
-
+    private APPSenderosMontañas app;
+    private VistaMenuPrincipal vMenuPrincipal;
     /**
      * Constructor de ControlMenuPrincipal.
      *
      * @param vMenuPrincipal instancia de VistaMenuPrincipal asociada al controlador
      */
-    public ControlMenuPrincipal(V vMenuPrincipal) {
+    public ControlMenuPrincipal(APPSenderosMontañas app, VistaMenuPrincipal vMenuPrincipal) {
         this.vMenuPrincipal = vMenuPrincipal;
+        this.app = app;
     }
-
     // Métodos
 
     /**

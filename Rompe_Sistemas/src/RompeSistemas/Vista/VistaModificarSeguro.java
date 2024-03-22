@@ -1,16 +1,17 @@
 package RompeSistemas.Vista;
 
-public class VistaModificarSeguro<S, T> {
+public class VistaModificarSeguro {
 
-    private S numeroSocio;
-    private T tipoSeguro;
+
+    private int numeroSocio;
+    private int tipoSeguro;
 
     /**
      * Método constructor de la clase VistaModificarSeguro que recibe por parámetros el número de socio y el tipo de seguro
      * @param numeroSocio es el número de socio
      * @param tipoSeguro es el tipo de seguro
      */
-    public VistaModificarSeguro(S numeroSocio, T tipoSeguro) {
+    public VistaModificarSeguro(int numeroSocio, int tipoSeguro) {
         this.numeroSocio = numeroSocio;
         this.tipoSeguro = tipoSeguro;
     }

@@ -2,17 +2,17 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlExcursiones;
 
-public class VistaExcursiones<A, L> {
+public class VistaExcursiones {
 
-    public A vVistaAñadirExcursion;
-    public L vVistaListarExcursiones;
+    public VistaAñadirExcursion vVistaAñadirExcursion;
+    public VistaListarExcursiones vVistaListarExcursiones;
 
     /**
-     * Constructor de la clase VistaExcursiones que recibe por parámetros la vista de añadir excursión y la vista de listar excursiones
+     * Método constructor de la clase VistaExcursiones que recibe por parámetros la vista de añadir excursión y la vista de listar excursiones
      * @param vVistaAñadirExcursion es la vista de añadir excursión
      * @param vVistaListarExcursiones es la vista de listar excursiones
      */
-    public VistaExcursiones(A vVistaAñadirExcursion, L vVistaListarExcursiones) {
+    public VistaExcursiones(VistaAñadirExcursion vVistaAñadirExcursion, VistaListarExcursiones vVistaListarExcursiones) {
         this.vVistaAñadirExcursion = vVistaAñadirExcursion;
         this.vVistaListarExcursiones = vVistaListarExcursiones;
     }
@@ -28,7 +28,7 @@ public class VistaExcursiones<A, L> {
     }
 
     /**
-     * Método para añadir un botón que nos permite eliminar una excursión
+     * Método para añadir un botón que nos permite listar las excursiones
      */
     void buttonRemoveExcursion(){
 
@@ -42,14 +42,14 @@ public class VistaExcursiones<A, L> {
     }
 
     /**
-     * Método para añadir un botón que nos permite obtener el precio de una excursión
+     * Método para añadir un botón que nos permite listar las excursiones
      */
     void precioExcursion(){
 
     }
 
     /**
-     * Método para añadir un botón que nos permite regresar
+     * Método para añadir un botón que nos permite listar las excursiones
      */
     void buttonAtras(){
 
@@ -58,5 +58,6 @@ public class VistaExcursiones<A, L> {
     public void show() {
         //TODO
     }
-}
 
+
+}
