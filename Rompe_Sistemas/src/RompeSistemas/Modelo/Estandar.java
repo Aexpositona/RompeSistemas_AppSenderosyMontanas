@@ -2,11 +2,8 @@ package RompeSistemas.Modelo;
 
 /**
  * Clase que representa a un socio estándar.
- *
- * @param <S> tipo genérico para Seguro
- * @param <N> tipo genérico para NIF
  */
-public class Estandar<S extends Socio, N> extends Socio {
+public class Estandar extends Socio {
 
     private String nif;
     private Seguro seguro;
