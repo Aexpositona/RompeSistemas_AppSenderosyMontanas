@@ -3,17 +3,17 @@ package RompeSistemas.Controlador;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.VistaSocios;
 
-public class ControlSocios<S extends Socio, V extends VistaSocios> {
+public class ControlSocios {
 
     // Atributos
-    private V vSocios;
-    private Datos<S, ?, S> datos;
+    private VistaSocios vSocios;
+    private Datos datos;
 
     /**
      * Constructor de ControlSocios.
      * @param vSocios VistaSocios asociada al controlador
      */
-    public ControlSocios(V vSocios) {
+    public ControlSocios(VistaSocios vSocios) {
         this.vSocios = vSocios;
         this.datos = new Datos<>(); // Crear una instancia de Datos con el tipo Socio
     }
@@ -46,7 +46,7 @@ public class ControlSocios<S extends Socio, V extends VistaSocios> {
                 return;
         }
         // Agregamos el nuevo socio a través de la clase Datos
-        datos.agregarSocio((S) nuevoSocio);
+        datos.agregarSocio(nuevoSocio);
     }
 
 

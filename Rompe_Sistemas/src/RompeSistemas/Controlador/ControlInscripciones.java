@@ -6,18 +6,10 @@ import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Vista.VistaInscripciones;
 
-/**
- * Controlador para la gestión de inscripciones a excursiones.
- *
- * @param <E> tipo genérico para Excursion
- * @param <I> tipo genérico para Inscripcion
- * @param <S> tipo genérico para Socio
- * @param <V> tipo genérico para VistaInscripciones
- */
-public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S extends Socio, V extends VistaInscripciones> {
+public class ControlInscripciones {
 
     // Atributos
-    private V vistaInscripciones;
+    private VistaInscripciones vistaInscripciones;
     private Datos datos; // Agrega un campo de instancia para Datos
 
     /**
@@ -25,7 +17,7 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
      *
      * @param vistaInscripciones VistaInscripciones asociada al controlador
      */
-    public ControlInscripciones(V vistaInscripciones) {
+    public ControlInscripciones(VistaInscripciones vistaInscripciones) {
         this.vistaInscripciones = vistaInscripciones;
         this.datos = new Datos(); // Inicializa el campo de Datos
     }
@@ -39,7 +31,7 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
      * @param socio       Socio que realiza la inscripción
      * @param excursion   Excursión a la que se inscribe el socio
      */
-    public void addInscripcion(I inscripcion, S socio, E excursion) {
+    public void addInscripcion(Inscripcion inscripcion, Socio socio, Excursion excursion) {
         datos.agregarInscripcion(inscripcion);
     }
 
@@ -48,7 +40,7 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
      *
      * @param inscripcion Número de inscripción a eliminar
      */
-    public void removeInscripcion(I inscripcion) {
+    public void removeInscripcion(Inscripcion inscripcion) {
         // Lógica para eliminar inscripción
     }
 
@@ -81,7 +73,6 @@ public class ControlInscripciones<E extends Excursion, I extends Inscripcion, S 
     public void showVistaMenuPrincipal() {
         // Lógica para mostrar vista de menú principal
     }
-
     /**
      * Muestra la vista de inscripciones.
      */

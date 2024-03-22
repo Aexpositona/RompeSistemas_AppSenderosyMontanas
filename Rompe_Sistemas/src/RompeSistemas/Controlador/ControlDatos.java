@@ -6,15 +6,7 @@ import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Vista.VistaExcursiones;
 
-/**
- * Controlador para verificar datos relacionados con socios, excursiones e inscripciones.
- *
- * @param <E> tipo genérico para Excursion
- * @param <I> tipo genérico para Inscripcion
- * @param <S> tipo genérico para Socio
- * @param <V> tipo genérico para VistaExcursiones
- */
-public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends Socio, V extends VistaExcursiones> {
+public class ControlDatos {
 
     private Datos datos; // Agrega un campo de instancia para Datos
 
@@ -30,7 +22,7 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      *
      * @param socio Socio a comprobar
      */
-    public void comprobarSocio(S socio) {
+    public void comprobarSocio(Socio socio) {
         // Lógica para comprobar un socio
         datos.agregarSocio(socio); // Accede al método en la instancia de Datos
     }
@@ -40,7 +32,7 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      *
      * @param excursion Excursión a comprobar
      */
-    public void comprobarExcursion(E excursion) {
+    public void comprobarExcursion(Excursion excursion) {
         // Lógica para comprobar una excursión
         datos.agregarExcursion(excursion); // Accede al método en la instancia de Datos
     }
@@ -50,7 +42,7 @@ public class ControlDatos<E extends Excursion, I extends Inscripcion, S extends 
      *
      * @param inscripcion Inscripción a comprobar
      */
-    public void comprobarInscripcion(I inscripcion) {
+    public void comprobarInscripcion(Inscripcion inscripcion) {
         // Lógica para comprobar una inscripción
         datos.agregarInscripcion(inscripcion); // Accede al método en la instancia de Datos
     }

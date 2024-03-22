@@ -4,16 +4,10 @@ import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Vista.VistaExcursiones;
 
-/**
- * Controlador para la gestión de excursiones.
- *
- * @param <E> tipo genérico para Excursion
- * @param <V> tipo genérico para VistaExcursiones
- */
-public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones> {
+public class ControlExcursiones {
 
     // Atributos
-    private V vExcursiones;
+    private VistaExcursiones vExcursiones;
     private Datos datos; // Agrega un campo de instancia para Datos
 
     /**
@@ -21,7 +15,7 @@ public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones>
      *
      * @param vExcursiones VistaExcursiones asociada al controlador
      */
-    public ControlExcursiones(V vExcursiones) {
+    public ControlExcursiones(VistaExcursiones vExcursiones) {
         this.vExcursiones = vExcursiones;
         this.datos = new Datos(); // Inicializa el campo de Datos
     }
@@ -33,7 +27,7 @@ public class ControlExcursiones<E extends Excursion, V extends VistaExcursiones>
      *
      * @param excursion Excursión a añadir
      */
-    public void añadirExcursion(E excursion) {
+    public void añadirExcursion(Excursion excursion) {
         datos.agregarExcursion(excursion); // Accede al método en la instancia de Datos
     }
 }

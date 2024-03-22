@@ -4,29 +4,18 @@ import RompeSistemas.Vista.*;
 
 /**
  * Clase principal de la aplicación Senderos de Montañas.
- *
- * @param <C> tipo genérico para los controladores
- * @param <V> tipo genérico para las vistas
  */
-public class APPSenderosMontañas<C, V> {
-
-    // Clase principal
-    public static void main(String[] args) {
-        System.out.println("Senderos de Montañas");
-        APPSenderosMontañas<ControlMenuPrincipal, VistaMenuPrincipal> app = new APPSenderosMontañas<>();
-        app.iniciar();
-        app.showVistaMenuPrincipal();
-    }
+public class APPSenderosMontañas {
 
     // Atributos
-    public C cMenuPrincipal;
-    public C cInscripciones;
-    public C cSocios;
-    public C cExcursiones;
-    public V vMenuPrincipal;
-    public V vInscripciones;
-    public V vSocios;
-    public V vExcursiones;
+    public ControlMenuPrincipal cMenuPrincipal;
+    public ControlInscripciones cInscripciones;
+    public ControlSocios cSocios;
+    public ControlExcursiones cExcursiones;
+    public VistaMenuPrincipal vMenuPrincipal;
+    public VistaInscripciones vInscripciones;
+    public VistaSocios vSocios;
+    public VistaExcursiones vExcursiones;
 
     // Constructor
     public APPSenderosMontañas() {
@@ -69,5 +58,12 @@ public class APPSenderosMontañas<C, V> {
     public void showVistaMenuPrincipal() {
         // Mostrar vista de menú principal
     }
-}
 
+    // Clase principal
+    public static void main(String[] args) {
+        System.out.println("Senderos de Montañas");
+        APPSenderosMontañas app = new APPSenderosMontañas();
+        app.iniciar();
+        app.showVistaMenuPrincipal();
+    }
+}

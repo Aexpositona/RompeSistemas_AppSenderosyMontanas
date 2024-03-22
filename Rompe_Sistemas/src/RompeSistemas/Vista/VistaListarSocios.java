@@ -1,40 +1,39 @@
 package RompeSistemas.Vista;
 
-public class VistaListarSocios<C, L> {
+import RompeSistemas.Controlador.ControlSocios;
 
+public class VistaListarSocios {
     // Atributos
-    private C controlador;
-    private String tipoSocio;
-    private L listaSocios;
+    private ControlSocios cSocios;
+    private int tipoSocio;
+    private String tboxListado;
 
     /**
-     * Método constructor de la clase VistaListarSocios que recibe por parámetros el controlador, el tipo de socio y el listado de socios.
-     * @param controlador el controlador asociado a la vista
-     * @param tipoSocio el tipo de socio
-     * @param listaSocios el listado de socios
+     * Método constructor de la clase VistaListarSocios que recibe por parámetros el tipo de socio y el listado de socios
+     * @param tipoSocio es el tipo de socio
+     * @param tboxListado es el listado de socios
      */
-    public VistaListarSocios(C controlador, String tipoSocio, L listaSocios) {
-        this.controlador = controlador;
-        this.tipoSocio = tipoSocio;
-        this.listaSocios = listaSocios;
+    public VistaListarSocios(int tipoSocio, String tboxListado) {
+        tipoSocio = tipoSocio;
+        this.tboxListado = tboxListado;
     }
 
     /**
-     * Método para añadir un botón que nos permite listar los tipos de socios.
+     * Método para añadir un botón que nos permite listar los tipos de socios
      */
-    public void buttonListarTiposSocio(){
-
-    }
-
-    /**
-     * Método para añadir un botón que nos permite listar los socios.
-     */
-    public void buttonListarSocios(){
+    public void buttonListTipoSocio(){
 
     }
 
     /**
-     * Método para añadir un botón que nos permite ir hacia atrás.
+     * Método para añadir un botón que nos permite listar los socios
+     */
+    public void buttonListSocios(){
+
+    }
+
+    /**
+     * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
 
@@ -43,4 +42,6 @@ public class VistaListarSocios<C, L> {
     public void show() {
         //TODO
     }
+
+
 }
