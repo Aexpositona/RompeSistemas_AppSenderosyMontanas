@@ -6,31 +6,33 @@ import java.util.Scanner;
 
 /**
  * Clase que representa la vista del menú principal.
- *
  */
-
 public class VistaMenuPrincipal {
 
     private ControlMenuPrincipal cMenuPrincipal;
-    private Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
     private VistaSocios vistaSocios;
     private VistaExcursiones vistaExcursiones;
-    private VistaInscripciones vistaInscripciones;
+   // private VistaInscripciones vistaInscripciones;
+
+    VistaInscripciones vistaInscripciones = new VistaInscripciones();
+
 
     /**
      * Método constructor de la clase VistaMenuPrincipal que recibe por parámetros el controlador del menú principal.
      * @param cMenuPrincipal es el controlador del menú principal.
-     * @param scanner es el scanner para leer la entrada por teclado.
      * @param vistaSocios es la vista de socios.
      * @param vistaExcursiones es la vista de excursiones.
      * @param vistaInscripciones es la vista de inscripciones.
      */
-    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, Scanner scanner, VistaSocios vistaSocios, VistaExcursiones vistaExcursiones, VistaInscripciones vistaInscripciones) {
+    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vistaSocios, VistaExcursiones vistaExcursiones, VistaInscripciones vistaInscripciones) {
         this.cMenuPrincipal = cMenuPrincipal;
-        this.scanner = scanner;
         this.vistaSocios = vistaSocios;
         this.vistaExcursiones = vistaExcursiones;
         this.vistaInscripciones = vistaInscripciones;
+    }
+
+    public VistaMenuPrincipal() {
     }
 
     /**
@@ -71,13 +73,13 @@ public class VistaMenuPrincipal {
     public void show() {
         boolean running = true;
         while (running) {
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Seleccione una opción: ");
             System.out.println("0. Salir");
             System.out.println("1. Inscripciones");
             System.out.println("2. Socios");
             System.out.println("3. Excursiones");
-            String option = scanner.nextLine();
-            switch (option) {
+
+            switch (scanner.nextLine()) {
                 case "1":
                     buttonVistaInscripciones();
                     break;

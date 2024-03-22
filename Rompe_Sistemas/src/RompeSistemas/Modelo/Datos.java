@@ -12,7 +12,7 @@ import java.util.List;
 public class Datos<E, I, S> {
 
     private List<E> excursiones = new ArrayList<>();
-    private List<I> inscripciones = new ArrayList<>();
+    private ArrayList<I> inscripciones = new ArrayList<>();
     private List<S> socios = new ArrayList<>();
 
     /**
