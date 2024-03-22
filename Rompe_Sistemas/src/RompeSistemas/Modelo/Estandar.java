@@ -8,7 +8,7 @@ package RompeSistemas.Modelo;
  */
 public class Estandar<S extends Socio, N> extends Socio {
 
-    private N nif;
+    private String nif;
     private Seguro seguro;
 
     // Métodos constructores
@@ -23,7 +23,7 @@ public class Estandar<S extends Socio, N> extends Socio {
      */
     public Estandar(String nombre, int numero, String nif, Seguro seguro) {
         super(nombre, numero);
-        this.nif = (N) nif;
+        this.nif = nif;
         this.seguro = seguro;
     }
 
@@ -41,7 +41,7 @@ public class Estandar<S extends Socio, N> extends Socio {
      *
      * @return el NIF del socio
      */
-    public N getNif() {
+    public String getNif() {
         return nif;
     }
 
@@ -61,7 +61,7 @@ public class Estandar<S extends Socio, N> extends Socio {
      *
      * @param nif el NIF del socio
      */
-    public void setNif(N nif) {
+    public void setNif(String nif) {
         this.nif = nif;
     }
 

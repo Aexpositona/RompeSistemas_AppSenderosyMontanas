@@ -28,6 +28,7 @@ public class Datos<E, I, S> {
      * @param excursion la excursión a agregar
      */
     public  void agregarExcursion(E excursion) {
+
         excursiones.add(excursion);
     }
 
@@ -36,6 +37,7 @@ public class Datos<E, I, S> {
      * @return la lista de inscripciones
      */
     public  List<I> getInscripciones() {
+
         return inscripciones;
     }
 
@@ -44,6 +46,7 @@ public class Datos<E, I, S> {
      * @param inscripcion la inscripción a agregar
      */
     public  void agregarInscripcion(I inscripcion) {
+
         inscripciones.add(inscripcion);
     }
 
@@ -52,6 +55,7 @@ public class Datos<E, I, S> {
      * @return la lista de socios
      */
     public  List<S> getSocios() {
+
         return socios;
     }
 
@@ -60,6 +64,7 @@ public class Datos<E, I, S> {
      * @param socio el socio a agregar
      */
     public  void agregarSocio(S socio) {
+
         socios.add(socio);
     }
 }
