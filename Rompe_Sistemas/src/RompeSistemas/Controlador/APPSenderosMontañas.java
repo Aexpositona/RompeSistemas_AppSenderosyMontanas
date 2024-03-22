@@ -17,10 +17,6 @@ public class APPSenderosMontañas {
     public VistaSocios vSocios;
     public VistaExcursiones vExcursiones;
 
-    // Constructor
-    public APPSenderosMontañas() {
-        // Inicializar controladores y vistas aquí
-    }
 
     // Métodos
 
@@ -28,36 +24,10 @@ public class APPSenderosMontañas {
      * Inicia la aplicación.
      */
     public void iniciar() {
-        // Lógica de inicio
+        // Inicializar controladores y vistas aquí
     }
 
-    /**
-     * Muestra la vista de inscripciones.
-     */
-    public void showVistaInscripciones() {
-        // Mostrar vista de inscripciones
-    }
 
-    /**
-     * Muestra la vista de socios.
-     */
-    public void showVistaSocios() {
-        // Mostrar vista de socios
-    }
-
-    /**
-     * Muestra la vista de excursiones.
-     */
-    public void showVistaExcursiones() {
-        // Mostrar vista de excursiones
-    }
-
-    /**
-     * Muestra la vista del menú principal.
-     */
-    public void showVistaMenuPrincipal() {
-        // Mostrar vista de menú principal
-    }
 
     // Clase principal
     public static void main(String[] args) {
@@ -65,5 +35,9 @@ public class APPSenderosMontañas {
         APPSenderosMontañas app = new APPSenderosMontañas();
         app.iniciar();
         app.showVistaMenuPrincipal();
+    }
+
+    public void showVistaMenuPrincipal() {
+        vMenuPrincipal.show();
     }
 }
