@@ -56,17 +56,20 @@ public class ControlInscripciones {
     /**
      * Muestra la vista para añadir una inscripción.
      */
-    public void showVistaAñadirInscripcion() {
+    /*public void showVistaAñadirInscripcion() {
         vistaInscripciones.vVistaAñadirInscripcion.show();
     }
+
+
 
     /**
      * Muestra la vista para listar las inscripciones.
      */
+    /*
     public void showVistaListarInscripciones() {
         vistaInscripciones.vVistaListarInscripciones.show();
     }
-
+    */
     /**
      * Muestra la vista del menú principal.
      */
