@@ -21,6 +21,13 @@ public class VistaModificarSeguro {
         this.tipoSeguro = tipoSeguro;
     }
 
+    /**
+     * Constructor por defecto de la clase VistaModificarSeguro
+     */
+    public VistaModificarSeguro() {
+    }
+
+
     public void show() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;

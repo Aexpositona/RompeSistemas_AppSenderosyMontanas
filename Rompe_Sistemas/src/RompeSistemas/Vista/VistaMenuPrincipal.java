@@ -11,11 +11,12 @@ public class VistaMenuPrincipal {
 
     private ControlMenuPrincipal cMenuPrincipal;
     private Scanner scanner = new Scanner(System.in);
-    private VistaSocios vistaSocios;
+   // private VistaSocios vistaSocios;
     private VistaExcursiones vistaExcursiones;
    // private VistaInscripciones vistaInscripciones;
 
     VistaInscripciones vistaInscripciones = new VistaInscripciones();
+    VistaSocios vistaSocios = new VistaSocios();
 
 
     /**
