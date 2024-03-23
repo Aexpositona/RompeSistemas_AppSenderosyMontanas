@@ -26,7 +26,7 @@ public class APPSenderosMontañas {
     public void iniciar() {
         // Inicializar controladores y vistas aquí
         vMenuPrincipal = new VistaMenuPrincipal();
-        vInscripciones = new VistaInscripciones();
+        //vInscripciones = new VistaInscripciones();
 
     }
 

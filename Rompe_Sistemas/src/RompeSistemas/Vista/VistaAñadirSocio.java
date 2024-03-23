@@ -34,6 +34,12 @@ public class VistaAñadirSocio {
     }
 
     /**
+     * Constructor por defecto de la clase VistaAñadirSocio
+     */
+    public VistaAñadirSocio() {
+    }
+
+    /**
      * Método para mostrar la vista de añadir socio
      */
     public void show() {
