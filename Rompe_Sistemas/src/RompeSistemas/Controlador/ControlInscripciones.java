@@ -15,9 +15,11 @@ public class ControlInscripciones {
     /**
      * Constructor de ControlInscripciones.
      *
-     * @param vistaInscripciones VistaInscripciones asociada al controlador
+     * @param appSenderosMontanas
+     * @param datos
+     * @param vistaInscripciones  VistaInscripciones asociada al controlador
      */
-    public ControlInscripciones(VistaInscripciones vistaInscripciones) {
+    public ControlInscripciones(APPSenderosMontanas appSenderosMontanas, Datos datos, VistaInscripciones vistaInscripciones) {
         this.vistaInscripciones = vistaInscripciones;
         this.datos = new Datos(); // Inicializa el campo de Datos
     }
@@ -31,8 +33,8 @@ public class ControlInscripciones {
      * @param socio       Socio que realiza la inscripción
      * @param excursion   Excursión a la que se inscribe el socio
      */
-    public void addInscripcion(Inscripcion inscripcion, Socio socio, Excursion excursion) {
-        datos.agregarInscripcion(inscripcion);
+    public void addInscripcion(Inscripcion inscripcion) {
+        datos.addObjeto(inscripcion, 2);
     }
 
     /**
@@ -41,7 +43,7 @@ public class ControlInscripciones {
      * @param inscripcion Número de inscripción a eliminar
      */
     public void removeInscripcion(Inscripcion inscripcion) {
-        // Lógica para eliminar inscripción
+        datos.removeObjeto(inscripcion, 2);
     }
 
     /**

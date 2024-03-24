@@ -9,19 +9,19 @@ import RompeSistemas.Vista.VistaMenuPrincipal;
 public class ControlMenuPrincipal {
 
     // Atributos
-    private APPSenderosMontañas app;
+    private APPSenderosMontanas app;
     private VistaMenuPrincipal vMenuPrincipal;
     /**
      * Constructor de ControlMenuPrincipal.
      *
      * @param vMenuPrincipal instancia de VistaMenuPrincipal asociada al controlador
      */
-    public ControlMenuPrincipal(APPSenderosMontañas app, VistaMenuPrincipal vMenuPrincipal) {
+    public ControlMenuPrincipal(APPSenderosMontanas app, VistaMenuPrincipal vMenuPrincipal) {
         this.vMenuPrincipal = vMenuPrincipal;
         this.app = app;
     }
-    // Métodos
 
+    // Métodos
     /**
      * Maneja el evento del botón para mostrar la vista de inscripciones.
      */

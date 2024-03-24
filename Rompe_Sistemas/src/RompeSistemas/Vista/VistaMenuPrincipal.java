@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlMenuPrincipal;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 /**
@@ -11,58 +12,45 @@ public class VistaMenuPrincipal {
 
     private ControlMenuPrincipal cMenuPrincipal;
     private Scanner scanner = new Scanner(System.in);
-    private VistaSocios vistaSocios;
-    private VistaExcursiones vistaExcursiones;
-   // private VistaInscripciones vistaInscripciones;
+    private VistaSocios vSocios;
+    private VistaExcursiones vExcursiones;
+    private VistaInscripciones vInscripciones;
 
-    VistaInscripciones vistaInscripciones = new VistaInscripciones();
-
-
-    /**
-     * Método constructor de la clase VistaMenuPrincipal que recibe por parámetros el controlador del menú principal.
-     * @param cMenuPrincipal es el controlador del menú principal.
-     * @param vistaSocios es la vista de socios.
-     * @param vistaExcursiones es la vista de excursiones.
-     * @param vistaInscripciones es la vista de inscripciones.
-     */
-    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vistaSocios, VistaExcursiones vistaExcursiones, VistaInscripciones vistaInscripciones) {
+    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
         this.cMenuPrincipal = cMenuPrincipal;
-        this.vistaSocios = vistaSocios;
-        this.vistaExcursiones = vistaExcursiones;
-        this.vistaInscripciones = vistaInscripciones;
-    }
-
-    public VistaMenuPrincipal() {
+        this.vSocios = vSocios;
+        this.vExcursiones = vExcursiones;
+        this.vInscripciones = vInscripciones;
     }
 
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */
     public void buttonVistaInscripciones(){
-        System.out.println("Navegando a la vista de inscripciones");
-        vistaInscripciones.show();
+        System.out.println("Navegando a la vista de inscripciones...");
+        vInscripciones.show();
     }
 
     /**
      * Método para añadir un botón que nos permite ir a la vista de socios.
      */
     public void buttonVistaSocios(){
-        System.out.println("Navegando a la vista de socios");
-        vistaSocios.show();
+        System.out.println("Navegando a la vista de socios...");
+        vSocios.show();
     }
 
     /**
      * Método para añadir un botón que nos permite ir a la vista de excursiones.
      */
-    public void buttonVistaExcursiones(){
-        System.out.println("Navegando a la vista de excursiones");
-        vistaExcursiones.show();
+    public void buttonVistaExcursiones() throws ParseException {
+        System.out.println("Navegando a la vista de excursiones...");
+        vExcursiones.show();
     }
 
     /**
      * Método para añadir un botón que nos permite salir de la aplicación.
      */
-    public void buttonVistaSalir(){
+    public static void buttonVistaSalir(){
         System.out.println("Saliendo de la aplicación...");
         System.exit(0);
     }
@@ -70,7 +58,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para mostrar la vista.
      */
-    public void show() {
+    public void show() throws ParseException {
         boolean running = true;
         while (running) {
             System.out.println("Seleccione una opción: ");

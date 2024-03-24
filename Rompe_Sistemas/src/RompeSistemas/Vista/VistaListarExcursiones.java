@@ -1,35 +1,45 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class VistaListarExcursiones {
     // Atributos
     private ControlExcursiones cExcursiones;
-    private Date fechaIncial;
-    private Date fechaFinal;
+    private ControlDatos cDatos;
+    private LocalDate fechaIncial;
+    private LocalDate fechaFinal;
     private String tboxListado;
 
-
-
-    /**
-     * Método constructor de la clase VistaListarExcursiones que recibe por parámetros la fecha inicial, la fecha final y el listado de excursiones
-     * @param fechaIncial es la fecha inicial
-     * @param fechaFinal es la fecha final
-     * @param tboxListado es el listado de excursiones
-     */
-
-    public VistaListarExcursiones(ControlExcursiones cExcursiones, Date fechaIncial, Date fechaFinal, String tboxListado) {
+    public VistaListarExcursiones(ControlExcursiones cExcursiones, ControlDatos cDatos) {
         this.cExcursiones = cExcursiones;
-        this.fechaIncial = fechaIncial;
-        this.fechaFinal = fechaFinal;
-        this.tboxListado = tboxListado;
+        this.cDatos = cDatos;
     }
 
     // Métodos
     public void show() {
-        //TODO
+        System.out.println("Menu Listar Excursiones");
+        System.out.println("1. Listar Excursiones");
+        System.out.println("2. Listar Excursiones por Fecha");
+        System.out.println("0. Atras");
+        System.out.println("Introduzca una opción: ");
+        switch (tboxListado) {
+            case "1":
+                buttonListExcursiones();
+                break;
+            case "2":
+                buttonListExcursionesFechas();
+                break;
+            case "0":
+                buttonAtras();
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                break;
+        }
+
     }
 
 

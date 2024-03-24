@@ -1,10 +1,6 @@
 package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
-import RompeSistemas.Modelo.Estandar;
-import RompeSistemas.Modelo.Federado;
-import RompeSistemas.Modelo.Infantil;
-import RompeSistemas.Modelo.Socio;
 
 import java.util.Scanner;
 
@@ -70,13 +66,13 @@ public class VistaAñadirSocio {
 
         switch (tipo) {
             case 1:
-                cSocios.añadirFederado();
+                cSocios.addFederado();
                 break;
             case 2:
-                cSocios.añadirInfantil();
+                cSocios.addInfantil();
                 break;
             case 3:
-                cSocios.añadirEstandar();
+                cSocios.addEstandar();
                 break;
             default:
                 System.out.println("Tipo de socio no válido.");

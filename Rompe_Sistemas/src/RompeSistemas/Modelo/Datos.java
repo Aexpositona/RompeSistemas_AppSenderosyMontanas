@@ -1,70 +1,189 @@
 package RompeSistemas.Modelo;
 
 import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Clase que gestiona los datos del sistema.
- * @param <E> tipo genérico para las excursiones
- * @param <I> tipo genérico para las inscripciones
- * @param <S> tipo genérico para los socios
+ * Clase que representa los datos de la aplicación.
  */
-public class Datos<E, I, S> {
+public class Datos {
 
-    private List<E> excursiones = new ArrayList<>();
-    private ArrayList<I> inscripciones = new ArrayList<>();
-    private List<S> socios = new ArrayList<>();
+    // Atributos
+    private int tipoObjeto; // Tipo de objeto
+    private Object objeto; // Objeto genérico
+
+    // Un ArrayList para cada tipo de dato
+    private final ArrayList<Object> excursiones;
+    private final ArrayList<Object> inscripciones;
+    private final ArrayList<Object> socios;
+
+
+    // Constructor
 
     /**
-     * Obtiene la lista de excursiones.
-     * @return la lista de excursiones
+     * Constructor de la clase Datos.
      */
-    public List<E> getExcursiones() {
-        return excursiones;
+    public Datos() {
+        excursiones = new ArrayList<>();
+        inscripciones = new ArrayList<>();
+        socios = new ArrayList<>();
+        objeto = null;
     }
 
     /**
-     * Agrega una excursión a la lista.
-     * @param excursion la excursión a agregar
+     * Método para obtener un ArrayList de un tipo de objeto.
+     *
+     * @param tipoObjeto Tipo de objeto
+     * @return ArrayList de objetos
      */
-    public  void agregarExcursion(E excursion) {
-
-        excursiones.add(excursion);
+    public ArrayList<Object> getArrayList(int tipoObjeto) {
+        {
+            return switch (tipoObjeto) {
+                case 1 -> excursiones;
+                case 2 -> inscripciones;
+                case 3 -> socios;
+                default -> null;
+            };
+        }
     }
 
     /**
-     * Obtiene la lista de inscripciones.
-     * @return la lista de inscripciones
+     * Método para agregar un objeto a alguno de los ArrayList.
+     *
+     * @param objeto     Objeto a agregar
+     * @param tipoObjeto Tipo de objeto
+     *                   1 - Excursión
+     *                   2 - Inscripción
+     *
      */
-    public  List<I> getInscripciones() {
-
-        return inscripciones;
+    public void addObjeto(Object objeto, int tipoObjeto) {
+        switch (tipoObjeto) {
+            case 1 -> excursiones.add(objeto);
+            case 2 -> inscripciones.add(objeto);
+            case 3 -> socios.add(objeto);
+        }
     }
 
     /**
-     * Agrega una inscripción a la lista.
-     * @param inscripcion la inscripción a agregar
+     * Método para eliminar un objeto de alguno de los ArrayList.
+     *
+     * @param objeto     Objeto a eliminar
+     * @param tipoObjeto Tipo de objeto
      */
-    public  void agregarInscripcion(I inscripcion) {
-
-        inscripciones.add(inscripcion);
+    public void removeObjeto(Object objeto, int tipoObjeto) {
+        switch (tipoObjeto) {
+            case 1 -> excursiones.remove(objeto);
+            case 2 -> inscripciones.remove(objeto);
+            case 3 -> socios.remove(objeto);
+        }
     }
 
     /**
-     * Obtiene la lista de socios.
-     * @return la lista de socios
+     * Método para modificar un objeto de alguno de los ArrayList.
+     *
+     * @param objeto     Objeto a modificar
+     * @param tipoObjeto Tipo de objeto
      */
-    public  List<S> getSocios() {
-
-        return socios;
+    public void modificarObjeto(Object objeto, int tipoObjeto) {
+        switch (tipoObjeto) {
+            case 1 -> excursiones.set(excursiones.indexOf(objeto), objeto);
+            case 2 -> inscripciones.set(inscripciones.indexOf(objeto), objeto);
+            case 3 -> socios.set(socios.indexOf(objeto), objeto);
+        }
     }
 
     /**
-     * Agrega un socio a la lista.
-     * @param socio el socio a agregar
+     * Método para obtener un objeto de alguno de los ArrayList.
+     *
+     * @param tipoObjeto Tipo de objeto
+     * @param index      Índice del objeto
+     * @return Objeto
      */
-    public  void agregarSocio(S socio) {
+    public Object getObjeto(int tipoObjeto, int index) {
+        switch (tipoObjeto) {
+            case 1 -> objeto = excursiones.get(index);
+            case 2 -> objeto = inscripciones.get(index);
+            case 3 -> objeto = socios.get(index);
+        }
+        return objeto;
+    }
 
-        socios.add(socio);
+    /**
+     * Método para buscar un objeto en alguno de los ArrayList.
+     *
+     * @param string     String a buscar
+     * @param tipoObjeto Tipo de objeto
+     * @return Índice del objeto
+     */
+    public int buscarObjeto(String string, int tipoObjeto) {
+        if (tipoObjeto == 1) {
+            if (excursiones.isEmpty()) {
+                return -1;
+            } else {
+                for (int i = 0; i < excursiones.size(); i++) {
+                    Excursion excursion = (Excursion) excursiones.get(i);
+                    if (excursion.getCodigo().equals(string)) {
+                        return i;
+                    }
+                }
+            }
+        } else if (tipoObjeto == 2) {
+            if (inscripciones.isEmpty()) {
+                return -1;
+            } else {
+                for (int i = 0; i < inscripciones.size(); i++) {
+                    Inscripcion inscripcion = (Inscripcion) inscripciones.get(i);
+                    if (inscripcion.getNumero() == Integer.parseInt(string)) {
+                        return i;
+                    }
+                }
+            }
+        } else if (tipoObjeto == 3) {
+            if (socios.isEmpty()) {
+                return -1;
+            } else {
+                for (int i = 0; i < socios.size(); i++) {
+                    Socio socio = (Socio) socios.get(i);
+                    if (socio.getNombre().equals(string)) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Método para listar los objetos de alguno de los ArrayList.
+     *
+     * @param tipoObjeto Tipo de objeto
+     */
+    public void listObjetos(int tipoObjeto) {
+        if (tipoObjeto == 1) {
+            if (excursiones.isEmpty()) {
+                System.out.println("No hay excursiones.");
+            } else {
+                for (Object o : excursiones) {
+                    Excursion excursion = (Excursion) o;
+                    System.out.println(excursion.toString());
+                }
+            }
+        } else if (tipoObjeto == 2) {
+            if (inscripciones.isEmpty()) {
+                System.out.println("No hay inscripciones.");
+            } else {
+                for (Object o : inscripciones) {
+                    Inscripcion inscripcion = (Inscripcion) o;
+                    System.out.println(inscripcion.toString());
+                }
+            }
+        } else if (tipoObjeto == 3) {
+            if (socios.isEmpty()) {
+                System.out.println("No hay socios.");
+            } else {
+                for (Object o : socios) {
+                    Socio socio = (Socio) o;
+                    System.out.println(socio.toString());
+                }
+            }
+        }
     }
 }

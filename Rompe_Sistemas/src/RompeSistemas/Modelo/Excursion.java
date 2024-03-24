@@ -11,7 +11,7 @@ public class Excursion {
     private String descripcion;
     private LocalDate fecha;
     private int duracion;
-    private double precio;
+    private float precio;
 
     // Métodos constructores
 
@@ -24,7 +24,7 @@ public class Excursion {
      * @param duracion    duración de la excursión
      * @param precio      precio de la excursión
      */
-    public Excursion(String codigo, String descripcion, LocalDate fecha, int duracion, double precio) {
+    public Excursion(String codigo, String descripcion, LocalDate fecha, int duracion, float precio) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -128,7 +128,7 @@ public class Excursion {
      *
      * @param precio el precio de la excursión
      */
-    public void setPrecio(double precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -139,6 +139,10 @@ public class Excursion {
      */
     @Override
     public String toString() {
-        return "Código: " + codigo + "\nDescripción: " + descripcion + "\nFecha: " + fecha + "\nDuración: " + duracion + "\nPrecio: " + precio;
+        return "Código: " + codigo +
+               "\nDescripción: " + descripcion +
+               "\nFecha: " + fecha +
+               "\nDuración: " + duracion +
+               "\nPrecio: " + precio;
     }
 }

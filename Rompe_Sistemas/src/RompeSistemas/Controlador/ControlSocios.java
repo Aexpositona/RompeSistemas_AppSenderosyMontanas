@@ -11,26 +11,28 @@ public class ControlSocios {
 
     // Atributos
     private VistaSocios vSocios;
-    private Datos<Excursion, Inscripcion, Socio> datos;
+    private Datos datos;
 
     /**
      * Constructor de ControlSocios.
-     * @param vSocios VistaSocios asociada al controlador
+     *
+     * @param appSenderosMontanas
+     * @param vSocios             VistaSocios asociada al controlador
      */
-    public ControlSocios(VistaSocios vSocios) {
+    public ControlSocios(APPSenderosMontanas appSenderosMontanas, Datos datos, VistaSocios vSocios) {
         this.vSocios = vSocios;
-        this.datos = new Datos<>();
+        this.datos = datos;
     }
 
     // Métodos
 
 
-    public void addSocio(Socio nuevoSocio) {
-        datos.agregarSocio(nuevoSocio);
+    public void addSocio(Socio socio) {
+        datos.addObjeto(socio, 3);
     }
 
 
-    public void añadirFederado() {
+    public void addFederado() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Introduce el nombre del socio:");
@@ -49,7 +51,7 @@ public class ControlSocios {
         addSocio(nuevoSocio);
     }
 
-    public void añadirInfantil() {
+    public void addInfantil() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Introduce el nombre del socio:");
@@ -65,7 +67,7 @@ public class ControlSocios {
         addSocio(nuevoSocio);
     }
 
-    public void añadirEstandar() {
+    public void addEstandar() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Introduce el nombre del socio:");
