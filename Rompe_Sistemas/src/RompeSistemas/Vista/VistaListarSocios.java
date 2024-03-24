@@ -24,6 +24,12 @@ public class VistaListarSocios {
     }
 
     /**
+     * Constructor por defecto de la clase VistaListarSocios
+     */
+    public VistaListarSocios() {
+    }
+
+    /**
      * Método para mostrar la vista de listar socios
      */
     public void show() {

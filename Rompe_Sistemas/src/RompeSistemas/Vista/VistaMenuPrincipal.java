@@ -12,16 +12,33 @@ public class VistaMenuPrincipal {
 
     private ControlMenuPrincipal cMenuPrincipal;
     private Scanner scanner = new Scanner(System.in);
+
     private VistaSocios vSocios;
     private VistaExcursiones vExcursiones;
     private VistaInscripciones vInscripciones;
+    private VistaExcursiones vistaExcursiones;
 
+
+    VistaInscripciones vistaInscripciones = new VistaInscripciones();
+    VistaSocios vistaSocios = new VistaSocios();
+
+
+    /**
+     * Método constructor de la clase VistaMenuPrincipal que recibe por parámetros el controlador del menú principal.
+     * @param cMenuPrincipal es el controlador del menú principal.
+     * @param vSocios es la vista de socios.
+     * @param vExcursiones es la vista de excursiones.
+     * @param vInscripciones es la vista de inscripciones.
+     */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
+
         this.cMenuPrincipal = cMenuPrincipal;
         this.vSocios = vSocios;
         this.vExcursiones = vExcursiones;
         this.vInscripciones = vInscripciones;
     }
+
+
 
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.

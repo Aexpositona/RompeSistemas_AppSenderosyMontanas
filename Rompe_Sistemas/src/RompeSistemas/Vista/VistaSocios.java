@@ -7,10 +7,14 @@ import java.util.Scanner;
 public class VistaSocios {
 
     //Atributos
-    private VistaAñadirSocio vAñadirSocio;
-    private VistaModificarSeguro vVistaModificarSeguro;
-    private  VistaListarSocios vVistaListarSocios;
+    //private VistaAñadirSocio vAñadirSocio;
+    //private VistaModificarSeguro vVistaModificarSeguro;
+    //private  VistaListarSocios vVistaListarSocios;
     private VistaMenuPrincipal vistaMenuPrincipal;
+
+    VistaModificarSeguro vVistaModificarSeguro = new VistaModificarSeguro();
+    VistaListarSocios vVistaListarSocios = new VistaListarSocios();
+    VistaAñadirSocio vAñadirSocio = new VistaAñadirSocio();
 
     private ControlSocios cSocios;
 
@@ -28,6 +32,16 @@ public class VistaSocios {
 
     }
 
+    /**
+     * Constructor por defecto de la clase VistaSocios
+     */
+    public VistaSocios() {
+    }
+
+    /**
+     * Método constructor de la clase VistaSocios que recibe por parámetros el controlador de socios
+     * @param cSocios es el controlador de socios
+     */
     public VistaSocios(ControlSocios cSocios) {
     }
 
