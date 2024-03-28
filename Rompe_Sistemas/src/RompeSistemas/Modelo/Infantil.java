@@ -19,32 +19,14 @@ public class Infantil extends Socio {
     /**
      * Método constructor por defecto para generar sobrecarga de constructores
      */
-    public Infantil(){
 
-    }
 
     @Override
     public String getTipo() {
-        return "INFANTIL";
-    }
-    /**
-     * Método get() de la clase Infantil que nos devuelve el número de socio del tutor
-     * @return El número de socio del tutor
-     */
-    //Métodos Getters
-    public int getnumSocioTutor(){
-        return numSocioTutor;
+        return "Infantil";
     }
 
     //Métodos Setters
-
-    /**
-     * Método set() de la clase Infantil que nos permite definir el NIF del padre
-     * @param numSocioTutor Es el número de socio del tutor
-     */
-    public void setNumSocioTutor(int numSocioTutor){
-        this.numSocioTutor = numSocioTutor;
-    }
 
     /**
      * Método toString() de la clase Infantil que nos devuelve un String los datos del socio
@@ -52,6 +34,6 @@ public class Infantil extends Socio {
      */
     @Override
     public String toString(){
-        return super.toString() + "Tipo de socio: Infantil\n" + "NIF del padre: " + numSocioTutor + "}";
+        return super.toString() + "Tipo de socio: Infantil\n" + "Numero de socio del tutor: " + numSocioTutor;
     }
 }

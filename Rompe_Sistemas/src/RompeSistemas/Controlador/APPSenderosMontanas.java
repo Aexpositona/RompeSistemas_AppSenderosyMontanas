@@ -69,6 +69,8 @@ public class APPSenderosMontanas {
         System.out.println("Senderos de Montañas");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
+        DataLoader dataLoader = new DataLoader(datos);
+        dataLoader.load();
         app.iniciar(datos);
         app.showVistaMenuPrincipal();
     }

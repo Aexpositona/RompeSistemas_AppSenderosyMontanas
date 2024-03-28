@@ -12,6 +12,7 @@ public class VistaListarSocios {
     private ControlSocios cSocios;
 
     private VistaSocios vistaSocios;
+    private List<Socio> socios;
 
     /**
      * Método constructor de la clase VistaListarSocios que recibe por parámetros el tipo de socio y el listado de socios
@@ -57,20 +58,15 @@ public class VistaListarSocios {
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
     public void buttonListTipoSocio(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el tipo de socio que desea ver (Federado, Infantil, Estandard):");
-        String tipoSocio = scanner.nextLine();
-        System.out.println("Listando los socios de tipo " + tipoSocio + "...");
-        String socios = cSocios.listTipoSocios(tipoSocio);
-        System.out.println(socios);
+        socios = cSocios.listTipoSocios(); // Actualiza la variable socios con la lista de socios filtrados
     }
 
     /**
      * Método para añadir un botón que nos permite listar los socios
      */
     public void buttonListSocios(){
+        socios = cSocios.listSocios();
         System.out.println("Listando los socios...");
-        List<Socio> socios = cSocios.listSocios();
         for (Socio socio : socios) {
             System.out.println(socio.toString());
         }

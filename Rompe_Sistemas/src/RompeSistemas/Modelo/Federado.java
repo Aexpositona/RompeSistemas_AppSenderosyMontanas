@@ -15,11 +15,10 @@ public class Federado extends Socio {
      * @param numero       es el numero del socio
      * @param federaciones es la federación a la que pertenece el socio
      */
-    public Federado(String nombre, int numero, Federacion federaciones) {
+    public Federado(String nombre, int numero, String nif, Federacion federaciones) {
         super(nombre, numero);
         this.nif = nif;
         this.federaciones = federaciones;
-
     }
 
     /**
@@ -31,7 +30,7 @@ public class Federado extends Socio {
 
     @Override
     public String getTipo() {
-        return "FEDERADO";
+        return "Federado";
     }
 
     // Métodos Getters
@@ -74,7 +73,12 @@ public class Federado extends Socio {
      */
     @Override
     public String toString() {
-        return super.toString() + "Tipo de socio: Standard \n"  + "NIF: " + nif + "\n" + "Federación: " + federaciones + "\n";
+        return "Nombre: " + getNombre() +
+                "\nNumero de socio: " + getNumero() +
+                "\nTipo de socio: Federado" +
+                "\nNIF: " + getNif() +
+                "\nFederación: Nombre: " + federaciones.getNombre() +
+                "\nCódigo: " + federaciones.getCodigo();
     }
 }
 

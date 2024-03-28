@@ -81,10 +81,8 @@ public class VistaSocios {
      * Método para añadir un botón que nos permite modificar un seguro
      */
     public void buttonRemoveSocio() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduce el número del socio que quieres eliminar:");
-        int numeroSocio = scanner.nextInt();
-        cSocios.removeSocio(numeroSocio);
+        System.out.println("Que socio quiere eliminar? (Introduzca el número de socio)");
+        cSocios.removeSocio();
     }
 
     /**
