@@ -162,21 +162,27 @@ public class Datos {
     public List<Object> listObjetos(int tipoObjeto) {
         List<Object> result = new ArrayList<>();
         if (tipoObjeto == 1) {
-            if (!excursiones.isEmpty()) {
+            if (excursiones.isEmpty()) {
+                System.out.println("No hay excursiones.");
+            } else {
                 for (Object o : excursiones) {
                     Excursion excursion = (Excursion) o;
                     result.add(excursion);
                 }
             }
         } else if (tipoObjeto == 2) {
-            if (!inscripciones.isEmpty()) {
+            if (inscripciones.isEmpty()) {
+                System.out.println("No hay inscripciones.");
+            } else {
                 for (Object o : inscripciones) {
                     Inscripcion inscripcion = (Inscripcion) o;
                     result.add(inscripcion);
                 }
             }
         } else if (tipoObjeto == 3) {
-            if (!socios.isEmpty()) {
+            if (socios.isEmpty()) {
+                System.out.println("No hay socios.");
+            } else {
                 for (Object o : socios) {
                     if (o instanceof Socio) {
                         Socio socio = (Socio) o;
