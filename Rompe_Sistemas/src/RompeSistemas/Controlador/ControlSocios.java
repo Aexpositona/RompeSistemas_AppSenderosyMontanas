@@ -1,8 +1,8 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
-import RompeSistemas.Vista.VistaSocios;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -10,26 +10,19 @@ import java.util.stream.Collectors;
 public class ControlSocios {
 
     // Atributos
-    private VistaSocios vSocios;
     private Datos datos;
 
     /**
      * Constructor de ControlSocios.
      *
-     * @param appSenderosMontanas
-     * @param vSocios             VistaSocios asociada al controlador
      */
-    public ControlSocios(APPSenderosMontanas appSenderosMontanas, Datos datos, VistaSocios vSocios) {
-        this.vSocios = vSocios;
+    public ControlSocios(Datos datos) {
         this.datos = datos;
     }
 
     // Métodos
 
 
-    public void addSocio(Socio socio) {
-        datos.addObjeto(socio, 3);
-    }
 
 
     public void addFederado() {
@@ -40,15 +33,21 @@ public class ControlSocios {
 
         System.out.println("Introduce el número del socio:");
         int numero = scanner.nextInt();
-        scanner.nextLine(); // consume the newline
+        scanner.nextLine();
 
-        System.out.println("Introduce la federación a la que pertenece el socio:");
+        System.out.println("Introduce el NIF del socio:");
+        String nif = scanner.nextLine();
+
+        System.out.println("Introduce el nombre de la federación a la que pertenece el socio:");
         String nombreFederacion = scanner.nextLine();
 
-        Federacion federacion = new Federacion("codigo", nombreFederacion); // Aquí necesitarás proporcionar un código para la federación
+        System.out.println("Introduce el código de la federación a la que pertenece el socio:");
+        String codigoFederacion = scanner.nextLine();
 
-        Federado nuevoSocio = new Federado(nombre, numero, federacion);
-        addSocio(nuevoSocio);
+        Federacion federacion = new Federacion(codigoFederacion, nombreFederacion);
+
+        Federado nuevoSocio = new Federado(nombre, numero, nif, federacion);
+        datos.addObjeto(nuevoSocio, 3);
     }
 
     public void addInfantil() {
@@ -64,7 +63,7 @@ public class ControlSocios {
         int numSocioTutor = scanner.nextInt();
 
         Infantil nuevoSocio = new Infantil(nombre, numero, numSocioTutor);
-        addSocio(nuevoSocio);
+        datos.addObjeto(nuevoSocio, 3);
     }
 
     public void addEstandar() {
@@ -75,7 +74,7 @@ public class ControlSocios {
 
         System.out.println("Introduce el número del socio:");
         int numero = scanner.nextInt();
-        scanner.nextLine(); // consume the newline
+        scanner.nextLine();
 
         System.out.println("Introduce el NIF del socio:");
         String nif = scanner.nextLine();
@@ -97,18 +96,83 @@ public class ControlSocios {
         }
 
         Estandar nuevoSocio = new Estandar(nombre, numero, nif, seguroEstandar);
-        addSocio(nuevoSocio);
+        datos.addObjeto(nuevoSocio, 3);
     }
 
 
 
     public void removeSocio() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el número de socio que desea eliminar:");
+            int numeroSocio = scanner.nextInt();
+        Socio socioToRemove = datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .filter(socio -> socio.getNumero() == numeroSocio)
+                .findFirst()
+                .orElse(null);
+
+        if (socioToRemove != null) {
+            datos.removeObjeto(socioToRemove, 3);
+        } else {
+            System.out.println("No se encontró un socio con el número " + numeroSocio);
+        }
     }
 
-    public List<Socio> listTipoSocios(String tipoSocio) {
-        return datos.getSocios().stream()
-                .filter(socio -> socio.getTipo().equalsIgnoreCase(tipoSocio))
+    public List<Socio> listSocios() {
+        // Obtiene la lista de todos los socios directamente desde los datos
+        return datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
                 .collect(Collectors.toList());
+    }
+
+    public List<Socio> listTipoSocios() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione el tipo de socio que desea ver:");
+        System.out.println("1. Estandar");
+        System.out.println("2. Federado");
+        System.out.println("3. Infantil");
+        int tipoSocio = scanner.nextInt();
+
+        // Obtiene la lista de todos los socios directamente desde los datos
+        List<Socio> sociosList = datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .toList();
+
+        List<Socio> filteredSocios;
+        switch (tipoSocio) {
+            case 1:
+                filteredSocios = sociosList.stream()
+                        .filter(socio -> socio instanceof Estandar)
+                        .collect(Collectors.toList());
+                break;
+            case 2:
+                filteredSocios = sociosList.stream()
+                        .filter(socio -> socio instanceof Federado)
+                        .collect(Collectors.toList());
+                break;
+            case 3:
+                filteredSocios = sociosList.stream()
+                        .filter(socio -> socio instanceof Infantil)
+                        .collect(Collectors.toList());
+                break;
+            default:
+                System.out.println("Opción no válida. Intente de nuevo.");
+                return Collections.emptyList();
+        }
+
+        if (filteredSocios.isEmpty()) {
+            System.out.println("No hay socios que correspondan con esto.");
+        } else {
+            // Imprime solo los socios filtrados
+            for (Socio socio : filteredSocios) {
+                System.out.println(socio.toString());
+            }
+        }
+
+        return filteredSocios; // Devuelve la lista de socios filtrados
     }
 
     public void showFacturaMensualSocios() {
@@ -121,8 +185,7 @@ public class ControlSocios {
         int tipoSeguro = scanner.nextInt();
         Socio socio = buscarSocioPorNumero(numeroSocio);
         if (socio != null) {
-            if (socio instanceof Estandar) {
-                Estandar socioEstandar = (Estandar) socio;
+            if (socio instanceof Estandar socioEstandar) {
                 switch (tipoSeguro) {
                     case 1:
                         socioEstandar.setSeguro(Seguro.BASICO);
@@ -145,15 +208,12 @@ public class ControlSocios {
     }
 
     private Socio buscarSocioPorNumero(int numeroSocio) {
-        for (Socio socio : datos.getSocios()) {
-            if (socio.getNumero() == numeroSocio) {
-                return socio;
-            }
-        }
-        return null;
+        return datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .filter(socio -> socio.getNumero() == numeroSocio)
+                .findFirst()
+                .orElse(null);
     }
 
-    public List<Socio> listSocios() {
-        return datos.getSocios();
-    }
 }

@@ -10,17 +10,12 @@ import java.util.Scanner;
  */
 public class VistaMenuPrincipal {
 
-    private ControlMenuPrincipal cMenuPrincipal;
     private Scanner scanner = new Scanner(System.in);
 
     private VistaSocios vSocios;
     private VistaExcursiones vExcursiones;
     private VistaInscripciones vInscripciones;
     private VistaExcursiones vistaExcursiones;
-
-
-    VistaInscripciones vistaInscripciones = new VistaInscripciones();
-    VistaSocios vistaSocios = new VistaSocios();
 
 
     /**
@@ -32,7 +27,6 @@ public class VistaMenuPrincipal {
      */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
 
-        this.cMenuPrincipal = cMenuPrincipal;
         this.vSocios = vSocios;
         this.vExcursiones = vExcursiones;
         this.vInscripciones = vInscripciones;
@@ -51,7 +45,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite ir a la vista de socios.
      */
-    public void buttonVistaSocios(){
+    public void buttonVistaSocios() throws ParseException {
         System.out.println("Navegando a la vista de socios...");
         vSocios.show();
     }

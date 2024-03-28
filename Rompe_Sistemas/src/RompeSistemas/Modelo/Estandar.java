@@ -26,7 +26,7 @@ public class Estandar extends Socio {
 
     @Override
     public String getTipo() {
-        return "ESTANDAR";
+        return "Estandar";
     }
     /**
      * Método constructor por defecto para generar sobrecarga de constructores.

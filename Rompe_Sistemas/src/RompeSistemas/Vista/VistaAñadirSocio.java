@@ -2,43 +2,30 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 
+import java.text.ParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class VistaAñadirSocio {
 
     //Atributos
-    private int tipoSocio;
-    private int numeroSocio;
-    private String nombre;
     private VistaSocios vistaSocios;
     private ControlSocios cSocios;
 
 
     /**
      * Método constructor de la clase VistaAñadirSocio que recibe por parámetros el tipo de socio, el número de socio y el nombre del socio
-     * @param tipoSocio Es el tipo de socio
-     * @param numeroSocio Es el número de socio
-     * @param nombre Es el nombre del socio
      */
-    public VistaAñadirSocio(int tipoSocio, int numeroSocio, String nombre) {
-        this.tipoSocio = tipoSocio;
-        this.numeroSocio = numeroSocio;
-        this.nombre = nombre;
-        this.vistaSocios = vistaSocios;
+    public VistaAñadirSocio(ControlSocios cSocios, VistaSocios vistaSocios) {
         this.cSocios = cSocios;
-
+        this.vistaSocios = vistaSocios;
     }
 
-    /**
-     * Constructor por defecto de la clase VistaAñadirSocio
-     */
-    public VistaAñadirSocio() {
-    }
 
     /**
      * Método para mostrar la vista de añadir socio
      */
-    public void show() {
+    public void show() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -68,8 +55,16 @@ public class VistaAñadirSocio {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("¿Qué tipo de socio quieres crear? (1: Federado, 2: Infantil, 3: Estandar)");
-        int tipo = scanner.nextInt();
-
+        int tipo;
+        while (true) {
+            try {
+                tipo = scanner.nextInt();
+                break; // will only reach here if input was an int, so break out of loop
+            } catch (InputMismatchException e) {
+                System.out.println("Por favor, introduzca un número válido.");
+                scanner.next(); // discard non-int input
+            }
+        }
         switch (tipo) {
             case 1:
                 cSocios.addFederado();
@@ -89,7 +84,7 @@ public class VistaAñadirSocio {
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    public void buttonAtras(){
+    public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior...");
         vistaSocios.show();
     }

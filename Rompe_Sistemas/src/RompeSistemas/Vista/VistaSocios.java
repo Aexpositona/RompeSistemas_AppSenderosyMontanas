@@ -1,54 +1,37 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlMenuPrincipal;
 import RompeSistemas.Controlador.ControlSocios;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class VistaSocios {
 
-    //Atributos
-    //private VistaAñadirSocio vAñadirSocio;
-    //private VistaModificarSeguro vVistaModificarSeguro;
-    //private  VistaListarSocios vVistaListarSocios;
+
     private VistaMenuPrincipal vistaMenuPrincipal;
-
-    VistaModificarSeguro vVistaModificarSeguro = new VistaModificarSeguro();
-    VistaListarSocios vVistaListarSocios = new VistaListarSocios();
-    VistaAñadirSocio vAñadirSocio = new VistaAñadirSocio();
-
+    private VistaModificarSeguro vVistaModificarSeguro;
+    private VistaListarSocios vVistaListarSocios;
+    private VistaAñadirSocio vAñadirSocio;
     private ControlSocios cSocios;
 
-    /**
-     * Método constructor de la clase VistaSocios que recibe por parámetros las vistas de añadir socio, modificar seguro y listar socios
-     * @param vAñadirSocio es la vista de añadir socio
-     * @param vVistaModificarSeguro es la vista de modificar seguro
-     * @param vVistaListarSocios es la vista de listar socios
-     */
-    public VistaSocios(VistaAñadirSocio vAñadirSocio, VistaModificarSeguro vVistaModificarSeguro, VistaListarSocios vVistaListarSocios) {
-        this.vAñadirSocio = vAñadirSocio;
-        this.vVistaModificarSeguro = vVistaModificarSeguro;
-        this.vVistaListarSocios = vVistaListarSocios;
-
-
-    }
-
-    /**
-     * Constructor por defecto de la clase VistaSocios
-     */
-    public VistaSocios() {
-    }
 
     /**
      * Método constructor de la clase VistaSocios que recibe por parámetros el controlador de socios
      * @param cSocios es el controlador de socios
      */
-    public VistaSocios(ControlSocios cSocios) {
+    public VistaSocios(ControlSocios cSocios, ControlMenuPrincipal cMenuPrincipal, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
+        this.cSocios = cSocios;
+        this.vAñadirSocio = new VistaAñadirSocio(cSocios, this);
+        this.vVistaModificarSeguro = new VistaModificarSeguro(cSocios, this);
+        this.vVistaListarSocios = new VistaListarSocios(cSocios, this);
+        this.vistaMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, this, vExcursiones, vInscripciones);
     }
 
     /**
      * Método para mostrar la vista de socios
      */
-    public void show() {
+    public void show() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -89,7 +72,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite añadir un socio
      */
-    public void buttonAddSocio(){
+    public void buttonAddSocio() throws ParseException {
         System.out.println("Navegando a la vista de añadir socio");
         vAñadirSocio.show();
     }
@@ -97,15 +80,15 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
-    public void buttonRemoveSocio(){
-        System.out.println("Selecciona el socio que quieres eliminar:");
+    public void buttonRemoveSocio() {
+        System.out.println("Que socio quiere eliminar? (Introduzca el número de socio)");
         cSocios.removeSocio();
     }
 
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
-    public void buttonModTipoSeguro(){
+    public void buttonModTipoSeguro() throws ParseException {
         System.out.println("Navegando a la vista de modificar seguro");
         vVistaModificarSeguro.show();
     }
@@ -113,7 +96,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite listar los socios
      */
-    public void ButtonListSocios(){
+    public void ButtonListSocios() throws ParseException {
         System.out.println("Navegando a la vista de listar socios");
         vVistaListarSocios.show();
     }
@@ -131,7 +114,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    public void buttonAtras() {
+    public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
         vistaMenuPrincipal.show();
     }

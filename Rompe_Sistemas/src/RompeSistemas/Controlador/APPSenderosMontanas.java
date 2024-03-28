@@ -26,7 +26,9 @@ public class APPSenderosMontanas {
     public VistaSocios vSocios;
     public VistaExcursiones vExcursiones;
     public Datos datos;
-
+    public VistaAñadirSocio vAñadirSocio;
+    public VistaModificarSeguro vVistaModificarSeguro;
+    public VistaListarSocios vVistaListarSocios;
 
 
     // Métodos
@@ -39,14 +41,19 @@ public class APPSenderosMontanas {
      */
     public void iniciar(Datos datos) {
         // Inicializar controladores y vistas aquí
-        cMenuPrincipal = new ControlMenuPrincipal(this, vMenuPrincipal);
         cInscripciones = new ControlInscripciones(this, datos, vInscripciones);
-        cSocios = new ControlSocios(this, datos, vSocios);
+        cSocios = new ControlSocios(datos);
         cExcursiones = new ControlExcursiones(this, datos, vExcursiones);
-        vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, vSocios, vExcursiones, vInscripciones);
+
         vInscripciones = new VistaInscripciones(cInscripciones);
-        vSocios = new VistaSocios(cSocios);
+        vSocios = new VistaSocios(cSocios, cMenuPrincipal, vExcursiones, vInscripciones);
         vExcursiones = new VistaExcursiones(cExcursiones, cDatos);
+
+        vAñadirSocio = new VistaAñadirSocio(cSocios, vSocios);
+        vVistaModificarSeguro = new VistaModificarSeguro(cSocios, vSocios);
+        vVistaListarSocios = new VistaListarSocios(cSocios, vSocios);
+        cMenuPrincipal = new ControlMenuPrincipal(this, vMenuPrincipal);
+        vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, vSocios, vExcursiones, vInscripciones);
 
     }
 
@@ -62,6 +69,8 @@ public class APPSenderosMontanas {
         System.out.println("Senderos de Montañas");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
+        DataLoader dataLoader = new DataLoader(datos);
+        dataLoader.load();
         app.iniciar(datos);
         app.showVistaMenuPrincipal();
     }
