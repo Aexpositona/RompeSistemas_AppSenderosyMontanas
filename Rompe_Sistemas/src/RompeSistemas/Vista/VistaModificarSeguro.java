@@ -2,33 +2,25 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class VistaModificarSeguro {
 
 
-    private int numeroSocio;
-    private int tipoSeguro;
     private VistaSocios vistaSocios;
     private ControlSocios controlSocios;
     /**
      * Método constructor de la clase VistaModificarSeguro que recibe por parámetros el número de socio y el tipo de seguro
-     * @param numeroSocio es el número de socio
-     * @param tipoSeguro es el tipo de seguro
      */
-    public VistaModificarSeguro(int numeroSocio, int tipoSeguro) {
-        this.numeroSocio = numeroSocio;
-        this.tipoSeguro = tipoSeguro;
-    }
-
-    /**
-     * Constructor por defecto de la clase VistaModificarSeguro
-     */
-    public VistaModificarSeguro() {
+    public VistaModificarSeguro(ControlSocios controlSocios, VistaSocios vistaSocios) {
+        this.controlSocios = controlSocios;
+        this.vistaSocios = vistaSocios;
     }
 
 
-    public void show() {
+
+    public void show() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -62,7 +54,7 @@ public class VistaModificarSeguro {
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    public void buttonAtras() {
+    public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
         vistaSocios.show();
     }

@@ -102,13 +102,35 @@ public class ControlSocios {
 
 
 
-    public void removeSocio() {
+    public void removeSocio(int numeroSocio) {
+        Socio socioToRemove = datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .filter(socio -> socio.getNumero() == numeroSocio)
+                .findFirst()
+                .orElse(null);
+
+        if (socioToRemove != null) {
+            datos.removeObjeto(socioToRemove, 3);
+        } else {
+            System.out.println("No se encontró un socio con el número " + numeroSocio);
+        }
     }
 
-    public List<Socio> listTipoSocios(String tipoSocio) {
-        return datos.getSocios().stream()
+    public String listTipoSocios(String tipoSocio) {
+        List<Object> sociosList = datos.listObjetos(3);
+        List<Socio> filteredSocios = sociosList.stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
                 .filter(socio -> socio.getTipo().equalsIgnoreCase(tipoSocio))
-                .collect(Collectors.toList());
+                .toList();
+
+        if (filteredSocios.isEmpty()) {
+            return "No hay socios que correspondan con esto.";
+        } else {
+            // Convert the list of Socios to a string and return it
+            return filteredSocios.toString();
+        }
     }
 
     public void showFacturaMensualSocios() {
@@ -121,8 +143,7 @@ public class ControlSocios {
         int tipoSeguro = scanner.nextInt();
         Socio socio = buscarSocioPorNumero(numeroSocio);
         if (socio != null) {
-            if (socio instanceof Estandar) {
-                Estandar socioEstandar = (Estandar) socio;
+            if (socio instanceof Estandar socioEstandar) {
                 switch (tipoSeguro) {
                     case 1:
                         socioEstandar.setSeguro(Seguro.BASICO);
@@ -145,15 +166,19 @@ public class ControlSocios {
     }
 
     private Socio buscarSocioPorNumero(int numeroSocio) {
-        for (Socio socio : datos.getSocios()) {
-            if (socio.getNumero() == numeroSocio) {
-                return socio;
-            }
-        }
-        return null;
+        return datos.listObjetos(3).stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .filter(socio -> socio.getNumero() == numeroSocio)
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Socio> listSocios() {
-        return datos.getSocios();
+        List<Object> sociosList = datos.listObjetos(3);
+        return sociosList.stream()
+                .filter(obj -> obj instanceof Socio)
+                .map(obj -> (Socio) obj)
+                .collect(Collectors.toList());
     }
 }

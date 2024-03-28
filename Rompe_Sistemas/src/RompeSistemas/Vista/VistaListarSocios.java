@@ -3,36 +3,30 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Modelo.Socio;
 
+import java.text.ParseException;
 import java.util.Scanner;
 import java.util.List;
 
 public class VistaListarSocios {
     // Atributos
     private ControlSocios cSocios;
-    private int tipoSocio;
-    private String tboxListado;
+
     private VistaSocios vistaSocios;
 
     /**
      * Método constructor de la clase VistaListarSocios que recibe por parámetros el tipo de socio y el listado de socios
-     * @param tipoSocio es el tipo de socio
-     * @param tboxListado es el listado de socios
      */
-    public VistaListarSocios(int tipoSocio, String tboxListado) {
-        this.tipoSocio = tipoSocio;
-        this.tboxListado = tboxListado;
+    public VistaListarSocios(ControlSocios cSocios, VistaSocios vistaSocios) {
+        this.cSocios = cSocios;
+
+        this.vistaSocios = vistaSocios;
     }
 
-    /**
-     * Constructor por defecto de la clase VistaListarSocios
-     */
-    public VistaListarSocios() {
-    }
 
     /**
      * Método para mostrar la vista de listar socios
      */
-    public void show() {
+    public void show() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -67,10 +61,8 @@ public class VistaListarSocios {
         System.out.println("Ingrese el tipo de socio que desea ver (Federado, Infantil, Estandard):");
         String tipoSocio = scanner.nextLine();
         System.out.println("Listando los socios de tipo " + tipoSocio + "...");
-        List<Socio> socios = cSocios.listTipoSocios(tipoSocio);
-        for (Socio socio : socios) {
-            System.out.println(socio.toString());
-        }
+        String socios = cSocios.listTipoSocios(tipoSocio);
+        System.out.println(socios);
     }
 
     /**
@@ -86,7 +78,7 @@ public class VistaListarSocios {
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    public void buttonAtras() {
+    public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
         vistaSocios.show();
     }

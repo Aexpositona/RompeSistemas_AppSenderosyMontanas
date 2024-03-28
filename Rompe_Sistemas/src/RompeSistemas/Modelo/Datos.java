@@ -1,13 +1,15 @@
 package RompeSistemas.Modelo;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase que representa los datos de la aplicación.
  */
 public class Datos {
 
     // Atributos
-    private int tipoObjeto; // Tipo de objeto
+
     private Object objeto; // Objeto genérico
 
     // Un ArrayList para cada tipo de dato
@@ -155,8 +157,10 @@ public class Datos {
      * Método para listar los objetos de alguno de los ArrayList.
      *
      * @param tipoObjeto Tipo de objeto
+     * @return
      */
-    public void listObjetos(int tipoObjeto) {
+    public List<Object> listObjetos(int tipoObjeto) {
+        List<Object> result = new ArrayList<>();
         if (tipoObjeto == 1) {
             if (excursiones.isEmpty()) {
                 System.out.println("No hay excursiones.");
@@ -164,6 +168,7 @@ public class Datos {
                 for (Object o : excursiones) {
                     Excursion excursion = (Excursion) o;
                     System.out.println(excursion.toString());
+                    result.add(excursion);
                 }
             }
         } else if (tipoObjeto == 2) {
@@ -173,6 +178,7 @@ public class Datos {
                 for (Object o : inscripciones) {
                     Inscripcion inscripcion = (Inscripcion) o;
                     System.out.println(inscripcion.toString());
+                    result.add(inscripcion);
                 }
             }
         } else if (tipoObjeto == 3) {
@@ -180,10 +186,14 @@ public class Datos {
                 System.out.println("No hay socios.");
             } else {
                 for (Object o : socios) {
-                    Socio socio = (Socio) o;
-                    System.out.println(socio.toString());
+                    if (o instanceof Socio) {
+                        Socio socio = (Socio) o;
+                        System.out.println(socio.toString());
+                        result.add(socio);
+                    }
                 }
             }
         }
+        return result;
     }
 }

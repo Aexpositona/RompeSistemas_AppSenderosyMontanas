@@ -19,10 +19,6 @@ public class VistaMenuPrincipal {
     private VistaExcursiones vistaExcursiones;
 
 
-    VistaInscripciones vistaInscripciones = new VistaInscripciones();
-    VistaSocios vistaSocios = new VistaSocios();
-
-
     /**
      * Método constructor de la clase VistaMenuPrincipal que recibe por parámetros el controlador del menú principal.
      * @param cMenuPrincipal es el controlador del menú principal.
@@ -51,7 +47,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite ir a la vista de socios.
      */
-    public void buttonVistaSocios(){
+    public void buttonVistaSocios() throws ParseException {
         System.out.println("Navegando a la vista de socios...");
         vSocios.show();
     }
