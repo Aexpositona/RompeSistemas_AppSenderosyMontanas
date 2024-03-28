@@ -42,7 +42,7 @@ public class APPSenderosMontanas {
     public void iniciar(Datos datos) {
         // Inicializar controladores y vistas aquí
         cInscripciones = new ControlInscripciones(this, datos, vInscripciones);
-        cSocios = new ControlSocios(this, datos, vSocios);
+        cSocios = new ControlSocios(datos);
         cExcursiones = new ControlExcursiones(this, datos, vExcursiones);
 
         vInscripciones = new VistaInscripciones(cInscripciones);

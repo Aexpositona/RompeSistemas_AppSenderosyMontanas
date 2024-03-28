@@ -10,7 +10,6 @@ import java.util.Scanner;
  */
 public class VistaMenuPrincipal {
 
-    private ControlMenuPrincipal cMenuPrincipal;
     private Scanner scanner = new Scanner(System.in);
 
     private VistaSocios vSocios;
@@ -28,7 +27,6 @@ public class VistaMenuPrincipal {
      */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
 
-        this.cMenuPrincipal = cMenuPrincipal;
         this.vSocios = vSocios;
         this.vExcursiones = vExcursiones;
         this.vInscripciones = vInscripciones;

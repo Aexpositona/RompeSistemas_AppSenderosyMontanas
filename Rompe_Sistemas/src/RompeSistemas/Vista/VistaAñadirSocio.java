@@ -9,9 +9,6 @@ import java.util.Scanner;
 public class VistaAñadirSocio {
 
     //Atributos
-    private int tipoSocio;
-    private int numeroSocio;
-    private String nombre;
     private VistaSocios vistaSocios;
     private ControlSocios cSocios;
 
@@ -20,9 +17,6 @@ public class VistaAñadirSocio {
      * Método constructor de la clase VistaAñadirSocio que recibe por parámetros el tipo de socio, el número de socio y el nombre del socio
      */
     public VistaAñadirSocio(ControlSocios cSocios, VistaSocios vistaSocios) {
-        this.tipoSocio = tipoSocio;
-        this.numeroSocio = numeroSocio;
-        this.nombre = nombre;
         this.cSocios = cSocios;
         this.vistaSocios = vistaSocios;
     }

@@ -14,9 +14,6 @@ public class VistaSocios {
     private VistaListarSocios vVistaListarSocios;
     private VistaAñadirSocio vAñadirSocio;
     private ControlSocios cSocios;
-    private ControlMenuPrincipal cMenuPrincipal;
-    private VistaExcursiones vExcursiones;
-    private VistaInscripciones vInscripciones;
 
 
     /**
@@ -25,9 +22,6 @@ public class VistaSocios {
      */
     public VistaSocios(ControlSocios cSocios, ControlMenuPrincipal cMenuPrincipal, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
         this.cSocios = cSocios;
-        this.cMenuPrincipal = cMenuPrincipal;
-        this.vExcursiones = vExcursiones;
-        this.vInscripciones = vInscripciones;
         this.vAñadirSocio = new VistaAñadirSocio(cSocios, this);
         this.vVistaModificarSeguro = new VistaModificarSeguro(cSocios, this);
         this.vVistaListarSocios = new VistaListarSocios(cSocios, this);
