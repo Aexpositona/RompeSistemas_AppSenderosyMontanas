@@ -4,6 +4,8 @@ import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Vista.VistaExcursiones;
 
+import java.time.LocalDate;
+
 public class ControlExcursiones {
     // Atributos
     private Datos datos; // Instancia de Datos
@@ -49,6 +51,11 @@ public class ControlExcursiones {
         datos.listObjetos(1); // Accede al método en la instancia de Datos
     }
 
+    public void listExcursionesFechas() {
+        LocalDate fechaInicial = cDatos.pedirFecha();
+        LocalDate fechaFinal = cDatos.pedirFecha();
+        System.out.println(datos.listObjetosFecha(1,fechaInicial,fechaFinal));
+    }
 
 }
 

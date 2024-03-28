@@ -42,25 +42,25 @@ public class VistaListarExcursiones {
 
     }
 
-
+    /**
+     * Método para añadir un botón que nos permite listar las excursiones
+     */
+    public void buttonListExcursiones() {
+        cExcursiones.listExcursiones();
+    }
     /**
      * Método para añadir un botón que nos permite listar las excursiones por fecha
      */
     public void buttonListExcursionesFechas(){
-
+        cExcursiones.listExcursionesFechas();
     }
 
     /**
      * Método para añadir un botón que nos permite ir hacia atras
      */
     public void buttonAtras(){
-
+        return;
     }
-    /**
-     * Método para añadir un botón que nos permite listar las excursiones
-     */
-    public void buttonListExcursiones() {
 
-    }
 
 }
