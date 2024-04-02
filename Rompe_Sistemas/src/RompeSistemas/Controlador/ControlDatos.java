@@ -206,7 +206,7 @@ public class ControlDatos {
      *
      * @return LocalDate - Devuelve la fecha introducida por el usuario.
      */
-    public LocalDate solicitarFecha(){
+    public LocalDate pedirFecha(){
         int dia, mes, ano;
         boolean resultado = false, bisiesto;
         do {

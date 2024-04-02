@@ -2,6 +2,7 @@ package RompeSistemas.Modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Clase que representa los datos de la aplicación.
@@ -192,5 +193,24 @@ public class Datos {
             }
         }
         return result;
+    }
+
+    public List<Object> listObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
+        List<Object> result = new ArrayList<>();
+        if (tipoObjeto == 1) {
+            if (!excursiones.isEmpty()) {
+                for (Object o : excursiones) {
+                    Excursion excursion = (Excursion) o;
+                    if (excursion.getFecha().isAfter(fechaInicial) && excursion.getFecha().isBefore(fechaFinal)) {
+                        result.add(excursion);
+                    }
+                }
+            }
+            else {
+                System.out.println("No hay excursiones en la lista.");
+            }
+        }
+        return result;
+
     }
 }

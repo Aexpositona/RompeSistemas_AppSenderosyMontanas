@@ -60,7 +60,7 @@ public class VistaAddExcursion {
         while (!resultado);
         do {
             System.out.println("Introduzca la fecha de la excursión: ");
-            fecha = cDatos.solicitarFecha();
+            fecha = cDatos.pedirFecha();
         }
         while (fecha.isBefore(LocalDate.now()));
         float precio;
