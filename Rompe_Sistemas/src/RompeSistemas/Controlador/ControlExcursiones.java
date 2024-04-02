@@ -10,7 +10,7 @@ public class ControlExcursiones {
     // Atributos
     private Datos datos; // Instancia de Datos
     private ControlDatos cDatos; // Instancia de ControlDatos
-    private final VistaExcursiones vistaExcursiones; // Instancia de VistaExcursiones
+    private VistaExcursiones vistaExcursiones; // Instancia de VistaExcursiones
 
     /**
      * Constructor de ControlExcursiones.
