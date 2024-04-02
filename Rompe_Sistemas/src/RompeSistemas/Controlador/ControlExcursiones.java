@@ -51,10 +51,8 @@ public class ControlExcursiones {
         datos.listObjetos(1); // Accede al método en la instancia de Datos
     }
 
-    public void listExcursionesFechas() {
-        LocalDate fechaInicial = cDatos.pedirFecha();
-        LocalDate fechaFinal = cDatos.pedirFecha();
-        System.out.println(datos.listObjetosFecha(1,fechaInicial,fechaFinal));
+    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        datos.listObjetosFecha(1,fechaInicial,fechaFinal);
     }
 
 }

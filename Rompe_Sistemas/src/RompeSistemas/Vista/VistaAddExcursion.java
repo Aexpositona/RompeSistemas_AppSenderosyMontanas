@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
+import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.*;
 
 import java.text.ParseException;
@@ -18,6 +19,7 @@ public class VistaAddExcursion {
     private final Scanner scanner; // Scanner para leer la entrada del usuario
     private final ControlExcursiones cExcursiones; // Instancia de ControlExcursiones
     private final ControlDatos cDatos; // Instancia de ControlDatos
+    private final ControlPeticiones cPeticiones; // Instancia de ControlPeticiones
 
 
     // Constructor
@@ -27,10 +29,11 @@ public class VistaAddExcursion {
      * @param cExcursiones ControlExcursiones
      * @param cDatos ControlDatos
      */
-    public VistaAddExcursion(ControlExcursiones cExcursiones, ControlDatos cDatos){
+    public VistaAddExcursion(ControlExcursiones cExcursiones, ControlDatos cDatos, ControlPeticiones cPeticiones){
         this.cExcursiones = cExcursiones;
         this.scanner = new Scanner(System.in);
         this.cDatos = cDatos;
+        this.cPeticiones = cPeticiones;
     }
 
     /**
@@ -44,7 +47,7 @@ public class VistaAddExcursion {
         do {
             System.out.println("Introduzca el código de la excursión: ");
             codigo = scanner.nextLine();
-            resultado = cDatos.validarCodigoExcursion(codigo);
+            resultado = cDatos.checkCodigoObjeto(codigo, 1);
         }
         while (!resultado);
         do {
@@ -60,7 +63,7 @@ public class VistaAddExcursion {
         while (!resultado);
         do {
             System.out.println("Introduzca la fecha de la excursión: ");
-            fecha = cDatos.pedirFecha();
+            fecha = cPeticiones.pedirFecha();
         }
         while (fecha.isBefore(LocalDate.now()));
         float precio;
@@ -95,12 +98,11 @@ public class VistaAddExcursion {
             System.out.println("Seleccione una opción: ");
             System.out.println("1. Añadir excursión");
             System.out.println("0. Atrás");
-            String option = scanner.nextLine();
-            switch (option) {
-                case "1":
+            switch (cPeticiones.pedirEntero("Selecciona una opción (1 o 0):",0,1)) {
+                case 1:
                     buttonAddExcursion();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                     break;

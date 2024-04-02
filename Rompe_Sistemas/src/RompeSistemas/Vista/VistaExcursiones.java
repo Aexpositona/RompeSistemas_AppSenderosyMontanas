@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
+import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Excursion;
 
 import java.text.ParseException;
@@ -15,13 +16,14 @@ public class VistaExcursiones {
     private String respuesta;
     private ControlDatos cDatos;
     private ControlExcursiones cExcursiones;
+    private ControlPeticiones cPeticiones;
     private VistaMenuPrincipal vMenuPrincipal;
 
-    public VistaExcursiones(ControlExcursiones cExcursiones, ControlDatos cDatos) {
+    public VistaExcursiones(ControlExcursiones cExcursiones, ControlDatos cDatos, ControlPeticiones cPeticiones) {
         this.cExcursiones = cExcursiones;
         this.cDatos = cDatos;
-        this.vAddExcursion = new VistaAddExcursion(cExcursiones, cDatos);
-        this.vListarExcursiones = new VistaListarExcursiones(cExcursiones, cDatos);
+        this.vAddExcursion = new VistaAddExcursion(cExcursiones, cDatos, cPeticiones);
+        this.vListarExcursiones = new VistaListarExcursiones(cExcursiones, cDatos, cPeticiones);
         this.scanner = new Scanner(System.in);
     }
 
@@ -34,10 +36,10 @@ public class VistaExcursiones {
         cExcursiones.listExcursiones();
         System.out.println("Introduzca el código de la excursión a eliminar: ");
         do {
-            cDatos.validarCodigoExcursion(respuesta = scanner.nextLine());
-            cDatos.checkExcursion(respuesta);
+            cDatos.checkCodigoObjeto(respuesta = scanner.nextLine(), 1);
+            cDatos.checkObjeto(respuesta, 1);
         }
-        while (!cDatos.validarCodigoExcursion(respuesta));
+        while (!cDatos.checkCodigoObjeto(respuesta,1));
         cExcursiones.removeExcursion(respuesta);
     }
 
@@ -64,7 +66,7 @@ public class VistaExcursiones {
             System.out.println("3. Eliminar excursión");
             System.out.println("0. Atrás");
 
-            switch (cDatos.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)){
+            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)){
                 case 1:
                     buttonAddExcursion();
                     break;
