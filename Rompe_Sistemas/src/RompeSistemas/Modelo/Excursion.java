@@ -7,8 +7,7 @@ import java.time.LocalDate;
  */
 public class Excursion {
 
-    private String codigo;
-    private String descripcion;
+    private String codigo, descripcion;
     private LocalDate fecha;
     private int duracion;
     private float precio;
@@ -33,9 +32,27 @@ public class Excursion {
     }
 
     /**
-     * Constructor por defecto de la clase Excursion.
+     * Constructor de la clase Excursion que inicializa los atributos con valores por defecto.
      */
     public Excursion() {
+        this.codigo = "";
+        this.descripcion = "";
+        this.fecha = LocalDate.now();
+        this.duracion = 0;
+        this.precio = 0;
+    }
+
+    /**
+     * Constructor de la clase Excursion que recibe un objeto de la misma clase para copiar los atributos.
+     *
+     * @param excursion objeto de la clase Excursion
+     */
+    public Excursion( Excursion excursion) {
+        this.codigo = excursion.codigo;
+        this.descripcion = excursion.descripcion;
+        this.fecha = excursion.fecha;
+        this.duracion = excursion.duracion;
+        this.precio = excursion.precio;
     }
 
     // Métodos Getters
