@@ -1,19 +1,10 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 public class ControlDatos {
 
-    private Datos datos; // Agrega un campo de instancia para Datos
-    private Object O; // Agrega un campo de instancia para Object
-    private Socio socio;
-    private Inscripcion inscripcion;
-    private Excursion excursion;
-    private boolean resultado;
-    private LocalDate fecha;
-    private Scanner scanner = new Scanner(System.in);
+    private final Datos datos;
 
     // Constructor
     public ControlDatos(Datos datos) {
@@ -22,78 +13,27 @@ public class ControlDatos {
 
     // Métodos
 
-    public boolean checkTipoObjeto(Object O) {
+    public int checkTipoObjeto(Object O) {
         // Variables internas
-        this.O = O;
+        int tipoObjeto;
         // Si el objeto es un socio
         if (O instanceof Socio){
-            // Intentamos convertir el objeto a socio
-            try {
-                // Convertimos el objeto a socio
-                socio = (Socio) O;
-                // Informamos al usuario de que el objeto es un socio
-                System.out.println("El objeto es un Socio.");
-                // Registramos resultado como verdadero
-                resultado = true;
-            }
-            // Si no se puede convertir el objeto a socio
-            catch (ClassCastException e) {
-                // Informamos al usuario del error
-                System.out.println("El objeto no es un Socio.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
-            // Devolvemos el resultado
-            return resultado;
+            System.out.println("El objeto es una Excursion.");
+            tipoObjeto = 1;
         }
-        // Si el objeto es una excursión
-        else if(O instanceof Excursion){
-            // Intentamos convertir el objeto a excursión
-            try {
-                // Convertimos el objeto a excursión
-                excursion = (Excursion) O;
-                // Informamos al usuario de que el objeto es una excursión
-                System.out.println("El objeto es una Excursion.");
-                // Registramos resultado como verdadero
-                resultado = true;
-            }
-            // Si no se puede convertir el objeto a excursión
-            catch (ClassCastException e) {
-                // Informamos al usuario del error
-                System.out.println("El objeto no es una Excursion.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
-            // Devolvemos el resultado
-            return resultado;
+        else if(O instanceof Inscripcion) {
+            System.out.println("El objeto es una Inscripcion.");
+            tipoObjeto = 2;
         }
-        // Si el objeto es una inscripción
-        else if(O instanceof Inscripcion){
-            // Intentamos convertir el objeto a inscripción
-            try {
-                // Convertimos el objeto a inscripción
-                inscripcion = (Inscripcion) O;
-                // Informamos al usuario de que el objeto es una inscripción
-                System.out.println("El objeto es una Inscripcion.");
-                // Registramos resultado como verdadero
-                resultado = true;
-            }
-            // Si no se puede convertir el objeto a inscripción
-            catch (ClassCastException e) {
-                // Informamos al usuario del error
-                System.out.println("Error al convertir el objeto a Inscripcion.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
+        else if (O instanceof Excursion) {
+            System.out.println("El objeto es un Socio.");
+            tipoObjeto = 3;
         }
-        // Si no es ninguno de los objetos anteriores
-        else{
-            // Informamos al usuario del error
+        else {
             System.out.println("El objeto no es un socio, una excursión o una inscripción.");
-            // Registramos resultado como falso
-            resultado = false;
+            tipoObjeto = 0;
         }
-        return resultado;
+        return tipoObjeto;
     }
 
     /**

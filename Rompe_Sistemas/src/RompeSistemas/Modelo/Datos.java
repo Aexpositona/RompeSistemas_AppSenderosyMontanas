@@ -14,10 +14,7 @@ public class Datos {
     private Object objeto; // Objeto genérico
 
     // Un ArrayList para cada tipo de dato
-    private final ArrayList<Object> excursiones;
-    private final ArrayList<Object> inscripciones;
-    private final ArrayList<Object> socios;
-
+    private final ArrayList<Object> excursiones, inscripciones, socios;
 
     // Constructor
 
@@ -117,7 +114,6 @@ public class Datos {
      * @return Índice del objeto
      */
     public int buscarObjeto(String string, int tipoObjeto) {
-        // Buscar objeto en el ArrayList del tipo de objeto
 
         // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {

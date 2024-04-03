@@ -100,7 +100,6 @@ public class VistaAddExcursion {
             }
         }
         while (!resultado);
-        resultado = false;
         // Mientras no se introduzca una fecha válida
         do {
             // Solicitamos la fecha de la excursión

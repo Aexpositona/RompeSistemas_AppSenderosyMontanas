@@ -6,8 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ControlPeticiones {
-    private boolean resultado;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Metodo para solicitar y registrar cadena introducida por usuario.
@@ -52,7 +51,7 @@ public class ControlPeticiones {
     //Metodo para solicitar y registrar número entero introducido por usuario
     public int pedirEntero(String peticion, int min, int max) {
         //Declaramos variables internas
-        int i = 0;              //Valor introducido
+        int i;              //Valor introducido
 
         //Solicitamos valor hasta obtener valor válido
         do{
@@ -93,8 +92,7 @@ public class ControlPeticiones {
     public LocalDate pedirFecha(String peticion){
         // Variables internas
         int dia, mes, ano;
-        boolean resultado, bisiesto;
-        LocalDate fecha;
+        boolean resultado;
         // Mostramos petición
         System.out.println(peticion);
         // Mientras no se introduzca un año válido repetimos solicitud
@@ -164,7 +162,7 @@ public class ControlPeticiones {
         }
         while (!resultado);
         // Devuelve la fecha introducida
-        return fecha = LocalDate.of(ano, mes, dia);
+        return LocalDate.of(ano, mes, dia);
     }
 
     public float pedirFloat (String peticion, float min, float max){
