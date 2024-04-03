@@ -42,15 +42,19 @@ public class VistaListarExcursiones {
         System.out.println("0. Atrás");
         // Pedimos la opción
         switch (cPeticiones.pedirEntero("Introduzca una opción: ",0,2)) {
+            // Si la opción es 1, listamos las excursiones
             case 1:
                 buttonListExcursiones();
                 break;
+            // Si la opción es 2, listamos las excursiones entre dos fechas
             case 2:
                 buttonListExcursionesFechas();
                 break;
+            // Si la opción es 0, volvemos al menú de excursiones
             case 0:
                 buttonAtras();
                 break;
+            // Si la opción no es ninguna de las anteriores, mostramos un mensaje de error
             default:
                 System.out.println("Opción no válida.");
                 break;
@@ -61,6 +65,7 @@ public class VistaListarExcursiones {
      * Método que nos permite listar todas las excursiones
      */
     public void buttonListExcursiones() {
+        // Llamamos al método de ControlExcursiones que lista las excursiones
         cExcursiones.listExcursiones();
     }
 
@@ -68,8 +73,10 @@ public class VistaListarExcursiones {
      * Método que nos permite listar las excursiones entre dos fechas
      */
     public void buttonListExcursionesFechas(){
-        fechaIncial = cPeticiones.pedirFecha();
-        fechaFinal = cPeticiones.pedirFecha();
+        // Pedimos las fechas
+        fechaIncial = cPeticiones.pedirFecha("Introduzca la fecha inicial: ");
+        fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final: ");
+        // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
         cExcursiones.listExcursionesFechas(fechaIncial, fechaFinal);
     }
 
@@ -77,7 +84,9 @@ public class VistaListarExcursiones {
      * Método que nos permite ir hacia atras
      */
     public void buttonAtras(){
+        // Mostramos mensaje de vuelta
         System.out.println("Volviendo al menú de excursiones...");
+        // Salimos del menú
         return;
     }
 

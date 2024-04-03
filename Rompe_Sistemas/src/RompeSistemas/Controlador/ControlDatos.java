@@ -22,16 +22,7 @@ public class ControlDatos {
 
     // Métodos
 
-
-
-
-
-    /**
-     * Comprueba la validez de un socio.
-     *
-     * @param
-     */
-    public boolean validarObjeto(Object O) {
+    public boolean checkTipoObjeto(Object O) {
         // Variables internas
         this.O = O;
         // Si el objeto es un socio
@@ -40,13 +31,15 @@ public class ControlDatos {
             try {
                 // Convertimos el objeto a socio
                 socio = (Socio) O;
+                // Informamos al usuario de que el objeto es un socio
+                System.out.println("El objeto es un Socio.");
                 // Registramos resultado como verdadero
                 resultado = true;
             }
             // Si no se puede convertir el objeto a socio
             catch (ClassCastException e) {
                 // Informamos al usuario del error
-                System.out.println("Error al convertir el objeto a Socio.");
+                System.out.println("El objeto no es un Socio.");
                 // Registramos resultado como falso
                 resultado = false;
             }
@@ -59,13 +52,15 @@ public class ControlDatos {
             try {
                 // Convertimos el objeto a excursión
                 excursion = (Excursion) O;
+                // Informamos al usuario de que el objeto es una excursión
+                System.out.println("El objeto es una Excursion.");
                 // Registramos resultado como verdadero
                 resultado = true;
             }
             // Si no se puede convertir el objeto a excursión
             catch (ClassCastException e) {
                 // Informamos al usuario del error
-                System.out.println("Error al convertir el objeto a Excursion.");
+                System.out.println("El objeto no es una Excursion.");
                 // Registramos resultado como falso
                 resultado = false;
             }
@@ -78,6 +73,8 @@ public class ControlDatos {
             try {
                 // Convertimos el objeto a inscripción
                 inscripcion = (Inscripcion) O;
+                // Informamos al usuario de que el objeto es una inscripción
+                System.out.println("El objeto es una Inscripcion.");
                 // Registramos resultado como verdadero
                 resultado = true;
             }
@@ -150,8 +147,41 @@ public class ControlDatos {
      * @return boolean - Devuelve verdadero si el objeto existe.
      */
     // Método para comprobar si existe un objeto
-    public boolean checkObjeto(String codigo, int tipoObjeto){
-        return datos.getObjeto(datos.buscarObjeto(codigo, tipoObjeto), tipoObjeto) != null;
+    public boolean checkExistenciaObjeto(String codigo, int tipoObjeto){
+        // Variables internas
+        boolean resultado = false;
+        // Si el objeto es una excursión
+        if (tipoObjeto == 1) {
+            // Si la excursión existe
+            if (datos.getArrayList(1).contains(codigo)) {
+                // Informamos al usuario de que la excursión existe
+                System.out.println("La excursión ya existe.");
+                // Registramos resultado como verdadero
+                resultado = true;
+            }
+        }
+        // Si el objeto es una inscripción
+        else if (tipoObjeto == 2) {
+            // Si la inscripción existe
+            if (datos.getArrayList(2).contains(codigo)) {
+                // Informamos al usuario de que la inscripción existe
+                System.out.println("La inscripción ya existe.");
+                // Registramos resultado como verdadero
+                resultado = true;
+            }
+        }
+        // Si el objeto es un socio
+        else if (tipoObjeto == 3) {
+            // Si el socio existe
+            if (datos.getArrayList(3).contains(codigo)) {
+                // Informamos al usuario de que el socio existe
+                System.out.println("El socio ya existe.");
+                // Registramos resultado como verdadero
+                resultado = true;
+            }
+        }
+        // Devolvemos el resultado
+        return resultado;
     }
 
 

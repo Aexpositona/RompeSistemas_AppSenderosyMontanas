@@ -85,16 +85,18 @@ public class ControlPeticiones {
         return i;
     }
 
-
     /**
      * Solicita y registra una fecha introducida por el usuario.
      *
      * @return LocalDate - Devuelve la fecha introducida por el usuario.
      */
-    public LocalDate pedirFecha(){
+    public LocalDate pedirFecha(String peticion){
         // Variables internas
         int dia, mes, ano;
         boolean resultado, bisiesto;
+        LocalDate fecha;
+        // Mostramos petición
+        System.out.println(peticion);
         // Mientras no se introduzca un año válido repetimos solicitud
         do {
             // Solicitamos el año
@@ -162,8 +164,49 @@ public class ControlPeticiones {
         }
         while (!resultado);
         // Devuelve la fecha introducida
-        // Atributos
-        LocalDate fecha;
         return fecha = LocalDate.of(ano, mes, dia);
+    }
+
+    public float pedirFloat (String peticion, float min, float max){
+        // Variables internas
+        float f = 0.0f;
+        boolean resultado;
+        // Solicitamos el valor hasta obtener un valor válido
+        do {
+            // Intentamos registrar el valor introducido
+            try {
+                // Pedimos la introducción de las opciones concretas
+                System.out.println(peticion);
+                // Registramos el valor introducido
+                f = Float.parseFloat(scanner.nextLine());
+                // Si el valor es menor o igual a 0
+                if (f < min) {
+                    // Informamos al usuario del error
+                    System.out.println("El valor no puede ser menor que " + min + " .");
+                    resultado = false;
+                }
+                // Si el valor es mayor que 0
+                else if (f > max) {
+                    // Informamos al usuario del error
+                    System.out.println("El valor no puede ser mayor que " + max + " .");
+                    resultado = false;
+                }
+                // Si el valor es válido
+                else {
+                    // Informamos al usuario del valor introducido
+                    System.out.println("El valor introducido " + f + " es válido.");
+                    resultado = true;
+                }
+            }
+            // Si no se introduce un valor numérico
+            catch (NumberFormatException nfe) {
+                // Informamos al usuario del error
+                System.out.println("Solo puedes insertar números.");
+                resultado = false;
+            }
+        }
+        while (!resultado);
+        // Devolvemos el valor registrado
+        return f;
     }
 }

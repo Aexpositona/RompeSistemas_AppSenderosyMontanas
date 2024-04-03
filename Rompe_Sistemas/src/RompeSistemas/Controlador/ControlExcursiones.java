@@ -48,11 +48,11 @@ public class ControlExcursiones {
      *
      */
     public void listExcursiones() {
-        datos.listObjetos(1); // Accede al método en la instancia de Datos
+        datos.listToStringObjetos(1); // Accede al método en la instancia de Datos
     }
 
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
-        datos.listObjetosFecha(1,fechaInicial,fechaFinal);
+        datos.listToStringObjetosFecha(1,fechaInicial,fechaFinal).toString();
     }
 
 }

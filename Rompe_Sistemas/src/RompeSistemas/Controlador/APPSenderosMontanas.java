@@ -72,18 +72,19 @@ public class APPSenderosMontanas {
      * Inicializa los controladores y las vistas de la aplicación.
      */
     public void iniciar(Datos datos) {
-        // Inicializar controladores y vistas aquí
+        // Inicializar controladores y vistas
         cInscripciones = new ControlInscripciones(this, datos, vInscripciones);
         cSocios = new ControlSocios(datos);
         cExcursiones = new ControlExcursiones(this, datos, vExcursiones);
 
         vInscripciones = new VistaInscripciones(cInscripciones);
         vSocios = new VistaSocios(cSocios, cMenuPrincipal, vExcursiones, vInscripciones);
-        vExcursiones = new VistaExcursiones(cExcursiones, cDatos, cPeticiones);
+        vExcursiones = new VistaExcursiones(cExcursiones, cDatos, cPeticiones, vMenuPrincipal);
 
         vAddSocio = new VistaAddSocio(cSocios, vSocios);
         vVistaModificarSeguro = new VistaModificarSeguro(cSocios, vSocios);
         vVistaListarSocios = new VistaListarSocios(cSocios, vSocios);
+
         cMenuPrincipal = new ControlMenuPrincipal(this, vMenuPrincipal);
         vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, vSocios, vExcursiones, vInscripciones);
 
@@ -97,6 +98,7 @@ public class APPSenderosMontanas {
      */
     // Clase principal
     public static void main(String[] args) throws ParseException {
+        // Inicializar la aplicación
         System.out.println("Senderos de Montañas");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
@@ -111,6 +113,7 @@ public class APPSenderosMontanas {
      * @throws ParseException excepción de parseo
      */
     public void showVistaMenuPrincipal() throws ParseException {
+        // Mostrar la vista del menú principal
         vMenuPrincipal.show();
     }
 }

@@ -25,6 +25,7 @@ public class Datos {
      * Constructor de la clase Datos.
      */
     public Datos() {
+        // Inicializar los ArrayList
         excursiones = new ArrayList<>();
         inscripciones = new ArrayList<>();
         socios = new ArrayList<>();
@@ -32,20 +33,19 @@ public class Datos {
     }
 
     /**
-     * Método para obtener un ArrayList de un tipo de objeto.
+     * Método para obtener un List de un tipo de objeto.
      *
      * @param tipoObjeto Tipo de objeto
-     * @return ArrayList de objetos
+     * @return List de objetos
      */
-    public ArrayList<Object> getArrayList(int tipoObjeto) {
-        {
-            return switch (tipoObjeto) {
-                case 1 -> excursiones;
-                case 2 -> inscripciones;
-                case 3 -> socios;
-                default -> null;
-            };
-        }
+    public List<Object> getArrayList(int tipoObjeto) {
+        // Devolver el ArrayList del tipo de objeto
+        return switch (tipoObjeto) {
+            case 1 -> excursiones;
+            case 2 -> inscripciones;
+            case 3 -> socios;
+            default -> null;
+        };
     }
 
     /**
@@ -253,6 +253,67 @@ public class Datos {
         return result;
     }
 
+    public String listToStringObjetos(int tipoObjeto) {
+        // Crear una lista de objetos
+        List<Object> list = new ArrayList<>();
+        // Si el tipo de objeto es 1 (Excursión)
+        if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones está vacío
+            if (excursiones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay excursiones.");
+            }
+            // Si el ArrayList de excursiones no está vacío
+            else {
+                // Recorrer el ArrayList de excursiones
+                for (Object o : excursiones) {
+                    // Obtener la excursión
+                    Excursion excursion = (Excursion) o;
+                    // Añadir la excursión a la lista de objetos
+                    list.add(excursion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones está vacío
+            if (inscripciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay inscripciones.");
+            }
+            // Si el ArrayList de inscripciones no está vacío
+            else {
+                // Recorrer el ArrayList de inscripciones
+                for (Object o : inscripciones) {
+                    // Obtener la inscripción
+                    Inscripcion inscripcion = (Inscripcion) o;
+                    // Añadir la inscripción a la lista de objetos
+                    list.add(inscripcion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios está vacío
+            if (socios.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay socios.");
+            }
+            // Si el ArrayList de socios no está vacío
+            else {
+                // Recorrer el ArrayList de socios
+                for (Object o : socios) {
+                    // Obtener el socio
+                    Socio socio = (Socio) o;
+                    // Añadir el socio a la lista de objetos
+                    list.add(socio);
+                }
+            }
+        }
+        // Devolver la lista de objetos
+        return list.toString();
+    }
+
     /**
      * Método para listar los objetos de alguno de los ArrayList en un rango de fechas.
      *
@@ -261,9 +322,9 @@ public class Datos {
      * @param fechaFinal Fecha final
      * @return Lista de objetos
      */
-    public List<Object> listObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
+    public String listToStringObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
         // Crear una lista de objetos
-        List<Object> result = new ArrayList<>();
+        List<Object> list = new ArrayList<>();
         // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {
             // Si el ArrayList de excursiones no está vacío
@@ -275,7 +336,7 @@ public class Datos {
                     // Si la fecha de la excursión está en el rango de fechas
                     if (excursion.getFecha().isAfter(fechaInicial) && excursion.getFecha().isBefore(fechaFinal)) {
                         // Añadir la excursión a la lista de objetos
-                        result.add(excursion);
+                        list.add(excursion);
                     }
                 }
             }
@@ -286,6 +347,6 @@ public class Datos {
             }
         }
         // Devolver la lista de objetos
-        return result;
+        return list.toString();
     }
 }
