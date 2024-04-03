@@ -13,6 +13,11 @@ public class ControlDatos {
 
     // Métodos
 
+    /**
+     * Método para comprobar el tipo de objeto.
+     * @param O Recibe el objeto.
+     * @return int - Devuelve el tipo de objeto.
+     */
     public int checkTipoObjeto(Object O) {
         // Variables internas
         int tipoObjeto;

@@ -8,9 +8,7 @@ import java.time.LocalDate;
 
 public class ControlExcursiones {
     // Atributos
-    private Datos datos; // Instancia de Datos
-    private ControlDatos cDatos; // Instancia de ControlDatos
-    private VistaExcursiones vistaExcursiones; // Instancia de VistaExcursiones
+    private final Datos datos; // Instancia de Datos
 
     /**
      * Constructor de ControlExcursiones.
@@ -21,7 +19,6 @@ public class ControlExcursiones {
      */
     public ControlExcursiones(APPSenderosMontanas appSenderosMontanas, Datos datos, VistaExcursiones vExcursiones) {
         this.datos = datos;
-        this.vistaExcursiones = vExcursiones;
     }
 
     // Métodos
@@ -31,7 +28,8 @@ public class ControlExcursiones {
      * @param excursion Excursión a añadir
      */
     public void addExcursion(Excursion excursion) {
-        datos.addObjeto(excursion, 1); // Accede al método en la instancia de Datos
+        // Añadimos la excursión
+        datos.addObjeto(excursion, 1);
     }
 
     /**
@@ -40,7 +38,8 @@ public class ControlExcursiones {
      * @param codigo Código de la excursión a eliminar
      */
     public void removeExcursion(String codigo) {
-        datos.removeObjeto(codigo, 1); // Accede al método en la instancia de Datos
+        // Eliminamos la excursión
+        datos.removeObjeto(codigo, 1);
     }
 
     /**
@@ -48,11 +47,19 @@ public class ControlExcursiones {
      *
      */
     public void listExcursiones() {
-        datos.listToStringObjetos(1); // Accede al método en la instancia de Datos
+        // Mostramos las excursiones
+        System.out.println(datos.listToStringObjetos(1));
     }
 
+    /**
+     * Lista las excursiones entre dos fechas utilizando la clase Datos.
+     *
+     * @param fechaInicial Fecha inicial
+     * @param fechaFinal Fecha final
+     */
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
-        datos.listToStringObjetosFecha(1,fechaInicial,fechaFinal).toString();
+        // Mostramos las excursiones entre dos fechas
+        System.out.println(datos.listToStringObjetosFecha(1,fechaInicial,fechaFinal));
     }
 
 }
