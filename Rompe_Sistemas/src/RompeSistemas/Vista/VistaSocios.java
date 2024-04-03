@@ -12,7 +12,7 @@ public class VistaSocios {
     private VistaMenuPrincipal vistaMenuPrincipal;
     private VistaModificarSeguro vVistaModificarSeguro;
     private VistaListarSocios vVistaListarSocios;
-    private VistaAñadirSocio vAñadirSocio;
+    private VistaAddSocio vAñadirSocio;
     private ControlSocios cSocios;
 
 
@@ -22,7 +22,7 @@ public class VistaSocios {
      */
     public VistaSocios(ControlSocios cSocios, ControlMenuPrincipal cMenuPrincipal, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
         this.cSocios = cSocios;
-        this.vAñadirSocio = new VistaAñadirSocio(cSocios, this);
+        this.vAñadirSocio = new VistaAddSocio(cSocios, this);
         this.vVistaModificarSeguro = new VistaModificarSeguro(cSocios, this);
         this.vVistaListarSocios = new VistaListarSocios(cSocios, this);
         this.vistaMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, this, vExcursiones, vInscripciones);

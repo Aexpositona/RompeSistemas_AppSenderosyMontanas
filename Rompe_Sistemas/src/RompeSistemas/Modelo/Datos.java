@@ -14,10 +14,7 @@ public class Datos {
     private Object objeto; // Objeto genérico
 
     // Un ArrayList para cada tipo de dato
-    private final ArrayList<Object> excursiones;
-    private final ArrayList<Object> inscripciones;
-    private final ArrayList<Object> socios;
-
+    private final ArrayList<Object> excursiones, inscripciones, socios;
 
     // Constructor
 
@@ -25,6 +22,7 @@ public class Datos {
      * Constructor de la clase Datos.
      */
     public Datos() {
+        // Inicializar los ArrayList
         excursiones = new ArrayList<>();
         inscripciones = new ArrayList<>();
         socios = new ArrayList<>();
@@ -32,20 +30,19 @@ public class Datos {
     }
 
     /**
-     * Método para obtener un ArrayList de un tipo de objeto.
+     * Método para obtener un List de un tipo de objeto.
      *
      * @param tipoObjeto Tipo de objeto
-     * @return ArrayList de objetos
+     * @return List de objetos
      */
-    public ArrayList<Object> getArrayList(int tipoObjeto) {
-        {
-            return switch (tipoObjeto) {
-                case 1 -> excursiones;
-                case 2 -> inscripciones;
-                case 3 -> socios;
-                default -> null;
-            };
-        }
+    public List<Object> getArrayList(int tipoObjeto) {
+        // Devolver el ArrayList del tipo de objeto
+        return switch (tipoObjeto) {
+            case 1 -> excursiones;
+            case 2 -> inscripciones;
+            case 3 -> socios;
+            default -> null;
+        };
     }
 
     /**
@@ -117,40 +114,71 @@ public class Datos {
      * @return Índice del objeto
      */
     public int buscarObjeto(String string, int tipoObjeto) {
+
+        // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones está vacío
             if (excursiones.isEmpty()) {
+                // Devolver -1
                 return -1;
-            } else {
+            }
+            // Si el ArrayList de excursiones no está vacío
+            else {
+                // Recorrer el ArrayList de excursiones
                 for (int i = 0; i < excursiones.size(); i++) {
+                    // Obtener la excursión en la posición i
                     Excursion excursion = (Excursion) excursiones.get(i);
+                    // Si el código de la excursión es igual al string
                     if (excursion.getCodigo().equals(string)) {
-                        return i;
-                    }
-                }
-            }
-        } else if (tipoObjeto == 2) {
-            if (inscripciones.isEmpty()) {
-                return -1;
-            } else {
-                for (int i = 0; i < inscripciones.size(); i++) {
-                    Inscripcion inscripcion = (Inscripcion) inscripciones.get(i);
-                    if (inscripcion.getNumero() == Integer.parseInt(string)) {
-                        return i;
-                    }
-                }
-            }
-        } else if (tipoObjeto == 3) {
-            if (socios.isEmpty()) {
-                return -1;
-            } else {
-                for (int i = 0; i < socios.size(); i++) {
-                    Socio socio = (Socio) socios.get(i);
-                    if (socio.getNombre().equals(string)) {
+                        // Devolver la posición i
                         return i;
                     }
                 }
             }
         }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones está vacío
+            if (inscripciones.isEmpty()) {
+                // Devolver -1
+                return -1;
+            }
+            // Si el ArrayList de inscripciones no está vacío
+            else {
+                // Recorrer el ArrayList de inscripciones
+                for (int i = 0; i < inscripciones.size(); i++) {
+                    // Obtener la inscripción en la posición i
+                    Inscripcion inscripcion = (Inscripcion) inscripciones.get(i);
+                    // Si el número de la inscripción es igual al string
+                    if (inscripcion.getNumero() == Integer.parseInt(string)) {
+                        // Devolver la posición i
+                        return i;
+                    }
+                }
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios está vacío
+            if (socios.isEmpty()) {
+                // Devolver -1
+                return -1;
+            }
+            // Si el ArrayList de socios no está vacío
+            else {
+                // Recorrer el ArrayList de socios
+                for (int i = 0; i < socios.size(); i++) {
+                    // Obtener el socio en la posición i
+                    Socio socio = (Socio) socios.get(i);
+                    // Si el nombre del socio es igual al string
+                    if (socio.getNombre().equals(string)) {
+                        // Devolver la posición i
+                        return i;
+                    }
+                }
+            }
+        }
+        // Devolver -1
         return -1;
     }
 
@@ -158,59 +186,163 @@ public class Datos {
      * Método para listar los objetos de alguno de los ArrayList.
      *
      * @param tipoObjeto Tipo de objeto
-     * @return
+     * @return Lista de objetos
      */
     public List<Object> listObjetos(int tipoObjeto) {
+        // Crear una lista de objetos
         List<Object> result = new ArrayList<>();
+        // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones está vacío
             if (excursiones.isEmpty()) {
+                // Mostrar mensaje
                 System.out.println("No hay excursiones.");
-            } else {
+            }
+            // Si el ArrayList de excursiones no está vacío
+            else {
+                // Recorrer el ArrayList de excursiones
                 for (Object o : excursiones) {
+                    // Obtener la excursión
                     Excursion excursion = (Excursion) o;
+                    // Añadir la excursión a la lista de objetos
                     result.add(excursion);
                 }
             }
-        } else if (tipoObjeto == 2) {
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones está vacío
             if (inscripciones.isEmpty()) {
+                // Mostrar mensaje
                 System.out.println("No hay inscripciones.");
-            } else {
+            }
+            // Si el ArrayList de inscripciones no está vacío
+            else {
+                // Recorrer el ArrayList de inscripciones
                 for (Object o : inscripciones) {
+                    // Obtener la inscripción
                     Inscripcion inscripcion = (Inscripcion) o;
+                    // Añadir la inscripción a la lista de objetos
                     result.add(inscripcion);
                 }
             }
-        } else if (tipoObjeto == 3) {
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios está vacío
             if (socios.isEmpty()) {
+                // Mostrar mensaje
                 System.out.println("No hay socios.");
-            } else {
+            }
+            // Si el ArrayList de socios no está vacío
+            else {
+                // Recorrer el ArrayList de socios
                 for (Object o : socios) {
-                    if (o instanceof Socio) {
-                        Socio socio = (Socio) o;
-                        result.add(socio);
-                    }
+                    // Obtener el socio
+                    Socio socio = (Socio) o;
+                    // Añadir el socio a la lista de objetos
+                    result.add(socio);
                 }
             }
         }
+        // Devolver la lista de objetos
         return result;
     }
 
-    public List<Object> listObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
-        List<Object> result = new ArrayList<>();
+    public String listToStringObjetos(int tipoObjeto) {
+        // Crear una lista de objetos
+        List<Object> list = new ArrayList<>();
+        // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {
-            if (!excursiones.isEmpty()) {
+            // Si el ArrayList de excursiones está vacío
+            if (excursiones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay excursiones.");
+            }
+            // Si el ArrayList de excursiones no está vacío
+            else {
+                // Recorrer el ArrayList de excursiones
                 for (Object o : excursiones) {
+                    // Obtener la excursión
                     Excursion excursion = (Excursion) o;
+                    // Añadir la excursión a la lista de objetos
+                    list.add(excursion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones está vacío
+            if (inscripciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay inscripciones.");
+            }
+            // Si el ArrayList de inscripciones no está vacío
+            else {
+                // Recorrer el ArrayList de inscripciones
+                for (Object o : inscripciones) {
+                    // Obtener la inscripción
+                    Inscripcion inscripcion = (Inscripcion) o;
+                    // Añadir la inscripción a la lista de objetos
+                    list.add(inscripcion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios está vacío
+            if (socios.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay socios.");
+            }
+            // Si el ArrayList de socios no está vacío
+            else {
+                // Recorrer el ArrayList de socios
+                for (Object o : socios) {
+                    // Obtener el socio
+                    Socio socio = (Socio) o;
+                    // Añadir el socio a la lista de objetos
+                    list.add(socio);
+                }
+            }
+        }
+        // Devolver la lista de objetos
+        return list.toString();
+    }
+
+    /**
+     * Método para listar los objetos de alguno de los ArrayList en un rango de fechas.
+     *
+     * @param tipoObjeto Tipo de objeto
+     * @param fechaInicial Fecha inicial
+     * @param fechaFinal Fecha final
+     * @return Lista de objetos
+     */
+    public String listToStringObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
+        // Crear una lista de objetos
+        List<Object> list = new ArrayList<>();
+        // Si el tipo de objeto es 1 (Excursión)
+        if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones no está vacío
+            if (!excursiones.isEmpty()) {
+                // Recorrer el ArrayList de excursiones
+                for (Object o : excursiones) {
+                    // Obtener la excursión
+                    Excursion excursion = (Excursion) o;
+                    // Si la fecha de la excursión está en el rango de fechas
                     if (excursion.getFecha().isAfter(fechaInicial) && excursion.getFecha().isBefore(fechaFinal)) {
-                        result.add(excursion);
+                        // Añadir la excursión a la lista de objetos
+                        list.add(excursion);
                     }
                 }
             }
+            // Si el ArrayList de excursiones está vacío
             else {
+                // Mostrar mensaje
                 System.out.println("No hay excursiones en la lista.");
             }
         }
-        return result;
-
+        // Devolver la lista de objetos
+        return list.toString();
     }
 }

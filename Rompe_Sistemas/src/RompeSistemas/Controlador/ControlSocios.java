@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ControlSocios {
 
     // Atributos
-    private Datos datos;
+    private final Datos datos;
 
     /**
      * Constructor de ControlSocios.

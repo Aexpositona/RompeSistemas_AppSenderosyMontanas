@@ -1,7 +1,7 @@
 package RompeSistemas.Controlador;
+
 import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.*;
-
 import java.text.ParseException;
 
 /**
@@ -18,18 +18,50 @@ public class APPSenderosMontanas {
      * Controlador de inscripciones.
      */
     public ControlInscripciones cInscripciones;
+    /**
+     * Controlador de socios.
+     */
     public ControlSocios cSocios;
+    /**
+     * Controlador de excursiones.
+     */
     public ControlExcursiones cExcursiones;
+    /**
+     * Controlador de datos.
+     */
     public ControlDatos cDatos;
+    /**
+     * Controlador de peticiones.
+     */
+    public ControlPeticiones cPeticiones;
+    /**
+     * Vista del menú principal.
+     */
     public VistaMenuPrincipal vMenuPrincipal;
+    /**
+     * Vista de inscripciones.
+     */
     public VistaInscripciones vInscripciones;
+    /**
+     * Vista de socios.
+     */
     public VistaSocios vSocios;
+    /**
+     * Vista de excursiones.
+     */
     public VistaExcursiones vExcursiones;
-    public Datos datos;
-    public VistaAñadirSocio vAñadirSocio;
+    /**
+     * Vista de añadir socio.
+     */
+    public VistaAddSocio vAddSocio;
+    /**
+     * Vista de modificar seguro.
+     */
     public VistaModificarSeguro vVistaModificarSeguro;
+    /**
+     * Vista de listar socios.
+     */
     public VistaListarSocios vVistaListarSocios;
-
 
     // Métodos
 
@@ -40,18 +72,19 @@ public class APPSenderosMontanas {
      * Inicializa los controladores y las vistas de la aplicación.
      */
     public void iniciar(Datos datos) {
-        // Inicializar controladores y vistas aquí
+        // Inicializar controladores y vistas
         cInscripciones = new ControlInscripciones(this, datos, vInscripciones);
         cSocios = new ControlSocios(datos);
         cExcursiones = new ControlExcursiones(this, datos, vExcursiones);
 
         vInscripciones = new VistaInscripciones(cInscripciones);
         vSocios = new VistaSocios(cSocios, cMenuPrincipal, vExcursiones, vInscripciones);
-        vExcursiones = new VistaExcursiones(cExcursiones, cDatos);
+        vExcursiones = new VistaExcursiones(cExcursiones, cDatos, cPeticiones, vMenuPrincipal);
 
-        vAñadirSocio = new VistaAñadirSocio(cSocios, vSocios);
+        vAddSocio = new VistaAddSocio(cSocios, vSocios);
         vVistaModificarSeguro = new VistaModificarSeguro(cSocios, vSocios);
         vVistaListarSocios = new VistaListarSocios(cSocios, vSocios);
+
         cMenuPrincipal = new ControlMenuPrincipal(this, vMenuPrincipal);
         vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, vSocios, vExcursiones, vInscripciones);
 
@@ -63,9 +96,9 @@ public class APPSenderosMontanas {
      * @throws ParseException excepción de parseo
      * Llama al método show de la vista del menú principal.
      */
-
     // Clase principal
     public static void main(String[] args) throws ParseException {
+        // Inicializar la aplicación
         System.out.println("Senderos de Montañas");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
@@ -80,7 +113,7 @@ public class APPSenderosMontanas {
      * @throws ParseException excepción de parseo
      */
     public void showVistaMenuPrincipal() throws ParseException {
+        // Mostrar la vista del menú principal
         vMenuPrincipal.show();
-
     }
 }
