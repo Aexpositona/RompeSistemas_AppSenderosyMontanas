@@ -63,7 +63,6 @@ public class ControlSocios {
     }
 
     // Setters
-
     public void setApp(APPSenderosMontanas app) {
         this.app = app;
     }
