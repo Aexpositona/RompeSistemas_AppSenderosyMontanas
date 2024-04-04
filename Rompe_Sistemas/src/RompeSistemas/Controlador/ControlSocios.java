@@ -102,19 +102,6 @@ public class ControlSocios {
 
     public void addFederado() {
 
-        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
-
-        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-
-        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-
-        String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-
-        Object federacion = app.datos.getObjeto(2, app.datos.buscarObjeto(codigoFederacion,2));
-        
-        Federado nuevoSocio = new Federado(nombre, numero, nif, (Federacion) federacion);
-
-        app.datos.addObjeto(nuevoSocio, 3);
     }
 
     public void addInfantil() {
