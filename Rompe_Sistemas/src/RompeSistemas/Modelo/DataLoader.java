@@ -7,14 +7,14 @@ import java.time.LocalDate;
  */
 public class DataLoader {
     // Atributos
-    private final Datos datos;
+    private Datos datos;
     // Métodos constructores
     public DataLoader(Datos datos) {
         this.datos = datos;
     }
 
     // Método de carga principal
-    public void load() {
+    public void load(Datos datos) {
         // Cargar datos de ejemplo mediante métodos privados
         // Cargar socios
         loadSocios();

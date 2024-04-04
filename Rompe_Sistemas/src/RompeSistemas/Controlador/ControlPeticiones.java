@@ -6,7 +6,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ControlPeticiones {
-    private final Scanner scanner = new Scanner(System.in);
+    // Atributos    
+    private Scanner scanner = new Scanner(System.in);
+
+    // Constructores
+    public ControlPeticiones() {
+    }
+
+    // Métodos
 
     /**
      * Metodo para solicitar y registrar cadena introducida por usuario.
@@ -206,5 +213,57 @@ public class ControlPeticiones {
         while (!resultado);
         // Devolvemos el valor registrado
         return f;
+    }
+
+    public String pedirNIF (String peticion){
+        // Variables internas
+        String nif;
+        boolean resultado = false;
+        // Solicitamos el valor hasta obtener un valor válido
+        do {
+            // Pedimos la introducción de las opciones concretas
+            System.out.println(peticion);
+            // Registramos el valor introducido
+            nif = scanner.nextLine();
+            // Si el valor introducido no tiene 9 caracteres
+            if (nif.length() != 9) {
+                // Informamos al usuario del error
+                System.out.println("El NIF debe tener 9 caracteres.");
+                resultado = false;
+            }
+            // Si el valor introducido tiene 9 caracteres
+            else {
+                // Comprobamos que los 8 primeros caracteres sean numéricos
+                for (int i = 0; i < 8; i++) {
+                    // Si el caracter no es numérico
+                    if (!Character.isDigit(nif.charAt(i))) {
+                        // Informamos al usuario del error
+                        System.out.println("Los 8 primeros caracteres del NIF deben ser numéricos.");
+                        resultado = false;
+                        break;
+                    }
+                    // Si el caracter es numérico
+                    else {
+                        resultado = true;
+                    }
+                }
+                // Si los 8 primeros caracteres son numéricos
+                if (resultado) {
+                    // Comprobamos que el último caracter sea una letra
+                    if (!Character.isLetter(nif.charAt(8))) {
+                        // Informamos al usuario del error
+                        System.out.println("El último caracter del NIF debe ser una letra.");
+                        resultado = false;
+                    }
+                    // Si el último caracter es una letra
+                    else {
+                        resultado = true;
+                    }
+                }
+            }
+        }
+        while (!resultado);
+        // Devolvemos el valor registrado
+        return nif;
     }
 }

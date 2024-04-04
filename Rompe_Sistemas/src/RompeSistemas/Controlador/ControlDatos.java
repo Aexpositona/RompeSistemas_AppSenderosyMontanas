@@ -4,11 +4,13 @@ import RompeSistemas.Modelo.*;
 
 public class ControlDatos {
 
+    // Atributos
     private final Datos datos;
 
+
     // Constructor
-    public ControlDatos(Datos datos) {
-        this.datos = datos;
+    public ControlDatos(APPSenderosMontanas app) {
+        this.datos = app.datos;
     }
 
     // Métodos
@@ -26,18 +28,22 @@ public class ControlDatos {
             System.out.println("El objeto es una Excursion.");
             tipoObjeto = 1;
         }
+        // Si el objeto es una inscripción
         else if(O instanceof Inscripcion) {
             System.out.println("El objeto es una Inscripcion.");
             tipoObjeto = 2;
         }
+        // Si el objeto es una excursión
         else if (O instanceof Excursion) {
             System.out.println("El objeto es un Socio.");
             tipoObjeto = 3;
         }
+        // Si el objeto no es un socio, una excursión o una inscripción
         else {
             System.out.println("El objeto no es un socio, una excursión o una inscripción.");
             tipoObjeto = 0;
         }
+        // Devolvemos el tipo de objeto
         return tipoObjeto;
     }
 

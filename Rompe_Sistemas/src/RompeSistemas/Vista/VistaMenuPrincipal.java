@@ -25,11 +25,10 @@ public class VistaMenuPrincipal {
      * @param vExcursiones es la vista de excursiones.
      * @param vInscripciones es la vista de inscripciones.
      */
-    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
-
-        this.vSocios = vSocios;
-        this.vExcursiones = vExcursiones;
-        this.vInscripciones = vInscripciones;
+    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
+        this.vSocios = cMenuPrincipal.getVistaSocios();
+        this.vExcursiones = cMenuPrincipal.getVistaExcursiones();
+        this.vInscripciones = cMenuPrincipal.getVistaInscripciones();
     }
 
 
