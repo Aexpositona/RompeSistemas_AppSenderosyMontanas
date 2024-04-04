@@ -3,19 +3,17 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Modelo.Excursion;
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class VistaExcursiones {
 
     // Atributos
-    public VistaAddExcursion vAddExcursion;
-    public VistaListarExcursiones vListarExcursiones;
-    private final ControlDatos cDatos;
-    private final ControlExcursiones cExcursiones;
-    private final ControlPeticiones cPeticiones;
-    private final VistaMenuPrincipal vMenuPrincipal;
+    private VistaAddExcursion vAddExcursion;
+    private VistaListarExcursiones vListarExcursiones;
+    private ControlDatos cDatos;
+    private ControlExcursiones cExcursiones;
+    private ControlPeticiones cPeticiones;
+    private VistaMenuPrincipal vMenuPrincipal;
 
     /**
      * Constructor de VistaExcursiones.
@@ -26,14 +24,11 @@ public class VistaExcursiones {
      * @param vMenuPrincipal VistaMenuPrincipal asociada a la vista.
      */
     // Constructor
-    public VistaExcursiones(ControlExcursiones cExcursiones, ControlDatos cDatos, ControlPeticiones cPeticiones, VistaMenuPrincipal vMenuPrincipal) {
+    public VistaExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.cDatos = cDatos;
-        this.vMenuPrincipal = vMenuPrincipal;
-        this.vAddExcursion = new VistaAddExcursion(cExcursiones, cDatos, cPeticiones);
-        this.vListarExcursiones = new VistaListarExcursiones(cExcursiones, cDatos, cPeticiones);
-        Scanner scanner = new Scanner(System.in);
-        this.cPeticiones = cPeticiones;
+        this.cDatos = cExcursiones.getApp().cDatos;
+        this.cPeticiones = cExcursiones.getApp().cPeticiones;
+        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
     }
 
     /**
@@ -125,15 +120,6 @@ public class VistaExcursiones {
         System.out.println("Accediendo a la vista de listar excursiones...");
         // Mostramos la vista de listar excursiones
         vListarExcursiones.show();
-    }
-
-    /**
-     * Método para calcular el precio de una excursión.
-     * @param excursion Excursión a calcular.
-     * @return Precio de la excursión.
-     */
-    private float precioExcursion(Excursion excursion){
-        return 0.0f;
     }
 
     /**

@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class VistaSocios {
 
-
-    private VistaMenuPrincipal vistaMenuPrincipal;
     private VistaModificarSeguro vVistaModificarSeguro;
     private VistaListarSocios vVistaListarSocios;
     private VistaAddSocio vAñadirSocio;
@@ -20,19 +18,18 @@ public class VistaSocios {
      * Método constructor de la clase VistaSocios que recibe por parámetros el controlador de socios
      * @param cSocios es el controlador de socios
      */
-    public VistaSocios(ControlSocios cSocios, ControlMenuPrincipal cMenuPrincipal, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
+    public VistaSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
-        this.vAñadirSocio = new VistaAddSocio(cSocios, this);
-        this.vVistaModificarSeguro = new VistaModificarSeguro(cSocios, this);
-        this.vVistaListarSocios = new VistaListarSocios(cSocios, this);
-        this.vistaMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, this, vExcursiones, vInscripciones);
+        this.vVistaModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vVistaListarSocios = cSocios.getVistaListarSocios();
+        this.vAñadirSocio = cSocios.getVistaAddSocio();
+  
     }
 
     /**
      * Método para mostrar la vista de socios
      */
     public void show() throws ParseException {
-        Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
             System.out.println("Seleccione una opción: ");
@@ -42,8 +39,7 @@ public class VistaSocios {
             System.out.println("4. Listar socios");
             System.out.println("5. Mostrar factura mensual de los socios");
             System.out.println("0. Atrás");
-            String option = scanner.nextLine();
-            switch (option) {
+            switch () {
                 case "1":
                     buttonAddSocio();
                     break;

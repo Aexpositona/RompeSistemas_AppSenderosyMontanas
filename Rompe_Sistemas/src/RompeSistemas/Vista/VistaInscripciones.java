@@ -1,117 +1,95 @@
 package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
+import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Modelo.Datos;
 
-import java.util.Scanner;
-
+/**
+ * Vista de inscripciones de la aplicación.
+ *
+ */
 public class VistaInscripciones {
-
-
     //Atributos
-    //public VistaAñadirInscripcion vVistaAñadirInscripcion;
-
-    //public VistaListarInscripciones vVistaListarInscripciones;
-    VistaListarInscripciones vVistaListarInscripciones = new VistaListarInscripciones();
-    VistaAñadirInscripcion vVistaAñadirInscripcion = new VistaAñadirInscripcion();
-    private Scanner scan = new Scanner(System.in);
-
+    private ControlInscripciones cInscripciones;
+    private VistaListarInscripciones vListarInscripciones; 
+    private VistaAddInscripcion vAñadirInscripcion;
+    private ControlPeticiones cPeticiones;
+    private Datos datos;
 
     //Constructores
     /**
      * Método constructor de la clase VistaInscripciones que recibe por parámetros la vista de añadir inscripción y la vista de listar inscripciones
      *
-     * @param vVistaAñadirInscripcion   es la vista de añadir inscripción
-     * @param vVistaListarInscripciones es la vista de listar inscripciones
+     * @param vAñadirInscripcion   es la vista de añadir inscripción
+     * @param vListarInscripciones es la vista de listar inscripciones
      */
-    public VistaInscripciones(VistaAñadirInscripcion vVistaAñadirInscripcion, VistaListarInscripciones vVistaListarInscripciones) {
-        this.vVistaAñadirInscripcion = vVistaAñadirInscripcion;
-        this.vVistaListarInscripciones = vVistaListarInscripciones;
-    }
-
-    /**
-     * Constructor por defecto de la clase VistaInscripciones
-     */
-    public VistaInscripciones() {
+    public VistaInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+        this.vAñadirInscripcion = cInscripciones.getVistaAddInscripcion();
+        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
+        this.cPeticiones = cInscripciones.getApp().cPeticiones;
+        this.datos = cInscripciones.getApp().datos;
     }
 
     //Métodos
-    public VistaInscripciones(ControlInscripciones cInscripciones) {
-    }
-
 
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
     public void buttonAddInscripcion() {
-
-        vVistaAñadirInscripcion.show();
         System.out.println("Navegando a la vista de añadir inscripción");
+        vAñadirInscripcion.show();
     }
 
     /**
      * Método para añadir un botón que nos permite listar las inscripciones
      */
     public void buttonRemoveInscripcion() {
+        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(cPeticiones.pedirString("Introduce el número de inscripción a eliminar: "), 2)), 2);
 
     }
 
     /**
      * Método para añadir un botón que nos permite listar las inscripciones
      */
-    public void buttonAListInscripciones() {
-        vVistaListarInscripciones.show();
+    public void buttonMenuListInscripciones() {
         System.out.println("Navegando a la vista de listar inscripciones");
-
-    }
-
-    /**
-     * Método para añadir un botón que nos permite mostrar la información de las inscripciones
-     */
-    public void showInfo() {
-
+        vListarInscripciones.show();
     }
 
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
-
-    }
-
-    public void buttonRemoveInscripciones() {
-
+        System.out.println("Volviendo al menú principal");
+        return;
     }
 
     public void show() {
-
+        // Variables internas
         boolean running = true;
-
+        // Mientras la aplicación esté en ejecución
         while (running) {
-
-
             System.out.println("\n........MENÚ INSCRIPCIONES........\n");
             System.out.println("Seleccione una opción: ");
             System.out.println("0. Salir");
             System.out.println("1. Añadir inscripción");
-            System.out.println("2. Listar inscripción");
-            System.out.println("3. Mostrar info de las inscripciones");
+            System.out.println("2. Menú Listar inscripciónes");
+            System.out.println("3. Eliminar inscripción");
 
-
-            switch (scan.nextLine()) {
-                case "1":
+            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)) {
+                case 1:
                     buttonAddInscripcion();
                     break;
 
-                case "2":
-                    buttonAListInscripciones();
+                case 2:
+                    buttonMenuListInscripciones();
                     break;
-                case "3":
-                    showInfo();
+                case 3:
+                    buttonRemoveInscripcion();
                     break;
-                case "4":
-                    buttonRemoveInscripciones();
-                    break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                 default:

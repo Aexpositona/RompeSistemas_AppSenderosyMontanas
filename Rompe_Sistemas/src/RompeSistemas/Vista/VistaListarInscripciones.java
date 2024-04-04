@@ -1,36 +1,22 @@
 package RompeSistemas.Vista;
 
-import java.util.Date;
-import java.util.Scanner;
+import RompeSistemas.Controlador.ControlInscripciones;
+import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Controlador.ControlDatos;
 
 public class VistaListarInscripciones {
 
 
     //Atributos
-    private int numeroSocio;
-    private Date FechaInicial;
-    private Date FechaFinal;
-    private String tboxListado;
-    private Scanner scan = new Scanner(System.in);
+    private ControlInscripciones cInscripciones;
+    private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
 
-    /**
-     * Método constructor de la clase VistaListarInscripciones que recibe por parámetros el número de socio, la fecha inicial, la fecha final y el listado de inscripciones
-     * @param numeroSocio es el número de socio
-     * @param fechaInicial es la fecha inicial
-     * @param fechaFinal es la fecha final
-     * @param tboxListado es el listado de inscripciones
-     */
-    public VistaListarInscripciones(int numeroSocio, Date fechaInicial, Date fechaFinal, String tboxListado) {
-        this.numeroSocio = numeroSocio;
-        FechaInicial = fechaInicial;
-        FechaFinal = fechaFinal;
-        this.tboxListado = tboxListado;
-    }
+    public VistaListarInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+        this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.cDatos = cInscripciones.getApp().cDatos;
 
-    /**
-     * Constructor por defecto de la clase VistaListarInscripciones
-     */
-    public VistaListarInscripciones() {
     }
 
     //Métodos
@@ -38,46 +24,46 @@ public class VistaListarInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones de un usuario
 
      */
-    public void buttonListInscripcionesUsuario(){
-
+    public void buttonListInscripcionesSocio(){
+        cInscripciones.listInscripcionesSocio(3, cPeticiones.pedirString("Introduzca el id del socio: "));
     }
 
     /**
      * Método para añadir un botón que nos permite listar las inscripciones por fechas
      */
     public void buttonListInscripcionesFechas(){
-
+        cInscripciones.listInscripcionesFechas(cPeticiones.pedirFecha("Introduzca la fecha inicial: "), cPeticiones.pedirFecha("Introduzca la fecha final: "));
     }
 
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
-
+        System.out.println("Volviendo al menú inscripciones...");
+        return;
     }
 
     public void show() {
 
+        // Variables internas
         boolean running = true;
-
+        // Mientras no se seleccione la opción de volver atrás
         while (running) {
-
-
+            // Mostramos el menú de listar inscripciones
             System.out.println("........MENÚ LISTAR INSCRIPCIONES........\n");
             System.out.println("Seleccione una opción: ");
-            System.out.println("0. Atrás");
             System.out.println("1. Listar inscripción por usuario");
             System.out.println("2. Listar inscripción por fechas");
+            System.out.println("0. Atrás");
 
-            switch (scan.nextLine()) {
-                case "1":
-                    buttonListInscripcionesUsuario();
+            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 2)) {
+                case 1:
+                    buttonListInscripcionesSocio();
                     break;
-
-                case "2":
+                case 2:
                     buttonListInscripcionesFechas();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                 default:

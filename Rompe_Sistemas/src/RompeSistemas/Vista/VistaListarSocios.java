@@ -11,16 +11,9 @@ public class VistaListarSocios {
     // Atributos
     private ControlSocios cSocios;
 
-    private VistaSocios vistaSocios;
-    private List<Socio> socios;
 
-    /**
-     * Método constructor de la clase VistaListarSocios que recibe por parámetros el tipo de socio y el listado de socios
-     */
-    public VistaListarSocios(ControlSocios cSocios, VistaSocios vistaSocios) {
+    public VistaListarSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
-
-        this.vistaSocios = vistaSocios;
     }
 
 
@@ -28,14 +21,12 @@ public class VistaListarSocios {
      * Método para mostrar la vista de listar socios
      */
     public void show() throws ParseException {
-        Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
             System.out.println("Seleccione una opción: ");
             System.out.println("1. Listar tipos de socios");
             System.out.println("2. Listar socios");
             System.out.println("0. Atrás");
-            String option = scanner.nextLine();
             switch (option) {
                 case "1":
                     buttonListTipoSocio();

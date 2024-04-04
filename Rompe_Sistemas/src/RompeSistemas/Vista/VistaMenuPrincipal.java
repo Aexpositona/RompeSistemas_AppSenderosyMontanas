@@ -1,38 +1,31 @@
 package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlMenuPrincipal;
-
+import RompeSistemas.Controlador.ControlPeticiones;
 import java.text.ParseException;
-import java.util.Scanner;
 
 /**
  * Clase que representa la vista del menú principal.
  */
 public class VistaMenuPrincipal {
 
-    private Scanner scanner = new Scanner(System.in);
-
+    // Atributos
     private VistaSocios vSocios;
     private VistaExcursiones vExcursiones;
     private VistaInscripciones vInscripciones;
-    private VistaExcursiones vistaExcursiones;
-
+    private ControlPeticiones cPeticiones;
 
     /**
-     * Método constructor de la clase VistaMenuPrincipal que recibe por parámetros el controlador del menú principal.
-     * @param cMenuPrincipal es el controlador del menú principal.
-     * @param vSocios es la vista de socios.
-     * @param vExcursiones es la vista de excursiones.
-     * @param vInscripciones es la vista de inscripciones.
+     * Constructor de la clase VistaMenuPrincipal.
+     *
+     * @param cMenuPrincipal ControlMenuPrincipal
      */
-    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, VistaSocios vSocios, VistaExcursiones vExcursiones, VistaInscripciones vInscripciones) {
-
-        this.vSocios = vSocios;
-        this.vExcursiones = vExcursiones;
-        this.vInscripciones = vInscripciones;
+    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
+        this.vSocios = cMenuPrincipal.getVistaSocios();
+        this.vExcursiones = cMenuPrincipal.getVistaExcursiones();
+        this.vInscripciones = cMenuPrincipal.getVistaInscripciones();
+        this.cPeticiones = cMenuPrincipal.getControlPeticiones();
     }
-
-
 
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
@@ -63,7 +56,7 @@ public class VistaMenuPrincipal {
      */
     public static void buttonVistaSalir(){
         System.out.println("Saliendo de la aplicación...");
-        System.exit(0);
+        return;
     }
 
     /**
@@ -78,17 +71,17 @@ public class VistaMenuPrincipal {
             System.out.println("2. Socios");
             System.out.println("3. Excursiones");
 
-            switch (scanner.nextLine()) {
-                case "1":
+            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
+                case 1:
                     buttonVistaInscripciones();
                     break;
-                case "2":
+                case 2:
                     buttonVistaSocios();
                     break;
-                case "3":
+                case 3:
                     buttonVistaExcursiones();
                     break;
-                case "0":
+                case 0:
                     buttonVistaSalir();
                     running = false;
                     break;

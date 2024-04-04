@@ -310,6 +310,67 @@ public class Datos {
         return list.toString();
     }
 
+    public String listToStringObjetosCodigo(int tipoObjeto, String codigo) {
+        // Crear una lista de objetos
+        List<Object> list = new ArrayList<>();
+        // Si el tipo de objeto es 1 (Excursión)
+        if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones está vacío
+            if (excursiones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay excursiones.");
+            }
+            // Si el ArrayList de excursiones no está vacío
+            else {
+                // Recorrer el ArrayList de excursiones
+                for (Object o : excursiones) {
+                    // Si el código de con el código
+                    Excursion excursion = (Excursion) o;
+                    // Añadir la excursión a la lista de objetos
+                    list.add(excursion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones está vacío
+            if (inscripciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay inscripciones.");
+            }
+            // Si el ArrayList de inscripciones no está vacío
+            else {
+                // Recorrer el ArrayList de inscripciones
+                for (Object o : inscripciones) {
+                    // Obtener la inscripción
+                    Inscripcion inscripcion = (Inscripcion) o;
+                    // Añadir la inscripción a la lista de objetos
+                    list.add(inscripcion);
+                }
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios está vacío
+            if (socios.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay socios.");
+            }
+            // Si el ArrayList de socios no está vacío
+            else {
+                // Recorrer el ArrayList de socios
+                for (Object o : socios) {
+                    // Obtener el socio
+                    Socio socio = (Socio) o;
+                    // Añadir el socio a la lista de objetos
+                    list.add(socio);
+                }
+            }
+        }
+        // Devolver la lista de objetos
+        return list.toString();
+    }
+
     /**
      * Método para listar los objetos de alguno de los ArrayList en un rango de fechas.
      *
@@ -318,7 +379,7 @@ public class Datos {
      * @param fechaFinal Fecha final
      * @return Lista de objetos
      */
-    public String listToStringObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
+    public String listToStringObjetosFechas(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
         // Crear una lista de objetos
         List<Object> list = new ArrayList<>();
         // Si el tipo de objeto es 1 (Excursión)

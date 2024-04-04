@@ -1,6 +1,5 @@
 package RompeSistemas.Vista;
 
-import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import java.time.LocalDate;
@@ -11,11 +10,9 @@ import java.time.LocalDate;
 public class VistaListarExcursiones {
     // Atributos
     private ControlExcursiones cExcursiones;
-    private ControlDatos cDatos;
     private ControlPeticiones cPeticiones;
     private LocalDate fechaIncial;
     private LocalDate fechaFinal;
-    private String tboxListado;
 
     /**
      * Constructor de VistaListarExcursiones.
@@ -24,10 +21,9 @@ public class VistaListarExcursiones {
      * @param cDatos ControlDatos asociado a la vista.
      */
     // Constructor
-    public VistaListarExcursiones(ControlExcursiones cExcursiones, ControlDatos cDatos, ControlPeticiones cPeticiones) {
+    public VistaListarExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.cDatos = cDatos;
-        this.cPeticiones = cPeticiones;
+        this.cPeticiones = cExcursiones.getApp().cPeticiones;
     }
 
     /**

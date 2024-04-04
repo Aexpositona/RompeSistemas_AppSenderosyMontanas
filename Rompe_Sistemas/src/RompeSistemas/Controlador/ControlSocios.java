@@ -1,86 +1,130 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
-
-import java.util.Collections;
+import RompeSistemas.Vista.VistaSocios;
+import RompeSistemas.Vista.VistaModificarSeguro;
+import RompeSistemas.Vista.VistaListarSocios;
+import RompeSistemas.Vista.VistaAddSocio;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.text.ParseException;
+import java.util.Collections;
+
 
 public class ControlSocios {
 
     // Atributos
-    private final Datos datos;
+    private APPSenderosMontanas app;
+    private VistaSocios vSocios;
+    private VistaModificarSeguro vModificarSeguro;
+    private VistaListarSocios vListarSocios;
+    private VistaAddSocio vAddSocio;
+    private ControlPeticiones cPeticiones;
+    private Datos datos;
 
     /**
      * Constructor de ControlSocios.
      *
      */
-    public ControlSocios(Datos datos) {
-        this.datos = datos;
+    public ControlSocios(APPSenderosMontanas app) {
+        this.app = app;
+        this.vSocios = new VistaSocios(this);
+        this.vModificarSeguro = new VistaModificarSeguro(this);
+        this.vListarSocios = new VistaListarSocios(this);
+        this.vAddSocio = new VistaAddSocio(this);
+        this.cPeticiones = app.cPeticiones;
+        this.datos = app.datos;
+    }
+
+    // Getters
+
+    public APPSenderosMontanas getApp() {
+        return app;
+    }
+
+    public VistaSocios getVistaSocios() {
+        return vSocios;
+    }
+
+    public VistaModificarSeguro getVistaModificarSeguro() {
+        return vModificarSeguro;
+    }
+
+    public VistaListarSocios getVistaListarSocios() {
+        return vListarSocios;
+    }
+
+    public VistaAddSocio getVistaAddSocio() {
+        return vAddSocio;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    // Setters
+
+    public void setApp(APPSenderosMontanas app) {
+        this.app = app;
+    }
+
+    public void setVistaSocios(VistaSocios vSocios) {
+        this.vSocios = vSocios;
+    }
+
+    public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
+        this.vModificarSeguro = vModificarSeguro;
+    }
+
+    public void setVistaListarSocios(VistaListarSocios vListarSocios) {
+        this.vListarSocios = vListarSocios;
+    }
+
+    public void setVistaAddSocio(VistaAddSocio vAddSocio) {
+        this.vAddSocio = vAddSocio;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
     }
 
     // Métodos
 
+    public void show() throws ParseException{
+        vSocios.show();
+    }
 
 
+    public void addSocio(int tipoSocio, Object socio) {
+
+        datos.addObjeto(socio, 3);
+    }
 
     public void addFederado() {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce el nombre del socio:");
-        String nombre = scanner.nextLine();
-
-        System.out.println("Introduce el número del socio:");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Introduce el NIF del socio:");
-        String nif = scanner.nextLine();
-
-        System.out.println("Introduce el nombre de la federación a la que pertenece el socio:");
-        String nombreFederacion = scanner.nextLine();
-
-        System.out.println("Introduce el código de la federación a la que pertenece el socio:");
-        String codigoFederacion = scanner.nextLine();
-
-        Federacion federacion = new Federacion(codigoFederacion, nombreFederacion);
-
-        Federado nuevoSocio = new Federado(nombre, numero, nif, federacion);
-        datos.addObjeto(nuevoSocio, 3);
     }
 
     public void addInfantil() {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce el nombre del socio:");
-        String nombre = scanner.nextLine();
+        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
 
-        System.out.println("Introduce el número del socio:");
-        int numero = scanner.nextInt();
+        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
 
-        System.out.println("Introduce el número del socio del tutor:");
-        int numSocioTutor = scanner.nextInt();
+        int numSocioTutor = cPeticiones.pedirEntero("Introduce el número del socio del tutor: ", 0, Integer.MAX_VALUE);
 
         Infantil nuevoSocio = new Infantil(nombre, numero, numSocioTutor);
-        datos.addObjeto(nuevoSocio, 3);
+        app.datos.addObjeto(nuevoSocio, 3);
     }
 
     public void addEstandar() {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Introduce el nombre del socio:");
-        String nombre = scanner.nextLine();
+        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
 
-        System.out.println("Introduce el número del socio:");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
+        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
 
-        System.out.println("Introduce el NIF del socio:");
-        String nif = scanner.nextLine();
+        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
 
-        System.out.println("Selecciona el tipo de seguro (1: Básico, 2: Completo):");
-        int tipoSeguro = scanner.nextInt();
+        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
 
         Seguro seguroEstandar;
         switch (tipoSeguro) {
@@ -96,16 +140,14 @@ public class ControlSocios {
         }
 
         Estandar nuevoSocio = new Estandar(nombre, numero, nif, seguroEstandar);
-        datos.addObjeto(nuevoSocio, 3);
+        app.datos.addObjeto(nuevoSocio, 3);
     }
 
 
 
     public void removeSocio() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el número de socio que desea eliminar:");
-            int numeroSocio = scanner.nextInt();
-        Socio socioToRemove = datos.listObjetos(3).stream()
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        Socio socioToRemove = app.datos.listObjetos(3).stream()
                 .filter(obj -> obj instanceof Socio)
                 .map(obj -> (Socio) obj)
                 .filter(socio -> socio.getNumero() == numeroSocio)
@@ -113,7 +155,7 @@ public class ControlSocios {
                 .orElse(null);
 
         if (socioToRemove != null) {
-            datos.removeObjeto(socioToRemove, 3);
+            app.datos.removeObjeto(socioToRemove, 3);
         } else {
             System.out.println("No se encontró un socio con el número " + numeroSocio);
         }
@@ -121,22 +163,21 @@ public class ControlSocios {
 
     public List<Socio> listSocios() {
         // Obtiene la lista de todos los socios directamente desde los datos
-        return datos.listObjetos(3).stream()
+        return app.datos.listObjetos(3).stream()
                 .filter(obj -> obj instanceof Socio)
                 .map(obj -> (Socio) obj)
                 .collect(Collectors.toList());
     }
 
     public List<Socio> listTipoSocios() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione el tipo de socio que desea ver:");
         System.out.println("1. Estandar");
         System.out.println("2. Federado");
         System.out.println("3. Infantil");
-        int tipoSocio = scanner.nextInt();
+        int tipoSocio = cPeticiones.pedirEntero("Introduzca una opción: ", 1, 3);
 
         // Obtiene la lista de todos los socios directamente desde los datos
-        List<Socio> sociosList = datos.listObjetos(3).stream()
+        List<Socio> sociosList = app.datos.listObjetos(3).stream()
                 .filter(obj -> obj instanceof Socio)
                 .map(obj -> (Socio) obj)
                 .toList();
@@ -176,13 +217,12 @@ public class ControlSocios {
     }
 
     public void showFacturaMensualSocios() {
+
     }
+
     public void modificarSeguro() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduce el número del socio:");
-        int numeroSocio = scanner.nextInt();
-        System.out.println("Introduce el tipo de seguro (1: Básico, 2: Completo):");
-        int tipoSeguro = scanner.nextInt();
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
         Socio socio = buscarSocioPorNumero(numeroSocio);
         if (socio != null) {
             if (socio instanceof Estandar socioEstandar) {
@@ -208,7 +248,7 @@ public class ControlSocios {
     }
 
     private Socio buscarSocioPorNumero(int numeroSocio) {
-        return datos.listObjetos(3).stream()
+        return app.datos.listObjetos(3).stream()
                 .filter(obj -> obj instanceof Socio)
                 .map(obj -> (Socio) obj)
                 .filter(socio -> socio.getNumero() == numeroSocio)

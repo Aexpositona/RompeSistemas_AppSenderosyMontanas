@@ -3,11 +3,10 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Modelo.*;
+import RompeSistemas.Modelo.Excursion;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 /**
  * Clase que representa la vista para añadir una excursión.
@@ -16,10 +15,9 @@ import java.util.Scanner;
 public class VistaAddExcursion {
 
     // Atributos
-    private final Scanner scanner; // Scanner para leer la entrada del usuario
-    private final ControlExcursiones cExcursiones; // Instancia de ControlExcursiones
-    private final ControlDatos cDatos; // Instancia de ControlDatos
-    private final ControlPeticiones cPeticiones; // Instancia de ControlPeticiones
+    private ControlExcursiones cExcursiones; // Instancia de ControlExcursiones
+    private ControlDatos cDatos; // Instancia de ControlDatos
+    private ControlPeticiones cPeticiones; // Instancia de ControlPeticiones
 
 
     // Constructor
@@ -29,11 +27,10 @@ public class VistaAddExcursion {
      * @param cExcursiones ControlExcursiones
      * @param cDatos ControlDatos
      */
-    public VistaAddExcursion(ControlExcursiones cExcursiones, ControlDatos cDatos, ControlPeticiones cPeticiones){
+    public VistaAddExcursion(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.scanner = new Scanner(System.in);
-        this.cDatos = cDatos;
-        this.cPeticiones = cPeticiones;
+        this.cDatos = cExcursiones.getApp().cDatos;
+        this.cPeticiones = cExcursiones.getApp().cPeticiones;
     }
 
     /**
@@ -46,6 +43,8 @@ public class VistaAddExcursion {
         String codigo, descripcion;
         LocalDate fecha;
         float precio;
+        int dias;
+
         // Mientras no se introduzca un código válido o no se pueda añadir la excursión
         do {
             // Solicitamos el código de la excursión
@@ -108,14 +107,12 @@ public class VistaAddExcursion {
         while (fecha.isBefore(LocalDate.now()));
         // Mientras no se introduzca un precio válido
         do {
-            System.out.println("Introduzca el precio de la excursión: ");
-            precio = Float.parseFloat(scanner.nextLine());
+            precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ",0,Float.MAX_VALUE);
         }
         while (precio <= 0);
-        int dias;
         do {
             System.out.println("Introduzca los días de la excursión: ");
-            dias = Integer.parseInt(scanner.nextLine());
+            dias = cPeticiones.pedirEntero("Introduce los días de la excursión: ", 1, 100);
         }
         while (dias <= 0);
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
@@ -124,8 +121,9 @@ public class VistaAddExcursion {
     /**
      * Método para añadir un botón que nos permite cancelar la operación.
      */
-    public void buttonAtras() {
+    public void buttonAtras() throws ParseException{
         System.out.println("Volviendo al menú de excursiones...");
+        return;
     }
 
     /**

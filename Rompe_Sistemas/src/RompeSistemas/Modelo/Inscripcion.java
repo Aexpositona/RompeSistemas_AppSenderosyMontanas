@@ -2,20 +2,20 @@ package RompeSistemas.Modelo;
 
 public class Inscripcion {
     private int numero;
-    private Socio socios;
-    private Excursion excursiones;
+    private Socio socio;
+    private Excursion excursion;
 
     //Métodos constructores
     /**
-     ** Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, los socios y las excursiones.
+     ** Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, los socio y las excursion.
      * @param numero es el número que identifica la inscripción
-     * @param socios es el socio que se inscribe
-     * @param excursiones es excursión a la que se inscribe
+     * @param socio es el socio que se inscribe
+     * @param excursion es excursión a la que se inscribe
      */
-    public Inscripcion(int numero, Socio socios, Excursion excursiones) {
+    public Inscripcion(int numero, Socio socio, Excursion excursion) {
         this.numero = numero;
-        this.socios = socios;
-        this.excursiones = excursiones;
+        this.socio = socio;
+        this.excursion = excursion;
     }
 
     /**
@@ -38,32 +38,32 @@ public class Inscripcion {
      * Método get() nos devuelve el socio que se inscribe.
      * @return socio que se inscribe.
      */
-    public Socio getSocios() {
-        return socios;
+    public Socio getSocio() {
+        return socio;
     }
 
     /**
      * Método set() para definir el socio que se inscribe.
-     * @param socios socio que se inscribe.
+     * @param socio socio que se inscribe.
      */
-    public void setSocios(Socio socios) {
-        this.socios = socios;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
     /**
      * Método get() nos devuelve la excursión a la que se inscribe.
      * @return excursion a la que se inscribe.
      */
-    public Excursion getExcursiones() {
-        return excursiones;
+    public Excursion getExcursion() {
+        return excursion;
     }
 
     /**
      * Método set() para definir a la excursión a la que se inscribe.
-     * @param excursiones excursión a la que se inscribe.
+     * @param excursion excursión a la que se inscribe.
      */
-    public void setExcursiones(Excursion excursiones) {
-        this.excursiones = excursiones;
+    public void setExcursion(Excursion excursion) {
+        this.excursion = excursion;
     }
 
     /**
@@ -72,6 +72,6 @@ public class Inscripcion {
      */
     @Override
     public String toString() {
-        return "Inscripción con número: "+ numero + "\nSocio:" + socios + "\nExcursions:" + excursiones;
+        return "Inscripción con número: "+ numero + "\nSocio:" + socio + "\nExcursions:" + excursion;
     }
 }

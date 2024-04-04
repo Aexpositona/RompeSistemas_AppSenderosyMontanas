@@ -1,7 +1,6 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
-import RompeSistemas.Vista.*;
 import java.text.ParseException;
 
 /**
@@ -35,60 +34,12 @@ public class APPSenderosMontanas {
      */
     public ControlPeticiones cPeticiones;
     /**
-     * Vista del menú principal.
+     * Controlador de peticiones.
      */
-    public VistaMenuPrincipal vMenuPrincipal;
-    /**
-     * Vista de inscripciones.
-     */
-    public VistaInscripciones vInscripciones;
-    /**
-     * Vista de socios.
-     */
-    public VistaSocios vSocios;
-    /**
-     * Vista de excursiones.
-     */
-    public VistaExcursiones vExcursiones;
-    /**
-     * Vista de añadir socio.
-     */
-    public VistaAddSocio vAddSocio;
-    /**
-     * Vista de modificar seguro.
-     */
-    public VistaModificarSeguro vVistaModificarSeguro;
-    /**
-     * Vista de listar socios.
-     */
-    public VistaListarSocios vVistaListarSocios;
+    public Datos datos;
+
 
     // Métodos
-
-    /**
-     * Inicializa la aplicación.
-     *
-     * @param datos Recibe los datos de la aplicación.
-     * Inicializa los controladores y las vistas de la aplicación.
-     */
-    public void iniciar(Datos datos) {
-        // Inicializar controladores y vistas
-        cInscripciones = new ControlInscripciones(this, datos, vInscripciones);
-        cSocios = new ControlSocios(datos);
-        cExcursiones = new ControlExcursiones(this, datos, vExcursiones);
-
-        vInscripciones = new VistaInscripciones(cInscripciones);
-        vSocios = new VistaSocios(cSocios, cMenuPrincipal, vExcursiones, vInscripciones);
-        vExcursiones = new VistaExcursiones(cExcursiones, cDatos, cPeticiones, vMenuPrincipal);
-
-        vAddSocio = new VistaAddSocio(cSocios, vSocios);
-        vVistaModificarSeguro = new VistaModificarSeguro(cSocios, vSocios);
-        vVistaListarSocios = new VistaListarSocios(cSocios, vSocios);
-
-        cMenuPrincipal = new ControlMenuPrincipal(this, vMenuPrincipal);
-        vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal, vSocios, vExcursiones, vInscripciones);
-
-    }
 
     /**
      * Método principal de la aplicación.
@@ -103,17 +54,96 @@ public class APPSenderosMontanas {
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
         DataLoader dataLoader = new DataLoader(datos);
-        dataLoader.load();
+        dataLoader.load(datos);
         app.iniciar(datos);
         app.showVistaMenuPrincipal();
+    }
+
+    /**
+     * Inicializa la aplicación.
+     *
+     * @param datos Recibe los datos de la aplicación.
+     * Inicializa los controladores y las vistas de la aplicación.
+     */
+    public void iniciar(Datos datos) {
+        // Inicializar controladores
+        cInscripciones = new ControlInscripciones(this);
+        cSocios = new ControlSocios(this);
+        cExcursiones = new ControlExcursiones(this);
+        cDatos = new ControlDatos(this);
+        cPeticiones = new ControlPeticiones();
+        cMenuPrincipal = new ControlMenuPrincipal(this);
+        this.datos = datos;
     }
 
     /**
      * Muestra la vista del menú principal.
      * @throws ParseException excepción de parseo
      */
-    public void showVistaMenuPrincipal() throws ParseException {
-        // Mostrar la vista del menú principal
-        vMenuPrincipal.show();
+    private void showVistaMenuPrincipal() throws ParseException{
+        // Mostrar la vista del menú principal desde Control Menu Principal
+        cMenuPrincipal.show();
     }
+
+    // Getters
+
+    public ControlMenuPrincipal getControlMenuPrincipal() {
+        return cMenuPrincipal;
+    }
+
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
+    }
+
+    public ControlSocios getControlSocios() {
+        return cSocios;
+    }
+
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    // Setters
+
+    public void setControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
+        this.cMenuPrincipal = cMenuPrincipal;
+    }
+
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+    }
+
+    public void setControlSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+    }
+
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }   
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
+
 }
