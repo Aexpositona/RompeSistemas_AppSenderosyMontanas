@@ -1,6 +1,7 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
+import RompeSistemas.Vista.VistaSocios;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collections;
@@ -10,12 +11,14 @@ public class ControlSocios {
 
     // Atributos
     private APPSenderosMontanas app;
+    private VistaSocios vSocios;
     /**
      * Constructor de ControlSocios.
      *
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
+
     }
 
     // Getters
@@ -23,6 +26,12 @@ public class ControlSocios {
     public APPSenderosMontanas getApp() {
         return app;
     }
+
+    public VistaSocios getVistaSocios() {
+        return vSocios;
+    }
+
+
 
     // Setters
 

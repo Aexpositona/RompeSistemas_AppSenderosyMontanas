@@ -3,6 +3,8 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Modelo.Datos;
+import java.util.ResourceBundle.Control;
 import RompeSistemas.Controlador.ControlDatos;
 
 public class VistaInscripciones {
@@ -14,6 +16,7 @@ public class VistaInscripciones {
     ControlInscripciones cInscripciones; 
     ControlPeticiones cPeticiones;
     ControlDatos cDatos;
+    Datos datos;
 
     //Constructores
     /**
@@ -22,9 +25,14 @@ public class VistaInscripciones {
      * @param vAñadirInscripcion   es la vista de añadir inscripción
      * @param vListarInscripciones es la vista de listar inscripciones
      */
-    public VistaInscripciones(VistaAddInscripcion vAñadirInscripcion, VistaListarInscripciones vListarInscripciones) {
-        this.vAñadirInscripcion = vAñadirInscripcion;
-        this.vListarInscripciones = vListarInscripciones;
+    public VistaInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+        this.vAñadirInscripcion = cInscripciones.getVistaAddInscripcion();
+        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
+        this.cPeticiones = cInscripciones.getApp().cPeticiones;
+        this.cDatos = cInscripciones.getApp().cDatos;
+        this.datos = cInscripciones.getApp().datos;
+
     }
 
     //Métodos
@@ -58,16 +66,16 @@ public class VistaInscripciones {
      */
     public void buttonAtras() {
         System.out.println("Volviendo al menú principal");
-        cInscripciones.show();
-
+        return;
     }
 
     public void buttonRemoveInscripciones() {
         // Variables internas
         String respuesta;
+        // Pedir número de inscripción a eliminar
         respuesta = cPeticiones.pedirString("Introduce el número de inscripción a eliminar: ");
-        cInscripciones.app.cDatos.buscarObjeto(2, respuesta);
-        cInscripciones.removeInscripcion(Inscripcion inscripcion);
+        // Eliminar inscripción indicada por el usuario
+        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(respuesta, 2 )));
     }
 
     public void show() {

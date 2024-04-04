@@ -3,7 +3,6 @@ package RompeSistemas.Controlador;
 import RompeSistemas.Vista.VistaMenuPrincipal;
 import RompeSistemas.Vista.VistaSocios;
 import RompeSistemas.Vista.VistaExcursiones;
-
 import java.text.ParseException;
 import RompeSistemas.Vista.VistaInscripciones;
 
@@ -23,7 +22,7 @@ public class ControlMenuPrincipal {
     /**
      * Constructor de ControlMenuPrincipal.
      *
-     * @param vMenuPrincipal instancia de VistaMenuPrincipal asociada al controlador
+     * @param appSenderosMontanas
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
         this.app = app;
@@ -34,8 +33,6 @@ public class ControlMenuPrincipal {
     }
 
     // Getters
-
-    public 
 
     public VistaMenuPrincipal getVistaMenuPrincipal(){
         return vMenuPrincipal;

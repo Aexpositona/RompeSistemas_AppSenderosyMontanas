@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import java.util.Date;
 
+import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 
 public class VistaAddInscripcion {
@@ -11,16 +12,10 @@ public class VistaAddInscripcion {
 
 
     //Constructores
-    /**
-     * Constructor de la clase VistaAñadirInscripcion que recibe por parámetros el código, la descripción, la fecha, el precio y los días de la inscripción
-     * @param codigo es el código de la inscripción
-     * @param descripcion es la descripción de la inscripción
-     * @param fecha es la fecha de la inscripción
-     * @param precio es el precio de la inscripción
-     * @param dias es la duración de la inscripción
-     */
-    public VistaAddInscripcion() {
 
+    public VistaAddInscripcion(ControlInscripciones cInscripciones) {
+        this.cPeticiones = cInscripciones.getApp().cPeticiones;
+        
     }
 
     /**
@@ -45,7 +40,8 @@ public class VistaAddInscripcion {
     }
 
     public void buttonAtras() {
-
+        System.out.println("Volviendo al menú inscripciones...");
+        return;
     }
 
     public void show() {
@@ -61,7 +57,7 @@ public class VistaAddInscripcion {
             System.out.println("1. Añadir inscripción");
             System.out.println("2. Cancelar inscripción");
 
-            switch () {
+            switch (cPeticiones.pedirEntero(null, 0, 0)) {
                 case "1":
                     buttonAñadir();
                     break;
