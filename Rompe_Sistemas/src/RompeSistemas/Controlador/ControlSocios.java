@@ -95,9 +95,8 @@ public class ControlSocios {
     }
 
 
-    public void addSocio(int tipoSocio, Object socio) {
-
-        datos.addObjeto(socio, 3);
+    public void addSocio(int tipoObjeto, Object socio) {
+        datos.addObjeto(socio, tipoObjeto);
     }
 
     public void addFederado() {

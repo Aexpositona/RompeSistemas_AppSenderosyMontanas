@@ -123,7 +123,7 @@ public class ControlExcursiones {
     /**
      * Muestra la vista de excursiones.
      */
-    public void showVistaExcursiones() throws ParseException{
+    public void show() throws ParseException{
         // Mostramos la vista de excursiones
         vExcursiones.show();
     }

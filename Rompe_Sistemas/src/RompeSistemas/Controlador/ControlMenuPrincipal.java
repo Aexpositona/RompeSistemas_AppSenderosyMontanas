@@ -14,9 +14,9 @@ public class ControlMenuPrincipal {
 
     // Atributos
     private VistaMenuPrincipal vMenuPrincipal;
-    private VistaInscripciones vInscripciones; 
-    private VistaSocios vSocios;
-    private VistaExcursiones vExcursiones;
+    private ControlInscripciones cInscripciones;
+    private ControlSocios cSocios;
+    private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
 
     /**
@@ -27,9 +27,9 @@ public class ControlMenuPrincipal {
     public ControlMenuPrincipal(APPSenderosMontanas app) {
         this.cPeticiones = app.cPeticiones;
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
-        this.vInscripciones = app.cInscripciones.getVistaInscripciones();
-        this.vSocios = app.cSocios.getVistaSocios();
-        this.vExcursiones = app.cExcursiones.getVistaExcursiones();
+        this.cInscripciones = app.cInscripciones;
+        this.cSocios = app.cSocios;
+        this.cExcursiones = app.cExcursiones;
     }
 
     // Getters
@@ -38,16 +38,16 @@ public class ControlMenuPrincipal {
         return vMenuPrincipal;
     }
 
-    public VistaInscripciones getVistaInscripciones() {
-        return vInscripciones;
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
     }
 
-    public VistaSocios getVistaSocios() {
-        return vSocios;
+    public ControlSocios getControlSocios() {
+        return cSocios;
     }
 
-    public VistaExcursiones getVistaExcursiones() {
-        return vExcursiones;
+    public ControlExcursiones getCOntrolExcursiones() {
+        return cExcursiones;
     }
 
     public ControlPeticiones getControlPeticiones() {
@@ -60,16 +60,16 @@ public class ControlMenuPrincipal {
         this.vMenuPrincipal = vMenuPrincipal;
     }
 
-    public void setVistaInscripciones(VistaInscripciones vInscripciones) {
-        this.vInscripciones = vInscripciones;
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
     }
 
-    public void setVistaSocios(VistaSocios vSocios) {
-        this.vSocios = vSocios;
+    public void setVistaSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
     }
 
-    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
-        this.vExcursiones = vExcursiones;
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
     }
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
@@ -78,16 +78,16 @@ public class ControlMenuPrincipal {
 
     // Métodos
 
-    public void buttonVistaInscripciones() {
-        vInscripciones.show();
+    public void showInscripciones() {
+        cInscripciones.show();
     }
 
-    public void buttonVistaSocios() throws ParseException {
-        vSocios.show();
+    public void showVistaSocios() throws ParseException {
+        cSocios.show();
     }
 
-    public void buttonVistaExcursiones() throws ParseException {
-        vExcursiones.show();
+    public void showVistaExcursiones() throws ParseException {
+        cExcursiones.show();
     }
 
     public void show() throws ParseException {

@@ -6,7 +6,6 @@ import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.Modelo.Federado;
 import RompeSistemas.Controlador.ControlPeticiones;
 import java.text.ParseException;
-import java.util.InputMismatchException;
 
 public class VistaAddSocio {
 
@@ -36,7 +35,7 @@ public class VistaAddSocio {
             System.out.println("0. Atrás");
             switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 1)) {
                 case 1:
-                    buttonAñadir();
+                    buttonAdd();
                     break;
                 case 0:
                     buttonAtras();
@@ -49,7 +48,7 @@ public class VistaAddSocio {
         }
     }
 
-    public void buttonAñadir() {
+    public void buttonAdd() {
         // Variables internas
         boolean valido = false;
         int numero = 0;

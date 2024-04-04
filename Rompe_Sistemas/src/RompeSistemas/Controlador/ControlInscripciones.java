@@ -126,7 +126,7 @@ public class ControlInscripciones {
     /**
      * Muestra la vista para añadir una inscripción.
      */
-    public void addInscripcion() {
+    public void showVistaAddInscripcion() {
         vAddInscripcion.show();
     }
 
