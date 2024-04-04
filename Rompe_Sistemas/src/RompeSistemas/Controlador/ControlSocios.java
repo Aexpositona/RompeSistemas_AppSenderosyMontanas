@@ -24,7 +24,8 @@ public class ControlSocios {
 
     /**
      * Constructor de ControlSocios.
-     *
+     * 
+     * @param app APPSenderosMontanas asociada al controlador.
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
@@ -62,6 +63,10 @@ public class ControlSocios {
         return cPeticiones;
     }
 
+    public Datos getDatos() {
+        return datos;
+    }
+
     // Setters
     public void setApp(APPSenderosMontanas app) {
         this.app = app;
@@ -87,6 +92,10 @@ public class ControlSocios {
         this.cPeticiones = cPeticiones;
     }
 
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
     // Métodos
 
     public void show() throws ParseException{
@@ -95,7 +104,7 @@ public class ControlSocios {
 
 
     public void addSocio(int tipoObjeto, Object socio) {
-        datos.addObjeto(socio, tipoObjeto);
+        datos.addObjeto(tipoObjeto, socio);
     }
 
     public void addFederado() {
@@ -111,7 +120,7 @@ public class ControlSocios {
         int numSocioTutor = cPeticiones.pedirEntero("Introduce el número del socio del tutor: ", 0, Integer.MAX_VALUE);
 
         Infantil nuevoSocio = new Infantil(nombre, numero, numSocioTutor);
-        app.datos.addObjeto(nuevoSocio, 3);
+        app.datos.addObjeto(3, nuevoSocio);
     }
 
     public void addEstandar() {
@@ -138,7 +147,7 @@ public class ControlSocios {
         }
 
         Estandar nuevoSocio = new Estandar(nombre, numero, nif, seguroEstandar);
-        app.datos.addObjeto(nuevoSocio, 3);
+        app.datos.addObjeto(3, nuevoSocio);
     }
 
 
@@ -153,7 +162,7 @@ public class ControlSocios {
                 .orElse(null);
 
         if (socioToRemove != null) {
-            app.datos.removeObjeto(socioToRemove, 3);
+            app.datos.removeObjeto(3, socioToRemove);
         } else {
             System.out.println("No se encontró un socio con el número " + numeroSocio);
         }
@@ -168,6 +177,7 @@ public class ControlSocios {
     }
 
     public List<Socio> listTipoSocios() {
+        
         System.out.println("Seleccione el tipo de socio que desea ver:");
         System.out.println("1. Estandar");
         System.out.println("2. Federado");

@@ -1,25 +1,20 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlSocios;
-import RompeSistemas.Modelo.Socio;
-
 import java.text.ParseException;
-import java.util.Scanner;
-import java.util.List;
 
 public class VistaListarSocios {
     // Atributos
     private ControlSocios cSocios;
+    private ControlPeticiones cPeticiones;
 
 
     public VistaListarSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
+        this.cPeticiones = cSocios.getControlPeticiones();
     }
 
-
-    /**
-     * Método para mostrar la vista de listar socios
-     */
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
@@ -27,14 +22,14 @@ public class VistaListarSocios {
             System.out.println("1. Listar tipos de socios");
             System.out.println("2. Listar socios");
             System.out.println("0. Atrás");
-            switch (option) {
-                case "1":
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2 o 0)", 0, 2)) {
+                case 1:
                     buttonListTipoSocio();
                     break;
-                case "2":
+                case 2:
                     buttonListSocios();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                     break;
@@ -48,26 +43,22 @@ public class VistaListarSocios {
     /**
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
-    public void buttonListTipoSocio(){
-        socios = cSocios.listTipoSocios(); // Actualiza la variable socios con la lista de socios filtrados
+    private void buttonListTipoSocio(){
+        cSocios.listTipoSocios(); 
     }
 
     /**
      * Método para añadir un botón que nos permite listar los socios
      */
-    public void buttonListSocios(){
-        socios = cSocios.listSocios();
-        System.out.println("Listando los socios...");
-        for (Socio socio : socios) {
-            System.out.println(socio.toString());
-        }
+    private void buttonListSocios(){
+        cSocios.listSocios();
     }
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    public void buttonAtras() throws ParseException {
+    private void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
-        vistaSocios.show();
+        return;
     }
 
 }

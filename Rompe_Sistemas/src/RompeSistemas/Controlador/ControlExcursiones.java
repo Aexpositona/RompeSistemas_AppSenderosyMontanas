@@ -79,7 +79,7 @@ public class ControlExcursiones {
      */
     public void addExcursion(Excursion excursion) {
         // Añadimos la excursión
-        datos.addObjeto(excursion, 1);
+        datos.addObjeto(1, excursion);
     }
 
     /**
@@ -89,7 +89,7 @@ public class ControlExcursiones {
      */
     public void removeExcursion(String codigo) {
         // Eliminamos la excursión
-        datos.removeObjeto(codigo, 1);
+        datos.removeObjeto(1, codigo);
     }
 
     /**

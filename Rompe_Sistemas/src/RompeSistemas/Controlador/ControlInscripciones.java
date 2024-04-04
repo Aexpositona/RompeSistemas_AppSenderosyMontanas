@@ -90,7 +90,7 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a añadir
      */
     public void addInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.addObjeto(inscripcion, tipoObjeto);
+        datos.addObjeto(tipoObjeto, inscripcion);
     }
 
     /**
@@ -100,7 +100,7 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a eliminar
      */
     public void removeInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.removeObjeto(inscripcion, tipoObjeto);
+        datos.removeObjeto(tipoObjeto, inscripcion);
     }
 
     /**

@@ -14,7 +14,7 @@ public class Datos {
     private Object objeto; // Objeto genérico
 
     // Un ArrayList para cada tipo de dato
-    private final ArrayList<Object> excursiones, inscripciones, socios;
+    private List<Object> excursiones, inscripciones, socios;
 
     // Constructor
 
@@ -26,13 +26,16 @@ public class Datos {
         excursiones = new ArrayList<>();
         inscripciones = new ArrayList<>();
         socios = new ArrayList<>();
-        objeto = null;
+        objeto = new Object();
     }
 
     /**
      * Método para obtener un List de un tipo de objeto.
      *
      * @param tipoObjeto Tipo de objeto
+     *                      1 - Excursión
+     *                      2 - Inscripción
+     *                      3 - Socio
      * @return List de objetos
      */
     public List<Object> getArrayList(int tipoObjeto) {
@@ -52,9 +55,9 @@ public class Datos {
      * @param tipoObjeto Tipo de objeto
      *                   1 - Excursión
      *                   2 - Inscripción
-     *
-     */
-    public void addObjeto(Object objeto, int tipoObjeto) {
+     *                   3 - Socio
+     *     */
+    public void addObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.add(objeto);
             case 2 -> inscripciones.add(objeto);
@@ -67,8 +70,11 @@ public class Datos {
      *
      * @param objeto     Objeto a eliminar
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
      */
-    public void removeObjeto(Object objeto, int tipoObjeto) {
+    public void removeObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.remove(objeto);
             case 2 -> inscripciones.remove(objeto);
@@ -81,8 +87,11 @@ public class Datos {
      *
      * @param objeto     Objeto a modificar
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
      */
-    public void modificarObjeto(Object objeto, int tipoObjeto) {
+    public void modificarObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.set(excursiones.indexOf(objeto), objeto);
             case 2 -> inscripciones.set(inscripciones.indexOf(objeto), objeto);
@@ -111,6 +120,9 @@ public class Datos {
      *
      * @param string     String a buscar
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
      * @return Índice del objeto
      */
     public int buscarObjeto(String string, int tipoObjeto) {
@@ -186,6 +198,9 @@ public class Datos {
      * Método para listar los objetos de alguno de los ArrayList.
      *
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
      * @return Lista de objetos
      */
     public List<Object> listObjetos(int tipoObjeto) {
@@ -249,6 +264,15 @@ public class Datos {
         return result;
     }
 
+    /**
+     * Método para listar los objetos de alguno de los ArrayList en formato String.
+     *
+     * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     * @return Lista de objetos
+     */
     public String listToStringObjetos(int tipoObjeto) {
         // Crear una lista de objetos
         List<Object> list = new ArrayList<>();
@@ -310,6 +334,16 @@ public class Datos {
         return list.toString();
     }
 
+    /**
+     * Método para listar los objetos de alguno de los ArrayList con un código del tipo de objeto.
+     *
+     * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     * @param codigo     Código
+     * @return Lista de objetos
+     */
     public String listToStringObjetosCodigo(int tipoObjeto, String codigo) {
         // Crear una lista de objetos
         List<Object> list = new ArrayList<>();
@@ -375,6 +409,9 @@ public class Datos {
      * Método para listar los objetos de alguno de los ArrayList en un rango de fechas.
      *
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
      * @param fechaInicial Fecha inicial
      * @param fechaFinal Fecha final
      * @return Lista de objetos

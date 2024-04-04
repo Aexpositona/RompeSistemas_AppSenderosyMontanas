@@ -24,6 +24,37 @@ public class VistaAddSocio {
         this.datos = cSocios.getDatos();
     }
 
+    //Getters
+
+    public ControlSocios getControlSocios() {
+        return cSocios;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    //Setters
+
+    public void setControlSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+    
+
+    //Métodos
+
     /**
      * Método para mostrar la vista de añadir socio
      */
@@ -52,6 +83,7 @@ public class VistaAddSocio {
         // Variables internas
         boolean valido = false;
         int numero = 0;
+        String nombre = "";
         do{
             System.out.println("Tipos de socio:");
             System.out.println("1. Estandar");
@@ -61,44 +93,17 @@ public class VistaAddSocio {
             
             if (tipoSocio == 1) {
                 
-                String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
-
-                do{
-                    valido = true;
-                    do{
-                        valido = true;
-                        try{
-                            numero = Integer.parseInt(cPeticiones.pedirString("Introduce el número del socio: "));
-                        }catch(NumberFormatException e){
-                            System.out.println("El número de socio debe ser un número entero.");
-                            valido = false;
-                        }
-                    }
-                    while(!valido);
-                    if(datos.buscarObjeto(String.valueOf(numero), 3) != -1){
-                        System.out.println("Ya existe un socio con ese número.");
-                        valido = false;
-                    }
-                    else if(numero < 0){
-                        System.out.println("El número de socio no puede ser negativo.");
-                        valido = false;
-                    }
-                    else if(numero == 0){
-                        System.out.println("El número de socio no puede ser 0.");
-                        valido = false;
-                    }
-                    else if(numero > Integer.MAX_VALUE){
-                        System.out.println("El número de socio no puede ser mayor que " + Integer.MAX_VALUE + ".");
-                        valido = false;
-                    }
-                    
+                nombre = pedirNombreSocio();
+                numero = obtenerNumeroSocio();
+                String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+                String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+                switch (2) {
+                    case 1 -> datos.objeto = datos.excursiones.get(datos.buscarObjeto(codigoFederacion,2));
+                    case 2 -> datos.objeto = datos.inscripciones.get(datos.buscarObjeto(codigoFederacion,2));
+                    case 3 -> datos.objeto = datos.socios.get(datos.buscarObjeto(codigoFederacion,2));
                 }
 
-                String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-
-                String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-
-                Object federacion = datos.getObjeto(2, datos.buscarObjeto(codigoFederacion,2));
+                Object federacion = datos;
                 
                 cSocios.addSocio( 3, new Federado(nombre, numero, nif, (Federacion) federacion));
             } 
@@ -119,6 +124,21 @@ public class VistaAddSocio {
     public void buttonAtras() throws ParseException {
         System.out.println("Volviendo al menú de socios...");
         return;
+    }
+    // Comprobar último número de socio y devolver el siguiente
+    private int obtenerNumeroSocio() {
+        // Si no hay socios, devolver 1
+        if (datos.getArrayList(3).size() == 0) {
+            return 1;
+        } 
+        // Si hay socios, devolver el último número de socio + 1
+        else {
+            return datos.getArrayList(3).size() + 1;
+        }           
+    }
+
+    private String pedirNombreSocio() {
+        return cPeticiones.pedirString("Introduce el nombre del socio: ");
     }
 
 }
