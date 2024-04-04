@@ -14,7 +14,7 @@ public class VistaListarInscripciones {
 
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
-        this.cPeticiones = cInscripciones.getApp().cPeticiones;
+        this.cPeticiones = cInscripciones.getControlPeticiones();
         this.cDatos = cInscripciones.getApp().cDatos;
 
     }
@@ -33,7 +33,6 @@ public class VistaListarInscripciones {
      */
     public void buttonListInscripcionesFechas(){
         cInscripciones.listInscripcionesFechas(cPeticiones.pedirFecha("Introduzca la fecha inicial: "), cPeticiones.pedirFecha("Introduzca la fecha final: "));
-
     }
 
     /**
@@ -46,20 +45,20 @@ public class VistaListarInscripciones {
 
     public void show() {
 
+        // Variables internas
         boolean running = true;
-
+        // Mientras no se seleccione la opción de volver atrás
         while (running) {
-
-
+            // Mostramos el menú de listar inscripciones
             System.out.println("........MENÚ LISTAR INSCRIPCIONES........\n");
             System.out.println("Seleccione una opción: ");
-            System.out.println("0. Atrás");
             System.out.println("1. Listar inscripción por usuario");
             System.out.println("2. Listar inscripción por fechas");
+            System.out.println("0. Atrás");
 
             switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 2)) {
                 case 1:
-                    buttonListInscripcionesUsuario();
+                    buttonListInscripcionesSocio();
                     break;
                 case 2:
                     buttonListInscripcionesFechas();

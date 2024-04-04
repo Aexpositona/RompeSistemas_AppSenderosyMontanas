@@ -18,8 +18,10 @@ public class ControlInscripciones {
     private Datos datos;
     private ControlPeticiones cPeticiones;
 
-
-
+    /**
+     * Constructor de ControlInscripciones.
+     *
+     */
     public ControlInscripciones(APPSenderosMontanas app) {
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
@@ -83,32 +85,40 @@ public class ControlInscripciones {
     // Métodos
 
     /**
-     * Añade una inscripción utilizando la clase Datos.
-     *
+     * Añade una inscripción a la lista de inscripciones utilizando la clase Datos.
      * @param inscripcion Inscripción a añadir
+     * @param tipoObjeto Tipo de objeto a añadir
      */
-    public void addInscripcion(Inscripcion inscripcion) {
-        datos.addObjeto(inscripcion, 2);
+    public void addInscripcion(Inscripcion inscripcion, int tipoObjeto) {
+        datos.addObjeto(inscripcion, tipoObjeto);
     }
 
     /**
-     * Elimina una inscripción utilizando la clase Datos.
+     * Elimina una inscripción de la lista de inscripciones utilizando la clase Datos.
      *
-     * @param inscripcion Número de inscripción a eliminar
+     * @param inscripcion Inscripción a eliminar
+     * @param tipoObjeto Tipo de objeto a eliminar
      */
-    public void removeInscripcion(Inscripcion inscripcion) {
-        datos.removeObjeto(inscripcion, 2);
+    public void removeInscripcion(Inscripcion inscripcion, int tipoObjeto) {
+        datos.removeObjeto(inscripcion, tipoObjeto);
     }
 
     /**
-     * Lista las inscripciones de un socio utilizando la clase Datos.
+     * Lista las inscripciones de un socio.
      *
-     * @param numeroSocio Número de socio del que listar las inscripciones
+     * @param tipoObjeto Tipo de objeto a listar
+     * @param numeroSocio Número de socio
      */
     public void listInscripcionesSocio(int tipoObjeto, String numeroSocio) {
         System.out.println(datos.listToStringObjetosCodigo(tipoObjeto, numeroSocio ));
     }
 
+    /**
+     * Lista las inscripciones de un socio.
+     *
+     * @param tipoObjeto Tipo de objeto a listar
+     * @param numeroSocio Número de socio
+     */
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         System.out.println(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
     }
@@ -119,8 +129,6 @@ public class ControlInscripciones {
     public void addInscripcion() {
         vAddInscripcion.show();
     }
-
-
 
     /**
      * Muestra la vista para listar las inscripciones.

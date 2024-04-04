@@ -74,29 +74,18 @@ public class ControlMenuPrincipal {
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
-    }
-
-
-    
+    } 
 
     // Métodos
-    /**
-     * Maneja el evento del botón para mostrar la vista de inscripciones.
-     */
+
     public void buttonVistaInscripciones() {
         vInscripciones.show();
     }
 
-    /**
-     * Maneja el evento del botón para mostrar la vista de socios.
-     */
     public void buttonVistaSocios() throws ParseException {
         vSocios.show();
     }
 
-    /**
-     * Maneja el evento del botón para mostrar la vista de excursiones.
-     */
     public void buttonVistaExcursiones() throws ParseException {
         vExcursiones.show();
     }

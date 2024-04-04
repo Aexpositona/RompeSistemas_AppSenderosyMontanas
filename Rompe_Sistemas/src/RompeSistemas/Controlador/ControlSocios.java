@@ -2,8 +2,12 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.VistaSocios;
+import RompeSistemas.Vista.VistaModificarSeguro;
+import RompeSistemas.Vista.VistaListarSocios;
+import RompeSistemas.Vista.VistaAddSocio;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.text.ParseException;
 import java.util.Collections;
 
 
@@ -12,13 +16,24 @@ public class ControlSocios {
     // Atributos
     private APPSenderosMontanas app;
     private VistaSocios vSocios;
+    private VistaModificarSeguro vModificarSeguro;
+    private VistaListarSocios vListarSocios;
+    private VistaAddSocio vAddSocio;
+    private ControlPeticiones cPeticiones;
+    private Datos datos;
+
     /**
      * Constructor de ControlSocios.
      *
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
-
+        this.vSocios = new VistaSocios(this);
+        this.vModificarSeguro = new VistaModificarSeguro(this);
+        this.vListarSocios = new VistaListarSocios(this);
+        this.vAddSocio = new VistaAddSocio(this);
+        this.cPeticiones = app.cPeticiones;
+        this.datos = app.datos;
     }
 
     // Getters
@@ -31,7 +46,21 @@ public class ControlSocios {
         return vSocios;
     }
 
+    public VistaModificarSeguro getVistaModificarSeguro() {
+        return vModificarSeguro;
+    }
 
+    public VistaListarSocios getVistaListarSocios() {
+        return vListarSocios;
+    }
+
+    public VistaAddSocio getVistaAddSocio() {
+        return vAddSocio;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
 
     // Setters
 
@@ -39,19 +68,47 @@ public class ControlSocios {
         this.app = app;
     }
 
+    public void setVistaSocios(VistaSocios vSocios) {
+        this.vSocios = vSocios;
+    }
+
+    public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
+        this.vModificarSeguro = vModificarSeguro;
+    }
+
+    public void setVistaListarSocios(VistaListarSocios vListarSocios) {
+        this.vListarSocios = vListarSocios;
+    }
+
+    public void setVistaAddSocio(VistaAddSocio vAddSocio) {
+        this.vAddSocio = vAddSocio;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
     // Métodos
 
+    public void show() throws ParseException{
+        vSocios.show();
+    }
+
+
+    public void addSocio(int tipoSocio, Object socio) {
+
+        datos.addObjeto(socio, 3);
+    }
 
     public void addFederado() {
 
+        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
 
-        String nombre = app.cPeticiones.pedirString("Introduce el nombre del socio: ");
+        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
 
-        int numero = app.cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
 
-        String nif = app.cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-
-        String codigoFederacion = app.cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+        String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
 
         Object federacion = app.datos.getObjeto(2, app.datos.buscarObjeto(codigoFederacion,2));
         
@@ -62,11 +119,11 @@ public class ControlSocios {
 
     public void addInfantil() {
 
-        String nombre = app.cPeticiones.pedirString("Introduce el nombre del socio: ");
+        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
 
-        int numero = app.cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
 
-        int numSocioTutor = app.cPeticiones.pedirEntero("Introduce el número del socio del tutor: ", 0, Integer.MAX_VALUE);
+        int numSocioTutor = cPeticiones.pedirEntero("Introduce el número del socio del tutor: ", 0, Integer.MAX_VALUE);
 
         Infantil nuevoSocio = new Infantil(nombre, numero, numSocioTutor);
         app.datos.addObjeto(nuevoSocio, 3);
@@ -74,13 +131,13 @@ public class ControlSocios {
 
     public void addEstandar() {
 
-        String nombre = app.cPeticiones.pedirString("Introduce el nombre del socio: ");
+        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
 
-        int numero = app.cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
 
-        String nif = app.cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
 
-        int tipoSeguro = app.cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
+        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
 
         Seguro seguroEstandar;
         switch (tipoSeguro) {
@@ -102,7 +159,7 @@ public class ControlSocios {
 
 
     public void removeSocio() {
-        int numeroSocio = app.cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
         Socio socioToRemove = app.datos.listObjetos(3).stream()
                 .filter(obj -> obj instanceof Socio)
                 .map(obj -> (Socio) obj)
@@ -130,7 +187,7 @@ public class ControlSocios {
         System.out.println("1. Estandar");
         System.out.println("2. Federado");
         System.out.println("3. Infantil");
-        int tipoSocio = app.cPeticiones.pedirEntero("Introduzca una opción: ", 1, 3);
+        int tipoSocio = cPeticiones.pedirEntero("Introduzca una opción: ", 1, 3);
 
         // Obtiene la lista de todos los socios directamente desde los datos
         List<Socio> sociosList = app.datos.listObjetos(3).stream()
@@ -177,8 +234,8 @@ public class ControlSocios {
     }
 
     public void modificarSeguro() {
-        int numeroSocio = app.cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-        int tipoSeguro = app.cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
+        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
         Socio socio = buscarSocioPorNumero(numeroSocio);
         if (socio != null) {
             if (socio instanceof Estandar socioEstandar) {

@@ -1,7 +1,7 @@
 package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
-
+import RompeSistemas.Controlador.ControlPeticiones;
 import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,85 +9,72 @@ import java.util.Scanner;
 public class VistaAddSocio {
 
     //Atributos
-    private VistaSocios vistaSocios;
     private ControlSocios cSocios;
-
+    private ControlPeticiones cPeticiones;
 
     /**
-     * Método constructor de la clase VistaAddSocio que recibe por parámetros el tipo de socio, el número de socio y el nombre del socio
+     * Constructor de la clase VistaAddSocio que recibe por parámetros el controlador de socios
+     * @param cSocios es el controlador de socios
      */
-    public VistaAddSocio(ControlSocios cSocios, VistaSocios vistaSocios) {
+    public VistaAddSocio(ControlSocios cSocios) {
         this.cSocios = cSocios;
-        this.vistaSocios = vistaSocios;
+        this.cPeticiones = cSocios.getControlPeticiones();
     }
-
 
     /**
      * Método para mostrar la vista de añadir socio
      */
     public void show() throws ParseException {
-        try (Scanner scanner = new Scanner(System.in)) {
-            boolean running = true;
-            while (running) {
-                System.out.println("Seleccione una opción: ");
-                System.out.println("1. Añadir socio");
-                System.out.println("0. Atrás");
-                String option = scanner.nextLine();
-                switch (option) {
-                    case "1":
-                        buttonAñadir();
-                        break;
-                    case "0":
-                        buttonAtras();
-                        running = false;
-                        break;
-                    default:
-                        System.out.println("Opción no válida. Intente de nuevo.");
-                        break;
-                }
-            }
-        }
-    }
-    /**
-     * Método para añadir un botón que nos permite añadir un socio
-     */
-
-    public void buttonAñadir() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("¿Qué tipo de socio quieres crear? (1: Federado, 2: Infantil, 3: Estandar)");
-            int tipo;
-            while (true) {
-                try {
-                    tipo = scanner.nextInt();
-                    break; // will only reach here if input was an int, so break out of loop
-                } catch (InputMismatchException e) {
-                    System.out.println("Por favor, introduzca un número válido.");
-                    scanner.next(); // discard non-int input
-                }
-            }
-            switch (tipo) {
+        boolean running = true;
+        while (running) {
+            System.out.println("Menú de añadir socio:");
+            System.out.println("1. Añadir socio");
+            System.out.println("0. Atrás");
+            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 1)) {
                 case 1:
-                    cSocios.addFederado();
+                    buttonAñadir();
                     break;
-                case 2:
-                    cSocios.addInfantil();
-                    break;
-                case 3:
-                    cSocios.addEstandar();
+                case 0:
+                    buttonAtras();
+                    running = false;
                     break;
                 default:
-                    System.out.println("Tipo de socio no válido.");
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
             }
         }
     }
 
+    public void buttonAñadir() {
+        // Variables internas
+        boolean valido = false;
+        do{
+            System.out.println("Tipos de socio:");
+            System.out.println("1. Estandar");
+            System.out.println("2. Federado");
+            System.out.println("3. Infantil");
+            int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: ", 1, 3);
+            
+            if (tipoSocio == 1) {
+                
+            } 
+            else if (tipoSocio == 2) {
+                
+            } 
+            else if (tipoSocio == 3) {
 
-    /**
-     * Método para añadir un botón que nos permite ir hacia atrás
-     */
+            } 
+            else {
+                System.out.println("Tipo de socio no válido.");
+            }
+        }
+        while(false);
+        cSocios.addSocio();
+    }
+
     public void buttonAtras() throws ParseException {
-        System.out.println("Volviendo a la vista anterior...");
-        vistaSocios.show();
+        System.out.println("Volviendo al menú de socios...");
+        return;
     }
 
 }

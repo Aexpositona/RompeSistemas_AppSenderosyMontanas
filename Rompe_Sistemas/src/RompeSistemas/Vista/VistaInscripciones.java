@@ -4,12 +4,12 @@ import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Datos;
-import java.util.ResourceBundle.Control;
-import RompeSistemas.Controlador.ControlDatos;
 
+/**
+ * Vista de inscripciones de la aplicación.
+ *
+ */
 public class VistaInscripciones {
-
-
     //Atributos
     private ControlInscripciones cInscripciones;
     private VistaListarInscripciones vListarInscripciones; 
@@ -30,7 +30,6 @@ public class VistaInscripciones {
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.cPeticiones = cInscripciones.getApp().cPeticiones;
         this.datos = cInscripciones.getApp().datos;
-
     }
 
     //Métodos
@@ -47,14 +46,14 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones
      */
     public void buttonRemoveInscripcion() {
-
+        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(cPeticiones.pedirString("Introduce el número de inscripción a eliminar: "), 2)), 2);
 
     }
 
     /**
      * Método para añadir un botón que nos permite listar las inscripciones
      */
-    public void buttonListInscripciones() {
+    public void buttonMenuListInscripciones() {
         System.out.println("Navegando a la vista de listar inscripciones");
         vListarInscripciones.show();
     }
@@ -67,15 +66,6 @@ public class VistaInscripciones {
         return;
     }
 
-    public void buttonRemoveInscripciones() {
-        // Variables internas
-        String respuesta;
-        // Pedir número de inscripción a eliminar
-        respuesta = cPeticiones.pedirString("Introduce el número de inscripción a eliminar: ");
-        // Eliminar inscripción indicada por el usuario
-        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(respuesta, 2 )));
-    }
-
     public void show() {
         // Variables internas
         boolean running = true;
@@ -85,25 +75,21 @@ public class VistaInscripciones {
             System.out.println("Seleccione una opción: ");
             System.out.println("0. Salir");
             System.out.println("1. Añadir inscripción");
-            System.out.println("2. Listar inscripción");
-            System.out.println("3. Mostrar info de las inscripciones");
-            System.out.println("4. Eliminar inscripción");
+            System.out.println("2. Menú Listar inscripciónes");
+            System.out.println("3. Eliminar inscripción");
 
-            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3, 4 o 0):",0,4)) {
+            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)) {
                 case 1:
                     buttonAddInscripcion();
                     break;
 
                 case 2:
-                    buttonListInscripciones();
+                    buttonMenuListInscripciones();
                     break;
                 case 3:
-                    listInscripcionesSocio();
+                    buttonRemoveInscripcion();
                     break;
-                case 4:
-                    buttonRemoveInscripciones();
-                    break;
-                case 5:
+                case 0:
                     buttonAtras();
                     running = false;
                 default:
