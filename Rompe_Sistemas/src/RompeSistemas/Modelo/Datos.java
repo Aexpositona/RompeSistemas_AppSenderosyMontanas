@@ -371,7 +371,6 @@ public class Datos {
         return list.toString();
     }
 
-
     /**
      * Método para listar los objetos de alguno de los ArrayList en un rango de fechas.
      *
@@ -380,7 +379,7 @@ public class Datos {
      * @param fechaFinal Fecha final
      * @return Lista de objetos
      */
-    public String listToStringObjetosFecha(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
+    public String listToStringObjetosFechas(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal){
         // Crear una lista de objetos
         List<Object> list = new ArrayList<>();
         // Si el tipo de objeto es 1 (Excursión)

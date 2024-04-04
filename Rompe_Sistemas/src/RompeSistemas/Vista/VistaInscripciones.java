@@ -11,12 +11,11 @@ public class VistaInscripciones {
 
 
     //Atributos
-    VistaListarInscripciones vListarInscripciones; 
-    VistaAddInscripcion vAñadirInscripcion;
-    ControlInscripciones cInscripciones; 
-    ControlPeticiones cPeticiones;
-    ControlDatos cDatos;
-    Datos datos;
+    private ControlInscripciones cInscripciones;
+    private VistaListarInscripciones vListarInscripciones; 
+    private VistaAddInscripcion vAñadirInscripcion;
+    private ControlPeticiones cPeticiones;
+    private Datos datos;
 
     //Constructores
     /**
@@ -30,7 +29,6 @@ public class VistaInscripciones {
         this.vAñadirInscripcion = cInscripciones.getVistaAddInscripcion();
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.cPeticiones = cInscripciones.getApp().cPeticiones;
-        this.cDatos = cInscripciones.getApp().cDatos;
         this.datos = cInscripciones.getApp().datos;
 
     }

@@ -109,7 +109,7 @@ public class ControlExcursiones {
      */
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         // Mostramos las excursiones entre dos fechas
-        System.out.println(datos.listToStringObjetosFecha(1,fechaInicial,fechaFinal));
+        System.out.println(datos.listToStringObjetosFechas(1,fechaInicial,fechaFinal));
     }
 
     /**

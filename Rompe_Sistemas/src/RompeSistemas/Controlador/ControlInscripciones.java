@@ -1,5 +1,7 @@
 package RompeSistemas.Controlador;
 
+import java.time.LocalDate;
+
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Vista.VistaInscripciones;
@@ -13,19 +15,17 @@ public class ControlInscripciones {
     private VistaListarInscripciones vListarInscripciones;
     private VistaAddInscripcion vAddInscripcion;
     private APPSenderosMontanas app;
+    private Datos datos;
+    private ControlPeticiones cPeticiones;
 
-    /**
-     * Constructor de ControlInscripciones.
-     *
-     * @param appSenderosMontanas
-     * @param datos
-     * @param vistaInscripciones  VistaInscripciones asociada al controlador
-     */
+
+
     public ControlInscripciones(APPSenderosMontanas app) {
-        this.app = app;
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
         this.vListarInscripciones = new VistaListarInscripciones(this);
+        this.app.datos = app.getDatos();
+        this.app.cPeticiones = app.cPeticiones;
     }
 
     // Getters
@@ -46,26 +46,49 @@ public class ControlInscripciones {
         return vListarInscripciones;
     }
 
+    public Datos getDatos() {
+        return datos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
     // Setters
 
     public void setApp(APPSenderosMontanas app) {
         this.app = app;
     }
 
+    public void setVistaInscripciones(VistaInscripciones vInscripciones) {
+        this.vInscripciones = vInscripciones;
+    }
 
+    public void setVistaAddInscripcion(VistaAddInscripcion vAddInscripcion) {
+        this.vAddInscripcion = vAddInscripcion;
+    }
 
-    
+    public void setVistaListarInscripciones(VistaListarInscripciones vListarInscripciones) {
+        this.vListarInscripciones = vListarInscripciones;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+ 
     // Métodos
 
     /**
-     * Agrega una inscripción utilizando la clase Datos.
+     * Añade una inscripción utilizando la clase Datos.
      *
-     * @param inscripcion Inscripción a agregar
-     * @param socio       Socio que realiza la inscripción
-     * @param excursion   Excursión a la que se inscribe el socio
+     * @param inscripcion Inscripción a añadir
      */
     public void addInscripcion(Inscripcion inscripcion) {
-        app.getDatos().addObjeto(inscripcion, 2);
+        datos.addObjeto(inscripcion, 2);
     }
 
     /**
@@ -84,6 +107,10 @@ public class ControlInscripciones {
      */
     public void listInscripcionesSocio(int tipoObjeto, String numeroSocio) {
         System.out.println(datos.listToStringObjetosCodigo(tipoObjeto, numeroSocio ));
+    }
+
+    public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        System.out.println(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
     }
 
     /**

@@ -46,6 +46,7 @@ public abstract class Socio {
      * @return
      */
     public abstract String getTipo();
+    
     //Métodos Setters
     /**
      * Método set() de la clase Socio que nos permite definir el nombre del cliente

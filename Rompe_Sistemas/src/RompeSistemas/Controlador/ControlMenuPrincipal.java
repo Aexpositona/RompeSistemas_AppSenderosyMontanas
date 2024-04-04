@@ -13,11 +13,11 @@ import RompeSistemas.Vista.VistaInscripciones;
 public class ControlMenuPrincipal {
 
     // Atributos
-    private APPSenderosMontanas app;
     private VistaMenuPrincipal vMenuPrincipal;
     private VistaInscripciones vInscripciones; 
     private VistaSocios vSocios;
     private VistaExcursiones vExcursiones;
+    private ControlPeticiones cPeticiones;
 
     /**
      * Constructor de ControlMenuPrincipal.
@@ -25,7 +25,7 @@ public class ControlMenuPrincipal {
      * @param appSenderosMontanas
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
-        this.app = app;
+        this.cPeticiones = app.cPeticiones;
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
         this.vInscripciones = app.cInscripciones.getVistaInscripciones();
         this.vSocios = app.cSocios.getVistaSocios();
@@ -49,6 +49,33 @@ public class ControlMenuPrincipal {
     public VistaExcursiones getVistaExcursiones() {
         return vExcursiones;
     }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    // Setters
+
+    public void setVistaMenuPrincipal(VistaMenuPrincipal vMenuPrincipal) {
+        this.vMenuPrincipal = vMenuPrincipal;
+    }
+
+    public void setVistaInscripciones(VistaInscripciones vInscripciones) {
+        this.vInscripciones = vInscripciones;
+    }
+
+    public void setVistaSocios(VistaSocios vSocios) {
+        this.vSocios = vSocios;
+    }
+
+    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
+        this.vExcursiones = vExcursiones;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
 
     
 
