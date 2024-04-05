@@ -134,42 +134,18 @@ public class VistaExcursiones {
             intentos++;
         }
         while (!resultado && intentos < 3);
-        // Reinicamos el resultado
-        resultado = false;
-        // Reiniciamos los intentos si no se han superado anteriormente
-        if (intentos < 3) intentos = 0;
-        // Mientras no se haya confirmado o abortado la operación y no se hayan realizado más de 3 intentos
-        do{
-            // Si el usuario está seguro de eliminar la excursión
-            if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("S")){
-                // Eliminamos la excursión
-                cExcursiones.removeExcursion(respuesta);
-                // Informamos al usuario de que la excursión ha sido eliminada
-                System.out.println("Excursión eliminada.");
-                // Cambiamos el resultado a verdadero
-                resultado = true;
-            }
-            // Si el usuario no está seguro de eliminar la excursión
-            else if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("N")){
-                // Informamos al usuario de que la operación no se ha realizado
-                System.out.println("Operación cancelada.");
-                // Cambiamos el resultado a verdadero
-                resultado = true;
-            }
-            // Si la respuesta no es válida
-            else {
-                // Informamos al usuario
-                System.out.println("Opción no válida.");
-                // Incrementamos los intentos
-                intentos++;
-            }
-        }
-        while (!resultado && intentos < 3);
 
-        // Si se han realizado demasiados intentos
-        if (intentos == 3){
-            // Informamos al usuario y volvemos al menú excursiones
-            System.out.println("Demasiados intentos. Volviendo al menú excursiones...");
+        // Si el usuario está seguro de eliminar la excursión
+        if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("S")){
+            // Eliminamos la excursión
+            cExcursiones.removeExcursion(respuesta);
+            // Informamos al usuario de que la excursión ha sido eliminada
+            System.out.println("Excursión eliminada.");
+        }
+        // Si el usuario no está seguro de eliminar la excursión
+        else if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("N")){
+            // Informamos al usuario de que la operación no se ha realizado
+            System.out.println("Operación cancelada.");
         }
     }
 

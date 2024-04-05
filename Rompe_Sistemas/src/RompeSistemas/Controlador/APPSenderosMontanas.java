@@ -42,16 +42,7 @@ public class APPSenderosMontanas {
      * Vista del menú principal.
      */
     public VistaMenuPrincipal vMenuPrincipal;
-    public VistaInscripciones vInscripciones;
-    public VistaListarInscripciones vListarInscripciones;
-    public VistaAddInscripcion vAddInscripcion;
-    public VistaSocios vSocios;
-    public VistaListarSocios vListarSocios;
-    public VistaAddSocio vAddSocio;
-    public VistaModificarSeguro vModificarSeguro;
-    public VistaExcursiones vExcursiones;
-    public VistaListarExcursiones vListarExcursiones;
-    public VistaAddExcursion vAddExcursion;
+
 
     // Métodos
 
@@ -183,47 +174,6 @@ public class APPSenderosMontanas {
         return vMenuPrincipal;
     }
 
-    public VistaInscripciones getVistaInscripciones() {
-        return vInscripciones;
-    }
-
-    public VistaListarInscripciones getVistaListarInscripciones() {
-        return vListarInscripciones;
-    }
-
-    public VistaAddInscripcion getVistaAddInscripcion() {
-        return vAddInscripcion;
-    }
-
-    public VistaSocios getVistaSocios() {
-        return vSocios;
-    }
-
-    public VistaListarSocios getVistaListarSocios() {
-        return vListarSocios;
-    }
-
-    public VistaAddSocio getVistaAddSocio() {
-        return vAddSocio;
-    }
-
-    public VistaModificarSeguro getVistaModificarSeguro() {
-        return vModificarSeguro;
-    }
-
-    public VistaExcursiones getVistaExcursiones() {
-        return vExcursiones;
-    }
-
-    public VistaListarExcursiones getVistaListarExcursiones() {
-        return vListarExcursiones;
-    }
-
-    public VistaAddExcursion getVistaAddExcursion() {
-        return vAddExcursion;
-    }
-
-    
     // Setters
 
     public void setControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {

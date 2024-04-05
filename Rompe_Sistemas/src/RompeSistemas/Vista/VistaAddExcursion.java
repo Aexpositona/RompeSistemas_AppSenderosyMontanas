@@ -112,14 +112,7 @@ public class VistaAddExcursion {
                         System.out.println("El código de la excursión ya existe.");
                     }
                 }
-                // Si el código no es válido
-                else {
-                    // Informamos al usuario
-                    System.out.println("El código no puede estar vacío y ha de tener 5 caracteres.");
-                    // Cambiamos el resultado a verdadero
-                    resultado = true;
-                }
-            }
+             }
         }
         while (!resultado);
         // Cambiamos el resultado a falso
@@ -128,22 +121,24 @@ public class VistaAddExcursion {
         do {
             // Solicitamos la descripción de la excursión
             descripcion = cPeticiones.pedirString("Introduzca la descripción de la excursión: ");
-            // Si la descripción no está vacía
-            if (!descripcion.isEmpty()) {
-                // Cambiamos el resultado a verdadero
-                resultado = true;
-            }
             // Si la descripción está vacía
+            if (descripcion.isEmpty() || descripcion.length() < 5) {
+                // Informamos al usuario de que la descripción no puede estar vacía
+                System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.");
+            }
+            // Si la descripción no está vacía y tiene al menos 5 caracteres
             else {
                 // Informamos al usuario
-                System.out.println("La descripción no puede estar vacía.");
+                System.out.println("Descripción guardada.\n");
+                // Cambiamos el resultado a verdadero
+                resultado = true;
             }
         }
         while (!resultado);
         // Mientras no se introduzca una fecha válida
         do {
             // Solicitamos la fecha de la excursión
-            fecha = cPeticiones.pedirFecha("Introduzca la fecha de la excursión: ");
+            fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --");
         }
         while (fecha.isBefore(LocalDate.now()));
         // Mientras no se introduzca un precio válido

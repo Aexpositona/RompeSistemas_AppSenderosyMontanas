@@ -114,56 +114,23 @@ public class ControlPeticiones {
     public LocalDate pedirFecha(String peticion){
         // Variables internas
         int dia, mes, ano;
-        boolean resultado;
+        boolean resultado = false;
         // Mostramos petición
         System.out.println(peticion);
-        // Mientras no se introduzca un año válido repetimos solicitud
-        do {
-            // Solicitamos el año
-            System.out.println("Introduzca el año: ");
-            // Registramos el año introducido por el usuario
-            ano = Integer.parseInt(scanner.nextLine());
-            // Si el año es menor que el actual
-            if (ano < LocalDate.now().getYear()) {
-                // Informamos al usuario del error
-                System.out.println("El año no puede ser menor que el actual.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
-            // Si el año es mayor que el actual el año es válido
-            else resultado = true;
-        }
-        while (!resultado);
-        // Mientras no se introduzca un mes válido repetimos solicitud
-        do {
-            // Solicitamos el mes
-            System.out.println("Introduzca el mes: ");
-            // Registramos el mes introducido por el usuario
-            mes = Integer.parseInt(scanner.nextLine());
-            // Si el mes es menor que 1 o mayor que 12
-            if (mes <= 0 || mes > 12) {
-                // Informamos al usuario del error
-                System.out.println("El mes no puede ser menor que 1 ni mayor que 12.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
-        }
-        while (!resultado);
+        // Solicitamos y registramos el año introducido por el usuario entre el año actual y dos años más
+        ano = pedirEntero("Introduzca el año: ", LocalDate.now().getYear(),LocalDate.now().getYear()+2 );
+
+        // Solicitamos y registramos el mes introducido por el usuario
+        mes = pedirEntero("Introduzca el mes: ", 1, 12);
+
         // Mientras no se introduzca un día válido repetimos solicitud
         do {
             // Solicitamos el día
-            System.out.println("Introduzca el día: ");
+            System.out.println();
             // Registramos el día introducido por el usuario
-            dia = Integer.parseInt(scanner.nextLine());
-            // Si el día es menor que 1 o mayor que 31
-            if (dia <= 0 || dia > 31) {
-                // Informamos al usuario del error
-                System.out.println("El día no puede ser menor que 1 ni mayor que 31.");
-                // Registramos resultado como falso
-                resultado = false;
-            }
+            dia = pedirEntero("Introduzca el día: ", 1, 31);
             // El mes es febrero no puede tener más de 28 días si no es bisiesto
-            else if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {
+            if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {
                 System.out.println("Febrero no puede tener más de 28 días al no ser bisiesto.");
                 resultado = false;
             }
@@ -175,6 +142,10 @@ public class ControlPeticiones {
             // Los meses con 30 días no pueden tener más de 30 días
             else if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
                 System.out.println("El mes seleccionado no puede tener más de 30 días.");
+                resultado = false;
+            }
+            else if (LocalDate.of(ano,mes,dia) == LocalDate.now()){
+                System.out.println("La fecha introducida no puede ser posterior a la fecha actual.");
                 resultado = false;
             }
             // En el resto de casos el día es válido
