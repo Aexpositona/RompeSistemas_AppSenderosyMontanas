@@ -27,13 +27,14 @@ public class ControlSocios {
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
+        this.datos = new Datos(app.getDatos());
+        this.cDatos = new ControlDatos(app.getControlDatos());
         this.vSocios = new VistaSocios(this);
         this.vModificarSeguro = new VistaModificarSeguro(this);
         this.vListarSocios = new VistaListarSocios(this);
         this.vAddSocio = new VistaAddSocio(this);
         this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
-        this.datos = new Datos(app.getDatos());
-        this.cDatos = new ControlDatos(app.getControlDatos());
+
     }
 
     /**

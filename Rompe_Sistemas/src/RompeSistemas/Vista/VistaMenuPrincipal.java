@@ -19,10 +19,40 @@ public class VistaMenuPrincipal {
      * @param cMenuPrincipal ControlMenuPrincipal
      */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
-        this.cMenuPrincipal = cMenuPrincipal;
-        this.cPeticiones = cMenuPrincipal.getControlPeticiones();
+        this.cMenuPrincipal = new ControlMenuPrincipal(cMenuPrincipal);
+        this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
     }
 
+    public VistaMenuPrincipal(VistaMenuPrincipal vistaMenuPrincipal) {
+        this.cMenuPrincipal = new ControlMenuPrincipal(vistaMenuPrincipal.getControlMenuPrincipal());
+        this.cPeticiones = new ControlPeticiones(vistaMenuPrincipal.getControlPeticiones());
+    }
+
+    public VistaMenuPrincipal() {
+        this.cMenuPrincipal = null;
+        this.cPeticiones = null;
+    }
+
+    // Getters
+
+    public ControlMenuPrincipal getControlMenuPrincipal() {
+        return cMenuPrincipal;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    // Setters
+
+    public void setControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
+        this.cMenuPrincipal = cMenuPrincipal;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+    
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */

@@ -24,9 +24,9 @@ public class ControlInscripciones {
      *
      */
     public ControlInscripciones(APPSenderosMontanas app) {
-        this.vInscripciones = app.getVistaInscripciones();
-        this.vAddInscripcion = app.getVistaAddInscripcion();
-        this.vListarInscripciones = app.getVistaListarInscripciones();
+        this.vInscripciones = new VistaInscripciones();
+        this.vAddInscripcion = new VistaAddInscripcion();
+        this.vListarInscripciones = new VistaListarInscripciones();
         this.datos = app.getDatos();
         this.cPeticiones = app.getControlPeticiones();
     }
@@ -42,6 +42,14 @@ public class ControlInscripciones {
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.datos = cInscripciones.getDatos();
         this.cPeticiones = cInscripciones.getControlPeticiones();
+    }
+
+    public ControlInscripciones() {
+        this.vInscripciones = null;
+        this.vAddInscripcion = null;
+        this.vListarInscripciones = null;
+        this.datos = null;
+        this.cPeticiones = null;
     }
 
     // Getters

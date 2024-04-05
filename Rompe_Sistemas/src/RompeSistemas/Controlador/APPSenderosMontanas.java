@@ -81,26 +81,63 @@ public class APPSenderosMontanas {
      */
     public void iniciar(Datos datos) {
         // Inicializar controladores
+        this.datos = datos;
+        cDatos = new ControlDatos(this);
+        cPeticiones = new ControlPeticiones();
         cInscripciones = new ControlInscripciones(this);
         cSocios = new ControlSocios(this);
         cExcursiones = new ControlExcursiones(this);
-        cDatos = new ControlDatos(this);
-        cPeticiones = new ControlPeticiones();
         cMenuPrincipal = new ControlMenuPrincipal(this);
-        this.datos = datos;
 
         // Inicializar vistas
-        vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);
-        vInscripciones = new VistaInscripciones(cInscripciones);
-        vListarInscripciones = new VistaListarInscripciones(cInscripciones);
-        vAddInscripcion = new VistaAddInscripcion(cInscripciones);
-        vSocios = new VistaSocios(cSocios);
-        vListarSocios = new VistaListarSocios(cSocios);
-        vAddSocio = new VistaAddSocio(cSocios);
-        vModificarSeguro = new VistaModificarSeguro(cSocios);
-        vExcursiones = new VistaExcursiones(cExcursiones);
-        vListarExcursiones = new VistaListarExcursiones(cExcursiones);
-        vAddExcursion = new VistaAddExcursion(cExcursiones);
+        cMenuPrincipal.setVistaMenuPrincipal(new VistaMenuPrincipal());
+        cMenuPrincipal.getVistaMenuPrincipal().setControlMenuPrincipal(cMenuPrincipal);
+        cMenuPrincipal.getVistaMenuPrincipal().setControlPeticiones(cPeticiones);
+        cMenuPrincipal.setControlExcursiones(cExcursiones);
+        cMenuPrincipal.setControlInscripciones(cInscripciones);
+        cMenuPrincipal.setControlSocios(cSocios);
+
+        cInscripciones.getVistaInscripciones().setControlInscripciones(cInscripciones);
+        cInscripciones.getVistaInscripciones().setControlPeticiones(cPeticiones);
+
+        cInscripciones.getVistaListarInscripciones().setControlInscripciones(cInscripciones);
+        cInscripciones.getVistaListarInscripciones().setControlPeticiones(cPeticiones);
+        cInscripciones.getVistaInscripciones().setVistaListarInscripciones(new VistaListarInscripciones(cInscripciones));
+
+        cInscripciones.getVistaAddInscripcion().setControlInscripciones(cInscripciones);
+        cInscripciones.getVistaAddInscripcion().setControlPeticiones(cPeticiones);
+        cInscripciones.getVistaInscripciones().setVistaAddInscripcion(new VistaAddInscripcion(cInscripciones));
+       
+
+        cSocios.getVistaSocios().setControlSocios(cSocios);
+        cSocios.getVistaSocios().setControlPeticiones(cPeticiones);
+
+        cSocios.getVistaListarSocios().setControlSocios(cSocios);
+        cSocios.getVistaListarSocios().setControlPeticiones(cPeticiones);
+        cSocios.getVistaSocios().setVistaListarSocios(new VistaListarSocios(cSocios));
+
+        cSocios.getVistaAddSocio().setControlSocios(cSocios);
+        cSocios.getVistaAddSocio().setControlPeticiones(cPeticiones);
+        cSocios.getVistaSocios().setVistaAddSocio(new VistaAddSocio(cSocios));
+
+        cSocios.getVistaModificarSeguro().setControlSocios(cSocios);
+        cSocios.getVistaModificarSeguro().setControlPeticiones(cPeticiones);
+        cSocios.getVistaSocios().setVistaModificarSeguro(new VistaModificarSeguro(cSocios));
+
+        cExcursiones.getVistaExcursiones().setControlExcursiones(cExcursiones);
+        cExcursiones.getVistaExcursiones().setControlPeticiones(cPeticiones);
+        cExcursiones.getVistaExcursiones().setControlDatos(cDatos);
+
+        cExcursiones.getVistaListarExcursiones().setControlExcursiones(cExcursiones);
+        cExcursiones.getVistaListarExcursiones().setControlPeticiones(cPeticiones);
+        cExcursiones.getVistaExcursiones().setVistaListarExcursiones(new VistaListarExcursiones(cExcursiones));
+
+
+        cExcursiones.getVistaAddExcursion().setControlExcursiones(cExcursiones);
+        cExcursiones.getVistaAddExcursion().setControlPeticiones(cPeticiones);
+        cExcursiones.getVistaExcursiones().setVistaAddExcursion(new VistaAddExcursion(cExcursiones));
+
+
     }
 
     /**

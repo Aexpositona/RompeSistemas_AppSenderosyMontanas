@@ -8,12 +8,43 @@ public class VistaListarInscripciones {
 
     //Atributos
     private ControlInscripciones cInscripciones;
-    private ControlPeticiones cPeticiones = new ControlPeticiones();
+    private ControlPeticiones cPeticiones;
 
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
     }
+
+    public VistaListarInscripciones(VistaListarInscripciones vistaListarInscripciones) {
+        this.cInscripciones = vistaListarInscripciones.getControlInscripciones();
+        this.cPeticiones = vistaListarInscripciones.getControlPeticiones();
+    }
+
+    public VistaListarInscripciones() {
+        this.cInscripciones = null;
+        this.cPeticiones = null;
+    }
+
+    //Getters
+
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    //Setters
+
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
 
     //Métodos
     /**

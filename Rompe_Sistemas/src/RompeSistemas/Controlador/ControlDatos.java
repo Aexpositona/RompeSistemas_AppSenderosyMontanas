@@ -15,7 +15,12 @@ public class ControlDatos {
 
     // Constructor de copia
     public ControlDatos (ControlDatos cDatos) {
-        this.datos = cDatos.datos;
+        this.datos = new Datos(cDatos.datos);
+    }
+
+    // Constructor vacío
+    public ControlDatos() {
+        this.datos = null;
     }
 
     // Métodos

@@ -31,6 +31,20 @@ public class VistaAddSocio {
 
     }
 
+    public VistaAddSocio(VistaAddSocio vAddSocio) {
+        this.cSocios = vAddSocio.getControlSocios();
+        this.cPeticiones = vAddSocio.getControlPeticiones();
+        this.datos = vAddSocio.getDatos();
+        this.cDatos = vAddSocio.getControlDatos();
+    }
+
+    public VistaAddSocio() {
+        this.cSocios = null;
+        this.cPeticiones = null;
+        this.datos = null;
+        this.cDatos = null;
+    }
+
     //Getters
 
     public ControlSocios getControlSocios() {
@@ -45,6 +59,11 @@ public class VistaAddSocio {
         return datos;
     }
 
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    
     //Setters
 
     public void setControlSocios(ControlSocios cSocios) {
@@ -58,6 +77,12 @@ public class VistaAddSocio {
     public void setDatos(Datos datos) {
         this.datos = datos;
     }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+
 
 
     //Métodos

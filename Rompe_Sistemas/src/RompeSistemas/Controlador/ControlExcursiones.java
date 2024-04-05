@@ -25,9 +25,9 @@ public class ControlExcursiones {
      * @param vExcursiones VistaExcursiones asociada al controlador.
      */
     public ControlExcursiones(APPSenderosMontanas app) {
-        this.vExcursiones = new VistaExcursiones(this);
-        this.vAddExcursion = new VistaAddExcursion(this);
-        this.vListarExcursiones = new VistaListarExcursiones(this);
+        this.vExcursiones = new VistaExcursiones();
+        this.vAddExcursion = new VistaAddExcursion();
+        this.vListarExcursiones = new VistaListarExcursiones();
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
@@ -45,6 +45,19 @@ public class ControlExcursiones {
         this.datos = cExcursiones.getDatos();
         this.cDatos = cExcursiones.getControlDatos();
         this.cPeticiones = cExcursiones.getControlPeticiones();
+    }
+
+    /**
+     * Constructor de ControlExcursiones vacío.
+     */
+
+    public ControlExcursiones() {
+        this.vExcursiones = null;
+        this.vAddExcursion = null;
+        this.vListarExcursiones = null;
+        this.datos = null;
+        this.cDatos = null;
+        this.cPeticiones = null;
     }
 
     // Getters

@@ -32,6 +32,86 @@ public class VistaSocios {
         this.datos = cSocios.getDatos();
     }
 
+    public VistaSocios(VistaSocios vistaSocios) {
+        this.cSocios = vistaSocios.getControlSocios();
+        this.vModificarSeguro = vistaSocios.getVistaModificarSeguro();
+        this.vListarSocios = vistaSocios.getVistaListarSocios();
+        this.vAñadirSocio = vistaSocios.getVistaAddSocio();
+        this.cPeticiones = vistaSocios.getControlPeticiones();
+        this.cDatos = vistaSocios.getControlDatos();
+        this.datos = vistaSocios.getDatos();
+    }
+
+    public VistaSocios() {
+        this.cSocios = null;
+        this.vModificarSeguro = null;
+        this.vListarSocios = null;
+        this.vAñadirSocio = null;
+        this.cPeticiones = null;
+        this.cDatos = null;
+        this.datos = null;
+    }
+
+    // Getters
+
+    public ControlSocios getControlSocios() {
+        return cSocios;
+    }
+
+    public VistaModificarSeguro getVistaModificarSeguro() {
+        return vModificarSeguro;
+    }
+
+    public VistaListarSocios getVistaListarSocios() {
+        return vListarSocios;
+    }
+
+    public VistaAddSocio getVistaAddSocio() {
+        return vAñadirSocio;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    // Setters
+
+    public void setControlSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+    }
+
+    public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
+        this.vModificarSeguro = vModificarSeguro;
+    }
+
+    public void setVistaListarSocios(VistaListarSocios vListarSocios) {
+        this.vListarSocios = vListarSocios;
+    }
+
+    public void setVistaAddSocio(VistaAddSocio vAñadirSocio) {
+        this.vAñadirSocio = vAñadirSocio;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
     /**
      * Método para mostrar la vista de socios
      */

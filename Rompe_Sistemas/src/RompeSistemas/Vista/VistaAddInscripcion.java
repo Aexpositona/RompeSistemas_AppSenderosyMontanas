@@ -24,6 +24,46 @@ public class VistaAddInscripcion {
         this.datos = cInscripciones.getDatos();        
     }
 
+    public VistaAddInscripcion(VistaAddInscripcion vistaAddInscripcion) {
+        this.cInscripciones = vistaAddInscripcion.getControlInscripciones();
+        this.cPeticiones = vistaAddInscripcion.getControlPeticiones();
+        this.datos = vistaAddInscripcion.getDatos();
+    }
+
+    public VistaAddInscripcion() {
+        this.cInscripciones = null;
+        this.cPeticiones = null;
+        this.datos = null;
+    }
+
+    //Getters
+
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    //Setters
+
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+        
     //Métodos
     /**
      * Método para añadir un botón que nos permite añadir una inscripción

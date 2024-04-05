@@ -17,15 +17,45 @@ public class VistaListarExcursiones {
     /**
      * Constructor de VistaListarExcursiones.
      *
-     * @param cExcursiones ControlExcursiones asociado a la vista.
+     * @param vistaListarExcursiones ControlExcursiones asociado a la vista.
      * @param cDatos ControlDatos asociado a la vista.
      */
     // Constructor
-    public VistaListarExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-        this.cPeticiones = cExcursiones.getControlPeticiones();
+    public VistaListarExcursiones(VistaListarExcursiones vistaListarExcursiones) {
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cPeticiones = new ControlPeticiones(vistaListarExcursiones.getControlPeticiones());
     }
 
+    public VistaListarExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+    }
+
+    public VistaListarExcursiones() {
+        this.cExcursiones = null;
+        this.cPeticiones = null;
+    }
+
+    // Getters
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    // Setters
+
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    
     /**
      * Método para mostrar el menú de listar excursiones y solicitar una opción.
      */

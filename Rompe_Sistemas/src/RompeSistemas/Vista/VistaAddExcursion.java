@@ -39,6 +39,12 @@ public class VistaAddExcursion {
         this.cPeticiones = vistaAddExcursion.getControlPeticiones();
     }
 
+    public VistaAddExcursion() {
+        this.cExcursiones = null;
+        this.cDatos = null;
+        this.cPeticiones = null;
+    }
+
     // Getters
 
     public ControlExcursiones getControlExcursiones() {
@@ -53,6 +59,21 @@ public class VistaAddExcursion {
         return cPeticiones;
     }
 
+    // Setters
+
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    
     /**
      * Método para añadir una excursión.
      *
