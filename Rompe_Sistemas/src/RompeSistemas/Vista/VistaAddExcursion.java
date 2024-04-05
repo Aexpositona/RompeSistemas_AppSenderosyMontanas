@@ -28,9 +28,29 @@ public class VistaAddExcursion {
      * @param cDatos ControlDatos
      */
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getControlDatos();
-        this.cPeticiones = cExcursiones.getControlPeticiones();
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cDatos = new ControlDatos(cExcursiones.getControlDatos());
+        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+    }
+
+    public VistaAddExcursion(VistaAddExcursion vistaAddExcursion) {
+        this.cExcursiones = vistaAddExcursion.getControlExcursiones();
+        this.cDatos = vistaAddExcursion.getControlDatos();
+        this.cPeticiones = vistaAddExcursion.getControlPeticiones();
+    }
+
+    // Getters
+
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
     }
 
     /**

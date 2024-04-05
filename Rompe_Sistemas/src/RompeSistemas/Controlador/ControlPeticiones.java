@@ -12,6 +12,20 @@ public class ControlPeticiones {
     // Constructores
     public ControlPeticiones() {
     }
+    
+    public ControlPeticiones(ControlPeticiones cPeticiones) {
+        this.scanner = cPeticiones.getScanner();
+    }
+
+    // Getters
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    // Setters
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     // Métodos
 

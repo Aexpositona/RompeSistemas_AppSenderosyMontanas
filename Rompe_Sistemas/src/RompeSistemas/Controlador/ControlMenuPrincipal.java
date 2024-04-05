@@ -29,6 +29,19 @@ public class ControlMenuPrincipal {
         this.cExcursiones = app.getControlExcursiones();
     }
 
+    /**
+     * Constructor de ControlMenuPrincipal de copia.
+     *
+     * @param cMenuPrincipal ControlMenuPrincipal a copiar
+     */
+    public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) {
+        this.vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
+        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones());
+        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios());
+        this.cExcursiones = new ControlExcursiones (cMenuPrincipal.getCOntrolExcursiones());
+        this.cPeticiones = new ControlPeticiones (cMenuPrincipal.getControlPeticiones());
+    }
+
     // Getters
 
     public VistaMenuPrincipal getVistaMenuPrincipal(){

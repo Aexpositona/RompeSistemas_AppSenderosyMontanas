@@ -8,7 +8,7 @@ public class VistaListarInscripciones {
 
     //Atributos
     private ControlInscripciones cInscripciones;
-    private ControlPeticiones cPeticiones;
+    private ControlPeticiones cPeticiones = new ControlPeticiones();
 
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;

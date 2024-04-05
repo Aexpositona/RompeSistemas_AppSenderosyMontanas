@@ -11,11 +11,11 @@ import RompeSistemas.Modelo.Datos;
  */
 public class VistaInscripciones {
     //Atributos
-    private ControlInscripciones cInscripciones = new ControlInscripciones(null);
-    private VistaListarInscripciones vListarInscripciones = new VistaListarInscripciones(cInscripciones); 
-    private VistaAddInscripcion vAñadirInscripcion = new VistaAddInscripcion(cInscripciones);
-    private ControlPeticiones cPeticiones = new ControlPeticiones();
-    private Datos datos = new Datos();
+    private ControlInscripciones cInscripciones;
+    private VistaListarInscripciones vListarInscripciones; 
+    private VistaAddInscripcion vAñadirInscripcion;
+    private ControlPeticiones cPeticiones;
+    private Datos datos;
 
     //Constructores
     /**

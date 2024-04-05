@@ -31,6 +31,14 @@ public class Datos {
         objeto = new Object();
     }
 
+    public Datos(Datos datos) {
+        this.excursiones = datos.excursiones;
+        this.inscripciones = datos.inscripciones;
+        this.socios = datos.socios;
+        this.federaciones = datos.federaciones;
+        this.objeto = datos.objeto;
+    }
+
     // Métodos
 
     public Seguro getSeguro() {

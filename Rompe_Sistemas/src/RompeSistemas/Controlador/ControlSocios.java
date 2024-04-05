@@ -31,9 +31,25 @@ public class ControlSocios {
         this.vModificarSeguro = new VistaModificarSeguro(this);
         this.vListarSocios = new VistaListarSocios(this);
         this.vAddSocio = new VistaAddSocio(this);
-        this.cPeticiones = app.cPeticiones;
-        this.datos = app.datos;
-        this.cDatos = app.cDatos;
+        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
+        this.datos = new Datos(app.getDatos());
+        this.cDatos = new ControlDatos(app.getControlDatos());
+    }
+
+    /**
+     * Constructor de ControlSocios de copia.
+     *
+     * @param cSocios ControlSocios a copiar
+     */
+    public ControlSocios(ControlSocios cSocios) {
+        this.app = cSocios.getApp();
+        this.vSocios = cSocios.getVistaSocios();
+        this.vModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vListarSocios = cSocios.getVistaListarSocios();
+        this.vAddSocio = cSocios.getVistaAddSocio();
+        this.cPeticiones = cSocios.getControlPeticiones();
+        this.cDatos = cSocios.getControlDatos();
+        this.datos = cSocios.getDatos();
     }
 
     // Getters

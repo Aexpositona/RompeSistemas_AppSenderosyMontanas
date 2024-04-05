@@ -33,6 +33,20 @@ public class ControlExcursiones {
         this.cPeticiones = app.getControlPeticiones();
     }
 
+    /**
+     * Constructor de ControlExcursiones de copia.
+     *
+     * @param cExcursiones ControlExcursiones a copiar
+     */
+    public ControlExcursiones(ControlExcursiones cExcursiones) {
+        this.vExcursiones = new VistaExcursiones (cExcursiones.getVistaExcursiones());
+        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
+        this.vListarExcursiones = cExcursiones.getVistaListarExcursiones();
+        this.datos = cExcursiones.getDatos();
+        this.cDatos = cExcursiones.getControlDatos();
+        this.cPeticiones = cExcursiones.getControlPeticiones();
+    }
+
     // Getters
 
     public VistaExcursiones getVistaExcursiones() {

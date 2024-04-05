@@ -13,6 +13,11 @@ public class ControlDatos {
         this.datos = app.datos;
     }
 
+    // Constructor de copia
+    public ControlDatos (ControlDatos cDatos) {
+        this.datos = cDatos.datos;
+    }
+
     // Métodos
 
     /**

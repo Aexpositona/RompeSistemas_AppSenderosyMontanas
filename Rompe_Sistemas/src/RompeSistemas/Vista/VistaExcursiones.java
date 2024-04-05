@@ -25,11 +25,37 @@ public class VistaExcursiones {
      */
     // Constructor
     public VistaExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getControlDatos();
-        this.cPeticiones = cExcursiones.getControlPeticiones();
-        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cDatos = new ControlDatos (cExcursiones.getControlDatos());
+        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+        this.vAddExcursion = new VistaAddExcursion(cExcursiones.getVistaAddExcursion());
     }
+
+    public VistaExcursiones(VistaExcursiones vistaExcursiones) {
+        this.cExcursiones = vistaExcursiones.getControlExcursiones();
+        this.cDatos = vistaExcursiones.getControlDatos();
+        this.cPeticiones = vistaExcursiones.getControlPeticiones();
+        this.vAddExcursion = vistaExcursiones.getVistaAddExcursion();
+    }
+
+    // Getters
+
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public VistaAddExcursion getVistaAddExcursion() {
+        return vAddExcursion;
+    }
+    
 
     /**
      * Método para añadir una excursión.

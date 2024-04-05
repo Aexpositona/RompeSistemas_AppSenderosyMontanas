@@ -24,11 +24,24 @@ public class ControlInscripciones {
      *
      */
     public ControlInscripciones(APPSenderosMontanas app) {
-        this.vInscripciones = new VistaInscripciones(this);
-        this.vAddInscripcion = new VistaAddInscripcion(this);
-        this.vListarInscripciones = new VistaListarInscripciones(this);
+        this.vInscripciones = app.getVistaInscripciones();
+        this.vAddInscripcion = app.getVistaAddInscripcion();
+        this.vListarInscripciones = app.getVistaListarInscripciones();
         this.datos = app.getDatos();
         this.cPeticiones = app.getControlPeticiones();
+    }
+
+    /**
+     * Constructor de ControlInscripciones de copia.
+     *
+     * @param cInscripciones ControlInscripciones a copiar
+     */
+    public ControlInscripciones(ControlInscripciones cInscripciones) {
+        this.vInscripciones = cInscripciones.getVistaInscripciones();
+        this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
+        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
+        this.datos = cInscripciones.getDatos();
+        this.cPeticiones = cInscripciones.getControlPeticiones();
     }
 
     // Getters
