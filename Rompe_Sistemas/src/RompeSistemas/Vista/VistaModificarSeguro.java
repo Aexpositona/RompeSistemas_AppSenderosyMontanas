@@ -26,6 +26,56 @@ public class VistaModificarSeguro {
         this.cDatos = cSocios.getControlDatos();
     }
 
+    public VistaModificarSeguro(VistaModificarSeguro vistaModificarSeguro) {
+        this.cSocios = vistaModificarSeguro.getControlSocios();
+        this.cPeticiones = vistaModificarSeguro.getControlPeticiones();
+        this.datos = vistaModificarSeguro.getDatos();
+        this.cDatos = vistaModificarSeguro.getControlDatos();
+    }
+
+    public VistaModificarSeguro() {
+        this.cSocios = null;
+        this.cPeticiones = null;
+        this.datos = null;
+        this.cDatos = null;
+    }
+
+    // Getters
+
+    public ControlSocios getControlSocios() {
+        return cSocios;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    // Setters
+
+    public void setControlSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
     /**
      * Método para mostrar la vista de modificar seguro
      */

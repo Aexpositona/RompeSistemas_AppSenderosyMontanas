@@ -23,7 +23,7 @@ public class ControlMenuPrincipal {
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
         this.cPeticiones = app.getControlPeticiones();
-        this.vMenuPrincipal = new VistaMenuPrincipal(this);
+        this.vMenuPrincipal = app.getVistaMenuPrincipal();
         this.cInscripciones = app.getControlInscripciones();
         this.cSocios = app.getControlSocios();
         this.cExcursiones = app.getControlExcursiones();
@@ -35,11 +35,23 @@ public class ControlMenuPrincipal {
      * @param cMenuPrincipal ControlMenuPrincipal a copiar
      */
     public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) {
-        this.vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
+        this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal());
         this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones());
         this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios());
         this.cExcursiones = new ControlExcursiones (cMenuPrincipal.getCOntrolExcursiones());
         this.cPeticiones = new ControlPeticiones (cMenuPrincipal.getControlPeticiones());
+    }
+
+    /**
+     * Constructor de ControlMenuPrincipal vacío.
+     */
+
+    public ControlMenuPrincipal() {
+        this.vMenuPrincipal = null;
+        this.cInscripciones = null;
+        this.cSocios = null;
+        this.cExcursiones = null;
+        this.cPeticiones = null;
     }
 
     // Getters
@@ -74,7 +86,7 @@ public class ControlMenuPrincipal {
         this.cInscripciones = cInscripciones;
     }
 
-    public void setVistaSocios(ControlSocios cSocios) {
+    public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
 

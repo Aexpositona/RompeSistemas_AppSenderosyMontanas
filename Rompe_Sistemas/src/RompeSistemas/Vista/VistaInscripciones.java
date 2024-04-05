@@ -13,7 +13,7 @@ public class VistaInscripciones {
     //Atributos
     private ControlInscripciones cInscripciones;
     private VistaListarInscripciones vListarInscripciones; 
-    private VistaAddInscripcion vAñadirInscripcion;
+    private VistaAddInscripcion vAddInscripcion;
     private ControlPeticiones cPeticiones;
     private Datos datos;
 
@@ -21,15 +21,74 @@ public class VistaInscripciones {
     /**
      * Método constructor de la clase VistaInscripciones que recibe por parámetros la vista de añadir inscripción y la vista de listar inscripciones
      *
-     * @param vAñadirInscripcion   es la vista de añadir inscripción
+     * @param vAddInscripcion   es la vista de añadir inscripción
      * @param vListarInscripciones es la vista de listar inscripciones
      */
     public VistaInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
-        this.vAñadirInscripcion = cInscripciones.getVistaAddInscripcion();
+        this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.cPeticiones = cInscripciones.getControlPeticiones();
         this.datos = cInscripciones.getDatos();
+    }
+
+    public VistaInscripciones(VistaInscripciones vistaInscripciones) {
+        this.cInscripciones = vistaInscripciones.getControlInscripciones();
+        this.vAddInscripcion = vistaInscripciones.getVistaAddInscripcion();
+        this.vListarInscripciones = vistaInscripciones.getVistaListarInscripciones();
+        this.cPeticiones = vistaInscripciones.getControlPeticiones();
+        this.datos = vistaInscripciones.getDatos();
+    }
+
+    public VistaInscripciones() {
+        this.cInscripciones = null;
+        this.vAddInscripcion = null;
+        this.vListarInscripciones = null;
+        this.cPeticiones = null;
+        this.datos = null;
+    }
+
+    //Getters
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
+    }
+
+    public VistaAddInscripcion getVistaAddInscripcion() {
+        return vAddInscripcion;
+    }
+
+    public VistaListarInscripciones getVistaListarInscripciones() {
+        return vListarInscripciones;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public Datos getDatos() {
+        return datos;
+    }
+
+    //Setters
+
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
+    }
+
+    public void setVistaAddInscripcion(VistaAddInscripcion vAñadirInscripcion) {
+        this.vAddInscripcion = vAñadirInscripcion;
+    }
+
+    public void setVistaListarInscripciones(VistaListarInscripciones vListarInscripciones) {
+        this.vListarInscripciones = vListarInscripciones;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
     }
 
     //Métodos
@@ -39,7 +98,7 @@ public class VistaInscripciones {
      */
     public void buttonAddInscripcion() {
         System.out.println("Navegando a la vista de añadir inscripción");
-        vAñadirInscripcion.show();
+        vAddInscripcion.show();
     }
 
     /**

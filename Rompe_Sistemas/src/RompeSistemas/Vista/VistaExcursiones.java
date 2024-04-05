@@ -38,6 +38,13 @@ public class VistaExcursiones {
         this.vAddExcursion = vistaExcursiones.getVistaAddExcursion();
     }
 
+    public VistaExcursiones() {
+        this.cExcursiones = null;
+        this.cDatos = null;
+        this.cPeticiones = null;
+        this.vAddExcursion = null;
+    }
+
     // Getters
 
     public ControlExcursiones getControlExcursiones() {
@@ -55,6 +62,34 @@ public class VistaExcursiones {
     public VistaAddExcursion getVistaAddExcursion() {
         return vAddExcursion;
     }
+
+    public VistaListarExcursiones getVistaListarExcursiones() {
+        return vListarExcursiones;
+    }
+
+    // Setters
+
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }  
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+
+    public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
+        this.vAddExcursion = vAddExcursion;
+    }
+
+    public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
+        this.vListarExcursiones = vListarExcursiones;
+    }
+
+    // Métodos
     
 
     /**

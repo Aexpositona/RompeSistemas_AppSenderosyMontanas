@@ -15,6 +15,36 @@ public class VistaListarSocios {
         this.cPeticiones = cSocios.getControlPeticiones();
     }
 
+    public VistaListarSocios(VistaListarSocios vistaListarSocios) {
+        this.cSocios = vistaListarSocios.getControlSocios();
+        this.cPeticiones = vistaListarSocios.getControlPeticiones();
+    }
+
+    public VistaListarSocios() {
+        this.cSocios = null;
+        this.cPeticiones = null;
+    }
+
+    // Getters
+
+    public ControlSocios getControlSocios() {
+        return cSocios;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    // Setters
+
+    public void setControlSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
+    
     public void show() throws ParseException {
         boolean running = true;
         while (running) {

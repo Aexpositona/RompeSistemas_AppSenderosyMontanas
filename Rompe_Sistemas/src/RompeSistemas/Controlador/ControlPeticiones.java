@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class ControlPeticiones {
     // Atributos    
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
 
     // Constructores
     public ControlPeticiones() {
+        this.scanner = new Scanner(System.in);
     }
     
     public ControlPeticiones(ControlPeticiones cPeticiones) {
