@@ -141,6 +141,11 @@ public class ControlSocios {
         datos.listToStringObjetos(tipoObjeto);
     }
 
+    /**
+     * Método para listar los socios por tipo
+     * @param tipoObjeto 3-Socio
+     * @param tipoSocio 1-Estandar, 2-Federado, 3-Infantil
+     */
     // Método para listar socios por tipo
     public void listTipoSocios(int tipoObjeto, int tipoSocio) {
 

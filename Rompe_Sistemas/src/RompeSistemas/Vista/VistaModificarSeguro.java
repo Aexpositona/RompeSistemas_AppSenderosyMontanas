@@ -5,9 +5,7 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Seguro;
-
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class VistaModificarSeguro {
 
@@ -64,10 +62,9 @@ public class VistaModificarSeguro {
             }
         }
         while (!valido);
-
         // Solicitamos el tipo de seguro que se le va a asignar al socio
         tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio:\n" + datos.getSeguro().toString(), 1, Seguro.values().length);
-        cSocios.modificarSeguro(numeroSocio, tipoSeguro);
+        cSocios.modificarSeguro(String.valueOf(numeroSocio), tipoSeguro);
     }
 
 
