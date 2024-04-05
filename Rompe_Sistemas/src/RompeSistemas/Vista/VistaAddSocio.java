@@ -31,19 +31,6 @@ public class VistaAddSocio {
 
     }
 
-    public VistaAddSocio(VistaAddSocio vAddSocio) {
-        this.cSocios = vAddSocio.getControlSocios();
-        this.cPeticiones = vAddSocio.getControlPeticiones();
-        this.datos = vAddSocio.getDatos();
-        this.cDatos = vAddSocio.getControlDatos();
-    }
-
-    public VistaAddSocio() {
-        this.cSocios = null;
-        this.cPeticiones = null;
-        this.datos = null;
-        this.cDatos = null;
-    }
 
     //Getters
 
@@ -59,9 +46,6 @@ public class VistaAddSocio {
         return datos;
     }
 
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
 
     
     //Setters
@@ -78,9 +62,7 @@ public class VistaAddSocio {
         this.datos = datos;
     }
 
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
+
 
 
 
@@ -116,107 +98,51 @@ public class VistaAddSocio {
     //* @param nif NIF del socio
     //* @param seguro seguro del socio
     public void buttonAdd() {
-        // Variables internas
-        boolean valido = false;
-        int numero = 0;
-        String nombre = "";
-        int seguro = 0;
         System.out.println("Procediendo a añadir un socio...");
-        do{
-            System.out.println("Tipos de socio:");
-            System.out.println("1. Estandar");
-            System.out.println("2. Federado");
-            System.out.println("3. Infantil");
-            int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: ", 1, 3);
-            
-            if (tipoSocio == 1) {
-                // Pedir nombre del socio mediante un método
-                nombre = pedirNombreSocio();
-                // Obtener el número de socio mediante un método
-                numero = obtenerNumeroSocio();
-                // Pedir NIF del socio 
-                String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-                // Mientras el NIF introducido ya exista, pedir otro NIF
-                do{
-                    // Si el NIF ya existe
-                    if (cDatos.checkCodigoObjeto(3, nif)) {
-                        System.out.println("El NIF introducido ya existe. Introduce otro NIF.");
-                        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-                    }
-                    // Si el NIF no existe
-                    else {
-                        valido = true;
-                    }
-                }
-                while(!valido);
-                // Mostramos tipos de seguro disponibles
-                System.out.println("Tipos de seguro disponibles:");
-                // Mostramos toString de Seguro
-                System.out.println(datos.getSeguro().toString());
-                // Pedir tipo de seguro
-                seguro = cPeticiones.pedirEntero("Introduce el tipo de seguro del socio: ", 1, 2);
-                // Añadir socio tipo Estandar mediante el controlador de socios
-                cSocios.addSocio( 1, new Estandar(nombre, numero, nif, datos.getSeguro().getSeguro(seguro)));
-            } 
-            else if (tipoSocio == 2) {
-                // Pedir nombre del socio mediante un método
-                nombre = pedirNombreSocio();
-                // Obtener el número de socio mediante un método
-                numero = obtenerNumeroSocio();
-                // Pedir NIF del socio 
-                String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-                // Mientras el NIF introducido ya exista, pedir otro NIF
-                do{
-                    // Si el NIF ya existe
-                    if (cDatos.checkCodigoObjeto(3, nif)) {
-                        System.out.println("El NIF introducido ya existe. Introduce otro NIF.");
-                        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-                    }
-                    // Si el NIF no existe
-                    else {
-                        valido = true;
-                    }
-                }
-                while(!valido);
-                // Mientras el código de federación introducido no exista, pedir otro código de federación
-                do{
-                    // Pedir código de federación
-                    String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-                    // Si el código de federación es válido y 
-                    if (cDatos.checkCodigoObjeto(4, codigoFederacion) && cDatos.checkExistenciaObjeto(tipoSocio, codigoFederacion)){
-                        Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, codigoFederacion));
-                        cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
-                        // Mostramos mensaje de éxito
-                        System.out.println("Socio Federado añadido con éxito.");
-                        valido = true;
-                    }
-                    // Si el código de federación no es válido
-                    else { 
-                        valido = false;
-                    }
-                }
-                while(!valido);
-            } 
-            // Si el tipo de socio es Infantil
-            else if (tipoSocio == 3) {
-                // Pedir nombre del socio mediante un método
-                nombre = pedirNombreSocio();
-                // Obtener el número de socio mediante un método
-                numero = obtenerNumeroSocio();
-                // Pedir número de socio del tutor
-                int numSocioTutor = cPeticiones.pedirEntero("Introduce el número de socio del tutor: ", 1, datos.getArrayList(3).size());
-                // Añadir socio tipo Infantil mediante el controlador de socios
-                cSocios.addSocio( 1, new Infantil(nombre, numero, numSocioTutor));
-                // Mostramos mensaje de éxito
-                System.out.println("Socio Infantil añadido con éxito.");
-            } 
-            else {
-                System.out.println("Tipo de socio no válido.");
-            }
-        }
-        while(false);
-    }
+        System.out.println("Tipos de socio:");
+        System.out.println("1. Estandar");
+        System.out.println("2. Federado");
+        System.out.println("3. Infantil");
+        int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: ", 1, 3);
 
+        // Pedir nombre del socio mediante un método
+        String nombre = pedirNombreSocio();
+        // Obtener el número de socio mediante un método
+        int numero = obtenerNumeroSocio();
+        // Pedir NIF del socio
+        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+
+        if (tipoSocio == 1) {
+            // Mostramos tipos de seguro disponibles
+            System.out.println("Tipos de seguro disponibles:");
+            // Mostramos toString de Seguro
+            System.out.println(datos.getSeguro().toString());
+            // Pedir tipo de seguro
+            int seguro = cPeticiones.pedirEntero("Introduce el tipo de seguro del socio: ", 1, 2);
+            // Añadir socio tipo Estandar mediante el controlador de socios
+            cSocios.addSocio( 1, new Estandar(nombre, numero, nif, datos.getSeguro().getSeguro(seguro)));
+        }
+        else if (tipoSocio == 2) {
+            // Mientras el código de federación introducido no exista, pedir otro código de federación
+            String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+            Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, codigoFederacion));
+            cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
+            // Mostramos mensaje de éxito
+            System.out.println("Socio Federado añadido con éxito.");
+        }
+        // Si el tipo de socio es Infantil
+        else if (tipoSocio == 3) {
+            // Pedir número de socio del tutor
+            int numSocioTutor = cPeticiones.pedirEntero("Introduce el número de socio del tutor: ", 1, datos.getArrayList(3).size());
+            // Añadir socio tipo Infantil mediante el controlador de socios
+            cSocios.addSocio( 1, new Infantil(nombre, numero, numSocioTutor));
+            // Mostramos mensaje de éxito
+            System.out.println("Socio Infantil añadido con éxito.");
+        }
+        else {
+            System.out.println("Tipo de socio no válido.");
+        }
+    }
     public void buttonAtras() throws ParseException {
         System.out.println("Volviendo al menú de socios...");
         return;

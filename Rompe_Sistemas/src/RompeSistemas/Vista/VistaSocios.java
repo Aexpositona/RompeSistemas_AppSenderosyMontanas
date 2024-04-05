@@ -5,6 +5,7 @@ import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
 
+import java.util.Scanner;
 import java.text.ParseException;
 
 public class VistaSocios {
@@ -125,7 +126,7 @@ public class VistaSocios {
             System.out.println("4. Listar socios");
             System.out.println("5. Mostrar factura mensual de los socios");
             System.out.println("0. Atrás");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0)", 0, 5)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0): ", 0, 5)) {
                 case 1:
                     buttonAddSocio();
                     break;
@@ -162,14 +163,20 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
+
     public void buttonRemoveSocio() {
-        System.out.println("Que socio quiere eliminar? (Introduzca el número de socio)");
-        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 1, datos.getArrayList(3).size());
-        if (cDatos.checkCodigoObjeto(3, String.valueOf(numeroSocio)) && cDatos.checkExistenciaObjeto(3, String.valueOf(numeroSocio))) {
-            cSocios.removeSocio(3, numeroSocio);
-        }
-        else {
-            System.out.println("Número de socio inválido. Inténtelo de nuevo.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduce el número de socio que quieres eliminar: ");
+        String numeroSocioStr = scanner.nextLine();
+        try {
+            int numeroSocio = Integer.parseInt(numeroSocioStr);
+            if (!cDatos.isSocioInInscripcion(numeroSocio)) {
+                cSocios.removeSocio(3, numeroSocio);
+            } else {
+                System.out.println("El socio está asociado a una inscripción. No se puede eliminar.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("El número de socio debe ser un número entero. Inténtelo de nuevo.");
         }
     }
 

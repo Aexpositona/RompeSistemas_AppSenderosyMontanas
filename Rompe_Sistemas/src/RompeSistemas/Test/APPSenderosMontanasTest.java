@@ -2,47 +2,37 @@ package RompeSistemas.Test;
 
 import RompeSistemas.Controlador.APPSenderosMontanas;
 import RompeSistemas.Modelo.Datos;
-import RompeSistemas.Modelo.DataLoader;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class APPSenderosMontanasTest {
 
-    /**
-     * Prueba de ejecutar el método main de la aplicación.
-     */
+    private APPSenderosMontanas app;
+    private Datos datos;
+
+    @BeforeEach
+    public void setup() {
+        app = new APPSenderosMontanas();
+        datos = new Datos();
+    }
+
     @Test
-    public void testMain() {
+    public void testIniciar() {
+        app.iniciar(datos);
 
-        /**
-         * Crear instancia de DataLoader
-         */
-        DataLoader dataLoader = new DataLoader(new Datos());
+        // Check if the controllers and views are initialized
+        assertNotNull(app.getControlMenuPrincipal());
+        assertNotNull(app.getControlInscripciones());
+        assertNotNull(app.getControlSocios());
+        assertNotNull(app.getControlExcursiones());
+        assertNotNull(app.getControlDatos());
+        assertNotNull(app.getControlPeticiones());
+        assertNotNull(app.getDatos());
+        assertNotNull(app.getVistaMenuPrincipal());
 
-        /**
-         * Crear instancia de Datos
-         */
-        Datos datos = new Datos();
-
-        /**
-         * Crear instancia de APPSenderosMontanas
-         */
-        APPSenderosMontanas app = new APPSenderosMontanas();
-
-        /**
-         * Establecer los datos en la aplicación
-         */
-        app.setDatos(datos);
-
-        /**
-         * Cargar los datos
-         */
-        dataLoader.load(datos);
-
-        /**
-         * Ejecutar el método main y verificar que no se lanzan excepciones
-         */
-        assertDoesNotThrow(() -> app.main(new String[]{}));
+        // Check if the correct data object is used
+        assertEquals(datos, app.getDatos());
     }
 }

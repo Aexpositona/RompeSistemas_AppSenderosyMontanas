@@ -85,7 +85,7 @@ public class VistaModificarSeguro {
             System.out.println("Seleccione una opción: ");
             System.out.println("1. Modificar seguro");
             System.out.println("0. Atrás");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1 o 0)", 0, 1)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción(1 o 0): ", 0, 1)) {
                 case 1:
                     buttonVistaModificar();
                     break;
@@ -118,7 +118,7 @@ public class VistaModificarSeguro {
         }
         while (!valido);
         // Solicitamos el tipo de seguro que se le va a asignar al socio
-        tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio:\n" + datos.getSeguro().toString(), 1, Seguro.values().length);
+        tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio: " + datos.getSeguro().toString(), 1, Seguro.values().length);
         cSocios.modificarSeguro(String.valueOf(numeroSocio), tipoSeguro);
     }
 

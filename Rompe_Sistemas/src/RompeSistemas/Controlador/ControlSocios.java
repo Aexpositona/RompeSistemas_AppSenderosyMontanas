@@ -149,13 +149,23 @@ public class ControlSocios {
 
     // Métodos gestión de socios
 
-    public void removeSocio(int tipoObjeto, Object socio) {
-        datos.removeObjeto(tipoObjeto, socio);
+    public void removeSocio(int tipoObjeto, int numeroSocio) {
+        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        for (Socio socio : socios) {
+            if (socio.getNumero() == numeroSocio) {
+                datos.removeObjeto(tipoObjeto, socio);
+                break;
+            }
+        }
     }
-
     // Métodos para listar socios
     public void listSocios(int tipoObjeto) {
-        datos.listToStringObjetos(tipoObjeto);
+        // Obtenemos un array de socios de la lista de socios
+        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        // Recorremos el array de socios y mostramos cada socio
+        for (Socio socio : socios) {
+            System.out.println(socio.toString());
+        }
     }
 
     /**

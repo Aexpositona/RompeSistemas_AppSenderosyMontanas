@@ -87,31 +87,31 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la excursión";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = codigo.length();
         }
         // Si el objeto es una inscripción
         else if (tipoObjeto == 2) {
             // Mensaje de error
             mensaje = "El número de la inscripción";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = codigo.length();
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
             // Mensaje de error
             mensaje = "El número de socio";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = codigo.length();
         }
         else if (tipoObjeto == 4) {
             // Mensaje de error
             mensaje = "El código de la federación";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = codigo.length();
         }
         // Si el objeto introducido no reune las condiciones de longitud
         if (codigo.length() != cantidad) {
-            System.out.println(mensaje + "no puede estar vacío y ha de tener " + cantidad + " caracteres.");
+            System.out.println(mensaje + " no puede estar vacío. Inténtelo de nuevo.");
             return false;
         }
         else return true;
@@ -176,5 +176,16 @@ public class ControlDatos {
         return resultado;
     }
 
+    public boolean isSocioInInscripcion(int numeroSocio) {
+        for (Object obj : datos.getArrayList(2)) {
+            if (obj instanceof Inscripcion) {
+                Inscripcion inscripcion = (Inscripcion) obj;
+                if (inscripcion.getSocio().getNumero() == numeroSocio) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }
