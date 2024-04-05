@@ -6,6 +6,8 @@ import RompeSistemas.Vista.VistaModificarSeguro;
 import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ControlSocios {
@@ -129,10 +131,9 @@ public class ControlSocios {
 
     // Métodos de la vista
 
-    public void addSocio(int tipoObjeto, Object socio) {
-        datos.addObjeto(tipoObjeto, socio);
+    public void addSocio(Socio socio) {
+        datos.addObjeto(3, socio);
     }
-
 
 
     public void showVistaListarSocios() throws ParseException{
@@ -168,16 +169,16 @@ public class ControlSocios {
         }
     }
 
-    /**
-     * Método para listar los socios por tipo
-     * @param tipoObjeto 3-Socio
-     * @param tipoSocio 1-Estandar, 2-Federado, 3-Infantil
-     */
-    // Método para listar socios por tipo
     public void listTipoSocios(int tipoObjeto, int tipoSocio) {
-
         // Obtenemos un array de socios de la lista de socios
-        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        List<Object> listaObjetos = datos.getArrayList(tipoObjeto);
+        List<Socio> listaSocios = new ArrayList<>();
+        for (Object objeto : listaObjetos) {
+            if (objeto instanceof Socio) {
+                listaSocios.add((Socio) objeto);
+            }
+        }
+        Socio[] socios = listaSocios.toArray(new Socio[0]);
         // Recorremos el array de socios y mostramos los socios del tipo indicado
         for (Socio socio : socios) {
             if (socio.getTipo() == tipoSocio) {

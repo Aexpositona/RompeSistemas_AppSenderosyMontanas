@@ -4,7 +4,7 @@ public abstract class Socio {
 
     private String nombre;
     private int numero;
-
+    public String nif;
     //Constructores
 
     /**
@@ -12,9 +12,10 @@ public abstract class Socio {
      * @param nombre Es el nombre del socio
      * @param numero Es el número del socio
      */
-    public Socio(String nombre, int numero) {
+    public Socio(String nombre, int numero, String nif) {
         this.nombre = nombre;
         this.numero = numero;
+        this.nif = nif;
     }
 
     /**
@@ -48,7 +49,14 @@ public abstract class Socio {
     public int getTipo() {
         return 0;
     }
-    
+
+    /**
+     * Método get() de la clase Socio que nos devuelve el NIF del socio
+     * @return El NIF del socio
+     */
+    public String getNif() {
+        return nif;
+    }
     //Métodos Setters
     /**
      * Método set() de la clase Socio que nos permite definir el nombre del socio
@@ -72,13 +80,17 @@ public abstract class Socio {
      */
     public void setTipo(String tipo) {
     }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
     /**
      * Método toString() de la clase Socio que nos devuelve un String con los datos del socio
      * @return Un String con los datos del socio, como el nombre, el domicilio, el NIF y el email
      */
     @Override
     public String toString() {
-        return " Nombre: " + nombre + "\n Numero de socio: " + numero + "\n Tipo: " + "\n ";
+        return " Nombre: " + nombre + "\n Numero de socio: " + numero +"\n NIF: " + nif + "\n Tipo: " + "\n ";
     }
 
 

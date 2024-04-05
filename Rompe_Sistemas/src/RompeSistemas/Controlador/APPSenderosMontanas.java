@@ -134,7 +134,7 @@ public class APPSenderosMontanas {
 
     }
 
-    /**
+    /**2
      * Muestra la vista del menú principal.
      * @throws ParseException excepción de parseo
      */

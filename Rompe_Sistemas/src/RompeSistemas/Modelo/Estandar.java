@@ -19,7 +19,7 @@ public class Estandar extends Socio {
      * @param seguro seguro del socio
      */
     public Estandar(String nombre, int numero, String nif, Seguro seguro) {
-        super(nombre, numero);
+        super(nombre, numero,nif);
         this.nif = nif;
         this.seguro = seguro;
     }
@@ -54,14 +54,6 @@ public class Estandar extends Socio {
 
     // Métodos Setters
 
-    /**
-     * Método set para establecer el NIF del socio.
-     *
-     * @param nif el NIF del socio
-     */
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
 
     /**
      * Método set para establecer el seguro del socio.

@@ -187,5 +187,19 @@ public class ControlDatos {
         }
         return false;
     }
+    public boolean checkExistenciaNIF(String nif){
+        // Recorremos todos los socios
+        for (Object obj : datos.getArrayList(3)) {
+            if (obj instanceof Socio) {
+                Socio socio = (Socio) obj;
+                // Si encontramos un socio con el mismo NIF, devolvemos true
+                if (socio.getNif().equals(nif)) {
+                    return true;
+                }
+            }
+        }
+        // Si no encontramos ningún socio con el mismo NIF, devolvemos false
+        return false;
+    }
 
 }

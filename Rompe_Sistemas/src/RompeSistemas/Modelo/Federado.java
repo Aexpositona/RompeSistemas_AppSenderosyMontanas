@@ -3,7 +3,6 @@ package RompeSistemas.Modelo;
 
 public class Federado extends Socio {
 
-    private String nif;
     private Federacion federaciones;
 
 
@@ -16,8 +15,7 @@ public class Federado extends Socio {
      * @param federaciones es la federación a la que pertenece el socio
      */
     public Federado(String nombre, int numero, String nif, Federacion federaciones) {
-        super(nombre, numero);
-        this.nif = nif;
+        super(nombre, numero,nif);
         this.federaciones = federaciones;
     }
 
@@ -26,13 +24,6 @@ public class Federado extends Socio {
     }
 
     // Métodos Getters
-    /**
-     * Método get() de la clase Estandar que nos devuelve el NIF del socio
-     * @return El NIF del socio
-     */
-    public String getNif() {
-        return nif;
-    }
 
     /**
      * Método get() de la clase Estandar que nos devuelve la federación a la que pertenece el socio
@@ -47,9 +38,7 @@ public class Federado extends Socio {
      * Método set() de la clase Estandar que nos permite definir el NIF del socio
      * @param nif Es el NIF del socio
      */
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
+
 
     /**
      * Método set() de la clase Estandar que nos permite definir la federación a la que pertenece el socio

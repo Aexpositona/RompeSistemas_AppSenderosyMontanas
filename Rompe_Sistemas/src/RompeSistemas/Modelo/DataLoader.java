@@ -48,9 +48,9 @@ public class DataLoader {
         datos.addObjeto(3, new Federado("Carlos", 6,"87637489V", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "12512"))));
 
         // Añadir usuarios infantiles a la lista de socios
-        datos.addObjeto(3, new Infantil("Ana", 7, 1));
-        datos.addObjeto(3, new Infantil("Luis", 8, 2));
-        datos.addObjeto(3, new Infantil("Marcos", 9, 3));
+        datos.addObjeto(3, new Infantil("Ana", 7,"83736182A", 1));
+        datos.addObjeto(3, new Infantil("Luis", 8,"83736182B", 2));
+        datos.addObjeto(3, new Infantil("Marcos", 9,"83736182C", 3));
     }
 
     /**
