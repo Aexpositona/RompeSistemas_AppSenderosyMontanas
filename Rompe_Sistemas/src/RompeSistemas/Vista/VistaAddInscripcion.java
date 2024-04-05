@@ -20,8 +20,8 @@ public class VistaAddInscripcion {
 
     public VistaAddInscripcion(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
-        this.cPeticiones = cInscripciones.getApp().cPeticiones;
-        this.datos = cInscripciones.getApp().datos;        
+        this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.datos = cInscripciones.getDatos();        
     }
 
     //Métodos
@@ -29,7 +29,7 @@ public class VistaAddInscripcion {
      * Método para añadir un botón que nos permite añadir una inscripción
      */
     public void buttonAñadir(){
-        cInscripciones.addInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(cPeticiones.pedirString("Introduzca el id del socio: "), 2)),2);
+        cInscripciones.addInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduzca el id del socio: "))),2);
     }
 
     public void buttonAtras() {

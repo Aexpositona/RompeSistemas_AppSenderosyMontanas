@@ -28,9 +28,29 @@ public class VistaAddExcursion {
      * @param cDatos ControlDatos
      */
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getApp().cDatos;
-        this.cPeticiones = cExcursiones.getApp().cPeticiones;
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cDatos = new ControlDatos(cExcursiones.getControlDatos());
+        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+    }
+
+    public VistaAddExcursion(VistaAddExcursion vistaAddExcursion) {
+        this.cExcursiones = vistaAddExcursion.getControlExcursiones();
+        this.cDatos = vistaAddExcursion.getControlDatos();
+        this.cPeticiones = vistaAddExcursion.getControlPeticiones();
+    }
+
+    // Getters
+
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
     }
 
     /**
@@ -57,9 +77,9 @@ public class VistaAddExcursion {
             // Si el código no está vacío
             else {
                 // Si el código es válido
-                if (cDatos.checkCodigoObjeto(codigo,1)) {
+                if (cDatos.checkCodigoObjeto(1, codigo)) {
                     // Si la excursión no existe
-                    if (!cDatos.checkExistenciaObjeto(codigo,1)) {
+                    if (!cDatos.checkExistenciaObjeto(1, codigo)) {
                         // Informamos al usuario de que el código es válido
                         System.out.println("Código válido.");
                         // Cambiamos el resultado a verdadero

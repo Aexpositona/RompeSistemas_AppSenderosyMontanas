@@ -5,10 +5,7 @@ import RompeSistemas.Vista.VistaSocios;
 import RompeSistemas.Vista.VistaModificarSeguro;
 import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.text.ParseException;
-import java.util.Collections;
 
 
 public class ControlSocios {
@@ -20,11 +17,13 @@ public class ControlSocios {
     private VistaListarSocios vListarSocios;
     private VistaAddSocio vAddSocio;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
     private Datos datos;
 
     /**
      * Constructor de ControlSocios.
-     *
+     * 
+     * @param app APPSenderosMontanas asociada al controlador.
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
@@ -32,8 +31,25 @@ public class ControlSocios {
         this.vModificarSeguro = new VistaModificarSeguro(this);
         this.vListarSocios = new VistaListarSocios(this);
         this.vAddSocio = new VistaAddSocio(this);
-        this.cPeticiones = app.cPeticiones;
-        this.datos = app.datos;
+        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
+        this.datos = new Datos(app.getDatos());
+        this.cDatos = new ControlDatos(app.getControlDatos());
+    }
+
+    /**
+     * Constructor de ControlSocios de copia.
+     *
+     * @param cSocios ControlSocios a copiar
+     */
+    public ControlSocios(ControlSocios cSocios) {
+        this.app = cSocios.getApp();
+        this.vSocios = cSocios.getVistaSocios();
+        this.vModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vListarSocios = cSocios.getVistaListarSocios();
+        this.vAddSocio = cSocios.getVistaAddSocio();
+        this.cPeticiones = cSocios.getControlPeticiones();
+        this.cDatos = cSocios.getControlDatos();
+        this.datos = cSocios.getDatos();
     }
 
     // Getters
@@ -62,8 +78,15 @@ public class ControlSocios {
         return cPeticiones;
     }
 
-    // Setters
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
 
+    public Datos getDatos() {
+        return datos;
+    }
+
+    // Setters
     public void setApp(APPSenderosMontanas app) {
         this.app = app;
     }
@@ -88,6 +111,14 @@ public class ControlSocios {
         this.cPeticiones = cPeticiones;
     }
 
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+    public void setDatos(Datos datos) {
+        this.datos = datos;
+    }
+
     // Métodos
 
     public void show() throws ParseException{
@@ -95,165 +126,63 @@ public class ControlSocios {
     }
 
 
-    public void addSocio(int tipoSocio, Object socio) {
+    // Métodos de la vista
 
-        datos.addObjeto(socio, 3);
-    }
-
-    public void addFederado() {
-
-    }
-
-    public void addInfantil() {
-
-        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
-
-        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-
-        int numSocioTutor = cPeticiones.pedirEntero("Introduce el número del socio del tutor: ", 0, Integer.MAX_VALUE);
-
-        Infantil nuevoSocio = new Infantil(nombre, numero, numSocioTutor);
-        app.datos.addObjeto(nuevoSocio, 3);
-    }
-
-    public void addEstandar() {
-
-        String nombre = cPeticiones.pedirString("Introduce el nombre del socio: ");
-
-        int numero = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-
-        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-
-        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
-
-        Seguro seguroEstandar;
-        switch (tipoSeguro) {
-            case 1:
-                seguroEstandar = Seguro.BASICO;
-                break;
-            case 2:
-                seguroEstandar = Seguro.COMPLETO;
-                break;
-            default:
-                System.out.println("Tipo de seguro no válido.");
-                return;
-        }
-
-        Estandar nuevoSocio = new Estandar(nombre, numero, nif, seguroEstandar);
-        app.datos.addObjeto(nuevoSocio, 3);
+    public void addSocio(int tipoObjeto, Object socio) {
+        datos.addObjeto(tipoObjeto, socio);
     }
 
 
 
-    public void removeSocio() {
-        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-        Socio socioToRemove = app.datos.listObjetos(3).stream()
-                .filter(obj -> obj instanceof Socio)
-                .map(obj -> (Socio) obj)
-                .filter(socio -> socio.getNumero() == numeroSocio)
-                .findFirst()
-                .orElse(null);
-
-        if (socioToRemove != null) {
-            app.datos.removeObjeto(socioToRemove, 3);
-        } else {
-            System.out.println("No se encontró un socio con el número " + numeroSocio);
-        }
+    public void showVistaListarSocios() throws ParseException{
+        vListarSocios.show();
+    }
+    
+    public void showVistaAddSocio() throws ParseException{
+        vAddSocio.show();
     }
 
-    public List<Socio> listSocios() {
-        // Obtiene la lista de todos los socios directamente desde los datos
-        return app.datos.listObjetos(3).stream()
-                .filter(obj -> obj instanceof Socio)
-                .map(obj -> (Socio) obj)
-                .collect(Collectors.toList());
+    public void showVistaModificarSeguro() throws ParseException{
+        vModificarSeguro.show();
     }
 
-    public List<Socio> listTipoSocios() {
-        System.out.println("Seleccione el tipo de socio que desea ver:");
-        System.out.println("1. Estandar");
-        System.out.println("2. Federado");
-        System.out.println("3. Infantil");
-        int tipoSocio = cPeticiones.pedirEntero("Introduzca una opción: ", 1, 3);
+    // Métodos gestión de socios
 
-        // Obtiene la lista de todos los socios directamente desde los datos
-        List<Socio> sociosList = app.datos.listObjetos(3).stream()
-                .filter(obj -> obj instanceof Socio)
-                .map(obj -> (Socio) obj)
-                .toList();
+    public void removeSocio(int tipoObjeto, Object socio) {
+        datos.removeObjeto(tipoObjeto, socio);
+    }
 
-        List<Socio> filteredSocios;
-        switch (tipoSocio) {
-            case 1:
-                filteredSocios = sociosList.stream()
-                        .filter(socio -> socio instanceof Estandar)
-                        .collect(Collectors.toList());
-                break;
-            case 2:
-                filteredSocios = sociosList.stream()
-                        .filter(socio -> socio instanceof Federado)
-                        .collect(Collectors.toList());
-                break;
-            case 3:
-                filteredSocios = sociosList.stream()
-                        .filter(socio -> socio instanceof Infantil)
-                        .collect(Collectors.toList());
-                break;
-            default:
-                System.out.println("Opción no válida. Intente de nuevo.");
-                return Collections.emptyList();
-        }
+    // Métodos para listar socios
+    public void listSocios(int tipoObjeto) {
+        datos.listToStringObjetos(tipoObjeto);
+    }
 
-        if (filteredSocios.isEmpty()) {
-            System.out.println("No hay socios que correspondan con esto.");
-        } else {
-            // Imprime solo los socios filtrados
-            for (Socio socio : filteredSocios) {
+    /**
+     * Método para listar los socios por tipo
+     * @param tipoObjeto 3-Socio
+     * @param tipoSocio 1-Estandar, 2-Federado, 3-Infantil
+     */
+    // Método para listar socios por tipo
+    public void listTipoSocios(int tipoObjeto, int tipoSocio) {
+
+        // Obtenemos un array de socios de la lista de socios
+        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        // Recorremos el array de socios y mostramos los socios del tipo indicado
+        for (Socio socio : socios) {
+            if (socio.getTipo() == tipoSocio) {
                 System.out.println(socio.toString());
             }
         }
-
-        return filteredSocios; // Devuelve la lista de socios filtrados
     }
 
     public void showFacturaMensualSocios() {
 
     }
 
-    public void modificarSeguro() {
-        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 0, Integer.MAX_VALUE);
-        int tipoSeguro = cPeticiones.pedirEntero("Introduce el tipo de seguro: ", 1, 2);
-        Socio socio = buscarSocioPorNumero(numeroSocio);
-        if (socio != null) {
-            if (socio instanceof Estandar socioEstandar) {
-                switch (tipoSeguro) {
-                    case 1:
-                        socioEstandar.setSeguro(Seguro.BASICO);
-                        System.out.println("El tipo de seguro del socio " + numeroSocio + " ha sido cambiado a Básico");
-                        break;
-                    case 2:
-                        socioEstandar.setSeguro(Seguro.COMPLETO);
-                        System.out.println("El tipo de seguro del socio " + numeroSocio + " ha sido cambiado a Completo");
-                        break;
-                    default:
-                        System.out.println("Tipo de seguro no válido.");
-                        break;
-                }
-            } else {
-                System.out.println("El socio con el número " + numeroSocio + " no es de tipo Estandar y no puede cambiar su seguro");
-            }
-        } else {
-            System.out.println("No se encontró un socio con el número " + numeroSocio);
-        }
-    }
+    public void modificarSeguro(String numeroSocio, int tipoSeguro) {
 
-    private Socio buscarSocioPorNumero(int numeroSocio) {
-        return app.datos.listObjetos(3).stream()
-                .filter(obj -> obj instanceof Socio)
-                .map(obj -> (Socio) obj)
-                .filter(socio -> socio.getNumero() == numeroSocio)
-                .findFirst()
-                .orElse(null);
+
+
     }
 
 }

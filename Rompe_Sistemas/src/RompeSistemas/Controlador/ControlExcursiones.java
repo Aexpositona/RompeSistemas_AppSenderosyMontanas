@@ -10,11 +10,12 @@ import java.time.LocalDate;
 
 public class ControlExcursiones {
     // Atributos
+    private ControlDatos cDatos;
+    private ControlPeticiones cPeticiones;
     private Datos datos;
     private VistaExcursiones vExcursiones;
     private VistaAddExcursion vAddExcursion;
     private VistaListarExcursiones vListarExcursiones;
-    private APPSenderosMontanas app;
 
     /**
      * Constructor de ControlExcursiones.
@@ -27,14 +28,26 @@ public class ControlExcursiones {
         this.vExcursiones = new VistaExcursiones(this);
         this.vAddExcursion = new VistaAddExcursion(this);
         this.vListarExcursiones = new VistaListarExcursiones(this);
+        this.datos = app.getDatos();
+        this.cDatos = app.getControlDatos();
+        this.cPeticiones = app.getControlPeticiones();
+    }
+
+    /**
+     * Constructor de ControlExcursiones de copia.
+     *
+     * @param cExcursiones ControlExcursiones a copiar
+     */
+    public ControlExcursiones(ControlExcursiones cExcursiones) {
+        this.vExcursiones = new VistaExcursiones (cExcursiones.getVistaExcursiones());
+        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
+        this.vListarExcursiones = cExcursiones.getVistaListarExcursiones();
+        this.datos = cExcursiones.getDatos();
+        this.cDatos = cExcursiones.getControlDatos();
+        this.cPeticiones = cExcursiones.getControlPeticiones();
     }
 
     // Getters
-
-    
-    public APPSenderosMontanas getApp() {
-        return app;
-    }
 
     public VistaExcursiones getVistaExcursiones() {
         return vExcursiones;
@@ -48,11 +61,21 @@ public class ControlExcursiones {
         return vListarExcursiones;
     }
 
-    // Setters
-
-    public void setApp(APPSenderosMontanas app) {
-        this.app = app;
+    public Datos getDatos() {
+        return datos;
     }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+
+
+    // Setters
 
     public void setDatos(Datos datos) {
         this.datos = datos;
@@ -79,7 +102,7 @@ public class ControlExcursiones {
      */
     public void addExcursion(Excursion excursion) {
         // Añadimos la excursión
-        datos.addObjeto(excursion, 1);
+        datos.addObjeto(1, excursion);
     }
 
     /**
@@ -89,7 +112,7 @@ public class ControlExcursiones {
      */
     public void removeExcursion(String codigo) {
         // Eliminamos la excursión
-        datos.removeObjeto(codigo, 1);
+        datos.removeObjeto(1, codigo);
     }
 
     /**
@@ -123,7 +146,7 @@ public class ControlExcursiones {
     /**
      * Muestra la vista de excursiones.
      */
-    public void showVistaExcursiones() throws ParseException{
+    public void show() throws ParseException{
         // Mostramos la vista de excursiones
         vExcursiones.show();
     }

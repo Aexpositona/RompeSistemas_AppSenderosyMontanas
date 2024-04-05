@@ -22,9 +22,10 @@ public class Infantil extends Socio {
 
 
     @Override
-    public String getTipo() {
-        return "Infantil";
+    public int getTipo() {
+        return 3;
     }
+
 
     //Métodos Setters
 

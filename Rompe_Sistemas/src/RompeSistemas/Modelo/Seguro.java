@@ -53,6 +53,19 @@ public enum Seguro {
         return nombre;
     }
 
+    public Seguro getSeguro(int id) {
+        for (Seguro seguro : Seguro.values()) {
+            if (seguro.id == id) {
+                return seguro;
+            }
+        }
+        return null;
+    }
+
+    public int getCantidadSeguros() {
+        return Seguro.values().length;
+    }
+
     //Métodos Setters
 
     /**
@@ -79,5 +92,14 @@ public enum Seguro {
         this.nombre = nombre;
     }
 
+    //Método toString
+    @Override
+    public String toString() {
+        String mensaje = "";
+        for (Seguro seguro : Seguro.values()) {
+           mensaje = seguro.id + " - " + seguro.nombre + " - " + seguro.precio + "€";
+        };
+        return mensaje;
+    }
 
 }

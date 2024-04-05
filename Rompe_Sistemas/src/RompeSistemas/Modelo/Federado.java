@@ -21,16 +21,8 @@ public class Federado extends Socio {
         this.federaciones = federaciones;
     }
 
-    /**
-     * Método constructor por defecto para generar sobrecarga de constructores
-     */
-    public Federado() {
-
-    }
-
-    @Override
-    public String getTipo() {
-        return "Federado";
+    public int getTipo() {
+        return 2;
     }
 
     // Métodos Getters

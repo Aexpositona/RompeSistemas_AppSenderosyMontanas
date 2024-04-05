@@ -1,17 +1,21 @@
 package RompeSistemas.Vista;
 
-import RompeSistemas.Controlador.ControlMenuPrincipal;
 import RompeSistemas.Controlador.ControlSocios;
+import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Modelo.Datos;
 
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class VistaSocios {
 
-    private VistaModificarSeguro vVistaModificarSeguro;
-    private VistaListarSocios vVistaListarSocios;
+    private VistaModificarSeguro vModificarSeguro;
+    private VistaListarSocios vListarSocios;
     private VistaAddSocio vAñadirSocio;
     private ControlSocios cSocios;
+    private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
+    private Datos datos;
 
 
     /**
@@ -20,10 +24,12 @@ public class VistaSocios {
      */
     public VistaSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
-        this.vVistaModificarSeguro = cSocios.getVistaModificarSeguro();
-        this.vVistaListarSocios = cSocios.getVistaListarSocios();
+        this.vModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAñadirSocio = cSocios.getVistaAddSocio();
-  
+        this.cPeticiones = cSocios.getControlPeticiones();
+        this.cDatos = cSocios.getControlDatos();
+        this.datos = cSocios.getDatos();
     }
 
     /**
@@ -39,23 +45,23 @@ public class VistaSocios {
             System.out.println("4. Listar socios");
             System.out.println("5. Mostrar factura mensual de los socios");
             System.out.println("0. Atrás");
-            switch () {
-                case "1":
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0)", 0, 5)) {
+                case 1:
                     buttonAddSocio();
                     break;
-                case "2":
+                case 2:
                     buttonRemoveSocio();
                     break;
-                case "3":
+                case 3:
                     buttonModTipoSeguro();
                     break;
-                case "4":
+                case 4:
                     ButtonListSocios();
                     break;
-                case "5":
+                case 5:
                     buttonShowFacturaMensualSocios();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                     break;
@@ -78,7 +84,13 @@ public class VistaSocios {
      */
     public void buttonRemoveSocio() {
         System.out.println("Que socio quiere eliminar? (Introduzca el número de socio)");
-        cSocios.removeSocio();
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 1, datos.getArrayList(3).size());
+        if (cDatos.checkCodigoObjeto(3, String.valueOf(numeroSocio)) && cDatos.checkExistenciaObjeto(3, String.valueOf(numeroSocio))) {
+            cSocios.removeSocio(3, numeroSocio);
+        }
+        else {
+            System.out.println("Número de socio inválido. Inténtelo de nuevo.");
+        }
     }
 
     /**
@@ -86,7 +98,7 @@ public class VistaSocios {
      */
     public void buttonModTipoSeguro() throws ParseException {
         System.out.println("Navegando a la vista de modificar seguro");
-        vVistaModificarSeguro.show();
+        vModificarSeguro.show();
     }
 
     /**
@@ -94,7 +106,7 @@ public class VistaSocios {
      */
     public void ButtonListSocios() throws ParseException {
         System.out.println("Navegando a la vista de listar socios");
-        vVistaListarSocios.show();
+        vListarSocios.show();
     }
 
 
@@ -112,7 +124,7 @@ public class VistaSocios {
      */
     public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
-        vistaMenuPrincipal.show();
+        return;
     }
 
 }

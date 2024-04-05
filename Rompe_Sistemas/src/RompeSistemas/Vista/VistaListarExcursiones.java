@@ -23,7 +23,7 @@ public class VistaListarExcursiones {
     // Constructor
     public VistaListarExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.cPeticiones = cExcursiones.getApp().cPeticiones;
+        this.cPeticiones = cExcursiones.getControlPeticiones();
     }
 
     /**

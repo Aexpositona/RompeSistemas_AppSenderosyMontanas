@@ -17,17 +17,31 @@ public class ControlInscripciones {
     private APPSenderosMontanas app;
     private Datos datos;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
 
     /**
      * Constructor de ControlInscripciones.
      *
      */
     public ControlInscripciones(APPSenderosMontanas app) {
-        this.vInscripciones = new VistaInscripciones(this);
-        this.vAddInscripcion = new VistaAddInscripcion(this);
-        this.vListarInscripciones = new VistaListarInscripciones(this);
-        this.app.datos = app.getDatos();
-        this.app.cPeticiones = app.cPeticiones;
+        this.vInscripciones = app.getVistaInscripciones();
+        this.vAddInscripcion = app.getVistaAddInscripcion();
+        this.vListarInscripciones = app.getVistaListarInscripciones();
+        this.datos = app.getDatos();
+        this.cPeticiones = app.getControlPeticiones();
+    }
+
+    /**
+     * Constructor de ControlInscripciones de copia.
+     *
+     * @param cInscripciones ControlInscripciones a copiar
+     */
+    public ControlInscripciones(ControlInscripciones cInscripciones) {
+        this.vInscripciones = cInscripciones.getVistaInscripciones();
+        this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
+        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
+        this.datos = cInscripciones.getDatos();
+        this.cPeticiones = cInscripciones.getControlPeticiones();
     }
 
     // Getters
@@ -54,6 +68,10 @@ public class ControlInscripciones {
 
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
     }
 
     // Setters
@@ -90,7 +108,7 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a añadir
      */
     public void addInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.addObjeto(inscripcion, tipoObjeto);
+        datos.addObjeto(tipoObjeto, inscripcion);
     }
 
     /**
@@ -100,7 +118,7 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a eliminar
      */
     public void removeInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.removeObjeto(inscripcion, tipoObjeto);
+        datos.removeObjeto(tipoObjeto, inscripcion);
     }
 
     /**
@@ -126,7 +144,7 @@ public class ControlInscripciones {
     /**
      * Muestra la vista para añadir una inscripción.
      */
-    public void addInscripcion() {
+    public void showVistaAddInscripcion() {
         vAddInscripcion.show();
     }
 

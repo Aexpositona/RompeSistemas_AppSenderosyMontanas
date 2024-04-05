@@ -1,10 +1,7 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Vista.VistaMenuPrincipal;
-import RompeSistemas.Vista.VistaSocios;
-import RompeSistemas.Vista.VistaExcursiones;
 import java.text.ParseException;
-import RompeSistemas.Vista.VistaInscripciones;
 
 /**
  * Controlador para la gestión del menú principal de la aplicación.
@@ -14,9 +11,9 @@ public class ControlMenuPrincipal {
 
     // Atributos
     private VistaMenuPrincipal vMenuPrincipal;
-    private VistaInscripciones vInscripciones; 
-    private VistaSocios vSocios;
-    private VistaExcursiones vExcursiones;
+    private ControlInscripciones cInscripciones;
+    private ControlSocios cSocios;
+    private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
 
     /**
@@ -25,11 +22,24 @@ public class ControlMenuPrincipal {
      * @param appSenderosMontanas
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
-        this.cPeticiones = app.cPeticiones;
+        this.cPeticiones = app.getControlPeticiones();
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
-        this.vInscripciones = app.cInscripciones.getVistaInscripciones();
-        this.vSocios = app.cSocios.getVistaSocios();
-        this.vExcursiones = app.cExcursiones.getVistaExcursiones();
+        this.cInscripciones = app.getControlInscripciones();
+        this.cSocios = app.getControlSocios();
+        this.cExcursiones = app.getControlExcursiones();
+    }
+
+    /**
+     * Constructor de ControlMenuPrincipal de copia.
+     *
+     * @param cMenuPrincipal ControlMenuPrincipal a copiar
+     */
+    public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) {
+        this.vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
+        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones());
+        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios());
+        this.cExcursiones = new ControlExcursiones (cMenuPrincipal.getCOntrolExcursiones());
+        this.cPeticiones = new ControlPeticiones (cMenuPrincipal.getControlPeticiones());
     }
 
     // Getters
@@ -38,16 +48,16 @@ public class ControlMenuPrincipal {
         return vMenuPrincipal;
     }
 
-    public VistaInscripciones getVistaInscripciones() {
-        return vInscripciones;
+    public ControlInscripciones getControlInscripciones() {
+        return cInscripciones;
     }
 
-    public VistaSocios getVistaSocios() {
-        return vSocios;
+    public ControlSocios getControlSocios() {
+        return cSocios;
     }
 
-    public VistaExcursiones getVistaExcursiones() {
-        return vExcursiones;
+    public ControlExcursiones getCOntrolExcursiones() {
+        return cExcursiones;
     }
 
     public ControlPeticiones getControlPeticiones() {
@@ -60,16 +70,16 @@ public class ControlMenuPrincipal {
         this.vMenuPrincipal = vMenuPrincipal;
     }
 
-    public void setVistaInscripciones(VistaInscripciones vInscripciones) {
-        this.vInscripciones = vInscripciones;
+    public void setControlInscripciones(ControlInscripciones cInscripciones) {
+        this.cInscripciones = cInscripciones;
     }
 
-    public void setVistaSocios(VistaSocios vSocios) {
-        this.vSocios = vSocios;
+    public void setVistaSocios(ControlSocios cSocios) {
+        this.cSocios = cSocios;
     }
 
-    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
-        this.vExcursiones = vExcursiones;
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
     }
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
@@ -78,16 +88,16 @@ public class ControlMenuPrincipal {
 
     // Métodos
 
-    public void buttonVistaInscripciones() {
-        vInscripciones.show();
+    public void showInscripciones() {
+        cInscripciones.show();
     }
 
-    public void buttonVistaSocios() throws ParseException {
-        vSocios.show();
+    public void showVistaSocios() throws ParseException {
+        cSocios.show();
     }
 
-    public void buttonVistaExcursiones() throws ParseException {
-        vExcursiones.show();
+    public void showVistaExcursiones() throws ParseException {
+        cExcursiones.show();
     }
 
     public void show() throws ParseException {

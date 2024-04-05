@@ -25,11 +25,37 @@ public class VistaExcursiones {
      */
     // Constructor
     public VistaExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getApp().cDatos;
-        this.cPeticiones = cExcursiones.getApp().cPeticiones;
-        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
+        this.cExcursiones = new ControlExcursiones(cExcursiones);
+        this.cDatos = new ControlDatos (cExcursiones.getControlDatos());
+        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+        this.vAddExcursion = new VistaAddExcursion(cExcursiones.getVistaAddExcursion());
     }
+
+    public VistaExcursiones(VistaExcursiones vistaExcursiones) {
+        this.cExcursiones = vistaExcursiones.getControlExcursiones();
+        this.cDatos = vistaExcursiones.getControlDatos();
+        this.cPeticiones = vistaExcursiones.getControlPeticiones();
+        this.vAddExcursion = vistaExcursiones.getVistaAddExcursion();
+    }
+
+    // Getters
+
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+    public VistaAddExcursion getVistaAddExcursion() {
+        return vAddExcursion;
+    }
+    
 
     /**
      * Método para añadir una excursión.
@@ -58,9 +84,9 @@ public class VistaExcursiones {
             // Solicitamos el código de la excursión
             respuesta = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
             // Si el código es válido
-            if (cDatos.checkCodigoObjeto(respuesta, 1)) {
+            if (cDatos.checkCodigoObjeto(1,respuesta)) {
                 // Si el código existe
-                if (cDatos.checkExistenciaObjeto(respuesta, 1))
+                if (cDatos.checkExistenciaObjeto(1, respuesta))
                     // Cambiamos el resultado a verdadero
                     resultado = true;
                 else {

@@ -10,10 +10,8 @@ import java.text.ParseException;
 public class VistaMenuPrincipal {
 
     // Atributos
-    private VistaSocios vSocios;
-    private VistaExcursiones vExcursiones;
-    private VistaInscripciones vInscripciones;
     private ControlPeticiones cPeticiones;
+    private ControlMenuPrincipal cMenuPrincipal;
 
     /**
      * Constructor de la clase VistaMenuPrincipal.
@@ -21,9 +19,7 @@ public class VistaMenuPrincipal {
      * @param cMenuPrincipal ControlMenuPrincipal
      */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
-        this.vSocios = cMenuPrincipal.getVistaSocios();
-        this.vExcursiones = cMenuPrincipal.getVistaExcursiones();
-        this.vInscripciones = cMenuPrincipal.getVistaInscripciones();
+        this.cMenuPrincipal = cMenuPrincipal;
         this.cPeticiones = cMenuPrincipal.getControlPeticiones();
     }
 
@@ -32,7 +28,7 @@ public class VistaMenuPrincipal {
      */
     public void buttonVistaInscripciones(){
         System.out.println("Navegando a la vista de inscripciones...");
-        vInscripciones.show();
+        cMenuPrincipal.showInscripciones();
     }
 
     /**
@@ -40,7 +36,7 @@ public class VistaMenuPrincipal {
      */
     public void buttonVistaSocios() throws ParseException {
         System.out.println("Navegando a la vista de socios...");
-        vSocios.show();
+        cMenuPrincipal.showVistaSocios();
     }
 
     /**
@@ -48,7 +44,7 @@ public class VistaMenuPrincipal {
      */
     public void buttonVistaExcursiones() throws ParseException {
         System.out.println("Navegando a la vista de excursiones...");
-        vExcursiones.show();
+        cMenuPrincipal.showVistaExcursiones();
     }
 
     /**
@@ -66,10 +62,10 @@ public class VistaMenuPrincipal {
         boolean running = true;
         while (running) {
             System.out.println("Seleccione una opción: ");
-            System.out.println("0. Salir");
             System.out.println("1. Inscripciones");
             System.out.println("2. Socios");
             System.out.println("3. Excursiones");
+            System.out.println("0. Salir");
 
             switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
                 case 1:

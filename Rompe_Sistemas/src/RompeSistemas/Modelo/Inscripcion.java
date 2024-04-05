@@ -72,6 +72,8 @@ public class Inscripcion {
      */
     @Override
     public String toString() {
-        return "Inscripción con número: "+ numero + "\nSocio:" + socio + "\nExcursions:" + excursion;
+        return "Inscripción con número: "+ numero +
+                "\nSocio:" + socio +
+                "\nExcursions:" + excursion;
     }
 }
