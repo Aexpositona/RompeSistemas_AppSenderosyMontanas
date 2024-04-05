@@ -117,8 +117,8 @@ public class ControlPeticiones {
         boolean resultado = false;
         // Mostramos petición
         System.out.println(peticion);
-        // Solicitamos y registramos el año introducido por el usuario
-        ano = pedirEntero("Introduzca el año: ", 1900, LocalDate.now().getYear());
+        // Solicitamos y registramos el año introducido por el usuario entre el año actual y dos años más
+        ano = pedirEntero("Introduzca el año: ", LocalDate.now().getYear(),LocalDate.now().getYear()+2 );
 
         // Solicitamos y registramos el mes introducido por el usuario
         mes = pedirEntero("Introduzca el mes: ", 1, 12);
@@ -142,6 +142,10 @@ public class ControlPeticiones {
             // Los meses con 30 días no pueden tener más de 30 días
             else if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
                 System.out.println("El mes seleccionado no puede tener más de 30 días.");
+                resultado = false;
+            }
+            else if (LocalDate.of(ano,mes,dia) == LocalDate.now()){
+                System.out.println("La fecha introducida no puede ser posterior a la fecha actual.");
                 resultado = false;
             }
             // En el resto de casos el día es válido

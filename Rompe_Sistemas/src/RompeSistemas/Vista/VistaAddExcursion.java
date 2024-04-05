@@ -122,14 +122,14 @@ public class VistaAddExcursion {
             // Solicitamos la descripción de la excursión
             descripcion = cPeticiones.pedirString("Introduzca la descripción de la excursión: ");
             // Si la descripción está vacía
-            if (descripcion.isEmpty() || descripcion.length() > 5) {
+            if (descripcion.isEmpty() || descripcion.length() < 5) {
                 // Informamos al usuario de que la descripción no puede estar vacía
                 System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.");
             }
             // Si la descripción no está vacía y tiene al menos 5 caracteres
             else {
                 // Informamos al usuario
-                System.out.println("Descripción guardada.");
+                System.out.println("Descripción guardada.\n");
                 // Cambiamos el resultado a verdadero
                 resultado = true;
             }
@@ -138,7 +138,7 @@ public class VistaAddExcursion {
         // Mientras no se introduzca una fecha válida
         do {
             // Solicitamos la fecha de la excursión
-            fecha = cPeticiones.pedirFecha("Introduzca la fecha de la excursión: ");
+            fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --");
         }
         while (fecha.isBefore(LocalDate.now()));
         // Mientras no se introduzca un precio válido
