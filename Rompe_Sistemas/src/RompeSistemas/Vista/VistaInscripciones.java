@@ -28,8 +28,8 @@ public class VistaInscripciones {
         this.cInscripciones = cInscripciones;
         this.vAñadirInscripcion = cInscripciones.getVistaAddInscripcion();
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
-        this.cPeticiones = cInscripciones.getApp().cPeticiones;
-        this.datos = cInscripciones.getApp().datos;
+        this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.datos = cInscripciones.getDatos();
     }
 
     //Métodos

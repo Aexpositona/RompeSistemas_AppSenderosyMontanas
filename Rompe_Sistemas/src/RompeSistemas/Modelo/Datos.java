@@ -163,7 +163,7 @@ public class Datos {
                     // Obtener la excursión en la posición i
                     Excursion excursion = (Excursion) excursiones.get(i);
                     // Si el código de la excursión es igual al string
-                    if (excursion.getCodigo().equals(string)) {
+                    if (excursion.getCodigo().contentEquals(string)) {
                         // Devolver la posición i
                         return i;
                     }

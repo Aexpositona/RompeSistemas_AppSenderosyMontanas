@@ -22,11 +22,11 @@ public class ControlMenuPrincipal {
      * @param appSenderosMontanas
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
-        this.cPeticiones = app.cPeticiones;
+        this.cPeticiones = app.getControlPeticiones();
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
-        this.cInscripciones = app.cInscripciones;
-        this.cSocios = app.cSocios;
-        this.cExcursiones = app.cExcursiones;
+        this.cInscripciones = app.getControlInscripciones();
+        this.cSocios = app.getControlSocios();
+        this.cExcursiones = app.getControlExcursiones();
     }
 
     // Getters

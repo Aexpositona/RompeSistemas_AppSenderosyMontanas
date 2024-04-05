@@ -26,8 +26,8 @@ public class VistaExcursiones {
     // Constructor
     public VistaExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getApp().cDatos;
-        this.cPeticiones = cExcursiones.getApp().cPeticiones;
+        this.cDatos = cExcursiones.getControlDatos();
+        this.cPeticiones = cExcursiones.getControlPeticiones();
         this.vAddExcursion = cExcursiones.getVistaAddExcursion();
     }
 

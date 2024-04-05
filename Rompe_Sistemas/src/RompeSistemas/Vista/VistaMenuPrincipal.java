@@ -62,10 +62,10 @@ public class VistaMenuPrincipal {
         boolean running = true;
         while (running) {
             System.out.println("Seleccione una opción: ");
-            System.out.println("0. Salir");
             System.out.println("1. Inscripciones");
             System.out.println("2. Socios");
             System.out.println("3. Excursiones");
+            System.out.println("0. Salir");
 
             switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
                 case 1:

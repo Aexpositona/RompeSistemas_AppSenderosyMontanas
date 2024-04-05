@@ -10,11 +10,12 @@ import java.time.LocalDate;
 
 public class ControlExcursiones {
     // Atributos
+    private ControlDatos cDatos;
+    private ControlPeticiones cPeticiones;
     private Datos datos;
     private VistaExcursiones vExcursiones;
     private VistaAddExcursion vAddExcursion;
     private VistaListarExcursiones vListarExcursiones;
-    private APPSenderosMontanas app;
 
     /**
      * Constructor de ControlExcursiones.
@@ -27,14 +28,12 @@ public class ControlExcursiones {
         this.vExcursiones = new VistaExcursiones(this);
         this.vAddExcursion = new VistaAddExcursion(this);
         this.vListarExcursiones = new VistaListarExcursiones(this);
+        this.datos = app.getDatos();
+        this.cDatos = app.getControlDatos();
+        this.cPeticiones = app.getControlPeticiones();
     }
 
     // Getters
-
-    
-    public APPSenderosMontanas getApp() {
-        return app;
-    }
 
     public VistaExcursiones getVistaExcursiones() {
         return vExcursiones;
@@ -48,11 +47,21 @@ public class ControlExcursiones {
         return vListarExcursiones;
     }
 
-    // Setters
-
-    public void setApp(APPSenderosMontanas app) {
-        this.app = app;
+    public Datos getDatos() {
+        return datos;
     }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
+
+
+
+    // Setters
 
     public void setDatos(Datos datos) {
         this.datos = datos;

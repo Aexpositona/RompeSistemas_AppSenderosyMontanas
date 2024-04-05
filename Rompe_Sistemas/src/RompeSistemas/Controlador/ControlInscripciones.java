@@ -17,6 +17,7 @@ public class ControlInscripciones {
     private APPSenderosMontanas app;
     private Datos datos;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
 
     /**
      * Constructor de ControlInscripciones.
@@ -26,8 +27,8 @@ public class ControlInscripciones {
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
         this.vListarInscripciones = new VistaListarInscripciones(this);
-        this.app.datos = app.getDatos();
-        this.app.cPeticiones = app.cPeticiones;
+        this.datos = app.getDatos();
+        this.cPeticiones = app.getControlPeticiones();
     }
 
     // Getters
@@ -54,6 +55,10 @@ public class ControlInscripciones {
 
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
     }
 
     // Setters

@@ -29,8 +29,8 @@ public class VistaAddExcursion {
      */
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
-        this.cDatos = cExcursiones.getApp().cDatos;
-        this.cPeticiones = cExcursiones.getApp().cPeticiones;
+        this.cDatos = cExcursiones.getControlDatos();
+        this.cPeticiones = cExcursiones.getControlPeticiones();
     }
 
     /**

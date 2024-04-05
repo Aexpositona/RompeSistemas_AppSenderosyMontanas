@@ -30,24 +30,12 @@ public class Excursion {
         this.duracion = duracion;
         this.precio = precio;
     }
-
-    /**
-     * Constructor de la clase Excursion que inicializa los atributos con valores por defecto.
-     */
-    public Excursion() {
-        this.codigo = "";
-        this.descripcion = "";
-        this.fecha = LocalDate.now();
-        this.duracion = 0;
-        this.precio = 0;
-    }
-
     /**
      * Constructor de la clase Excursion que recibe un objeto de la misma clase para copiar los atributos.
      *
      * @param excursion objeto de la clase Excursion
      */
-    public Excursion( Excursion excursion) {
+    public Excursion(Excursion excursion) {
         this.codigo = excursion.codigo;
         this.descripcion = excursion.descripcion;
         this.fecha = excursion.fecha;

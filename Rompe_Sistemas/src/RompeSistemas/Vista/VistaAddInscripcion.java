@@ -20,8 +20,8 @@ public class VistaAddInscripcion {
 
     public VistaAddInscripcion(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
-        this.cPeticiones = cInscripciones.getApp().cPeticiones;
-        this.datos = cInscripciones.getApp().datos;        
+        this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.datos = cInscripciones.getDatos();        
     }
 
     //Métodos
