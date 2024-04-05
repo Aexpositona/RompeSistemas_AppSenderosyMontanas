@@ -24,9 +24,8 @@ public class Estandar extends Socio {
         this.seguro = seguro;
     }
 
-    @Override
-    public String getTipo() {
-        return "Estandar";
+    public int getTipo() {
+        return 1;
     }
     /**
      * Método constructor por defecto para generar sobrecarga de constructores.

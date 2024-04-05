@@ -17,13 +17,6 @@ public class Federacion {
         this.nombre = nombre;
     }
 
-    /**
-     * Método constructor por defecto para generar sobrecarga de constructores
-     */
-    public Federacion(){
-
-    }
-
     //Métodos Getters
 
     /**

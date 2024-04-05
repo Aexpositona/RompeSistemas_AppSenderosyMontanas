@@ -1,18 +1,28 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlSocios;
+import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Modelo.Seguro;
 
 import java.text.ParseException;
 import java.util.Scanner;
 
 public class VistaModificarSeguro {
 
-    private ControlSocios controlSocios;
+    private ControlSocios cSocios;
+    private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
+    private Datos datos;
     /**
      * Método constructor de la clase VistaModificarSeguro que recibe por parámetros el número de socio y el tipo de seguro
      */
-    public VistaModificarSeguro(ControlSocios controlSocios) {
-        this.controlSocios = controlSocios;
+    public VistaModificarSeguro(ControlSocios cSocios) {
+        this.cSocios = cSocios;
+        this.cPeticiones = cSocios.getControlPeticiones();
+        this.datos = cSocios.getDatos();
+        this.cDatos = cSocios.getControlDatos();
     }
 
 
@@ -23,11 +33,11 @@ public class VistaModificarSeguro {
             System.out.println("Seleccione una opción: ");
             System.out.println("1. Modificar seguro");
             System.out.println("0. Atrás");
-            switch (option) {
-                case "1":
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1 o 0)", 0, 1)) {
+                case 1:
                     buttonVistaModificar();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                     break;
@@ -42,7 +52,22 @@ public class VistaModificarSeguro {
      */
     // En VistaModificarSeguro.java
     void buttonVistaModificar(){
-        controlSocios.modificarSeguro();
+        int numeroSocio, tipoSeguro;
+        boolean valido = false;
+        do{
+            // Solicitamos el número de socio al que se le va a modificar el seguro
+            numeroSocio = cPeticiones.pedirEntero("Introduzca el número de socio al que se le va a modificar el seguro: ", 1, datos.getArrayList(3).size());
+            if (cDatos.checkCodigoObjeto(3, String.valueOf(numeroSocio)) && cDatos.checkExistenciaObjeto(3, String.valueOf(numeroSocio))) {
+                valido = true;
+            } else {
+                System.out.println("El número de socio introducido no es válido. Inténtelo de nuevo.");
+            }
+        }
+        while (!valido);
+
+        // Solicitamos el tipo de seguro que se le va a asignar al socio
+        tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio:\n" + datos.getSeguro().toString(), 1, Seguro.values().length);
+        cSocios.modificarSeguro(numeroSocio, tipoSeguro);
     }
 
 
@@ -51,7 +76,7 @@ public class VistaModificarSeguro {
      */
     public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
-        vistaSocios.show();
+        return;
     }
 
 }

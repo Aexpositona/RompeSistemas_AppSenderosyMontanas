@@ -19,10 +19,10 @@ public class ControlDatos {
      * Método para comprobar el tipo de objeto.
      * @param O Recibe el objeto.
      * @return int - Devuelve el tipo de objeto.
-     * 1-Excursión
-     * 2-Inscripción
-     * 3-Socio
-     * 4-Federación
+     *          1-Excursión
+     *          2-Inscripción
+     *          3-Socio
+     *          4-Federación
      */
     public int checkTipoObjeto(Object O) {
         // Variables internas
@@ -61,10 +61,10 @@ public class ControlDatos {
      * Si el objeto introducido no reune las condiciones de longitud, informamos al usuario y devolvemos falso.
      * @param codigo Recibe el código o número del objeto.
      * @param tipoObjeto Recibe el tipo de objeto.
-     * 1-Excursión
-     * 2-Inscripción
-     * 3-Socio
-     * 4-Federación
+     *                  1-Excursión
+     *                  2-Inscripción
+     *                  3-Socio
+     *                  4-Federación
      * @return boolean - Devuelve verdadero si el código o número del objeto es válido.
      */
     //Metodo para validar la longitud del código o número de un objeto
@@ -113,10 +113,10 @@ public class ControlDatos {
      * Si el objeto existe, devolvemos verdadero.
      * @param codigo Recibe el código o número del objeto.
      * @param tipoObjeto Recibe el tipo de objeto.
-     * 1-Excursión
-     * 2-Inscripción
-     * 3-Socio
-     * 4-Federación 
+     *                  1-Excursión
+     *                  2-Inscripción
+     *                  3-Socio
+     *                  4-Federación 
      * @return boolean - Devuelve verdadero si el objeto existe.
      */
     // Método para comprobar si existe un objeto

@@ -62,6 +62,10 @@ public enum Seguro {
         return null;
     }
 
+    public int getCantidadSeguros() {
+        return Seguro.values().length;
+    }
+
     //Métodos Setters
 
     /**
@@ -89,6 +93,7 @@ public enum Seguro {
     }
 
     //Método toString
+    @Override
     public String toString() {
         String mensaje = "";
         for (Seguro seguro : Seguro.values()) {

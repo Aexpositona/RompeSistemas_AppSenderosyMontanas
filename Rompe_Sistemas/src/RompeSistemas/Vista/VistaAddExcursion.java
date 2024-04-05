@@ -57,9 +57,9 @@ public class VistaAddExcursion {
             // Si el código no está vacío
             else {
                 // Si el código es válido
-                if (cDatos.checkCodigoObjeto(codigo,1)) {
+                if (cDatos.checkCodigoObjeto(1, codigo)) {
                     // Si la excursión no existe
-                    if (!cDatos.checkExistenciaObjeto(codigo,1)) {
+                    if (!cDatos.checkExistenciaObjeto(1, codigo)) {
                         // Informamos al usuario de que el código es válido
                         System.out.println("Código válido.");
                         // Cambiamos el resultado a verdadero

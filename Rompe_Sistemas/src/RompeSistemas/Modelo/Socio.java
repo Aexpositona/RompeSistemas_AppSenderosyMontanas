@@ -9,8 +9,8 @@ public abstract class Socio {
 
     /**
      * Constructor de la clase Socio
-     * @param nombre Es el nombre del cliente
-     * @param numero Es el número del cliente
+     * @param nombre Es el nombre del socio
+     * @param numero Es el número del socio
      */
     public Socio(String nombre, int numero) {
         this.nombre = nombre;
@@ -26,15 +26,15 @@ public abstract class Socio {
 
     //Métodos Getters
     /**
-     * Método get() de la clase Socio que nos devuelve el nombre del cliente
-     * @return El nombre del cliente
+     * Método get() de la clase Socio que nos devuelve el nombre del socio
+     * @return El nombre del socio
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * Método get() de la clase Socio que nos devuelve el número del cliente
+     * Método get() de la clase Socio que nos devuelve el número del socio
      * @return
      */
     public int getNumero() {
@@ -42,37 +42,39 @@ public abstract class Socio {
     }
 
     /**
-     * Método get() de la clase Socio que nos devuelve el tipo del cliente
+     * Método get() de la clase Socio que nos devuelve el tipo del socio
      * @return
      */
-    public abstract String getTipo();
+    public int getTipo() {
+        return 0;
+    }
     
     //Métodos Setters
     /**
-     * Método set() de la clase Socio que nos permite definir el nombre del cliente
-     * @param nombre Es el nombre del cliente
+     * Método set() de la clase Socio que nos permite definir el nombre del socio
+     * @param nombre Es el nombre del socio
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Método set() de la clase Socio que nos permite definir el número del cliente
-     * @param numero Es el número del cliente
+     * Método set() de la clase Socio que nos permite definir el número del socio
+     * @param numero Es el número del socio
      */
     public void setNumero(int numero) {
         this.numero = numero;
     }
 
     /**
-     * Método set() de la clase Socio que nos permite definir el tipo del cliente
-     * @param tipo Es el tipo del cliente
+     * Método set() de la clase Socio que nos permite definir el tipo del socio
+     * @param tipo Es el tipo del socio
      */
     public void setTipo(String tipo) {
     }
     /**
-     * Método toString() de la clase Socio que nos devuelve un String con los datos del cliente
-     * @return Un String con los datos del cliente, como el nombre, el domicilio, el NIF y el email
+     * Método toString() de la clase Socio que nos devuelve un String con los datos del socio
+     * @return Un String con los datos del socio, como el nombre, el domicilio, el NIF y el email
      */
     @Override
     public String toString() {

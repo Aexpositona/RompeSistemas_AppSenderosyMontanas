@@ -2,16 +2,20 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Modelo.Datos;
 
 import java.text.ParseException;
 
 public class VistaSocios {
 
-    private VistaModificarSeguro vVistaModificarSeguro;
-    private VistaListarSocios vVistaListarSocios;
+    private VistaModificarSeguro vModificarSeguro;
+    private VistaListarSocios vListarSocios;
     private VistaAddSocio vAñadirSocio;
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
+    private Datos datos;
 
 
     /**
@@ -20,10 +24,12 @@ public class VistaSocios {
      */
     public VistaSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
-        this.vVistaModificarSeguro = cSocios.getVistaModificarSeguro();
-        this.vVistaListarSocios = cSocios.getVistaListarSocios();
+        this.vModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAñadirSocio = cSocios.getVistaAddSocio();
         this.cPeticiones = cSocios.getControlPeticiones();
+        this.cDatos = cSocios.getControlDatos();
+        this.datos = cSocios.getDatos();
     }
 
     /**
@@ -78,7 +84,13 @@ public class VistaSocios {
      */
     public void buttonRemoveSocio() {
         System.out.println("Que socio quiere eliminar? (Introduzca el número de socio)");
-        cSocios.removeSocio();
+        int numeroSocio = cPeticiones.pedirEntero("Introduce el número del socio: ", 1, datos.getArrayList(3).size());
+        if (cDatos.checkCodigoObjeto(3, String.valueOf(numeroSocio)) && cDatos.checkExistenciaObjeto(3, String.valueOf(numeroSocio))) {
+            cSocios.removeSocio(3, numeroSocio);
+        }
+        else {
+            System.out.println("Número de socio inválido. Inténtelo de nuevo.");
+        }
     }
 
     /**
@@ -86,7 +98,7 @@ public class VistaSocios {
      */
     public void buttonModTipoSeguro() throws ParseException {
         System.out.println("Navegando a la vista de modificar seguro");
-        vVistaModificarSeguro.show();
+        vModificarSeguro.show();
     }
 
     /**
@@ -94,7 +106,7 @@ public class VistaSocios {
      */
     public void ButtonListSocios() throws ParseException {
         System.out.println("Navegando a la vista de listar socios");
-        vVistaListarSocios.show();
+        vListarSocios.show();
     }
 
 

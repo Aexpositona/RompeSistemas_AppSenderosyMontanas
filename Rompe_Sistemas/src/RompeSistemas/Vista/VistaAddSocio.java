@@ -7,7 +7,7 @@ import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.Modelo.Federado;
-import RompeSistemas.Modelo.Seguro;
+import RompeSistemas.Modelo.Infantil;
 
 import java.text.ParseException;
 
@@ -161,6 +161,8 @@ public class VistaAddSocio {
                     if (cDatos.checkCodigoObjeto(4, codigoFederacion) && cDatos.checkExistenciaObjeto(tipoSocio, codigoFederacion)){
                         Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(codigoFederacion, 4));
                         cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
+                        // Mostramos mensaje de éxito
+                        System.out.println("Socio Federado añadido con éxito.");
                         valido = true;
                     }
                     // Si el código de federación no es válido
@@ -172,14 +174,22 @@ public class VistaAddSocio {
             } 
             // Si el tipo de socio es Infantil
             else if (tipoSocio == 3) {
-
+                // Pedir nombre del socio mediante un método
+                nombre = pedirNombreSocio();
+                // Obtener el número de socio mediante un método
+                numero = obtenerNumeroSocio();
+                // Pedir número de socio del tutor
+                int numSocioTutor = cPeticiones.pedirEntero("Introduce el número de socio del tutor: ", 1, datos.getArrayList(3).size());
+                // Añadir socio tipo Infantil mediante el controlador de socios
+                cSocios.addSocio( 1, new Infantil(nombre, numero, numSocioTutor));
+                // Mostramos mensaje de éxito
+                System.out.println("Socio Infantil añadido con éxito.");
             } 
             else {
                 System.out.println("Tipo de socio no válido.");
             }
         }
         while(false);
-        cSocios.addSocio();
     }
 
     public void buttonAtras() throws ParseException {
@@ -201,5 +211,7 @@ public class VistaAddSocio {
     private String pedirNombreSocio() {
         return cPeticiones.pedirString("Introduce el nombre del socio: ");
     }
+
+    
 
 }
