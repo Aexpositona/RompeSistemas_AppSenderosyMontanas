@@ -139,16 +139,15 @@ public class Datos {
 
     /**
      * Método para buscar un objeto en alguno de los ArrayList.
-     *
-     * @param string     String a buscar
      * @param tipoObjeto Tipo de objeto
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
      *                  4 - Federación
+     * @param string    String a buscar
      * @return Índice del objeto
      */
-    public int buscarObjeto(String string, int tipoObjeto) {
+    public int buscarObjeto(int tipoObjeto, String string) {
 
         // Si el tipo de objeto es 1 (Excursión)
         if (tipoObjeto == 1) {

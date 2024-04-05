@@ -159,7 +159,7 @@ public class VistaAddSocio {
                     String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
                     // Si el código de federación es válido y 
                     if (cDatos.checkCodigoObjeto(4, codigoFederacion) && cDatos.checkExistenciaObjeto(tipoSocio, codigoFederacion)){
-                        Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(codigoFederacion, 4));
+                        Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, codigoFederacion));
                         cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
                         // Mostramos mensaje de éxito
                         System.out.println("Socio Federado añadido con éxito.");

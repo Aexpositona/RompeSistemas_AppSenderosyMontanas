@@ -46,7 +46,7 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones
      */
     public void buttonRemoveInscripcion() {
-        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(cPeticiones.pedirString("Introduce el número de inscripción a eliminar: "), 2)), 2);
+        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduce el número de inscripción a eliminar: "))), 2);
 
     }
 

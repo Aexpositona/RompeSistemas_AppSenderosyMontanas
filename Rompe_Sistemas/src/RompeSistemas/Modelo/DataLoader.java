@@ -40,7 +40,7 @@ public class DataLoader {
 
         // Añadir usuarios federados a la lista de socios
         datos.addObjeto(3, new Federado("Pedro", 4,"23213312A", new Federacion("12345", "Federación de montes")));
-        datos.addObjeto(3, new Federado("Marc", 5,"84736189B", new Federacion("124566", "Federación de ríos")));
+        datos.addObjeto(3, new Federado("Marc", 5,"84736189B", new Federacion("12456", "Federación de ríos")));
         datos.addObjeto(3, new Federado("Carlos", 6,"87637489V", new Federacion("12512", "Federación de montañas")));
 
         // Añadir usuarios infantiles a la lista de socios
@@ -67,8 +67,8 @@ public class DataLoader {
     private void loadInscripciones() {
 
         // Añadir inscripciones a la lista de inscripciones
-        datos.addObjeto(2, new Inscripcion(1, (Socio) datos.getObjeto(1, 1), (Excursion) datos.getObjeto(1, 3)));
-        datos.addObjeto(2, new Inscripcion(2, (Socio) datos.getObjeto(2, 1), (Excursion) datos.getObjeto(2, 3)));
-        datos.addObjeto(2, new Inscripcion(3, (Socio) datos.getObjeto(3, 1), (Excursion) datos.getObjeto(3, 3)));
+        datos.addObjeto(2, new Inscripcion(1, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "1")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00001"))));
+        datos.addObjeto(2, new Inscripcion(2, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "2")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00002"))));
+        datos.addObjeto(2, new Inscripcion(3, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "3")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00003"))));
     }
 }

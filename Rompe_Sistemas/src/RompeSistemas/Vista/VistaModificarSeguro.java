@@ -7,6 +7,9 @@ import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Seguro;
 import java.text.ParseException;
 
+/**
+ * Clase VistaModificarSeguro que nos permite modificar un seguro
+ */
 public class VistaModificarSeguro {
 
     private ControlSocios cSocios;
@@ -23,8 +26,9 @@ public class VistaModificarSeguro {
         this.cDatos = cSocios.getControlDatos();
     }
 
-
-
+    /**
+     * Método para mostrar la vista de modificar seguro
+     */
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
@@ -45,6 +49,7 @@ public class VistaModificarSeguro {
             }
         }
     }
+
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
@@ -66,7 +71,6 @@ public class VistaModificarSeguro {
         tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio:\n" + datos.getSeguro().toString(), 1, Seguro.values().length);
         cSocios.modificarSeguro(String.valueOf(numeroSocio), tipoSeguro);
     }
-
 
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
