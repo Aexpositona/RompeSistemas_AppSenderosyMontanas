@@ -41,6 +41,7 @@ public class APPSenderosMontanas {
     /**
      * Vista del menú principal.
      */
+    public VistaMenuPrincipal vMenuPrincipal;
 
 
     // Métodos
@@ -167,6 +168,10 @@ public class APPSenderosMontanas {
 
     public Datos getDatos() {
         return datos;
+    }
+
+    public VistaMenuPrincipal getVistaMenuPrincipal() {
+        return vMenuPrincipal;
     }
 
     // Setters
