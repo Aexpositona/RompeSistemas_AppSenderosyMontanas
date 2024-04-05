@@ -14,7 +14,7 @@ public class Datos {
     private Object objeto; // Objeto genérico
 
     // Un ArrayList para cada tipo de dato
-    private List<Object> excursiones, inscripciones, socios;
+    private List<Object> excursiones, inscripciones, socios, federaciones;
 
     // Constructor
 
@@ -36,6 +36,7 @@ public class Datos {
      *                      1 - Excursión
      *                      2 - Inscripción
      *                      3 - Socio
+     *                      4 - Federación
      * @return List de objetos
      */
     public List<Object> getArrayList(int tipoObjeto) {
@@ -44,6 +45,7 @@ public class Datos {
             case 1 -> excursiones;
             case 2 -> inscripciones;
             case 3 -> socios;
+            case 4 -> federaciones;
             default -> null;
         };
     }
@@ -51,51 +53,58 @@ public class Datos {
     /**
      * Método para agregar un objeto a alguno de los ArrayList.
      *
-     * @param objeto     Objeto a agregar
      * @param tipoObjeto Tipo de objeto
-     *                   1 - Excursión
-     *                   2 - Inscripción
-     *                   3 - Socio
-     *     */
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     *                  4 - Federación
+     * @param objeto     Objeto a agregar
+     */
     public void addObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.add(objeto);
             case 2 -> inscripciones.add(objeto);
             case 3 -> socios.add(objeto);
+            case 4 -> federaciones.add(objeto);
         }
     }
 
     /**
      * Método para eliminar un objeto de alguno de los ArrayList.
-     *
-     * @param objeto     Objeto a eliminar
+     * 
      * @param tipoObjeto Tipo de objeto
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
+     * @param objeto     Objeto a eliminar
      */
     public void removeObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.remove(objeto);
             case 2 -> inscripciones.remove(objeto);
             case 3 -> socios.remove(objeto);
+            case 4 -> federaciones.remove(objeto);
         }
     }
 
     /**
      * Método para modificar un objeto de alguno de los ArrayList.
      *
-     * @param objeto     Objeto a modificar
      * @param tipoObjeto Tipo de objeto
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
+     * @param objeto     Objeto a modificar
+
      */
     public void modificarObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.set(excursiones.indexOf(objeto), objeto);
             case 2 -> inscripciones.set(inscripciones.indexOf(objeto), objeto);
             case 3 -> socios.set(socios.indexOf(objeto), objeto);
+            case 4 -> federaciones.set(federaciones.indexOf(objeto), objeto);
         }
     }
 
@@ -103,6 +112,10 @@ public class Datos {
      * Método para obtener un objeto de alguno de los ArrayList.
      *
      * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     *                  4 - Federación
      * @param index      Índice del objeto
      * @return Objeto
      */
@@ -111,6 +124,7 @@ public class Datos {
             case 1 -> objeto = excursiones.get(index);
             case 2 -> objeto = inscripciones.get(index);
             case 3 -> objeto = socios.get(index);
+            case 4 -> objeto = federaciones.get(index);
         }
         return objeto;
     }
@@ -123,6 +137,7 @@ public class Datos {
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
      * @return Índice del objeto
      */
     public int buscarObjeto(String string, int tipoObjeto) {
@@ -190,6 +205,26 @@ public class Datos {
                 }
             }
         }
+        else if (tipoObjeto == 4) {
+            // Si el ArrayList de federaciones está vacío
+            if (federaciones.isEmpty()) {
+                // Devolver -1
+                return -1;
+            }
+            // Si el ArrayList de federaciones no está vacío
+            else {
+                // Recorrer el ArrayList de federaciones
+                for (int i = 0; i < federaciones.size(); i++) {
+                    // Obtener la federación en la posición i
+                    Federacion federacion = (Federacion) federaciones.get(i);
+                    // Si el código de la federación es igual al string
+                    if (federacion.getCodigo().equals(string)) {
+                        // Devolver la posición i
+                        return i;
+                    }
+                }
+            }
+        }
         // Devolver -1
         return -1;
     }
@@ -201,6 +236,7 @@ public class Datos {
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
      * @return Lista de objetos
      */
     public List<Object> listObjetos(int tipoObjeto) {
@@ -260,6 +296,23 @@ public class Datos {
                 }
             }
         }
+        else if (tipoObjeto == 4){
+            // Si el ArrayList de federaciones está vacío
+            if (federaciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay federaciones.");
+            }
+            // Si el ArrayList de federaciones no está vacío
+            else {
+                // Recorrer el ArrayList de federaciones
+                for (Object o : federaciones) {
+                    // Obtener la federación
+                    Federacion federacion = (Federacion) o;
+                    // Añadir la federación a la lista de objetos
+                    result.add(federacion);
+                }
+            }
+        }
         // Devolver la lista de objetos
         return result;
     }
@@ -271,6 +324,7 @@ public class Datos {
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
      * @return Lista de objetos
      */
     public String listToStringObjetos(int tipoObjeto) {
@@ -330,6 +384,23 @@ public class Datos {
                 }
             }
         }
+        else if (tipoObjeto == 4) {
+            // Si el ArrayList de federaciones está vacío
+            if (federaciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay federaciones.");
+            }
+            // Si el ArrayList de federaciones no está vacío
+            else {
+                // Recorrer el ArrayList de federaciones
+                for (Object o : federaciones) {
+                    // Obtener la federación
+                    Federacion federacion = (Federacion) o;
+                    // Añadir la federación a la lista de objetos
+                    list.add(federacion);
+                }
+            }
+        }
         // Devolver la lista de objetos
         return list.toString();
     }
@@ -341,6 +412,7 @@ public class Datos {
      *                  1 - Excursión
      *                  2 - Inscripción
      *                  3 - Socio
+     *                  4 - Federación
      * @param codigo     Código
      * @return Lista de objetos
      */
@@ -398,6 +470,23 @@ public class Datos {
                     Socio socio = (Socio) o;
                     // Añadir el socio a la lista de objetos
                     list.add(socio);
+                }
+            }
+        }
+        else if (tipoObjeto == 4) {
+            // Si el ArrayList de federaciones está vacío
+            if (federaciones.isEmpty()) {
+                // Mostrar mensaje
+                System.out.println("No hay federaciones.");
+            }
+            // Si el ArrayList de federaciones no está vacío
+            else {
+                // Recorrer el ArrayList de federaciones
+                for (Object o : federaciones) {
+                    // Obtener la federación
+                    Federacion federacion = (Federacion) o;
+                    // Añadir la federación a la lista de objetos
+                    list.add(federacion);
                 }
             }
         }

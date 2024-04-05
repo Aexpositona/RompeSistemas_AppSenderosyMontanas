@@ -1,10 +1,11 @@
 package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
+import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.Modelo.Federado;
-import RompeSistemas.Controlador.ControlPeticiones;
 import java.text.ParseException;
 
 public class VistaAddSocio {
@@ -12,6 +13,7 @@ public class VistaAddSocio {
     //Atributos
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
     private Datos datos;
 
     /**
@@ -22,6 +24,7 @@ public class VistaAddSocio {
         this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
         this.datos = cSocios.getDatos();
+        this.cDatos = cSocios.getControlDatos();
     }
 
     //Getters
@@ -51,7 +54,7 @@ public class VistaAddSocio {
     public void setDatos(Datos datos) {
         this.datos = datos;
     }
-    
+
 
     //Métodos
 
@@ -84,6 +87,7 @@ public class VistaAddSocio {
         boolean valido = false;
         int numero = 0;
         String nombre = "";
+        System.out.println("Procediendo a añadir un socio...");
         do{
             System.out.println("Tipos de socio:");
             System.out.println("1. Estandar");
@@ -92,23 +96,62 @@ public class VistaAddSocio {
             int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: ", 1, 3);
             
             if (tipoSocio == 1) {
-                
+                // Pedir nombre del socio mediante un método
                 nombre = pedirNombreSocio();
+                // Obtener el número de socio mediante un método
                 numero = obtenerNumeroSocio();
+                // Pedir NIF del socio 
                 String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
-                String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-                switch (2) {
-                    case 1 -> datos.objeto = datos.excursiones.get(datos.buscarObjeto(codigoFederacion,2));
-                    case 2 -> datos.objeto = datos.inscripciones.get(datos.buscarObjeto(codigoFederacion,2));
-                    case 3 -> datos.objeto = datos.socios.get(datos.buscarObjeto(codigoFederacion,2));
+                // Mientras el NIF introducido ya exista, pedir otro NIF
+                do{
+                    // Si el NIF ya existe
+                    if (cDatos.checkCodigoObjeto(3, nif)) {
+                        System.out.println("El NIF introducido ya existe. Introduce otro NIF.");
+                        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+                    }
+                    // Si el NIF no existe
+                    else {
+                        valido = true;
+                    }
                 }
-
-                Object federacion = datos;
+                while(!valido);
+                cSocios.addSocio( 1, new Federado(nombre, numero, nif, null));
                 
-                cSocios.addSocio( 3, new Federado(nombre, numero, nif, (Federacion) federacion));
             } 
             else if (tipoSocio == 2) {
-                
+                // Pedir nombre del socio mediante un método
+                nombre = pedirNombreSocio();
+                // Obtener el número de socio mediante un método
+                numero = obtenerNumeroSocio();
+                // Pedir NIF del socio 
+                String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+                // Mientras el NIF introducido ya exista, pedir otro NIF
+                do{
+                    // Si el NIF ya existe
+                    if (cDatos.checkCodigoObjeto(3, nif)) {
+                        System.out.println("El NIF introducido ya existe. Introduce otro NIF.");
+                        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+                    }
+                    // Si el NIF no existe
+                    else {
+                        valido = true;
+                    }
+                }
+                while(!valido);
+                // Mientras el código de federación introducido no exista, pedir otro código de federación
+                do{
+                    // Pedir código de federación
+                    String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+                    // Si el código de federación es válido y 
+                    if (cDatos.checkCodigoObjeto(4, codigoFederacion) && cDatos.checkExistenciaObjeto(tipoSocio, codigoFederacion)){
+                        Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(codigoFederacion, 4));
+                        cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
+                        valido = true;
+                    }
+                    else { valido = false;
+                    }
+                }
+                while(!valido);
             } 
             else if (tipoSocio == 3) {
 

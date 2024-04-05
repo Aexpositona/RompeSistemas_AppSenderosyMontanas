@@ -1,10 +1,9 @@
 package RompeSistemas.Vista;
 
-import RompeSistemas.Controlador.ControlMenuPrincipal;
 import RompeSistemas.Controlador.ControlSocios;
+import RompeSistemas.Controlador.ControlPeticiones;
 
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class VistaSocios {
 
@@ -12,6 +11,7 @@ public class VistaSocios {
     private VistaListarSocios vVistaListarSocios;
     private VistaAddSocio vAñadirSocio;
     private ControlSocios cSocios;
+    private ControlPeticiones cPeticiones;
 
 
     /**
@@ -23,7 +23,7 @@ public class VistaSocios {
         this.vVistaModificarSeguro = cSocios.getVistaModificarSeguro();
         this.vVistaListarSocios = cSocios.getVistaListarSocios();
         this.vAñadirSocio = cSocios.getVistaAddSocio();
-  
+        this.cPeticiones = cSocios.getControlPeticiones();
     }
 
     /**
@@ -39,23 +39,23 @@ public class VistaSocios {
             System.out.println("4. Listar socios");
             System.out.println("5. Mostrar factura mensual de los socios");
             System.out.println("0. Atrás");
-            switch () {
-                case "1":
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0)", 0, 5)) {
+                case 1:
                     buttonAddSocio();
                     break;
-                case "2":
+                case 2:
                     buttonRemoveSocio();
                     break;
-                case "3":
+                case 3:
                     buttonModTipoSeguro();
                     break;
-                case "4":
+                case 4:
                     ButtonListSocios();
                     break;
-                case "5":
+                case 5:
                     buttonShowFacturaMensualSocios();
                     break;
-                case "0":
+                case 0:
                     buttonAtras();
                     running = false;
                     break;
@@ -112,7 +112,7 @@ public class VistaSocios {
      */
     public void buttonAtras() throws ParseException {
         System.out.println("Volviendo a la vista anterior");
-        vistaMenuPrincipal.show();
+        return;
     }
 
 }

@@ -20,6 +20,7 @@ public class ControlSocios {
     private VistaListarSocios vListarSocios;
     private VistaAddSocio vAddSocio;
     private ControlPeticiones cPeticiones;
+    private ControlDatos cDatos;
     private Datos datos;
 
     /**
@@ -35,6 +36,7 @@ public class ControlSocios {
         this.vAddSocio = new VistaAddSocio(this);
         this.cPeticiones = app.cPeticiones;
         this.datos = app.datos;
+        this.cDatos = app.cDatos;
     }
 
     // Getters
@@ -61,6 +63,10 @@ public class ControlSocios {
 
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
     }
 
     public Datos getDatos() {
@@ -90,6 +96,10 @@ public class ControlSocios {
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
+    }
+
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
     }
 
     public void setDatos(Datos datos) {
@@ -177,7 +187,7 @@ public class ControlSocios {
     }
 
     public List<Socio> listTipoSocios() {
-        
+
         System.out.println("Seleccione el tipo de socio que desea ver:");
         System.out.println("1. Estandar");
         System.out.println("2. Federado");
