@@ -3,6 +3,7 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Excursion;
 
 import java.text.ParseException;
@@ -57,6 +58,10 @@ public class VistaAddExcursion {
 
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
+    }
+
+    public VistaAddExcursion getVistaAddExcursion() {
+        return this;
     }
 
     // Setters
@@ -124,7 +129,7 @@ public class VistaAddExcursion {
             // Si la descripción está vacía
             if (descripcion.isEmpty() || descripcion.length() < 5) {
                 // Informamos al usuario de que la descripción no puede estar vacía
-                System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.");
+                System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.\n");
             }
             // Si la descripción no está vacía y tiene al menos 5 caracteres
             else {
@@ -139,18 +144,18 @@ public class VistaAddExcursion {
         do {
             // Solicitamos la fecha de la excursión
             fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --");
+            // Si la fecha es anterior a la actual
+            if (fecha.isBefore(LocalDate.now())) {
+                // Informamos al usuario
+                System.out.println("La fecha no puede ser anterior a la actual.");
+            }
         }
         while (fecha.isBefore(LocalDate.now()));
         // Mientras no se introduzca un precio válido
-        do {
-            precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ",0,Float.MAX_VALUE);
-        }
-        while (precio <= 0);
-        do {
-            System.out.println("Introduzca los días de la excursión: ");
-            dias = cPeticiones.pedirEntero("Introduce los días de la excursión: ", 1, 100);
-        }
-        while (dias <= 0);
+        precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ", 0, Float.MAX_VALUE);
+        // Mientras no se introduzca un número de días válido
+        dias = cPeticiones.pedirEntero("Introduzca los días de la excursión: ", 1, 100);
+        // Añadimos la excursión
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
     }
 

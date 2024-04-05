@@ -160,7 +160,7 @@ public class ControlPeticiones {
 
     public float pedirFloat (String peticion, float min, float max){
         // Variables internas
-        float f = 0.0f;
+        float f = 0;
         boolean resultado;
         // Solicitamos el valor hasta obtener un valor válido
         do {
