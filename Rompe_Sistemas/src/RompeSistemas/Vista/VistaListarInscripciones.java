@@ -2,7 +2,6 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Controlador.ControlDatos;
 
 public class VistaListarInscripciones {
 
@@ -10,13 +9,10 @@ public class VistaListarInscripciones {
     //Atributos
     private ControlInscripciones cInscripciones;
     private ControlPeticiones cPeticiones;
-    private ControlDatos cDatos;
 
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
-        this.cDatos = cInscripciones.getApp().cDatos;
-
     }
 
     //Métodos

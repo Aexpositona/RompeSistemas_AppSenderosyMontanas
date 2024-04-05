@@ -12,6 +12,7 @@ public class Datos {
     // Atributos
 
     private Object objeto; // Objeto genérico
+    private Seguro seguro; // Seguro
 
     // Un ArrayList para cada tipo de dato
     private List<Object> excursiones, inscripciones, socios, federaciones;
@@ -26,7 +27,14 @@ public class Datos {
         excursiones = new ArrayList<>();
         inscripciones = new ArrayList<>();
         socios = new ArrayList<>();
+        federaciones = new ArrayList<>();
         objeto = new Object();
+    }
+
+    // Métodos
+
+    public Seguro getSeguro() {
+        return seguro;
     }
 
     /**

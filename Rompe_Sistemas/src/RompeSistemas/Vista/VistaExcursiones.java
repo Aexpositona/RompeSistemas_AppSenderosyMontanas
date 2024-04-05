@@ -58,9 +58,9 @@ public class VistaExcursiones {
             // Solicitamos el código de la excursión
             respuesta = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
             // Si el código es válido
-            if (cDatos.checkCodigoObjeto(respuesta, 1)) {
+            if (cDatos.checkCodigoObjeto(1,respuesta)) {
                 // Si el código existe
-                if (cDatos.checkExistenciaObjeto(respuesta, 1))
+                if (cDatos.checkExistenciaObjeto(1, respuesta))
                     // Cambiamos el resultado a verdadero
                     resultado = true;
                 else {

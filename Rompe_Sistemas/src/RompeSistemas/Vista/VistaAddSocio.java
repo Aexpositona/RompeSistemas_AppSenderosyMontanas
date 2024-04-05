@@ -4,8 +4,11 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.Modelo.Federado;
+import RompeSistemas.Modelo.Seguro;
+
 import java.text.ParseException;
 
 public class VistaAddSocio {
@@ -25,6 +28,7 @@ public class VistaAddSocio {
         this.cPeticiones = cSocios.getControlPeticiones();
         this.datos = cSocios.getDatos();
         this.cDatos = cSocios.getControlDatos();
+
     }
 
     //Getters
@@ -82,11 +86,16 @@ public class VistaAddSocio {
         }
     }
 
+    //* @param nombre nombre del socio
+    //* @param numero número del socio
+    //* @param nif NIF del socio
+    //* @param seguro seguro del socio
     public void buttonAdd() {
         // Variables internas
         boolean valido = false;
         int numero = 0;
         String nombre = "";
+        int seguro = 0;
         System.out.println("Procediendo a añadir un socio...");
         do{
             System.out.println("Tipos de socio:");
@@ -115,8 +124,14 @@ public class VistaAddSocio {
                     }
                 }
                 while(!valido);
-                cSocios.addSocio( 1, new Federado(nombre, numero, nif, null));
-                
+                // Mostramos tipos de seguro disponibles
+                System.out.println("Tipos de seguro disponibles:");
+                // Mostramos toString de Seguro
+                System.out.println(datos.getSeguro().toString());
+                // Pedir tipo de seguro
+                seguro = cPeticiones.pedirEntero("Introduce el tipo de seguro del socio: ", 1, 2);
+                // Añadir socio tipo Estandar mediante el controlador de socios
+                cSocios.addSocio( 1, new Estandar(nombre, numero, nif, datos.getSeguro().getSeguro(seguro)));
             } 
             else if (tipoSocio == 2) {
                 // Pedir nombre del socio mediante un método
@@ -148,11 +163,14 @@ public class VistaAddSocio {
                         cSocios.addSocio( 1, new Federado(nombre, numero, nif, federacion));
                         valido = true;
                     }
-                    else { valido = false;
+                    // Si el código de federación no es válido
+                    else { 
+                        valido = false;
                     }
                 }
                 while(!valido);
             } 
+            // Si el tipo de socio es Infantil
             else if (tipoSocio == 3) {
 
             } 
