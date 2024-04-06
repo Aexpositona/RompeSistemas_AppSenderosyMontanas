@@ -37,6 +37,7 @@ public class Datos {
         this.socios = datos.socios;
         this.federaciones = datos.federaciones;
         this.objeto = datos.objeto;
+        this.seguro = datos.seguro;
     }
 
     // Métodos

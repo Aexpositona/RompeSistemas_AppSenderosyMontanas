@@ -11,8 +11,8 @@ public class Infantil extends Socio {
      * @param numero es el número del socio
      * @param numSocioTutor es el número de socio del tutor
      */
-    public Infantil(String nombre, int numero, int numSocioTutor){
-        super(nombre, numero);
+    public Infantil(String nombre, int numero,String nif, int numSocioTutor){
+        super(nombre, numero,nif);
         this.numSocioTutor = numSocioTutor;
     }
 
