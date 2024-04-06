@@ -6,6 +6,7 @@ import RompeSistemas.Vista.VistaModificarSeguro;
 import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,7 +189,45 @@ public class ControlSocios {
     }
 
     public void showFacturaMensualSocios() {
+        // Obtenemos la fecha actual
+        LocalDate now = LocalDate.now();
+        // Calculamos la fecha de hace un mes
+        LocalDate oneMonthAgo = now.minusMonths(1);
 
+        // Obtenemos la lista de socios
+        List<Object> sociosList = datos.getArrayList(3);
+        // Obtenemos la lista de inscripciones
+        List<Object> inscripcionesList = datos.getArrayList(2);
+
+        // Recorremos la lista de socios
+        for (Object obj : sociosList) {
+            if (obj instanceof Socio) {
+                Socio socio = (Socio) obj;
+                double total = 0.0;
+
+                // Recorremos la lista de inscripciones
+                for (Object objInscripcion : inscripcionesList) {
+                    if (objInscripcion instanceof Inscripcion) {
+                        Inscripcion inscripcion = (Inscripcion) objInscripcion;
+                        // Comprobamos si el socio de la inscripción es el socio que estamos procesando
+                        if (inscripcion.getSocio().equals(socio)) {
+                            // Obtenemos la excursión de la inscripción
+                            Excursion excursion = inscripcion.getExcursion();
+                            // Comprobamos si la fecha de la excursión está dentro del último mes
+                            if (!excursion.getFecha().isBefore(oneMonthAgo) && !excursion.getFecha().isAfter(now)) {
+                                // Sumamos el precio de la excursión al total
+                                total += excursion.getPrecio();
+                            }
+                        }
+                    }
+                }
+
+                // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                System.out.println("Número de socio: " + socio.getNumero());
+                System.out.println("Nombre: " + socio.getNombre());
+                System.out.println("Total de inscripciones del último mes: " + total);
+            }
+        }
     }
 
     public void modificarSeguro(String numeroSocio, int tipoSeguro) {

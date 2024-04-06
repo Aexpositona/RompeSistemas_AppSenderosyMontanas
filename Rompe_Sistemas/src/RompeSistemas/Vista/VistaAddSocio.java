@@ -151,25 +151,28 @@ public class VistaAddSocio {
                 nombre = pedirNombreSocio();
                 // Obtener el número de socio mediante un método
                 numero = obtenerNumeroSocio();
-                // Mientras el código de federación introducido no exista, pedir otro código de federación
-                do{
-                    // Pedir código de federación
-                    String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-                    // Si el código de federación es válido y existe
-                    if (cDatos.checkCodigoObjeto(4, codigoFederacion) && cDatos.checkExistenciaObjeto(tipoSocio, codigoFederacion)){
-                        Federacion federacion = (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, codigoFederacion));
-                        Federado federado = new Federado(nombre, numero, nif, federacion);
-                        cSocios.addSocio(federado);
-                        // Mostramos mensaje de éxito
-                        System.out.println("Socio Federado añadido con éxito.");
-                        valido = true;
-                    }
-                    // Si el código de federación no es válido
-                    else {
-                        valido = false;
+                // Pedir código de federación
+                String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+                // Buscar la federación en la lista de federaciones
+                Federacion federacion = null;
+                for (Object obj : datos.getArrayList(4)) {
+                    Federacion fed = (Federacion) obj;
+                    if (fed.getCodigo().equals(codigoFederacion)) {
+                        federacion = fed;
+                        break;
                     }
                 }
-                while(!valido);
+                // Si la federación existe
+                if (federacion != null) {
+                    Federado federado = new Federado(nombre, numero, nif, federacion);
+                    cSocios.addSocio(federado);
+                    // Mostramos mensaje de éxito
+                    System.out.println("Socio Federado añadido con éxito.");
+                }
+                // Si la federación no existe
+                else {
+                    System.out.println("El código de federación introducido no existe. Intente de nuevo.");
+                }
             }
             // Si el tipo de socio es Infantil
             else if (tipoSocio == 3) {

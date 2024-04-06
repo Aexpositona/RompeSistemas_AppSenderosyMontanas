@@ -87,14 +87,14 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la excursión";
             // Cantidad de caracteres
-            cantidad = codigo.length();
+            cantidad = 5;
         }
         // Si el objeto es una inscripción
         else if (tipoObjeto == 2) {
             // Mensaje de error
             mensaje = "El número de la inscripción";
             // Cantidad de caracteres
-            cantidad = codigo.length();
+            cantidad = 5;
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
@@ -107,7 +107,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la federación";
             // Cantidad de caracteres
-            cantidad = codigo.length();
+            cantidad = 5;
         }
         // Si el objeto introducido no reune las condiciones de longitud
         if (codigo.length() != cantidad) {

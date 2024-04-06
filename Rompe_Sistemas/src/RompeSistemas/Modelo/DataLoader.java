@@ -60,7 +60,7 @@ public class DataLoader {
     private void loadExcursiones() {
 
         // Añadir excursiones a la lista de excursiones
-        datos.addObjeto(1, new Excursion("00001", "Salida al monte", LocalDate.of(2024, 5, 15) , 5, (float)50));
+        datos.addObjeto(1, new Excursion("00001", "Salida al monte", LocalDate.of(2024, 4, 1) , 5, (float)50));
         datos.addObjeto(1, new Excursion("00002", "Salida al río", LocalDate.of(2024, 8, 30), 3, (float)60));
         datos.addObjeto(1, new Excursion("00003", "Salida a la montaña", LocalDate.of(2024, 10, 3), 7, (float)70));
     }
