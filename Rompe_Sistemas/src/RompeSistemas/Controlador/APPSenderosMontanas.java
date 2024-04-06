@@ -126,6 +126,7 @@ public class APPSenderosMontanas {
 
         cExcursiones.getVistaAddExcursion().setControlExcursiones(cExcursiones);
         cExcursiones.getVistaAddExcursion().setControlPeticiones(cPeticiones);
+        cExcursiones.getVistaAddExcursion().setControlDatos(cDatos);
         cExcursiones.getVistaExcursiones().setVistaAddExcursion(new VistaAddExcursion(cExcursiones));
 
         //inicializar vistas

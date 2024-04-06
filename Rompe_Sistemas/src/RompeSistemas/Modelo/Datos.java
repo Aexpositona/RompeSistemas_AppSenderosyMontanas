@@ -548,4 +548,82 @@ public class Datos {
         // Devolver la lista de objetos
         return list.toString();
     }
+
+    /**
+     * Método para obtener el siguiente código de un tipo de objeto.
+     *
+     * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     *                  4 - Federación
+     * @return String - Último código
+     */
+
+    public String getSiguienteCodigo(int tipoObjeto) {
+        // Variables internas
+        String codigo = "";
+        // Si el tipo de objeto es 1 (Excursión)
+        if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones no está vacío
+            if (!excursiones.isEmpty()) {
+                // Obtener la última excursión
+                Excursion excursion = (Excursion) excursiones.get(excursiones.size() - 1);
+                // Obtener el código de la última excursión
+                codigo = excursion.getCodigo();
+            }
+            // Si el ArrayList de excursiones está vacío
+            else {
+                // Asignar el código "EXC0001"
+                codigo = "EXC0001";
+            }
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones no está vacío
+            if (!inscripciones.isEmpty()) {
+                // Obtener la última inscripción
+                Inscripcion inscripcion = (Inscripcion) inscripciones.get(inscripciones.size() - 1);
+                // Obtener el número de la última inscripción
+                codigo = String.valueOf(inscripcion.getNumero() + 1);
+            }
+            // Si el ArrayList de inscripciones está vacío
+            else {
+                // Asignar el número "1"
+                codigo = "1";
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios no está vacío
+            if (!socios.isEmpty()) {
+                // Obtener el último socio
+                Socio socio = (Socio) socios.get(socios.size() - 1);
+                // Obtener el código del último socio
+                codigo = String.valueOf(socio.getNumero());
+            }
+            // Si el ArrayList de socios está vacío
+            else {
+                // Asignar el código "SOC0001"
+                codigo = "SOC0001";
+            }
+        }
+        else if (tipoObjeto == 4) {
+            // Si el ArrayList de federaciones no está vacío
+            if (!federaciones.isEmpty()) {
+                // Obtener la última federación
+                Federacion federacion = (Federacion) federaciones.get(federaciones.size() - 1);
+                // Obtener el código de la última federación
+                codigo = federacion.getCodigo();
+                // Añadir 1 al código
+                codigo = codigo.substring(0, 3) + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+            }
+            else {
+                // Asignar el código "FED0001"
+                codigo = "FED0001";
+            }
+        }
+        // Devolver el código
+        return codigo;
+    }
 }

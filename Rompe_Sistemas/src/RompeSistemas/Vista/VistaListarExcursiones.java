@@ -45,6 +45,8 @@ public class VistaListarExcursiones {
         return cPeticiones;
     }
 
+    
+
     // Setters
 
     public void setControlExcursiones(ControlExcursiones cExcursiones) {

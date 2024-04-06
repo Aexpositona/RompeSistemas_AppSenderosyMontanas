@@ -86,7 +86,9 @@ public class ControlExcursiones {
         return cPeticiones;
     }
 
-
+    public ControlExcursiones getControlExcursiones() {
+        return this;
+    }
 
     // Setters
 
@@ -106,6 +108,13 @@ public class ControlExcursiones {
         this.vListarExcursiones = vListarExcursiones;
     }
 
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
+    public void setControlPeticiones(ControlPeticiones cPeticiones) {
+        this.cPeticiones = cPeticiones;
+    }
 
     // Métodos
     /**
@@ -172,6 +181,9 @@ public class ControlExcursiones {
         vAddExcursion.show();
     }
 
+    public String getUltimoCodigo() {
+        return datos.getSiguienteCodigo(1);
+    }
 
 
 }
