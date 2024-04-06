@@ -48,9 +48,9 @@ public class DataLoader {
         datos.addObjeto(3, new Federado("Carlos", 6,"87637489V", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "12512"))));
 
         // Añadir usuarios infantiles a la lista de socios
-        datos.addObjeto(3, new Infantil("Ana", 7, 1));
-        datos.addObjeto(3, new Infantil("Luis", 8, 2));
-        datos.addObjeto(3, new Infantil("Marcos", 9, 3));
+        datos.addObjeto(3, new Infantil("Ana", 7,"83736182A", 1));
+        datos.addObjeto(3, new Infantil("Luis", 8,"83736182B", 2));
+        datos.addObjeto(3, new Infantil("Marcos", 9,"83736182C", 3));
     }
 
     /**
@@ -60,7 +60,7 @@ public class DataLoader {
     private void loadExcursiones() {
 
         // Añadir excursiones a la lista de excursiones
-        datos.addObjeto(1, new Excursion("00001", "Salida al monte", LocalDate.of(2024, 5, 15) , 5, (float)50));
+        datos.addObjeto(1, new Excursion("00001", "Salida al monte", LocalDate.of(2024, 4, 1) , 5, (float)50));
         datos.addObjeto(1, new Excursion("00002", "Salida al río", LocalDate.of(2024, 8, 30), 3, (float)60));
         datos.addObjeto(1, new Excursion("00003", "Salida a la montaña", LocalDate.of(2024, 10, 3), 7, (float)70));
     }

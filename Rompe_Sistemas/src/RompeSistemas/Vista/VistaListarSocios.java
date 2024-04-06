@@ -74,7 +74,7 @@ public class VistaListarSocios {
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
     private void buttonListTipoSocio(){
-        cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar: 1-Estandar, 2-Federado, 3-Infantil", 1, 3)); 
+        cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar: 1- Estandar, 2- Federado, 3- Infantil: ", 1, 3));
     }
 
     /**

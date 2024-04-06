@@ -128,10 +128,13 @@ public class APPSenderosMontanas {
         cExcursiones.getVistaAddExcursion().setControlPeticiones(cPeticiones);
         cExcursiones.getVistaExcursiones().setVistaAddExcursion(new VistaAddExcursion(cExcursiones));
 
+        //inicializar vistas
+        vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
+
 
     }
 
-    /**
+    /**2
      * Muestra la vista del menú principal.
      * @throws ParseException excepción de parseo
      */

@@ -6,6 +6,9 @@ import RompeSistemas.Vista.VistaModificarSeguro;
 import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ControlSocios {
@@ -129,10 +132,9 @@ public class ControlSocios {
 
     // Métodos de la vista
 
-    public void addSocio(int tipoObjeto, Object socio) {
-        datos.addObjeto(tipoObjeto, socio);
+    public void addSocio(Socio socio) {
+        datos.addObjeto(3, socio);
     }
-
 
 
     public void showVistaListarSocios() throws ParseException{
@@ -149,25 +151,35 @@ public class ControlSocios {
 
     // Métodos gestión de socios
 
-    public void removeSocio(int tipoObjeto, Object socio) {
-        datos.removeObjeto(tipoObjeto, socio);
+    public void removeSocio(int tipoObjeto, int numeroSocio) {
+        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        for (Socio socio : socios) {
+            if (socio.getNumero() == numeroSocio) {
+                datos.removeObjeto(tipoObjeto, socio);
+                break;
+            }
+        }
     }
-
     // Métodos para listar socios
     public void listSocios(int tipoObjeto) {
-        datos.listToStringObjetos(tipoObjeto);
-    }
-
-    /**
-     * Método para listar los socios por tipo
-     * @param tipoObjeto 3-Socio
-     * @param tipoSocio 1-Estandar, 2-Federado, 3-Infantil
-     */
-    // Método para listar socios por tipo
-    public void listTipoSocios(int tipoObjeto, int tipoSocio) {
-
         // Obtenemos un array de socios de la lista de socios
         Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+        // Recorremos el array de socios y mostramos cada socio
+        for (Socio socio : socios) {
+            System.out.println(socio.toString());
+        }
+    }
+
+    public void listTipoSocios(int tipoObjeto, int tipoSocio) {
+        // Obtenemos un array de socios de la lista de socios
+        List<Object> listaObjetos = datos.getArrayList(tipoObjeto);
+        List<Socio> listaSocios = new ArrayList<>();
+        for (Object objeto : listaObjetos) {
+            if (objeto instanceof Socio) {
+                listaSocios.add((Socio) objeto);
+            }
+        }
+        Socio[] socios = listaSocios.toArray(new Socio[0]);
         // Recorremos el array de socios y mostramos los socios del tipo indicado
         for (Socio socio : socios) {
             if (socio.getTipo() == tipoSocio) {
@@ -177,7 +189,45 @@ public class ControlSocios {
     }
 
     public void showFacturaMensualSocios() {
+        // Obtenemos la fecha actual
+        LocalDate now = LocalDate.now();
+        // Calculamos la fecha de hace un mes
+        LocalDate oneMonthAgo = now.minusMonths(1);
 
+        // Obtenemos la lista de socios
+        List<Object> sociosList = datos.getArrayList(3);
+        // Obtenemos la lista de inscripciones
+        List<Object> inscripcionesList = datos.getArrayList(2);
+
+        // Recorremos la lista de socios
+        for (Object obj : sociosList) {
+            if (obj instanceof Socio) {
+                Socio socio = (Socio) obj;
+                double total = 0.0;
+
+                // Recorremos la lista de inscripciones
+                for (Object objInscripcion : inscripcionesList) {
+                    if (objInscripcion instanceof Inscripcion) {
+                        Inscripcion inscripcion = (Inscripcion) objInscripcion;
+                        // Comprobamos si el socio de la inscripción es el socio que estamos procesando
+                        if (inscripcion.getSocio().equals(socio)) {
+                            // Obtenemos la excursión de la inscripción
+                            Excursion excursion = inscripcion.getExcursion();
+                            // Comprobamos si la fecha de la excursión está dentro del último mes
+                            if (!excursion.getFecha().isBefore(oneMonthAgo) && !excursion.getFecha().isAfter(now)) {
+                                // Sumamos el precio de la excursión al total
+                                total += excursion.getPrecio();
+                            }
+                        }
+                    }
+                }
+
+                // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                System.out.println("Número de socio: " + socio.getNumero());
+                System.out.println("Nombre: " + socio.getNombre());
+                System.out.println("Total de inscripciones del último mes: " + total);
+            }
+        }
     }
 
     public void modificarSeguro(String numeroSocio, int tipoSeguro) {

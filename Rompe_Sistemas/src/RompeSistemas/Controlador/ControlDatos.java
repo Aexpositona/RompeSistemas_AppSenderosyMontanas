@@ -101,7 +101,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El número de socio";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = codigo.length();
         }
         else if (tipoObjeto == 4) {
             // Mensaje de error
@@ -111,7 +111,7 @@ public class ControlDatos {
         }
         // Si el objeto introducido no reune las condiciones de longitud
         if (codigo.length() != cantidad) {
-            System.out.println(mensaje + "no puede estar vacío y ha de tener " + cantidad + " caracteres.");
+            System.out.println(mensaje + " no puede estar vacío. Inténtelo de nuevo.");
             return false;
         }
         else return true;
@@ -176,5 +176,30 @@ public class ControlDatos {
         return resultado;
     }
 
+    public boolean isSocioInInscripcion(int numeroSocio) {
+        for (Object obj : datos.getArrayList(2)) {
+            if (obj instanceof Inscripcion) {
+                Inscripcion inscripcion = (Inscripcion) obj;
+                if (inscripcion.getSocio().getNumero() == numeroSocio) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean checkExistenciaNIF(String nif){
+        // Recorremos todos los socios
+        for (Object obj : datos.getArrayList(3)) {
+            if (obj instanceof Socio) {
+                Socio socio = (Socio) obj;
+                // Si encontramos un socio con el mismo NIF, devolvemos true
+                if (socio.getNif().equals(nif)) {
+                    return true;
+                }
+            }
+        }
+        // Si no encontramos ningún socio con el mismo NIF, devolvemos false
+        return false;
+    }
 
 }
