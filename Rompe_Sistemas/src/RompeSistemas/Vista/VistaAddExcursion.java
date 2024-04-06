@@ -3,7 +3,6 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Excursion;
 
 import java.text.ParseException;
@@ -26,7 +25,6 @@ public class VistaAddExcursion {
      * Constructor de la clase VistaAddExcursion.
      *
      * @param cExcursiones ControlExcursiones
-     * @param cDatos ControlDatos
      */
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
         this.cExcursiones = new ControlExcursiones(cExcursiones);
@@ -91,35 +89,8 @@ public class VistaAddExcursion {
         float precio;
         int dias;
 
-        // Mientras no se introduzca un código válido o no se pueda añadir la excursión
-        do {
-            // Solicitamos el código de la excursión
-            codigo = cPeticiones.pedirString("Introduzca el código de la excursión: ");
-            // Si el código está vacío
-            if (codigo.isEmpty()) {
-                // Informamos al usuario
-                System.out.println("El código no puede estar vacío.");
-            }
-            // Si el código no está vacío
-            else {
-                // Si el código es válido
-                if (cDatos.checkCodigoObjeto(1, codigo)) {
-                    // Si la excursión no existe
-                    if (!cDatos.checkExistenciaObjeto(1, codigo)) {
-                        // Informamos al usuario de que el código es válido
-                        System.out.println("Código válido.");
-                        // Cambiamos el resultado a verdadero
-                        resultado = true;
-                    }
-                    // Si la excursión ya existe
-                    else {
-                        // Informamos al usuario
-                        System.out.println("El código de la excursión ya existe.");
-                    }
-                }
-             }
-        }
-        while (!resultado);
+        // Obtener el último código de excursión y sumarle 1
+        codigo = cExcursiones.getUltimoCodigo();
         // Cambiamos el resultado a falso
         resultado = false;
         // Mientras no se introduzca una descripción válida
@@ -157,6 +128,8 @@ public class VistaAddExcursion {
         dias = cPeticiones.pedirEntero("Introduzca los días de la excursión: ", 1, 100);
         // Añadimos la excursión
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
+        // Informamos al usuario
+        System.out.println("Excursión añadida correctamente.\n");
     }
 
     /**

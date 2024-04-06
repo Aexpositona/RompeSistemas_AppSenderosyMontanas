@@ -181,6 +181,9 @@ public class ControlExcursiones {
         vAddExcursion.show();
     }
 
+    public String getUltimoCodigo() {
+        return datos.getSiguienteCodigo(1);
+    }
 
 
 }

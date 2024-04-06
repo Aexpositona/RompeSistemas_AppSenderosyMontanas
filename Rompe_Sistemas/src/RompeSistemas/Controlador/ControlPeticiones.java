@@ -132,21 +132,17 @@ public class ControlPeticiones {
             // El mes es febrero no puede tener más de 28 días si no es bisiesto
             if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {
                 System.out.println("Febrero no puede tener más de 28 días al no ser bisiesto.");
-                resultado = false;
             }
             // El mes es febrero no puede tener más de 29 días si es bisiesto
             else if (dia > 29 && mes == 2 && Year.isLeap(ano)) {
                 System.out.println("Febrero no puede tener más de 29 días al ser bisiesto.");
-                resultado = false;
             }
             // Los meses con 30 días no pueden tener más de 30 días
             else if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
                 System.out.println("El mes seleccionado no puede tener más de 30 días.");
-                resultado = false;
             }
-            else if (LocalDate.of(ano,mes,dia) == LocalDate.now()){
+            else if (LocalDate.of(ano, mes, dia).equals(LocalDate.now())){
                 System.out.println("La fecha introducida no puede ser posterior a la fecha actual.");
-                resultado = false;
             }
             // En el resto de casos el día es válido
             else {
@@ -168,6 +164,8 @@ public class ControlPeticiones {
             try {
                 // Pedimos la introducción de las opciones concretas
                 System.out.println(peticion);
+                // Limpiamos el buffer
+                scanner.nextLine();
                 // Registramos el valor introducido
                 f = Float.parseFloat(scanner.nextLine());
                 // Si el valor es menor o igual a 0
@@ -215,7 +213,6 @@ public class ControlPeticiones {
             if (nif.length() != 9) {
                 // Informamos al usuario del error
                 System.out.println("El NIF debe tener 9 caracteres.");
-                resultado = false;
             }
             // Si el valor introducido tiene 9 caracteres
             else {
@@ -240,10 +237,6 @@ public class ControlPeticiones {
                         // Informamos al usuario del error
                         System.out.println("El último caracter del NIF debe ser una letra.");
                         resultado = false;
-                    }
-                    // Si el último caracter es una letra
-                    else {
-                        resultado = true;
                     }
                 }
             }
