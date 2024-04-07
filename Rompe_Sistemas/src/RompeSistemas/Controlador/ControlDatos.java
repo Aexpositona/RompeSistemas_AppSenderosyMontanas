@@ -44,7 +44,7 @@ public class ControlDatos {
         }
         // Si el objeto es una inscripción
         else if(O instanceof Inscripcion) {
-            System.out.println("El objeto es una Inscripcion.");
+            System.out.println("El objeto es una Inscripción.");
             tipoObjeto = 2;
         }
         // Si el objeto es una excursión
@@ -178,8 +178,7 @@ public class ControlDatos {
 
     public boolean isSocioInInscripcion(int numeroSocio) {
         for (Object obj : datos.getArrayList(2)) {
-            if (obj instanceof Inscripcion) {
-                Inscripcion inscripcion = (Inscripcion) obj;
+            if (obj instanceof Inscripcion inscripcion) {
                 if (inscripcion.getSocio().getNumero() == numeroSocio) {
                     return true;
                 }
@@ -190,8 +189,7 @@ public class ControlDatos {
     public boolean checkExistenciaNIF(String nif){
         // Recorremos todos los socios
         for (Object obj : datos.getArrayList(3)) {
-            if (obj instanceof Socio) {
-                Socio socio = (Socio) obj;
+            if (obj instanceof Socio socio) {
                 // Si encontramos un socio con el mismo NIF, devolvemos true
                 if (socio.getNif().equals(nif)) {
                     return true;

@@ -60,6 +60,7 @@ public class Federacion {
      */
     @Override
     public String toString(){
-        return "Nombre: " + nombre + "\nCódigo: " + codigo;
+        return "Nombre: " + nombre +
+                "\nCódigo: " + codigo + "\n";
     }
 }

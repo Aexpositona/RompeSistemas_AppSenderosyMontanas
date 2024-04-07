@@ -68,29 +68,35 @@ public class VistaListarExcursiones {
      */
     // Métodos
     public void show() {
-        // Mostramos el menú
-        txtMostrarMensaje("Menu Listar Excursiones");
-        txtMostrarMensaje("1. Listar Excursiones");
-        txtMostrarMensaje("2. Listar Excursiones por Fecha");
-        txtMostrarMensaje("0. Atrás");
-        // Pedimos la opción
-        switch (cPeticiones.pedirEntero("Introduzca una opción: ",0,2)) {
-            // Si la opción es 1, listamos las excursiones
-            case 1:
-                buttonListExcursiones();
-                break;
-            // Si la opción es 2, listamos las excursiones entre dos fechas
-            case 2:
-                buttonListExcursionesFechas();
-                break;
-            // Si la opción es 0, volvemos al menú de excursiones
-            case 0:
-                buttonAtras();
-                break;
-            // Si la opción no es ninguna de las anteriores, mostramos un mensaje de error
-            default:
-                System.out.println("Opción no válida.");
-                break;
+        // Declaramos una variable para controlar el bucle
+        boolean running = true;
+        // Mientras el bucle esté activo
+        while (running) {
+            // Mostramos el menú
+            txtMostrarMensaje("************ Menu Listar Excursiones ************\n");
+            txtMostrarMensaje("1. Listar Excursiones\n");
+            txtMostrarMensaje("2. Listar Excursiones por Fecha\n");
+            txtMostrarMensaje("0. Atrás\n");
+            // Pedimos la opción
+            switch (cPeticiones.pedirEntero("Introduzca una opción: ", 0, 2)) {
+                // Si la opción es 1, listamos las excursiones
+                case 1:
+                    buttonListExcursiones();
+                    break;
+                // Si la opción es 2, listamos las excursiones entre dos fechas
+                case 2:
+                    buttonListExcursionesFechas();
+                    break;
+                // Si la opción es 0, volvemos al menú de excursiones
+                case 0:
+                    buttonAtras();
+                    running = false;
+                    break;
+                // Si la opción no es ninguna de las anteriores, mostramos un mensaje de error
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
+            }
         }
     }
 
@@ -98,6 +104,7 @@ public class VistaListarExcursiones {
      * Método que nos permite listar todas las excursiones
      */
     public void buttonListExcursiones() {
+        txtMostrarMensaje("\n");
         // Llamamos al método de ControlExcursiones que lista las excursiones
         cExcursiones.listExcursiones();
     }
@@ -107,10 +114,12 @@ public class VistaListarExcursiones {
      */
     public void buttonListExcursionesFechas(){
         // Pedimos las fechas
-        LocalDate fechaIncial = cPeticiones.pedirFecha("Introduzca la fecha inicial: ");
-        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final: ");
+        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",2000, LocalDate.now().getYear());
+        txtMostrarMensaje("\n");
+        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial.getYear(), LocalDate.now().getYear());
+        txtMostrarMensaje("\n");
         // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
-        cExcursiones.listExcursionesFechas(fechaIncial, fechaFinal);
+        cExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
     }
 
     /**
@@ -118,7 +127,7 @@ public class VistaListarExcursiones {
      */
     public void buttonAtras(){
         // Mostramos mensaje de vuelta
-        txtMostrarMensaje("Volviendo al menú de excursiones...");
+        txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
     }
 
     /**
@@ -126,8 +135,8 @@ public class VistaListarExcursiones {
      *
      * @param mensaje Mensaje a mostrar.
      */
-    private void txtMostrarMensaje(String mensaje) {
-        System.out.println(mensaje);
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
     }
 
 

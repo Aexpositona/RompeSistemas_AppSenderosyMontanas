@@ -417,8 +417,12 @@ public class Datos {
                 }
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -506,8 +510,12 @@ public class Datos {
                 }
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -545,8 +553,12 @@ public class Datos {
                 System.out.println("No hay excursiones en la lista.");
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**

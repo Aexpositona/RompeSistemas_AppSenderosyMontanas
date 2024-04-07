@@ -20,10 +20,9 @@ public class ControlExcursiones {
     /**
      * Constructor de ControlExcursiones.
      *
-     * @param appSenderosMontanas APPSenderosMontanas asociada al controlador
-     * @param datos Datos asociados al controlador.
-     * @param vExcursiones VistaExcursiones asociada al controlador.
+     * @param app APPSenderosMontanas asociada al controlador.
      */
+    // Constructor
     public ControlExcursiones(APPSenderosMontanas app) {
         this.vExcursiones = new VistaExcursiones();
         this.vAddExcursion = new VistaAddExcursion();
@@ -143,7 +142,7 @@ public class ControlExcursiones {
      */
     public void listExcursiones() {
         // Mostramos las excursiones
-        System.out.println(datos.listToStringObjetos(1));
+        vListarExcursiones.txtMostrarMensaje(datos.listToStringObjetos(1));
     }
 
     /**
@@ -154,7 +153,7 @@ public class ControlExcursiones {
      */
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         // Mostramos las excursiones entre dos fechas
-        System.out.println(datos.listToStringObjetosFechas(1,fechaInicial,fechaFinal));
+        vListarExcursiones.txtMostrarMensaje(datos.listToStringObjetosFechas(1,fechaInicial,fechaFinal));
     }
 
     /**

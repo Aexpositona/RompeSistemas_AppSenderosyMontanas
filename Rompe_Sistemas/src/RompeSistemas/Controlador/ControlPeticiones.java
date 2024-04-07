@@ -100,8 +100,6 @@ public class ControlPeticiones {
         }
         //Mientras no se introduzca valor válido repetimos solicitud
         while (i < min || i > max);
-        //Añadimos salto de línea
-        System.out.println();
         //Devolvemos valor registrado
         return i;
     }
@@ -111,23 +109,19 @@ public class ControlPeticiones {
      *
      * @return LocalDate - Devuelve la fecha introducida por el usuario.
      */
-    public LocalDate pedirFecha(String peticion){
+    public LocalDate pedirFecha(String peticion, int minAno, int maxAno){
         // Variables internas
         int dia, mes, ano;
         boolean resultado = false;
         // Mostramos petición
         System.out.println(peticion);
         // Solicitamos y registramos el año introducido por el usuario entre el año actual y dos años más
-        ano = pedirEntero("Introduzca el año: ", LocalDate.now().getYear(),LocalDate.now().getYear()+2 );
-
+        ano = pedirEntero("Introduzca el año: ", minAno, maxAno);
         // Solicitamos y registramos el mes introducido por el usuario
         mes = pedirEntero("Introduzca el mes: ", 1, 12);
-
         // Mientras no se introduzca un día válido repetimos solicitud
         do {
-            // Solicitamos el día
-            System.out.println();
-            // Registramos el día introducido por el usuario
+            // Solicitamos el día y registramos el valor introducido por el usuario
             dia = pedirEntero("Introduzca el día: ", 1, 31);
             // El mes es febrero no puede tener más de 28 días si no es bisiesto
             if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {

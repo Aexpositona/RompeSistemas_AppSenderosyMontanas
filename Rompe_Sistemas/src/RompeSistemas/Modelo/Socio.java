@@ -2,6 +2,8 @@ package RompeSistemas.Modelo;
 
 public abstract class Socio {
 
+    //Atributos
+    private final int tipo;
     private String nombre;
     private int numero;
     public String nif;
@@ -14,15 +16,28 @@ public abstract class Socio {
      * @param nif Es el NIF del socio
      */
     public Socio(String nombre, int numero, String nif) {
+        this.tipo = 0;
         this.nombre = nombre;
         this.numero = numero;
         this.nif = nif;
     }
 
     /**
+     * Constructor de copia de la clase Socio
+     * @param socio Es el socio que se va a copiar
+     */
+    public Socio(Socio socio) {
+        this.tipo = socio.tipo;
+        this.nombre = socio.nombre;
+        this.numero = socio.numero;
+        this.nif = socio.nif;
+    }
+
+    /**
      * Constructor vacío para generar sobrecarga de constructores
      */
     public Socio() {
+        this.tipo = 0;
         this.nombre = "";
         this.numero = 0;
         this.nif = "";
@@ -47,7 +62,10 @@ public abstract class Socio {
 
     /**
      * Método get() de la clase Socio que nos devuelve el tipo del socio
-     * @return
+     * @return El tipo del socio
+     *        1 - Socio Estándar
+     *        2 - Socio Federado
+     *        3 - Socio Infantil
      */
     public int getTipo() {
         return 0;
@@ -80,11 +98,11 @@ public abstract class Socio {
     /**
      * Método set() de la clase Socio que nos permite definir el tipo del socio
      * @param tipo Es el tipo del socio
-     *             1 - Socio
-     *             2 - Socio
-     *             3 - Socio
+     *             1 - Socio Estándar
+     *             2 - Socio Federado
+     *             3 - Socio Infantil
      */
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
     }
 
     public void setNif(String nif) {
@@ -97,19 +115,19 @@ public abstract class Socio {
      */
     @Override
     public String toString() {
-        String tipo = "";
-        if (getTipo() == 1) {
-            tipo = "Estándar";
+        String tipoSocio = "";
+        if (tipo == 1) {
+            tipoSocio = "Estándar";
         }
-        else if (getTipo() == 2) {
-            tipo = "Federado";
+        else if (tipo == 2) {
+            tipoSocio = "Federado";
         }
-        else if (getTipo() == 3) {
-            tipo = "Infantil";
+        else if (tipo == 3) {
+            tipoSocio = "Infantil";
         }
         return " Nombre: " + nombre +
-                "\n Numero de socio: " + numero +
-                "\n NIF: " + nif +
-                "\n Tipo: " + tipo + "\n ";
+                "\nNumero de socio: " + numero +
+                "\nNIF: " + nif +
+                "\nTipo: " + tipoSocio + "\n ";
     }
 }
