@@ -5,8 +5,9 @@ package RompeSistemas.Modelo;
  */
 public class Estandar extends Socio {
 
-    private String nif;
+    private final String nif;
     private Seguro seguro;
+    private final int tipo = 1;
 
     // Métodos constructores
 

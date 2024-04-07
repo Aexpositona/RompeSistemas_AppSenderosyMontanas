@@ -60,9 +60,9 @@ public class DataLoader {
     private void loadExcursiones() {
 
         // Añadir excursiones a la lista de excursiones
-        datos.addObjeto(1, new Excursion("00001", "Salida al monte", LocalDate.of(2024, 4, 1) , 5, (float)50));
-        datos.addObjeto(1, new Excursion("00002", "Salida al río", LocalDate.of(2024, 8, 30), 3, (float)60));
-        datos.addObjeto(1, new Excursion("00003", "Salida a la montaña", LocalDate.of(2024, 10, 3), 7, (float)70));
+        datos.addObjeto(1, new Excursion("EXC0001", "Salida al monte", LocalDate.of(2024, 4, 1) , 5, (float)50));
+        datos.addObjeto(1, new Excursion("EXC0002", "Salida al río", LocalDate.of(2024, 8, 30), 3, (float)60));
+        datos.addObjeto(1, new Excursion("EXC0003", "Salida a la montaña", LocalDate.of(2024, 10, 3), 7, (float)70));
     }
 
     /**
@@ -72,8 +72,8 @@ public class DataLoader {
     private void loadInscripciones() {
 
         // Añadir inscripciones a la lista de inscripciones
-        datos.addObjeto(2, new Inscripcion(1, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "00001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00001"))));
-        datos.addObjeto(2, new Inscripcion(2, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "00002")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00002"))));
-        datos.addObjeto(2, new Inscripcion(3, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "00003")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "00003"))));
+        datos.addObjeto(2, new Inscripcion(1, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0001"))));
+        datos.addObjeto(2, new Inscripcion(2, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0002"))));
+        datos.addObjeto(2, new Inscripcion(3, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0003"))));
     }
 }

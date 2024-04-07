@@ -11,6 +11,7 @@ public abstract class Socio {
      * Constructor de la clase Socio
      * @param nombre Es el nombre del socio
      * @param numero Es el número del socio
+     * @param nif Es el NIF del socio
      */
     public Socio(String nombre, int numero, String nif) {
         this.nombre = nombre;
@@ -22,7 +23,9 @@ public abstract class Socio {
      * Constructor vacío para generar sobrecarga de constructores
      */
     public Socio() {
-
+        this.nombre = "";
+        this.numero = 0;
+        this.nif = "";
     }
 
     //Métodos Getters
@@ -77,6 +80,9 @@ public abstract class Socio {
     /**
      * Método set() de la clase Socio que nos permite definir el tipo del socio
      * @param tipo Es el tipo del socio
+     *             1 - Socio
+     *             2 - Socio
+     *             3 - Socio
      */
     public void setTipo(String tipo) {
     }
@@ -91,8 +97,19 @@ public abstract class Socio {
      */
     @Override
     public String toString() {
-        return " Nombre: " + nombre + "\n Numero de socio: " + numero +"\n NIF: " + nif + "\n Tipo: " + "\n ";
+        String tipo = "";
+        if (getTipo() == 1) {
+            tipo = "Estándar";
+        }
+        else if (getTipo() == 2) {
+            tipo = "Federado";
+        }
+        else if (getTipo() == 3) {
+            tipo = "Infantil";
+        }
+        return " Nombre: " + nombre +
+                "\n Numero de socio: " + numero +
+                "\n NIF: " + nif +
+                "\n Tipo: " + tipo + "\n ";
     }
-
-
 }

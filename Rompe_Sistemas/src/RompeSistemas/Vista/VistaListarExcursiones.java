@@ -11,26 +11,31 @@ public class VistaListarExcursiones {
     // Atributos
     private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
-    private LocalDate fechaIncial;
-    private LocalDate fechaFinal;
 
     /**
      * Constructor de VistaListarExcursiones.
      *
-     * @param vistaListarExcursiones ControlExcursiones asociado a la vista.
-     * @param cDatos ControlDatos asociado a la vista.
+     * @param cExcursiones ControlExcursiones asociado a la vista.
      */
     // Constructor
-    public VistaListarExcursiones(VistaListarExcursiones vistaListarExcursiones) {
-        this.cExcursiones = new ControlExcursiones(cExcursiones);
-        this.cPeticiones = new ControlPeticiones(vistaListarExcursiones.getControlPeticiones());
-    }
-
     public VistaListarExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = new ControlExcursiones(cExcursiones);
         this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
     }
 
+    /**
+     * Constructor de copia de VistaListarExcursiones.
+     *
+     * @param vistaListarExcursiones VistaListarExcursiones a copiar.
+     */
+    public VistaListarExcursiones(VistaListarExcursiones vistaListarExcursiones) {
+        this.cExcursiones = new ControlExcursiones(vistaListarExcursiones.getControlExcursiones());
+        this.cPeticiones = new ControlPeticiones(vistaListarExcursiones.getControlPeticiones());
+    }
+
+    /**
+     * Constructor vacío de VistaListarExcursiones.
+     */
     public VistaListarExcursiones() {
         this.cExcursiones = null;
         this.cPeticiones = null;
@@ -64,10 +69,10 @@ public class VistaListarExcursiones {
     // Métodos
     public void show() {
         // Mostramos el menú
-        System.out.println("Menu Listar Excursiones");
-        System.out.println("1. Listar Excursiones");
-        System.out.println("2. Listar Excursiones por Fecha");
-        System.out.println("0. Atrás");
+        txtMostrarMensaje("Menu Listar Excursiones");
+        txtMostrarMensaje("1. Listar Excursiones");
+        txtMostrarMensaje("2. Listar Excursiones por Fecha");
+        txtMostrarMensaje("0. Atrás");
         // Pedimos la opción
         switch (cPeticiones.pedirEntero("Introduzca una opción: ",0,2)) {
             // Si la opción es 1, listamos las excursiones
@@ -102,8 +107,8 @@ public class VistaListarExcursiones {
      */
     public void buttonListExcursionesFechas(){
         // Pedimos las fechas
-        fechaIncial = cPeticiones.pedirFecha("Introduzca la fecha inicial: ");
-        fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final: ");
+        LocalDate fechaIncial = cPeticiones.pedirFecha("Introduzca la fecha inicial: ");
+        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final: ");
         // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
         cExcursiones.listExcursionesFechas(fechaIncial, fechaFinal);
     }
@@ -113,9 +118,16 @@ public class VistaListarExcursiones {
      */
     public void buttonAtras(){
         // Mostramos mensaje de vuelta
-        System.out.println("Volviendo al menú de excursiones...");
-        // Salimos del menú
-        return;
+        txtMostrarMensaje("Volviendo al menú de excursiones...");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    private void txtMostrarMensaje(String mensaje) {
+        System.out.println(mensaje);
     }
 
 
