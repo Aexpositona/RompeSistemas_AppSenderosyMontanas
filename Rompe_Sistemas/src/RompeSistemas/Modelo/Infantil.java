@@ -2,7 +2,7 @@ package RompeSistemas.Modelo;
 
 public class Infantil extends Socio {
 
-    private final int numSocioTutor;
+    private final String numSocioTutor;
     private static final int tipo = 3;
 
     //Métodos constructores
@@ -12,7 +12,7 @@ public class Infantil extends Socio {
      * @param numero es el número del socio
      * @param numSocioTutor es el número de socio del tutor
      */
-    public Infantil(String nombre, int numero,String nif, int numSocioTutor){
+    public Infantil(String nombre, String numero,String nif, String numSocioTutor){
         super(nombre,numero,nif);
         this.numSocioTutor = numSocioTutor;
         super.setTipo(tipo);
@@ -33,7 +33,7 @@ public class Infantil extends Socio {
      */
     public Infantil(){
         super();
-        this.numSocioTutor = 0;
+        this.numSocioTutor = "";
         super.setTipo(tipo);
     }
 
@@ -52,6 +52,6 @@ public class Infantil extends Socio {
     @Override
     public String toString(){
         return super.toString() +
-                "\nNumero de socio del tutor: " + numSocioTutor + "\n";
+                "Numero de socio del tutor: " + numSocioTutor + "\n";
     }
 }

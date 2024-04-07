@@ -24,11 +24,13 @@ public class ControlInscripciones {
      *
      */
     public ControlInscripciones(APPSenderosMontanas app) {
+        this.app = app;
         this.vInscripciones = new VistaInscripciones();
         this.vAddInscripcion = new VistaAddInscripcion();
         this.vListarInscripciones = new VistaListarInscripciones();
-        this.datos = app.getDatos();
-        this.cPeticiones = app.getControlPeticiones();
+        this.datos = new Datos (app.getDatos());
+        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
+        this.cDatos = new ControlDatos(app.getControlDatos());
     }
 
     /**
@@ -37,11 +39,13 @@ public class ControlInscripciones {
      * @param cInscripciones ControlInscripciones a copiar
      */
     public ControlInscripciones(ControlInscripciones cInscripciones) {
+        this.app = cInscripciones.getApp();
         this.vInscripciones = cInscripciones.getVistaInscripciones();
         this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.datos = cInscripciones.getDatos();
         this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.cDatos = cInscripciones.getControlDatos();
     }
 
     public ControlInscripciones() {
@@ -140,10 +144,10 @@ public class ControlInscripciones {
     }
 
     /**
-     * Lista las inscripciones de un socio.
+     * Lista las inscripciones de un socio entre fechas.
      *
-     * @param tipoObjeto Tipo de objeto a listar
-     * @param numeroSocio Número de socio
+     * @param fechaInicial Fecha inicial
+     * @param fechaFinal Fecha final
      */
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         System.out.println(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));

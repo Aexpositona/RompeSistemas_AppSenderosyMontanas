@@ -44,37 +44,12 @@ public class VistaListarSocios {
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
-    
-    public void show() throws ParseException {
-        boolean running = true;
-        while (running) {
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Listar tipos de socios");
-            System.out.println("2. Listar socios");
-            System.out.println("0. Atrás");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2 o 0)", 0, 2)) {
-                case 1:
-                    buttonListTipoSocio();
-                    break;
-                case 2:
-                    buttonListSocios();
-                    break;
-                case 0:
-                    buttonAtras();
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-                    break;
-            }
-        }
-    }
 
     /**
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
     private void buttonListTipoSocio(){
-        cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar: 1- Estandar, 2- Federado, 3- Infantil: ", 1, 3));
+        txtMostrarMensaje(cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Selecciona una opción: (1,2 o 3)", 1, 3)));
     }
 
     /**
@@ -87,8 +62,43 @@ public class VistaListarSocios {
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     private void buttonAtras() throws ParseException {
-        System.out.println("Volviendo a la vista anterior");
-        return;
+        txtMostrarMensaje("Volviendo a la vista anterior...\n\n");
     }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    private void txtMostrarMensaje(String mensaje){
+        System.out.println(mensaje);
+    }
+
+    public void show() throws ParseException {
+        boolean running = true;
+        while (running) {
+            txtMostrarMensaje("************ MENú LISTAR SOCIOS ************\n");
+            txtMostrarMensaje("1. Listar tipos de socios\n");
+            txtMostrarMensaje("2. Listar socios\n");
+            txtMostrarMensaje("0. Atrás\n");
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2 o 0)", 0, 2)) {
+                case 1:
+                    buttonListTipoSocio();
+                    break;
+                case 2:
+                    buttonListSocios();
+                    break;
+                case 0:
+                    buttonAtras();
+                    running = false;
+                    break;
+                default:
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
+                    break;
+            }
+        }
+    }
+
+
 
 }

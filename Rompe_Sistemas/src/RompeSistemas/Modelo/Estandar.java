@@ -20,7 +20,7 @@ public class Estandar extends Socio {
      * @param nif NIF del socio
      * @param seguro seguro del socio
      */
-    public Estandar(String nombre, int numero, String nif, Seguro seguro) {
+    public Estandar(String nombre, String numero, String nif, Seguro seguro) {
         super(nombre, numero,nif);
         this.nif = nif;
         this.seguro = seguro;
@@ -93,7 +93,6 @@ public class Estandar extends Socio {
     @Override
     public String toString() {
         return super.toString() +
-                "\nNIF: " + nif +
-                "\nSeguro: " + seguro + "\n";
+                "Seguro: " + seguro + "\n";
     }
 }

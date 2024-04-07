@@ -20,11 +20,24 @@ public class VistaAddSocio {
      * @param cSocios es el controlador de socios
      */
     public VistaAddSocio(ControlSocios cSocios) {
-        this.cSocios = cSocios;
-        this.cPeticiones = cSocios.getControlPeticiones();
-        this.datos = cSocios.getDatos();
-        this.cDatos = cSocios.getControlDatos();
+        this.cSocios = new ControlSocios(cSocios);
+        this.cPeticiones = new ControlPeticiones(cSocios.getControlPeticiones());
+        this.cDatos = new ControlDatos(cSocios.getControlDatos());
+        this.datos = new Datos(cSocios.getDatos());
+    }
 
+    public VistaAddSocio(VistaAddSocio vistaAddSocio) {
+        this.cSocios = vistaAddSocio.getControlSocios();
+        this.cPeticiones = vistaAddSocio.getControlPeticiones();
+        this.cDatos = vistaAddSocio.getControlDatos();
+        this.datos = vistaAddSocio.getDatos();
+    }
+
+    public VistaAddSocio() {
+        this.cSocios = null;
+        this.cPeticiones = null;
+        this.cDatos = null;
+        this.datos = null;
     }
 
 
@@ -42,7 +55,9 @@ public class VistaAddSocio {
         return datos;
     }
 
-
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
     
     //Setters
 
@@ -58,68 +73,40 @@ public class VistaAddSocio {
         this.datos = datos;
     }
 
-
-
-
-
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
 
     //Métodos
 
     /**
-     * Método para mostrar la vista de añadir socio
+     * Método para añadir un socio
      */
-    public void show() throws ParseException {
-        boolean running = true;
-        while (running) {
-            System.out.println("Menú de añadir socio:");
-            System.out.println("1. Añadir socio");
-            System.out.println("0. Atrás");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 1)) {
-                case 1:
-                    buttonAdd();
-                    break;
-                case 0:
-                    buttonAtras();
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-                    break;
-            }
-        }
-    }
-
-    //* @param nombre nombre del socio
-    //* @param numero número del socio
-    //* @param nif NIF del socio
-    //* @param seguro seguro del socio
-    public void buttonAdd() {
+    public void buttonAddSocio() {
         // Variables internas
-        int numero;
-        String nombre;
+        String numero, nombre, numSocioTutor, nif;
         Seguro seguro = null;
-        System.out.println("........AÑADIR SOCIO........\n");
-        System.out.println("Tipos de socio:");
-        System.out.println("1. Estándar");
-        System.out.println("2. Federado");
-        System.out.println("3. Infantil");
-        int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: ", 1, 3);
-
+        txtMostrarMensaje("-- Procediendo a añadir un socio --\n");
+        txtMostrarMensaje("Tipos de socio:\n");
+        txtMostrarMensaje("1. Estándar\n");
+        txtMostrarMensaje("2. Federado\n");
+        txtMostrarMensaje("3. Infantil\n");
+        int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: (1, 2 o 3)", 1, 3);
         // Pedir NIF del socio
-        String nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
         // Mientras el NIF introducido ya exista, pedir otro NIF
         while(cDatos.checkExistenciaNIF(nif)){
-            System.out.println("El NIF introducido ya existe. Introduce otro NIF.");
+            txtMostrarMensaje("El NIF introducido ya existe. Introduce otro NIF.");
             nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
         }
-
+        // Si el tipo de socio es Estándar
         if (tipoSocio == 1) {
             // Pedir nombre del socio mediante un método
             nombre = pedirNombreSocio();
             // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
             // Mostramos tipos de seguro disponibles
-            System.out.println("Tipos de seguro disponibles:");
+            txtMostrarMensaje("Tipos de seguro disponibles:");
             Seguro[] seguros = Seguro.values();
             for (Seguro value : seguros) {
                 System.out.println(value.name());
@@ -134,16 +121,16 @@ public class VistaAddSocio {
                     seguro = Seguro.BASICO;
                     break;
                 default:
-                    System.out.println("Tipo de seguro no válido. Intente de nuevo.");
+                    txtMostrarMensaje("Tipo de seguro no válido. Intente de nuevo.");
                     break;
             }
             // Añadir socio tipo Estandar mediante el controlador de socios
             Estandar estandar = new Estandar(nombre, numero, nif, seguro);
             cSocios.addSocio(estandar);
             // Mostramos mensaje de éxito
-            System.out.println("Socio Estándar añadido con éxito.");
+            txtMostrarMensaje("Socio Estándar añadido con éxito.");
         }
-
+        // Si el tipo de socio es Federado
         else if (tipoSocio == 2) {
             // Pedir nombre del socio mediante un método
             nombre = pedirNombreSocio();
@@ -165,11 +152,11 @@ public class VistaAddSocio {
                 Federado federado = new Federado(nombre, numero, nif, federacion);
                 cSocios.addSocio(federado);
                 // Mostramos mensaje de éxito
-                System.out.println("Socio Federado añadido con éxito.");
+                txtMostrarMensaje("Socio Federado añadido con éxito.");
             }
             // Si la federación no existe
             else {
-                System.out.println("El código de federación introducido no existe. Intente de nuevo.");
+                txtMostrarMensaje("El código de federación introducido no existe. Intente de nuevo.");
             }
         }
         // Si el tipo de socio es Infantil
@@ -178,39 +165,92 @@ public class VistaAddSocio {
             nombre = pedirNombreSocio();
             // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
+            do{
+                // Pedir número de socio del tutor
+                numSocioTutor = cPeticiones.pedirString("Introduce el número de socio del tutor: ");
+                // Comprobar si el socio tutor existe
+                if (!cDatos.checkExistenciaObjeto(3, numSocioTutor)) {
+                    txtMostrarMensaje("El socio tutor no existe. Introduce un número de socio válido.");
+                }
+                else {
+                    break;
+                }
+            } while (true);
             // Pedir número de socio del tutor
-            int numSocioTutor = cPeticiones.pedirEntero("Introduce el número de socio del tutor: ", 1, datos.getArrayList(3).size());
+            do{
+                // Pedir número de socio del tutor
+                numSocioTutor = cPeticiones.pedirString("Introduce el número de socio del tutor: ");
+                // Comprobar si el socio tutor existe
+                if (!cDatos.checkExistenciaObjeto(3, numSocioTutor)) {
+                    txtMostrarMensaje("El socio tutor no existe. Introduce un número de socio válido.");
+                }
+                else {
+                    break;
+                }
+            } while (true);
             // Añadir socio tipo Infantil mediante el controlador de socios
             Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);
             cSocios.addSocio(infantil);
             // Mostramos mensaje de éxito
-            System.out.println("Socio Infantil añadido con éxito.");
+            txtMostrarMensaje("Socio Infantil añadido con éxito.\n");
         }
         else {
-            System.out.println("Tipo de socio no válido.");
+            txtMostrarMensaje("Tipo de socio no válido.\n");
         }
     }
 
     public void buttonAtras() throws ParseException {
         // Informamos al usuario de que volvemos al menú de socios
-        System.out.println("Volviendo al menú de socios...");
+        txtMostrarMensaje("Volviendo al menú de socios...\n\n");
     }
     // Comprobar último número de socio y devolver el siguiente
-    private int obtenerNumeroSocio() {
+    private String obtenerNumeroSocio() {
         // Si no hay socios, devolver 1
         if (datos.getArrayList(3).isEmpty()) {
-            return 1;
-        } 
+            return "";
+        }
         // Si hay socios, devolver el último número de socio + 1
         else {
-            return datos.getArrayList(3).size() + 1;
-        }           
+            return datos.getSiguienteCodigo(3);
+        }
     }
 
     private String pedirNombreSocio() {
         return cPeticiones.pedirString("Introduce el nombre del socio: ");
     }
 
-    
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    private void txtMostrarMensaje(String mensaje){
+        System.out.println(mensaje);
+    }
+
+    /**
+     * Método para mostrar la vista de añadir socio
+     */
+    public void show() throws ParseException {
+        boolean running = true;
+        while (running) {
+            // Mostramos menú de añadir socio
+            txtMostrarMensaje("************ MENú AÑADIR SOCIO ************\n");
+            txtMostrarMensaje("1. Añadir socio\n");
+            txtMostrarMensaje("0. Atrás\n");
+            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 1)) {
+                case 1:
+                    buttonAddSocio();
+                    break;
+                case 0:
+                    buttonAtras();
+                    running = false;
+                    break;
+                default:
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        }
+    }
 
 }

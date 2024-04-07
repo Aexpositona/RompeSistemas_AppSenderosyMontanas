@@ -34,23 +34,23 @@ public class DataLoader {
     private void loadSocios(){
 
         // Añadir usuarios estandar a la lista de socios
-        datos.addObjeto(3, new Estandar("Juan", 1, "1234590A",Seguro.BASICO));
-        datos.addObjeto(3, new Estandar("Luis", 2, "1234590B",Seguro.COMPLETO));
-        datos.addObjeto(3, new Estandar("Ana", 3, "1234590C",Seguro.BASICO));
+        datos.addObjeto(3, new Estandar("Juan", "SOC0001", "1234590A",Seguro.BASICO));
+        datos.addObjeto(3, new Estandar("Luis", "SOC0002", "1234590B",Seguro.COMPLETO));
+        datos.addObjeto(3, new Estandar("Ana", "SOC0003", "1234590C",Seguro.BASICO));
 
-        datos.addObjeto(4, new Federacion("12345", "Federación de montes"));
-        datos.addObjeto(4, new Federacion("12456", "Federación de ríos"));
-        datos.addObjeto(4, new Federacion("12512", "Federación de montañas"));
+        datos.addObjeto(4, new Federacion("FED001", "Federación de montes"));
+        datos.addObjeto(4, new Federacion("FED002", "Federación de ríos"));
+        datos.addObjeto(4, new Federacion("FED003", "Federación de montañas"));
 
         // Añadir usuarios federados a la lista de socios
-        datos.addObjeto(3, new Federado("Pedro", 4,"23213312A", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "12345"))));
-        datos.addObjeto(3, new Federado("Marc", 5,"84736189B", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "12456"))));
-        datos.addObjeto(3, new Federado("Carlos", 6,"87637489V", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "12512"))));
+        datos.addObjeto(3, new Federado("Pedro", "SOC0004","23213312A", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "FED001"))));
+        datos.addObjeto(3, new Federado("Marc", "SOC0005","84736189B", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "FED002"))));
+        datos.addObjeto(3, new Federado("Carlos", "SOC0006","87637489V", (Federacion) datos.getObjeto(4, datos.buscarObjeto(4, "FED003"))));
 
         // Añadir usuarios infantiles a la lista de socios
-        datos.addObjeto(3, new Infantil("Ana", 7,"83736182A", 1));
-        datos.addObjeto(3, new Infantil("Luis", 8,"83736182B", 2));
-        datos.addObjeto(3, new Infantil("Marcos", 9,"83736182C", 3));
+        datos.addObjeto(3, new Infantil("Ana", "SOC0007","83736182A", "SOC0001"));
+        datos.addObjeto(3, new Infantil("Luis", "SOC0008","83736182B", "SOC0002"));
+        datos.addObjeto(3, new Infantil("Marcos", "SOC0009","83736182C", "SOC0003"));
     }
 
     /**

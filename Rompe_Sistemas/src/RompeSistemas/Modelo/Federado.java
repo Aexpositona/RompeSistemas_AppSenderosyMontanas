@@ -15,8 +15,8 @@ public class Federado extends Socio {
      * @param numero        es el numero del socio
      * @param federacion    es la federación a la que pertenece el socio
      */
-    public Federado(String nombre, int numero, String nif, Federacion federacion) {
-        super(nombre, numero,nif);
+    public Federado(String nombre, String numero, String nif, Federacion federacion) {
+        super(nombre, numero, nif);
         this.federacion = federacion;
         super.setTipo(tipo);
     }
@@ -57,7 +57,7 @@ public class Federado extends Socio {
     @Override
     public String toString() {
         return super.toString() +
-                "\nFederacion: " + federacion.getNombre() + "\n";
+                "Federación: " + federacion.getNombre() + "\n";
     }
 }
 

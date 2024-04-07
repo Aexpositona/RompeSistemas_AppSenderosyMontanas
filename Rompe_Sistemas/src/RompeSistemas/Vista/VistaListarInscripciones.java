@@ -12,16 +12,30 @@ public class VistaListarInscripciones {
     private ControlInscripciones cInscripciones;
     private ControlPeticiones cPeticiones;
 
+    //Constructores
+    /**
+     * Método constructor de la clase VistaListarInscripciones que recibe por parámetros la vista de control de inscripciones.
+     *
+     * @param cInscripciones ControlInscripciones
+     */
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
-        this.cInscripciones = cInscripciones;
-        this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.cInscripciones = new ControlInscripciones(cInscripciones);
+        this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
     }
 
+    /**
+     * Método constructor de copia de la clase VistaListarInscripciones.
+     *
+     * @param vistaListarInscripciones VistaListarInscripciones a copiar.
+     */
     public VistaListarInscripciones(VistaListarInscripciones vistaListarInscripciones) {
         this.cInscripciones = vistaListarInscripciones.getControlInscripciones();
         this.cPeticiones = vistaListarInscripciones.getControlPeticiones();
     }
 
+    /**
+     * Método constructor vacío de la clase VistaListarInscripciones.
+     */
     public VistaListarInscripciones() {
         this.cInscripciones = null;
         this.cPeticiones = null;

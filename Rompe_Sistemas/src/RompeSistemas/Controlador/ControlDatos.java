@@ -2,6 +2,8 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
 
+import java.util.Objects;
+
 public class ControlDatos {
 
     // Atributos
@@ -176,10 +178,10 @@ public class ControlDatos {
         return resultado;
     }
 
-    public boolean isSocioInInscripcion(int numeroSocio) {
+    public boolean isSocioInInscripcion(String numeroSocio) {
         for (Object obj : datos.getArrayList(2)) {
             if (obj instanceof Inscripcion inscripcion) {
-                if (inscripcion.getSocio().getNumero() == numeroSocio) {
+                if (Objects.equals(inscripcion.getSocio().getNumero(), numeroSocio)) {
                     return true;
                 }
             }

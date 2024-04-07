@@ -78,7 +78,8 @@ public class VistaAddInscripcion {
      * Método para añadir un botón que nos permite añadir una inscripción
      */
     public void buttonAddInscripcion(){
-        txtMostrarMensaje("-- Añadiendo inscripción --\n");
+        txtMostrarMensaje("\n-- Añadiendo inscripción --\n");
+        txtMostrarMensaje("- Listado de socios:\n" + datos.listToStringObjetos(3));
         cInscripciones.addInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduzca el id del socio: "))),2);
     }
 
@@ -101,7 +102,7 @@ public class VistaAddInscripcion {
 
         while (running) {
             // Mostramos el menú
-            txtMostrarMensaje("........MENÚ AÑADIR INSCRIPCIÓN........\n");
+            txtMostrarMensaje("************ MENÚ AÑADIR INSCRIPCIÓN ************\n");
             txtMostrarMensaje("1. Añadir inscripción\n");
             txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
