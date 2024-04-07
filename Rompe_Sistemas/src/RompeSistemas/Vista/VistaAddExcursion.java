@@ -88,9 +88,9 @@ public class VistaAddExcursion {
         LocalDate fecha;
         float precio;
         int dias;
-
+        txtMostrarMensaje("\n-- Añadiendo nueva excursión --\n");
         // Obtener el último código de excursión y sumarle 1
-        codigo = cExcursiones.getUltimoCodigo();
+        codigo = cExcursiones.getSiguienteCodigo();
         // Cambiamos el resultado a falso
         resultado = false;
         // Mientras no se introduzca una descripción válida
@@ -104,24 +104,13 @@ public class VistaAddExcursion {
             }
             // Si la descripción no está vacía y tiene al menos 5 caracteres
             else {
-                // Informamos al usuario
-                txtMostrarMensaje("Descripción guardada.\n");
                 // Cambiamos el resultado a verdadero
                 resultado = true;
             }
         }
         while (!resultado);
-        // Mientras no se introduzca una fecha válida
-        do {
-            // Solicitamos la fecha de la excursión
-            fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --");
-            // Si la fecha es anterior a la actual
-            if (fecha.isBefore(LocalDate.now())) {
-                // Informamos al usuario
-                txtMostrarMensaje("La fecha no puede ser anterior a la actual.");
-            }
-        }
-        while (fecha.isBefore(LocalDate.now()));
+        // Solicitamos la fecha de la excursión
+        fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --", LocalDate.now(), LocalDate.now().plusYears(2));
         // Mientras no se introduzca un precio válido
         precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ", 0, Float.MAX_VALUE);
         // Mientras no se introduzca un número de días válido
@@ -129,7 +118,7 @@ public class VistaAddExcursion {
         // Añadimos la excursión
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
         // Informamos al usuario
-        txtMostrarMensaje("Excursión añadida correctamente.\n");
+        txtMostrarMensaje("Excursión añadida correctamente.\n\n");
     }
 
     /**
@@ -137,7 +126,7 @@ public class VistaAddExcursion {
      */
     public void buttonAtras() throws ParseException{
         // Informamos al usuario de que volvemos al menú de excursiones
-        txtMostrarMensaje("Volviendo al menú de excursiones...");
+        txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
     }
 
     /**
@@ -146,7 +135,7 @@ public class VistaAddExcursion {
      * @param mensaje Mensaje a mostrar.
      */
     private void txtMostrarMensaje(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
     }
 
     /**
@@ -158,10 +147,9 @@ public class VistaAddExcursion {
         // Mientras se ejecute la vista
         while (running) {
             // Mostramos el menú
-            txtMostrarMensaje("........MENÚ AÑADIR EXCURSIÓN........\n");
-            txtMostrarMensaje("Seleccione una opción: ");
-            txtMostrarMensaje("1. Añadir excursión");
-            txtMostrarMensaje("0. Atrás");
+            txtMostrarMensaje("************ MENÚ AÑADIR EXCURSIÓN ************\n");
+            txtMostrarMensaje("1. Añadir excursión\n");
+            txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
             switch (cPeticiones.pedirEntero("Selecciona una opción (1 o 0):",0,1)) {
                 // Si la opción es 1 añadimos una excursión
@@ -175,7 +163,7 @@ public class VistaAddExcursion {
                     break;
                 // Si la opción no es válida informamos al usuario
                 default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }

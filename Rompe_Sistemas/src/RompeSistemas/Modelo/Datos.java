@@ -3,6 +3,7 @@ package RompeSistemas.Modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Clase que representa los datos de la aplicación.
@@ -193,7 +194,7 @@ public class Datos {
                     // Obtener la inscripción en la posición i
                     Inscripcion inscripcion = (Inscripcion) inscripciones.get(i);
                     // Si el número de la inscripción es igual al string
-                    if (inscripcion.getNumero() == Integer.parseInt(string)) {
+                    if (inscripcion.getNumero().equals(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -417,8 +418,12 @@ public class Datos {
                 }
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -506,8 +511,12 @@ public class Datos {
                 }
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -545,8 +554,12 @@ public class Datos {
                 System.out.println("No hay excursiones en la lista.");
             }
         }
-        // Devolver la lista de objetos
-        return list.toString();
+        // Recoger la lista de objetos en formato String
+        StringBuilder result = new StringBuilder();
+        for (Object o : list) {
+            result.append(o.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     /**
@@ -568,7 +581,7 @@ public class Datos {
             // Si el ArrayList de excursiones no está vacío
             if (!excursiones.isEmpty()) {
                 // Obtener la última excursión
-                Excursion excursion = (Excursion) excursiones.get(excursiones.size() - 1);
+                Excursion excursion = (Excursion) excursiones.getLast();
                 // Obtener el código de la última excursión
                 codigo = excursion.getCodigo();
             }
@@ -583,14 +596,14 @@ public class Datos {
             // Si el ArrayList de inscripciones no está vacío
             if (!inscripciones.isEmpty()) {
                 // Obtener la última inscripción
-                Inscripcion inscripcion = (Inscripcion) inscripciones.get(inscripciones.size() - 1);
+                Inscripcion inscripcion = (Inscripcion) inscripciones.getLast();
                 // Obtener el número de la última inscripción
-                codigo = String.valueOf(inscripcion.getNumero() + 1);
+                codigo = inscripcion.getNumero();
             }
             // Si el ArrayList de inscripciones está vacío
             else {
-                // Asignar el número "1"
-                codigo = "1";
+                // Asignar el número "INS0001"
+                codigo = "INS0001";
             }
         }
         // Si el tipo de objeto es 3 (Socio)
@@ -598,7 +611,7 @@ public class Datos {
             // Si el ArrayList de socios no está vacío
             if (!socios.isEmpty()) {
                 // Obtener el último socio
-                Socio socio = (Socio) socios.get(socios.size() - 1);
+                Socio socio = (Socio) socios.getLast();
                 // Obtener el código del último socio
                 codigo = String.valueOf(socio.getNumero());
             }
@@ -607,23 +620,92 @@ public class Datos {
                 // Asignar el código "SOC0001"
                 codigo = "SOC0001";
             }
+        } else if (tipoObjeto == 4) {
+            // Si el ArrayList de federaciones no está vacío
+            if (!federaciones.isEmpty()) {
+                // Obtener la última federación
+                Federacion federacion = (Federacion) federaciones.getLast();
+                // Obtener el código de la última federación
+                codigo = federacion.getCodigo();
+            } else {
+                // Asignar el código "FED0001"
+                codigo = "FED0001";
+            }
+        }
+        // Devolver el código añadiendo 1
+        if ((Integer.parseInt(codigo.substring(3)) + 1 < 10)){
+            return codigo.substring(0, 3) + "000" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+        }
+        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 100))
+            return codigo.substring(0, 3) + "00" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 1000))
+            return codigo.substring(0, 3) + "0" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+        else
+            return codigo.substring(0, 3) + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+    }
+
+    public String getUltimoCodigo(int tipoObjeto) {
+        // Variables internas
+        String codigo = "";
+        // Si el tipo de objeto es 1 (Excursión)
+        if (tipoObjeto == 1) {
+            // Si el ArrayList de excursiones no está vacío
+            if (!excursiones.isEmpty()) {
+                // Obtener la última excursión
+                Excursion excursion = (Excursion) excursiones.getLast();
+                // Obtener el código de la última excursión
+                codigo = excursion.getCodigo();
+            }
+            // Si el ArrayList de excursiones está vacío
+            else {
+                // Asignar el código "EXC0001"
+                codigo = "No hay excursiones.";
+            }
+        }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones no está vacío
+            if (!inscripciones.isEmpty()) {
+                // Obtener la última inscripción
+                Inscripcion inscripcion = (Inscripcion) inscripciones.getLast();
+                // Obtener el número de la última inscripción
+                codigo = inscripcion.getNumero();
+            }
+            // Si el ArrayList de inscripciones está vacío
+            else {
+                // Asignar el número "INS0001"
+                codigo = "No hay inscripciones.";
+            }
+        }
+        // Si el tipo de objeto es 3 (Socio)
+        else if (tipoObjeto == 3) {
+            // Si el ArrayList de socios no está vacío
+            if (!socios.isEmpty()) {
+                // Obtener el último socio
+                Socio socio = (Socio) socios.getLast();
+                // Obtener el código del último socio
+                codigo = String.valueOf(socio.getNumero());
+            }
+            // Si el ArrayList de socios está vacío
+            else {
+                // Asignar el código "SOC0001"
+                codigo = "No hay socios.";
+            }
         }
         else if (tipoObjeto == 4) {
             // Si el ArrayList de federaciones no está vacío
             if (!federaciones.isEmpty()) {
                 // Obtener la última federación
-                Federacion federacion = (Federacion) federaciones.get(federaciones.size() - 1);
+                Federacion federacion = (Federacion) federaciones.getLast();
                 // Obtener el código de la última federación
                 codigo = federacion.getCodigo();
-                // Añadir 1 al código
-                codigo = codigo.substring(0, 3) + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
             }
             else {
                 // Asignar el código "FED0001"
-                codigo = "FED0001";
+                codigo = "No hay federaciones.";
             }
         }
-        // Devolver el código
+        // Devolver el código añadiendo 1
         return codigo;
     }
 }

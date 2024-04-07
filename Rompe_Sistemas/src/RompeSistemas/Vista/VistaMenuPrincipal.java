@@ -57,7 +57,7 @@ public class VistaMenuPrincipal {
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */
     public void buttonVistaInscripciones(){
-        System.out.println("Navegando a la vista de inscripciones...");
+        txtMostrarMensaje("Navegando a la vista de inscripciones...\n\n");
         cMenuPrincipal.showInscripciones();
     }
 
@@ -65,7 +65,7 @@ public class VistaMenuPrincipal {
      * Método para añadir un botón que nos permite ir a la vista de socios.
      */
     public void buttonVistaSocios() throws ParseException {
-        System.out.println("Navegando a la vista de socios...");
+        txtMostrarMensaje("Navegando a la vista de socios...\n\n");
         cMenuPrincipal.showVistaSocios();
     }
 
@@ -73,7 +73,7 @@ public class VistaMenuPrincipal {
      * Método para añadir un botón que nos permite ir a la vista de excursiones.
      */
     public void buttonVistaExcursiones() throws ParseException {
-        System.out.println("Navegando a la vista de excursiones...");
+        txtMostrarMensaje("Navegando a la vista de excursiones...\n\n");
         cMenuPrincipal.showVistaExcursiones();
     }
 
@@ -81,7 +81,16 @@ public class VistaMenuPrincipal {
      * Método para añadir un botón que nos permite salir de la aplicación.
      */
     public void buttonVistaSalir(){
-        System.out.println("Saliendo de la aplicación...");
+        txtMostrarMensaje("Saliendo de la aplicación...\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
     }
 
     /**
@@ -90,11 +99,11 @@ public class VistaMenuPrincipal {
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            System.out.println("************ Menú Principal ************");
-            System.out.println("1. Inscripciones");
-            System.out.println("2. Socios");
-            System.out.println("3. Excursiones");
-            System.out.println("0. Salir");
+            txtMostrarMensaje("************ Menú Principal ************\n");
+            txtMostrarMensaje("1. Inscripciones\n");
+            txtMostrarMensaje("2. Socios\n");
+            txtMostrarMensaje("3. Excursiones\n");
+            txtMostrarMensaje("0. Salir\n");
 
             switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3 o 0)", 0, 3)) {
                 case 1:
@@ -111,7 +120,7 @@ public class VistaMenuPrincipal {
                     running = false;
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
             }
         }

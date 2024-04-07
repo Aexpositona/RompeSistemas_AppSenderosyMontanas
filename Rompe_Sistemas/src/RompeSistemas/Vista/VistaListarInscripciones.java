@@ -3,6 +3,8 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 
+import java.time.LocalDate;
+
 public class VistaListarInscripciones {
 
 
@@ -59,15 +61,27 @@ public class VistaListarInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones por fechas
      */
     public void buttonListInscripcionesFechas(){
-        cInscripciones.listInscripcionesFechas(cPeticiones.pedirFecha("Introduzca la fecha inicial: "), cPeticiones.pedirFecha("Introduzca la fecha final: "));
+        // Pedimos las fechas
+        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
+        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
+        // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
+        cInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
     }
 
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
-        System.out.println("Volviendo al menú inscripciones...");
-        return;
+        txtMostrarMensaje("Volviendo al menú inscripciones...\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
     }
 
     public void show() {
@@ -77,11 +91,10 @@ public class VistaListarInscripciones {
         // Mientras no se seleccione la opción de volver atrás
         while (running) {
             // Mostramos el menú de listar inscripciones
-            System.out.println("........MENÚ LISTAR INSCRIPCIONES........\n");
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Listar inscripción por usuario");
-            System.out.println("2. Listar inscripción por fechas");
-            System.out.println("0. Atrás");
+            txtMostrarMensaje("************ MENÚ LISTAR INSCRIPCIONES ************\n");
+            txtMostrarMensaje("1. Listar inscripción por usuario\n");
+            txtMostrarMensaje("2. Listar inscripción por fechas\n");
+            txtMostrarMensaje("0. Atrás\n");
 
             switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 2)) {
                 case 1:

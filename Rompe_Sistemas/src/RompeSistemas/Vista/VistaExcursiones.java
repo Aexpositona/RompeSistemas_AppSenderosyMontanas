@@ -150,7 +150,7 @@ public class VistaExcursiones {
      * @throws ParseException Excepción de parseo.
      */
     private void buttonVistaAddExcursion() throws ParseException {
-        txtMostrarMensaje("Accediendo a la vista de añadir excursión...");
+        txtMostrarMensaje("Accediendo a la vista de añadir excursión...\n");
         vAddExcursion.show();
     }
 
@@ -161,14 +161,13 @@ public class VistaExcursiones {
         // Variables internas
         boolean resultado = false;
         int intentos = 0;
+        txtMostrarMensaje("\n");
         // Mostramos las excursiones
         cExcursiones.listExcursiones();
-        // Pedimos el código de la excursión a eliminar
-        txtMostrarMensaje("");
         // Mientras no se introduzca un código válido o no se pueda eliminar la excursión
         String respuesta;
         do {
-            // Solicitamos el código de la excursión
+            // Solicitamos el código de la excursión a eliminar
             respuesta = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
             // Si el código es válido
             if (cDatos.checkCodigoObjeto(1,respuesta)) {
@@ -177,11 +176,11 @@ public class VistaExcursiones {
                     // Cambiamos el resultado a verdadero
                     resultado = true;
                 else {
-                    txtMostrarMensaje("El código no existe.");
+                    txtMostrarMensaje("El código no existe.\n");
                 }
             }
             else {
-                txtMostrarMensaje("El código no es válido.");
+                txtMostrarMensaje("El código no es válido.\n");
             }
             intentos++;
         }
@@ -206,7 +205,7 @@ public class VistaExcursiones {
      */
     private void buttonVistaListExcursiones(){
         // Informamos al usuario de que accedemos a la vista de listar excursiones
-        txtMostrarMensaje("Accediendo a la vista de listar excursiones...");
+        txtMostrarMensaje("Accediendo a la vista de listar excursiones...\n");
         // Mostramos la vista de listar excursiones
         vListarExcursiones.show();
     }
@@ -216,7 +215,7 @@ public class VistaExcursiones {
      */
     private void buttonAtras(){
         // Informamos al usuario de que volvemos al menú principal
-        txtMostrarMensaje("Volviendo al menú principal...");
+        txtMostrarMensaje("Volviendo al menú principal...\n");
     }
 
     /**

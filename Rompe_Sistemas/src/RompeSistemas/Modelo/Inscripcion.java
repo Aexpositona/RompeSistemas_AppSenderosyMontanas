@@ -1,7 +1,7 @@
 package RompeSistemas.Modelo;
 
 public class Inscripcion {
-    private int numero;
+    private String numero;
     private Socio socio;
     private Excursion excursion;
 
@@ -12,7 +12,7 @@ public class Inscripcion {
      * @param socio es el socio que se inscribe
      * @param excursion es excursión a la que se inscribe
      */
-    public Inscripcion(int numero, Socio socio, Excursion excursion) {
+    public Inscripcion(String numero, Socio socio, Excursion excursion) {
         this.numero = numero;
         this.socio = socio;
         this.excursion = excursion;
@@ -22,7 +22,7 @@ public class Inscripcion {
      * Método get() que nos devuelve el número de la inscripción.
      * @return número de la inscripción.
      */
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -30,7 +30,7 @@ public class Inscripcion {
      * Método set() para definir el número de la inscripción
      * @param numero número de la inscripción.
      */
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

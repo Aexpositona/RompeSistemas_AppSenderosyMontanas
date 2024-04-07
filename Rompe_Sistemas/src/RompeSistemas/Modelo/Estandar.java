@@ -5,14 +5,15 @@ package RompeSistemas.Modelo;
  */
 public class Estandar extends Socio {
 
+    // Atributos
+    private static final int tipo = 1;
     private final String nif;
     private Seguro seguro;
-    private final int tipo = 1;
 
     // Métodos constructores
 
     /**
-     * Método constructor de la clase Estandar que recibe como parámetros el nombre, el número, el NIF y el seguro del socio.
+     * Constructor de la clase Estandar que recibe parámetros para inicializar los atributos.
      *
      * @param nombre nombre del socio
      * @param numero número del socio
@@ -23,15 +24,34 @@ public class Estandar extends Socio {
         super(nombre, numero,nif);
         this.nif = nif;
         this.seguro = seguro;
+        super.setTipo(tipo);
+    }
+
+    /**
+     * Constructor de la clase Estandar que recibe un objeto de la misma clase para copiar los atributos.
+     *
+     * @param estandar objeto de la clase Estándar
+     */
+    public Estandar(Estandar estandar) {
+        super(estandar);
+        this.nif = estandar.nif;
+        this.seguro = estandar.seguro;
+        super.setTipo(tipo);
+    }
+
+    /**
+     * Constructor vacío para generar sobrecarga de constructores.
+     */
+    public Estandar() {
+        super();
+        this.nif = "";
+        this.seguro = Seguro.BASICO;
+        super.setTipo(tipo);
     }
 
     public int getTipo() {
         return 1;
     }
-    /**
-     * Método constructor por defecto para generar sobrecarga de constructores.
-     */
-
 
     // Métodos Getters
 
@@ -72,6 +92,8 @@ public class Estandar extends Socio {
      */
     @Override
     public String toString() {
-        return super.toString() + "Tipo de socio: Estandar\n" + "NIF: " + nif + "\n" + "Seguro: " + seguro + "\n";
+        return super.toString() +
+                "\nNIF: " + nif +
+                "\nSeguro: " + seguro + "\n";
     }
 }

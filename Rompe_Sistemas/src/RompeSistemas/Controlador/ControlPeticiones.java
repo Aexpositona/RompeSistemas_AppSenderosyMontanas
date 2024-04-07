@@ -100,8 +100,6 @@ public class ControlPeticiones {
         }
         //Mientras no se introduzca valor válido repetimos solicitud
         while (i < min || i > max);
-        //Añadimos salto de línea
-        System.out.println();
         //Devolvemos valor registrado
         return i;
     }
@@ -111,23 +109,22 @@ public class ControlPeticiones {
      *
      * @return LocalDate - Devuelve la fecha introducida por el usuario.
      */
-    public LocalDate pedirFecha(String peticion){
+    public LocalDate pedirFecha(String peticion, LocalDate minFecha, LocalDate maxFecha){
         // Variables internas
-        int dia, mes, ano;
+        int dia, mes, ano, minAno, maxAno;
         boolean resultado = false;
+        minAno = minFecha.getYear();
+        maxAno = maxFecha.getYear();
+
         // Mostramos petición
         System.out.println(peticion);
         // Solicitamos y registramos el año introducido por el usuario entre el año actual y dos años más
-        ano = pedirEntero("Introduzca el año: ", LocalDate.now().getYear(),LocalDate.now().getYear()+2 );
-
+        ano = pedirEntero("Introduzca el año: ", minAno, maxAno);
         // Solicitamos y registramos el mes introducido por el usuario
         mes = pedirEntero("Introduzca el mes: ", 1, 12);
-
         // Mientras no se introduzca un día válido repetimos solicitud
         do {
-            // Solicitamos el día
-            System.out.println();
-            // Registramos el día introducido por el usuario
+            // Solicitamos el día y registramos el valor introducido por el usuario
             dia = pedirEntero("Introduzca el día: ", 1, 31);
             // El mes es febrero no puede tener más de 28 días si no es bisiesto
             if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {
@@ -141,8 +138,8 @@ public class ControlPeticiones {
             else if (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
                 System.out.println("El mes seleccionado no puede tener más de 30 días.");
             }
-            else if (LocalDate.of(ano, mes, dia).equals(LocalDate.now())){
-                System.out.println("La fecha introducida no puede ser posterior a la fecha actual.");
+            else if (LocalDate.of(ano, mes, dia).isBefore(minFecha) || LocalDate.of(ano, mes, dia).isAfter(maxFecha)) {
+                System.out.println("La fecha no puede ser anterior a " + minFecha + " ni posterior a " + maxFecha + ".");
             }
             // En el resto de casos el día es válido
             else {
@@ -167,23 +164,21 @@ public class ControlPeticiones {
                 // Limpiamos el buffer
                 scanner.nextLine();
                 // Registramos el valor introducido
-                f = Float.parseFloat(scanner.nextLine());
-                // Si el valor es menor o igual a 0
-                if (f < min) {
-                    // Informamos al usuario del error
-                    System.out.println("El valor no puede ser menor que " + min + " .");
-                    resultado = false;
+                try{
+                    f = Float.parseFloat(scanner.nextLine());
                 }
-                // Si el valor es mayor que 0
-                else if (f > max) {
+                catch (NumberFormatException nfe){
+                    System.out.println("Solo puedes insertar números.");
+                    f = 0.0f;
+                }
+                // Si el valor es menor o igual a 0
+                if (f < min || f > max) {
                     // Informamos al usuario del error
-                    System.out.println("El valor no puede ser mayor que " + max + " .");
+                    System.out.println("El valor no puede ser menor que " + min + " " + "ni mayor que " + max + ".");
                     resultado = false;
                 }
                 // Si el valor es válido
                 else {
-                    // Informamos al usuario del valor introducido
-                    System.out.println("El valor introducido " + f + " es válido.");
                     resultado = true;
                 }
             }
