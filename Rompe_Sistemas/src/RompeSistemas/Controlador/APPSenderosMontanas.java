@@ -81,12 +81,12 @@ public class APPSenderosMontanas {
         cMenuPrincipal = new ControlMenuPrincipal(this);
 
         // Inicializar vistas
-        cMenuPrincipal.setVistaMenuPrincipal(new VistaMenuPrincipal());
-        cMenuPrincipal.getVistaMenuPrincipal().setControlMenuPrincipal(cMenuPrincipal);
-        cMenuPrincipal.getVistaMenuPrincipal().setControlPeticiones(cPeticiones);
         cMenuPrincipal.setControlExcursiones(cExcursiones);
         cMenuPrincipal.setControlInscripciones(cInscripciones);
         cMenuPrincipal.setControlSocios(cSocios);
+        cMenuPrincipal.setVistaMenuPrincipal(new VistaMenuPrincipal());
+        cMenuPrincipal.getVistaMenuPrincipal().setControlMenuPrincipal(cMenuPrincipal);
+        cMenuPrincipal.getVistaMenuPrincipal().setControlPeticiones(cPeticiones);
 
         cInscripciones.getVistaInscripciones().setControlInscripciones(cInscripciones);
         cInscripciones.getVistaInscripciones().setControlPeticiones(cPeticiones);
@@ -98,7 +98,7 @@ public class APPSenderosMontanas {
         cInscripciones.getVistaAddInscripcion().setControlInscripciones(cInscripciones);
         cInscripciones.getVistaAddInscripcion().setControlPeticiones(cPeticiones);
         cInscripciones.getVistaInscripciones().setVistaAddInscripcion(new VistaAddInscripcion(cInscripciones));
-       
+
 
         cSocios.getVistaSocios().setControlSocios(cSocios);
         cSocios.getVistaSocios().setControlPeticiones(cPeticiones);
@@ -129,10 +129,7 @@ public class APPSenderosMontanas {
         cExcursiones.getVistaAddExcursion().setControlDatos(cDatos);
         cExcursiones.getVistaExcursiones().setVistaAddExcursion(new VistaAddExcursion(cExcursiones));
 
-        //inicializar vistas
         vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
-
-
     }
 
     /**2
@@ -146,64 +143,124 @@ public class APPSenderosMontanas {
 
     // Getters
 
+    /**
+     * Devuelve el controlador del menú principal.
+     * @return ControlMenuPrincipal
+     */
     public ControlMenuPrincipal getControlMenuPrincipal() {
         return cMenuPrincipal;
     }
 
+    /**
+     * Devuelve el controlador de inscripciones.
+     * @return ControlInscripciones
+     */
     public ControlInscripciones getControlInscripciones() {
         return cInscripciones;
     }
 
+    /**
+     * Devuelve el controlador de socios.
+     * @return ControlSocios
+     */
     public ControlSocios getControlSocios() {
         return cSocios;
     }
 
+    /**
+     * Devuelve el controlador de excursiones.
+     * @return ControlExcursiones
+     */
     public ControlExcursiones getControlExcursiones() {
         return cExcursiones;
     }
 
+    /**
+     * Devuelve el controlador de datos.
+     * @return ControlDatos
+     */
     public ControlDatos getControlDatos() {
         return cDatos;
     }
 
+    /**
+     * Devuelve el controlador de peticiones.
+     * @return ControlPeticiones
+     */
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
 
+    /**
+     * Devuelve los datos de la aplicación.
+     * @return Datos
+     */
     public Datos getDatos() {
         return datos;
     }
 
+    /**
+     * Devuelve la vista del menú principal.
+     * @return VistaMenuPrincipal
+     */
     public VistaMenuPrincipal getVistaMenuPrincipal() {
         return vMenuPrincipal;
     }
 
     // Setters
 
+    /**
+     * Establece el controlador del menú principal.
+     * @param cMenuPrincipal ControlMenuPrincipal
+     */
     public void setControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
         this.cMenuPrincipal = cMenuPrincipal;
     }
 
+    /**
+     * Establece el controlador de inscripciones.
+     * @param cInscripciones ControlInscripciones
+     */
     public void setControlInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
     }
 
+    /**
+     * Establece el controlador de socios.
+     * @param cSocios ControlSocios
+     */
     public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
 
+    /**
+     * Establece el controlador de excursiones.
+     * @param cExcursiones ControlExcursiones
+     */
     public void setControlExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
     }
 
+    /**
+     * Establece el controlador de datos.
+     * @param cDatos ControlDatos
+     */
     public void setControlDatos(ControlDatos cDatos) {
         this.cDatos = cDatos;
     }
 
+    /**
+     * Establece el controlador de peticiones.
+     * @param cPeticiones ControlPeticiones
+     */
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }   
 
+    /**
+     * Establece los datos de la aplicación.
+     * @param datos Datos
+     */
     public void setDatos(Datos datos) {
         this.datos = datos;
     }

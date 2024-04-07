@@ -83,7 +83,7 @@ public class VistaAddExcursion {
      */
     public void buttonAddExcursion() {
         // Variables internas
-        boolean resultado = false;
+        boolean resultado;
         String codigo, descripcion;
         LocalDate fecha;
         float precio;
@@ -98,7 +98,7 @@ public class VistaAddExcursion {
             // Solicitamos la descripción de la excursión
             descripcion = cPeticiones.pedirString("Introduzca la descripción de la excursión: ");
             // Si la descripción está vacía
-            if (descripcion.isEmpty() || descripcion.length() < 5) {
+            if (descripcion.length() < 5) {
                 // Informamos al usuario de que la descripción no puede estar vacía
                 System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.\n");
             }
@@ -136,8 +136,8 @@ public class VistaAddExcursion {
      * Método para añadir un botón que nos permite cancelar la operación.
      */
     public void buttonAtras() throws ParseException{
+        // Informamos al usuario de que volvemos al menú de excursiones
         System.out.println("Volviendo al menú de excursiones...");
-        return;
     }
 
     /**
@@ -149,6 +149,7 @@ public class VistaAddExcursion {
         // Mientras se ejecute la vista
         while (running) {
             // Mostramos el menú
+            System.out.println("........MENÚ AÑADIR EXCURSIÓN........\n");
             System.out.println("Seleccione una opción: ");
             System.out.println("1. Añadir excursión");
             System.out.println("0. Atrás");

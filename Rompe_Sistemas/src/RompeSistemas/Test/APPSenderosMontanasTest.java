@@ -22,7 +22,7 @@ public class APPSenderosMontanasTest {
     public void testIniciar() {
         app.iniciar(datos);
 
-        // Check if the controllers and views are initialized
+        // Comprobar que controladores y vistas están inicializados
         assertNotNull(app.getControlMenuPrincipal());
         assertNotNull(app.getControlInscripciones());
         assertNotNull(app.getControlSocios());
@@ -32,7 +32,7 @@ public class APPSenderosMontanasTest {
         assertNotNull(app.getDatos());
         assertNotNull(app.getVistaMenuPrincipal());
 
-        // Check if the correct data object is used
+        // Comprobar que se está usando el objeto de datos pasado como parámetro
         assertEquals(datos, app.getDatos());
     }
 }

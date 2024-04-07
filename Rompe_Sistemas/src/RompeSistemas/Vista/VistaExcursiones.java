@@ -13,15 +13,11 @@ public class VistaExcursiones {
     private ControlDatos cDatos;
     private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
-    private VistaMenuPrincipal vMenuPrincipal;
 
     /**
      * Constructor de VistaExcursiones.
      *
      * @param cExcursiones ControlExcursiones asociado a la vista.
-     * @param cDatos ControlDatos asociado a la vista.
-     * @param cPeticiones ControlPeticiones asociado a la vista.
-     * @param vMenuPrincipal VistaMenuPrincipal asociada a la vista.
      */
     // Constructor
     public VistaExcursiones(ControlExcursiones cExcursiones) {
@@ -30,14 +26,21 @@ public class VistaExcursiones {
         this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
         this.vAddExcursion = new VistaAddExcursion(cExcursiones.getVistaAddExcursion());
     }
-
+    /**
+     * Constructor de VistaExcursiones de copia.
+     *
+     * @param vistaExcursiones VistaExcursiones a copiar
+     */
     public VistaExcursiones(VistaExcursiones vistaExcursiones) {
         this.cExcursiones = vistaExcursiones.getControlExcursiones();
         this.cDatos = vistaExcursiones.getControlDatos();
         this.cPeticiones = vistaExcursiones.getControlPeticiones();
         this.vAddExcursion = vistaExcursiones.getVistaAddExcursion();
+        this.vListarExcursiones = vistaExcursiones.getVistaListarExcursiones();
     }
-
+    /**
+     * Constructor de VistaExcursiones vacío.
+     */
     public VistaExcursiones() {
         this.cExcursiones = null;
         this.cDatos = null;
@@ -47,52 +50,100 @@ public class VistaExcursiones {
 
     // Getters
 
+    /**
+     * Método para obtener el controlador de excursiones.
+     *
+     * @return ControlExcursiones
+     */
     public ControlExcursiones getControlExcursiones() {
         return cExcursiones;
     }
 
+    /**
+     * Método para obtener el controlador de datos.
+     *
+     * @return ControlDatos
+     */
     public ControlDatos getControlDatos() {
         return cDatos;
     }
 
+    /**
+     * Método para obtener el controlador de peticiones.
+     *
+     * @return ControlPeticiones
+     */
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
 
+    /**
+     * Método para obtener la vista de añadir excursión.
+     *
+     * @return VistaAddExcursion
+     */
     public VistaAddExcursion getVistaAddExcursion() {
         return vAddExcursion;
     }
 
+    /**
+     * Método para obtener la vista de listar excursiones.
+     *
+     * @return VistaListarExcursiones
+     */
     public VistaListarExcursiones getVistaListarExcursiones() {
         return vListarExcursiones;
     }
 
     // Setters
 
+    /**
+     * Método para establecer el controlador de excursiones.
+     *
+     * @param cExcursiones ControlExcursiones
+     */
     public void setControlExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
     }
 
+    /**
+     * Método para establecer el controlador de datos.
+     *
+     * @param cDatos ControlDatos
+     */
     public void setControlDatos(ControlDatos cDatos) {
         this.cDatos = cDatos;
     }  
 
+    /**
+     * Método para establecer el controlador de peticiones.
+     *
+     * @param cPeticiones ControlPeticiones
+     */
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
 
+    /**
+     * Método para establecer la vista de añadir excursión.
+     *
+     * @param vAddExcursion VistaAddExcursion
+     */
     public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
         this.vAddExcursion = vAddExcursion;
     }
 
+    /**
+     * Método para establecer la vista de listar excursiones.
+     *
+     * @param vListarExcursiones VistaListarExcursiones
+     */
     public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
         this.vListarExcursiones = vListarExcursiones;
     }
 
-
     // Métodos
     
-
     /**
      * Método para añadir una excursión.
      *
@@ -162,14 +213,10 @@ public class VistaExcursiones {
 
     /**
      * Método para volver al menú principal.
-     *
-     * @throws ParseException Excepción de parseo.
      */
-    private void buttonAtras() throws ParseException {
+    private void buttonAtras(){
         // Informamos al usuario de que volvemos al menú principal
         System.out.println("Volviendo al menú principal...");
-        // Mostramos el menú principal
-        vMenuPrincipal.show();
     }
 
     /**
