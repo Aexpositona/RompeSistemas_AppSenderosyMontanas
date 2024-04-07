@@ -219,6 +219,11 @@ public class VistaExcursiones {
         txtMostrarMensaje("Volviendo al menú principal...");
     }
 
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
     private void txtMostrarMensaje(String mensaje){
         System.out.println(mensaje);
     }

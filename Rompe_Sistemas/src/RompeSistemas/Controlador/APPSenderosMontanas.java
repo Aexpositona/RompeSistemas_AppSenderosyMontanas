@@ -55,6 +55,20 @@ public class APPSenderosMontanas {
     // Clase principal
     public static void main(String[] args) throws ParseException {
         // Inicializar la aplicación
+        System.out.println("\n" +
+                "                /\\        /\\\n" +
+                "               /\\/\\      /  \\ \n" +
+                "              /    \\    /    \\\n" +
+                "             /      \\  /\\/\\/\\/\\\n" +
+                "        /\\  /   /\\   \\/   /\\   \\  /\\\n" +
+                "       /  \\/   /  \\   \\  /  \\   \\/  \\\n" +
+                "      /    \\  /    \\   \\/    \\  /    \\\n" +
+                "     /\\/\\/ ~~~~~~~~~~~~~~~~~~~~~~~~~  \\  /\\\n" +
+                "    /       ~ SENDEROS & MONTAÑAS ~    \\/  \\\n" +
+                "   /    /\\ ~~~~~~~~~~~~~~~~~~~~~~~~~   /\\/\\/\\\n" +
+                "  /    /\\/\\   ~ ^  ^  ª  ^  ^  ^  ~   /      \\\n" +
+                " /    /    \\  ~ ª  ^  ^  ^  ª  ^  ~  /        \\\n" +
+                "/____/      ~~~~~~~~~~~~~~~~~~~~~~~~~          \\");
         System.out.println("************ Bienvenid@ a la aplicación de Senderos y Montañas ************");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
