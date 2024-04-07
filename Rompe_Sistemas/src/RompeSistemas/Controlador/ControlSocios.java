@@ -202,7 +202,7 @@ public class ControlSocios {
      */
     // Métodos para listar socios
     public void listSocios(int tipoObjeto) {
-        datos.listToStringObjetos(tipoObjeto);
+        vListarSocios.txtMostrarMensaje(datos.listToStringObjetos(tipoObjeto));
     }
 
     /**

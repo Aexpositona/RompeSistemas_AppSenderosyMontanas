@@ -224,7 +224,7 @@ public class VistaAddSocio {
      *
      * @param mensaje Mensaje a mostrar.
      */
-    private void txtMostrarMensaje(String mensaje){
+    public void txtMostrarMensaje(String mensaje){
         System.out.print(mensaje);
     }
 
