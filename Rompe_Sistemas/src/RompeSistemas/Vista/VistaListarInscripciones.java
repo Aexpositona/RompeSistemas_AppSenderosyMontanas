@@ -68,7 +68,15 @@ public class VistaListarInscripciones {
 
      */
     public void buttonListInscripcionesSocio(){
-        cInscripciones.listInscripcionesSocio(3, cPeticiones.pedirString("Introduzca el id del socio: "));
+        // Variables internas
+        String idSocio;
+        // Mostramos el listado de IDs de socios disponibles
+        cInscripciones.listIdsSocios();
+        txtMostrarMensaje("\n");
+        // Pedimos el id del socio
+        idSocio = cPeticiones.pedirString("Introduzca el id del socio: ");
+        // Llamamos al método de ControlExcursiones que lista las excursiones de un socio
+        cInscripciones.listInscripcionesSocio(idSocio);
     }
 
     /**
@@ -86,7 +94,7 @@ public class VistaListarInscripciones {
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
-        txtMostrarMensaje("Volviendo al menú inscripciones...\n");
+        txtMostrarMensaje("Volviendo al menú inscripciones...\n\n");
     }
 
     /**
@@ -121,7 +129,7 @@ public class VistaListarInscripciones {
                     buttonAtras();
                     running = false;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }

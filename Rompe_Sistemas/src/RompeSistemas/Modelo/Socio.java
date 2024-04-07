@@ -1,5 +1,8 @@
 package RompeSistemas.Modelo;
 
+/**
+ * Clase Socio que define los atributos y métodos de un socio
+ */
 public abstract class Socio {
 
     //Atributos
@@ -105,6 +108,10 @@ public abstract class Socio {
     public void setTipo(int tipo) {
     }
 
+    /**
+     * Método set() de la clase Socio que nos permite definir el NIF del socio
+     * @param nif Es el NIF del socio
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }

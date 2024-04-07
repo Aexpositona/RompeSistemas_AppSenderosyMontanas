@@ -97,7 +97,7 @@ public enum Seguro {
     public String toString() {
         String mensaje = "";
         for (Seguro seguro : Seguro.values()) {
-           mensaje = seguro.id + " - " + seguro.nombre + " - " + seguro.precio + "€";
+           mensaje = seguro.id + " - " + seguro.nombre + " - " + seguro.precio + " Euros";
         };
         return mensaje;
     }

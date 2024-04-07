@@ -141,7 +141,7 @@ public class VistaSocios {
      * Método para añadir un botón que nos permite modificar un seguro
      */
     public void buttonModTipoSeguro() throws ParseException {
-        txtMostrarMensaje("Navegando a la vista de modificar seguro");
+        txtMostrarMensaje("Navegando a la vista de modificar seguro...\n\n");
         vModificarSeguro.show();
     }
 

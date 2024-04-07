@@ -148,6 +148,6 @@ public class Excursion {
                "\nDescripción: " + descripcion +
                "\nFecha: " + fecha +
                "\nDuración: " + duracion +
-               "\nPrecio: " + precio + "Euros.\n";
+               "\nPrecio: " + precio + " Euros.\n";
     }
 }

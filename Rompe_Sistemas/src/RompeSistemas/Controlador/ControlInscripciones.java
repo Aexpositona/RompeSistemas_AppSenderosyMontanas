@@ -139,8 +139,8 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a listar
      * @param numeroSocio Número de socio
      */
-    public void listInscripcionesSocio(int tipoObjeto, String numeroSocio) {
-        System.out.println(datos.listToStringObjetosCodigo(tipoObjeto, numeroSocio ));
+    public void listInscripcionesSocio(String numeroSocio) {
+        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosCodigo(2, numeroSocio ));
     }
 
     /**
@@ -150,7 +150,11 @@ public class ControlInscripciones {
      * @param fechaFinal Fecha final
      */
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
-        System.out.println(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
+        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
+    }
+
+    public void listIdsSocios() {
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, 3));
     }
 
     /**

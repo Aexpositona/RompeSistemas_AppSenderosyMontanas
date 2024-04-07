@@ -105,7 +105,7 @@ public class VistaMenuPrincipal {
             txtMostrarMensaje("3. Excursiones\n");
             txtMostrarMensaje("0. Salir\n");
 
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3 o 0)", 0, 3)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):", 0, 3)) {
                 case 1:
                     buttonVistaInscripciones();
                     break;
