@@ -62,10 +62,8 @@ public class VistaListarInscripciones {
      */
     public void buttonListInscripcionesFechas(){
         // Pedimos las fechas
-        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",2000, LocalDate.now().getYear());
-        txtMostrarMensaje("\n");
-        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial.getYear(), LocalDate.now().getYear());
-        txtMostrarMensaje("\n");
+        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
+        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
         // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
         cInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
     }
@@ -93,7 +91,7 @@ public class VistaListarInscripciones {
         // Mientras no se seleccione la opción de volver atrás
         while (running) {
             // Mostramos el menú de listar inscripciones
-            txtMostrarMensaje("........MENÚ LISTAR INSCRIPCIONES........\n");
+            txtMostrarMensaje("************ MENÚ LISTAR INSCRIPCIONES ************\n");
             txtMostrarMensaje("1. Listar inscripción por usuario\n");
             txtMostrarMensaje("2. Listar inscripción por fechas\n");
             txtMostrarMensaje("0. Atrás\n");

@@ -18,18 +18,31 @@ public class VistaAddInscripcion {
 
     //Constructores
 
+    /**
+     * Método constructor de la clase VistaAddInscripcion que recibe por parámetros la vista de control de inscripciones.
+     *
+     * @param cInscripciones ControlInscripciones
+     */
     public VistaAddInscripcion(ControlInscripciones cInscripciones) {
-        this.cInscripciones = cInscripciones;
-        this.cPeticiones = cInscripciones.getControlPeticiones();
-        this.datos = cInscripciones.getDatos();        
+        this.cInscripciones = new ControlInscripciones(cInscripciones);
+        this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
+        this.datos = new Datos(cInscripciones.getDatos());
     }
 
+    /**
+     * Método constructor de copia de la clase VistaAddInscripcion.
+     *
+     * @param vistaAddInscripcion VistaAddInscripcion a copiar.
+     */
     public VistaAddInscripcion(VistaAddInscripcion vistaAddInscripcion) {
         this.cInscripciones = vistaAddInscripcion.getControlInscripciones();
         this.cPeticiones = vistaAddInscripcion.getControlPeticiones();
         this.datos = vistaAddInscripcion.getDatos();
     }
 
+    /**
+     * Método constructor vacío de la clase VistaAddInscripcion.
+     */
     public VistaAddInscripcion() {
         this.cInscripciones = null;
         this.cPeticiones = null;
@@ -41,11 +54,9 @@ public class VistaAddInscripcion {
     public ControlInscripciones getControlInscripciones() {
         return cInscripciones;
     }
-
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
-
     public Datos getDatos() {
         return datos;
     }
@@ -55,11 +66,9 @@ public class VistaAddInscripcion {
     public void setControlInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
     }
-
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
-
     public void setDatos(Datos datos) {
         this.datos = datos;
     }
@@ -68,13 +77,22 @@ public class VistaAddInscripcion {
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
-    public void buttonAñadir(){
+    public void buttonAddInscripcion(){
+        txtMostrarMensaje("-- Añadiendo inscripción --\n");
         cInscripciones.addInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduzca el id del socio: "))),2);
     }
 
     public void buttonAtras() {
-        System.out.println("Volviendo al menú inscripciones...");
-        return;
+        txtMostrarMensaje("Volviendo al menú inscripciones...\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
     }
 
     public void show() {
@@ -82,16 +100,14 @@ public class VistaAddInscripcion {
         boolean running = true;
 
         while (running) {
-
-
-            System.out.println("........MENÚ AÑADIR INSCRIPCIÓN........\n");
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Añadir inscripción");
-            System.out.println("0. Atrás");
-
+            // Mostramos el menú
+            txtMostrarMensaje("........MENÚ AÑADIR INSCRIPCIÓN........\n");
+            txtMostrarMensaje("1. Añadir inscripción\n");
+            txtMostrarMensaje("0. Atrás\n");
+            // Solicitamos la opción
             switch (cPeticiones.pedirEntero("Introduzca una opción: ",0,1)){
                 case 1:
-                    buttonAñadir();
+                    buttonAddInscripcion();
                     break;
                 case 0:
                     buttonAtras();

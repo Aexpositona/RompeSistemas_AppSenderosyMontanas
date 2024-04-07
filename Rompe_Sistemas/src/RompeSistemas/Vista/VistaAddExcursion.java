@@ -90,7 +90,7 @@ public class VistaAddExcursion {
         int dias;
         txtMostrarMensaje("\n-- Añadiendo nueva excursión --\n");
         // Obtener el último código de excursión y sumarle 1
-        codigo = cExcursiones.getUltimoCodigo();
+        codigo = cExcursiones.getSiguienteCodigo();
         // Cambiamos el resultado a falso
         resultado = false;
         // Mientras no se introduzca una descripción válida
@@ -110,7 +110,7 @@ public class VistaAddExcursion {
         }
         while (!resultado);
         // Solicitamos la fecha de la excursión
-        fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --", LocalDate.now().getYear(), LocalDate.now().getYear() + 2);
+        fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --", LocalDate.now(), LocalDate.now().plusYears(2));
         // Mientras no se introduzca un precio válido
         precio = cPeticiones.pedirFloat("Introduzca el precio de la excursión: ", 0, Float.MAX_VALUE);
         // Mientras no se introduzca un número de días válido
@@ -118,7 +118,7 @@ public class VistaAddExcursion {
         // Añadimos la excursión
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
         // Informamos al usuario
-        txtMostrarMensaje("Excursión añadida correctamente.\n");
+        txtMostrarMensaje("Excursión añadida correctamente.\n\n");
     }
 
     /**
@@ -126,7 +126,7 @@ public class VistaAddExcursion {
      */
     public void buttonAtras() throws ParseException{
         // Informamos al usuario de que volvemos al menú de excursiones
-        txtMostrarMensaje("Volviendo al menú de excursiones...\n");
+        txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
     }
 
     /**

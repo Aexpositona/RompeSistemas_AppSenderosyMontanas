@@ -57,7 +57,7 @@ public class VistaMenuPrincipal {
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */
     public void buttonVistaInscripciones(){
-        txtMostrarMensaje("Navegando a la vista de inscripciones...\n");
+        txtMostrarMensaje("Navegando a la vista de inscripciones...\n\n");
         cMenuPrincipal.showInscripciones();
     }
 

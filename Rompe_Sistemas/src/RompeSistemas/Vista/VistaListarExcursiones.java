@@ -62,6 +62,42 @@ public class VistaListarExcursiones {
         this.cPeticiones = cPeticiones;
     }
 
+    /**
+     * Método que nos permite listar todas las excursiones
+     */
+    public void buttonListExcursiones() {
+        txtMostrarMensaje("\n");
+        // Llamamos al método de ControlExcursiones que lista las excursiones
+        cExcursiones.listExcursiones();
+    }
+
+    /**
+     * Método que nos permite listar las excursiones entre dos fechas
+     */
+    public void buttonListExcursionesFechas(){
+        // Pedimos las fechas
+        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
+        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
+        // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
+        cExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
+    }
+
+    /**
+     * Método que nos permite ir hacia atras
+     */
+    public void buttonAtras(){
+        // Mostramos mensaje de vuelta
+        txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
+    }
     
     /**
      * Método para mostrar el menú de listar excursiones y solicitar una opción.
@@ -100,44 +136,7 @@ public class VistaListarExcursiones {
         }
     }
 
-    /**
-     * Método que nos permite listar todas las excursiones
-     */
-    public void buttonListExcursiones() {
-        txtMostrarMensaje("\n");
-        // Llamamos al método de ControlExcursiones que lista las excursiones
-        cExcursiones.listExcursiones();
-    }
 
-    /**
-     * Método que nos permite listar las excursiones entre dos fechas
-     */
-    public void buttonListExcursionesFechas(){
-        // Pedimos las fechas
-        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",2000, LocalDate.now().getYear());
-        txtMostrarMensaje("\n");
-        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial.getYear(), LocalDate.now().getYear());
-        txtMostrarMensaje("\n");
-        // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
-        cExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
-    }
-
-    /**
-     * Método que nos permite ir hacia atras
-     */
-    public void buttonAtras(){
-        // Mostramos mensaje de vuelta
-        txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
-    }
-
-    /**
-     * Método para mostrar un mensaje.
-     *
-     * @param mensaje Mensaje a mostrar.
-     */
-    public void txtMostrarMensaje(String mensaje) {
-        System.out.print(mensaje);
-    }
 
 
 }

@@ -72,8 +72,8 @@ public class DataLoader {
     private void loadInscripciones() {
 
         // Añadir inscripciones a la lista de inscripciones
-        datos.addObjeto(2, new Inscripcion(1, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0001"))));
-        datos.addObjeto(2, new Inscripcion(2, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0002"))));
-        datos.addObjeto(2, new Inscripcion(3, (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0003"))));
+        datos.addObjeto(2, new Inscripcion("INS0001", (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0001"))));
+        datos.addObjeto(2, new Inscripcion("INS0002", (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0002"))));
+        datos.addObjeto(2, new Inscripcion("INS0003", (Socio) datos.getObjeto(3, datos.buscarObjeto(1, "EXC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0003"))));
     }
 }

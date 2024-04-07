@@ -181,10 +181,12 @@ public class ControlExcursiones {
     }
 
     public String getUltimoCodigo() {
-        return datos.getSiguienteCodigo(1);
+        return datos.getUltimoCodigo(1);
     }
 
-
+    public String getSiguienteCodigo() {
+        return datos.getSiguienteCodigo(1);
+    }
 }
 
 

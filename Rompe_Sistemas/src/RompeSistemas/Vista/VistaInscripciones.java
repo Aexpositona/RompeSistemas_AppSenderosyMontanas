@@ -24,13 +24,18 @@ public class VistaInscripciones {
      * @param cInscripciones ControlInscripciones
      */
     public VistaInscripciones(ControlInscripciones cInscripciones) {
-        this.cInscripciones = cInscripciones;
-        this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
-        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
-        this.cPeticiones = cInscripciones.getControlPeticiones();
-        this.datos = cInscripciones.getDatos();
+        this.cInscripciones = new ControlInscripciones(cInscripciones);
+        this.vAddInscripcion = new VistaAddInscripcion(cInscripciones.getVistaAddInscripcion());
+        this.vListarInscripciones = new VistaListarInscripciones(cInscripciones.getVistaListarInscripciones());
+        this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
+        this.datos = new Datos(cInscripciones.getDatos());
     }
 
+    /**
+     * Método constructor de copia de la clase VistaInscripciones.
+     *
+     * @param vistaInscripciones VistaInscripciones a copiar.
+     */
     public VistaInscripciones(VistaInscripciones vistaInscripciones) {
         this.cInscripciones = vistaInscripciones.getControlInscripciones();
         this.vAddInscripcion = vistaInscripciones.getVistaAddInscripcion();
@@ -96,7 +101,7 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite añadir una inscripción
      */
     public void buttonMenuAddInscripcion() {
-        System.out.println("Navegando a la vista de añadir inscripción");
+        txtMostrarMensaje("Navegando a la vista de añadir inscripción...\n\n");
         vAddInscripcion.show();
     }
 
@@ -112,7 +117,7 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones
      */
     public void buttonMenuListInscripciones() {
-        System.out.println("Navegando a la vista de listar inscripciones");
+        txtMostrarMensaje("Navegando a la vista de listar inscripciones...\n\n");
         vListarInscripciones.show();
     }
 
@@ -121,7 +126,16 @@ public class VistaInscripciones {
      */
     public void buttonAtras() {
         // Informamos al usuario de que volvemos al menú principal
-        System.out.println("Volviendo al menú principal...");
+        txtMostrarMensaje("Volviendo al menú principal...\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje) {
+        System.out.print(mensaje);
     }
 
     public void show() {
@@ -130,13 +144,11 @@ public class VistaInscripciones {
         // Mientras la aplicación esté en ejecución
         while (running) {
             // Mostramos el menú
-            System.out.println("\n........MENÚ INSCRIPCIONES........\n");
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Añadir inscripción");
-            System.out.println("2. Menú Listar inscripciónes");
-            System.out.println("3. Eliminar inscripción");
-            System.out.println("0. Salir");
-
+            txtMostrarMensaje("************ MENÚ INSCRIPCIONES ************\n");
+            txtMostrarMensaje("1. Añadir inscripción\n");
+            txtMostrarMensaje("2. Menú Listar inscripciónes\n");
+            txtMostrarMensaje("3. Eliminar inscripción\n");
+            txtMostrarMensaje("0. Salir\n");
             // Solicitamos la opción
             switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)) {
                 // Si la opción es 1 mostramos el menú de añadir inscripción
@@ -158,7 +170,7 @@ public class VistaInscripciones {
                     break;
                 // Si la opción no es válida mostramos un mensaje de error
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
             }
         }
