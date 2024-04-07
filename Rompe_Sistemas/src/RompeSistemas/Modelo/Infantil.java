@@ -2,7 +2,8 @@ package RompeSistemas.Modelo;
 
 public class Infantil extends Socio {
 
-    private int numSocioTutor;
+    private final int numSocioTutor;
+    private final int tipo = 3;
 
     //Métodos constructores
     /**
@@ -12,7 +13,7 @@ public class Infantil extends Socio {
      * @param numSocioTutor es el número de socio del tutor
      */
     public Infantil(String nombre, int numero,String nif, int numSocioTutor){
-        super(nombre, numero,nif);
+        super(nombre,numero,nif);
         this.numSocioTutor = numSocioTutor;
     }
 

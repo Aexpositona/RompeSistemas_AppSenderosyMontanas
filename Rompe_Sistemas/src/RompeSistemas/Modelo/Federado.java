@@ -4,6 +4,7 @@ package RompeSistemas.Modelo;
 public class Federado extends Socio {
 
     private Federacion federaciones;
+    private final int tipo = 2;
 
 
     // Constructores

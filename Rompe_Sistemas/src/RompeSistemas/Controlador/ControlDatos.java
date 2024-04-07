@@ -87,7 +87,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la excursión";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = 7;
         }
         // Si el objeto es una inscripción
         else if (tipoObjeto == 2) {

@@ -15,7 +15,7 @@ public class Datos {
     private Seguro seguro; // Seguro
 
     // Un ArrayList para cada tipo de dato
-    private List<Object> excursiones, inscripciones, socios, federaciones;
+    private final List<Object> excursiones, inscripciones, socios, federaciones;
 
     // Constructor
 
@@ -116,7 +116,7 @@ public class Datos {
      * @param objeto     Objeto a modificar
 
      */
-    public void modificarObjeto(int tipoObjeto, Object objeto) {
+    public void modifyObjeto(int tipoObjeto, Object objeto) {
         switch (tipoObjeto) {
             case 1 -> excursiones.set(excursiones.indexOf(objeto), objeto);
             case 2 -> inscripciones.set(inscripciones.indexOf(objeto), objeto);
@@ -627,3 +627,4 @@ public class Datos {
         return codigo;
     }
 }
+

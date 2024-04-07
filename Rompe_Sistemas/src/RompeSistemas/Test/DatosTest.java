@@ -12,11 +12,13 @@ public class DatosTest {
      */
     @Test
     public void testAddObjeto() {
+        /**
+         * Crear un objeto de la clase Datos
+         */
         Datos datos = new Datos();
 
         /**
-         * Prueba de agregar un objeto a la lista de excursiones, inscripciones,
-         * socios y federaciones.
+         * Crear un objeto
          */
         Object objeto = new Object();
 

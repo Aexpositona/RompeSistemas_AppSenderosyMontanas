@@ -80,9 +80,8 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite salir de la aplicación.
      */
-    public static void buttonVistaSalir(){
+    public void buttonVistaSalir(){
         System.out.println("Saliendo de la aplicación...");
-        return;
     }
 
     /**
@@ -91,13 +90,13 @@ public class VistaMenuPrincipal {
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            System.out.println("Seleccione una opción: ");
+            System.out.println("************ Menú Principal ************");
             System.out.println("1. Inscripciones");
             System.out.println("2. Socios");
             System.out.println("3. Excursiones");
             System.out.println("0. Salir");
 
-            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3 o 0)", 0, 3)) {
                 case 1:
                     buttonVistaInscripciones();
                     break;

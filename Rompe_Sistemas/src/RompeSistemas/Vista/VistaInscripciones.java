@@ -21,8 +21,7 @@ public class VistaInscripciones {
     /**
      * Método constructor de la clase VistaInscripciones que recibe por parámetros la vista de añadir inscripción y la vista de listar inscripciones
      *
-     * @param vAddInscripcion   es la vista de añadir inscripción
-     * @param vListarInscripciones es la vista de listar inscripciones
+     * @param cInscripciones ControlInscripciones
      */
     public VistaInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
@@ -75,8 +74,8 @@ public class VistaInscripciones {
         this.cInscripciones = cInscripciones;
     }
 
-    public void setVistaAddInscripcion(VistaAddInscripcion vAñadirInscripcion) {
-        this.vAddInscripcion = vAñadirInscripcion;
+    public void setVistaAddInscripcion(VistaAddInscripcion vAddInscripcion) {
+        this.vAddInscripcion = vAddInscripcion;
     }
 
     public void setVistaListarInscripciones(VistaListarInscripciones vListarInscripciones) {
@@ -96,7 +95,7 @@ public class VistaInscripciones {
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
-    public void buttonAddInscripcion() {
+    public void buttonMenuAddInscripcion() {
         System.out.println("Navegando a la vista de añadir inscripción");
         vAddInscripcion.show();
     }
@@ -121,8 +120,8 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() {
-        System.out.println("Volviendo al menú principal");
-        return;
+        // Informamos al usuario de que volvemos al menú principal
+        System.out.println("Volviendo al menú principal...");
     }
 
     public void show() {
@@ -130,27 +129,34 @@ public class VistaInscripciones {
         boolean running = true;
         // Mientras la aplicación esté en ejecución
         while (running) {
+            // Mostramos el menú
             System.out.println("\n........MENÚ INSCRIPCIONES........\n");
             System.out.println("Seleccione una opción: ");
-            System.out.println("0. Salir");
             System.out.println("1. Añadir inscripción");
             System.out.println("2. Menú Listar inscripciónes");
             System.out.println("3. Eliminar inscripción");
+            System.out.println("0. Salir");
 
+            // Solicitamos la opción
             switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)) {
+                // Si la opción es 1 mostramos el menú de añadir inscripción
                 case 1:
-                    buttonAddInscripcion();
+                    buttonMenuAddInscripcion();
                     break;
-
+                // Si la opción es 2 mostramos el menú de listar inscripciones
                 case 2:
                     buttonMenuListInscripciones();
                     break;
+                // Si la opción es 3 solicitamos el número de inscripción a eliminar
                 case 3:
                     buttonRemoveInscripcion();
                     break;
+                // Si la opción es 0 salimos de la aplicación
                 case 0:
                     buttonAtras();
                     running = false;
+                    break;
+                // Si la opción no es válida mostramos un mensaje de error
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");
                     break;

@@ -74,6 +74,6 @@ public class Inscripcion {
     public String toString() {
         return "Inscripción con número: "+ numero +
                 "\nSocio:" + socio +
-                "\nExcursions:" + excursion;
+                "\nExcursions:" + excursion + "\n";
     }
 }

@@ -83,7 +83,7 @@ public class VistaAddExcursion {
      */
     public void buttonAddExcursion() {
         // Variables internas
-        boolean resultado = false;
+        boolean resultado;
         String codigo, descripcion;
         LocalDate fecha;
         float precio;
@@ -98,14 +98,14 @@ public class VistaAddExcursion {
             // Solicitamos la descripción de la excursión
             descripcion = cPeticiones.pedirString("Introduzca la descripción de la excursión: ");
             // Si la descripción está vacía
-            if (descripcion.isEmpty() || descripcion.length() < 5) {
+            if (descripcion.length() < 5) {
                 // Informamos al usuario de que la descripción no puede estar vacía
-                System.out.println("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.\n");
+                txtMostrarMensaje("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.\n");
             }
             // Si la descripción no está vacía y tiene al menos 5 caracteres
             else {
                 // Informamos al usuario
-                System.out.println("Descripción guardada.\n");
+                txtMostrarMensaje("Descripción guardada.\n");
                 // Cambiamos el resultado a verdadero
                 resultado = true;
             }
@@ -118,7 +118,7 @@ public class VistaAddExcursion {
             // Si la fecha es anterior a la actual
             if (fecha.isBefore(LocalDate.now())) {
                 // Informamos al usuario
-                System.out.println("La fecha no puede ser anterior a la actual.");
+                txtMostrarMensaje("La fecha no puede ser anterior a la actual.");
             }
         }
         while (fecha.isBefore(LocalDate.now()));
@@ -129,15 +129,24 @@ public class VistaAddExcursion {
         // Añadimos la excursión
         cExcursiones.addExcursion(new Excursion(codigo, descripcion, fecha, dias, precio));
         // Informamos al usuario
-        System.out.println("Excursión añadida correctamente.\n");
+        txtMostrarMensaje("Excursión añadida correctamente.\n");
     }
 
     /**
      * Método para añadir un botón que nos permite cancelar la operación.
      */
     public void buttonAtras() throws ParseException{
-        System.out.println("Volviendo al menú de excursiones...");
-        return;
+        // Informamos al usuario de que volvemos al menú de excursiones
+        txtMostrarMensaje("Volviendo al menú de excursiones...");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    private void txtMostrarMensaje(String mensaje){
+        System.out.println(mensaje);
     }
 
     /**
@@ -149,9 +158,10 @@ public class VistaAddExcursion {
         // Mientras se ejecute la vista
         while (running) {
             // Mostramos el menú
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Añadir excursión");
-            System.out.println("0. Atrás");
+            txtMostrarMensaje("........MENÚ AÑADIR EXCURSIÓN........\n");
+            txtMostrarMensaje("Seleccione una opción: ");
+            txtMostrarMensaje("1. Añadir excursión");
+            txtMostrarMensaje("0. Atrás");
             // Solicitamos la opción
             switch (cPeticiones.pedirEntero("Selecciona una opción (1 o 0):",0,1)) {
                 // Si la opción es 1 añadimos una excursión
@@ -165,7 +175,7 @@ public class VistaAddExcursion {
                     break;
                 // Si la opción no es válida informamos al usuario
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
             }
         }
