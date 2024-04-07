@@ -21,7 +21,7 @@ public class VistaAddSocio {
      */
     public VistaAddSocio(ControlSocios cSocios) {
         this.cSocios = new ControlSocios(cSocios);
-        this.cPeticiones = new ControlPeticiones(cSocios.getControlPeticiones());
+        this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
         this.datos = new Datos(cSocios.getDatos());
     }
@@ -225,7 +225,7 @@ public class VistaAddSocio {
      * @param mensaje Mensaje a mostrar.
      */
     private void txtMostrarMensaje(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
     }
 
     /**

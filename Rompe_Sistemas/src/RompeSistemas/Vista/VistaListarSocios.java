@@ -71,7 +71,7 @@ public class VistaListarSocios {
      * @param mensaje Mensaje a mostrar.
      */
     private void txtMostrarMensaje(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
     }
 
     public void show() throws ParseException {

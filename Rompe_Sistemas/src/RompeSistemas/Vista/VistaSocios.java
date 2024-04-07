@@ -24,10 +24,10 @@ public class VistaSocios {
      */
     public VistaSocios(ControlSocios cSocios) {
         this.cSocios = new ControlSocios(cSocios);
-        this.vModificarSeguro = new VistaModificarSeguro(cSocios.getVistaModificarSeguro());
-        this.vListarSocios = new VistaListarSocios(cSocios.getVistaListarSocios());
-        this.vAddSocio = new VistaAddSocio(cSocios.getVistaAddSocio());
-        this.cPeticiones = new ControlPeticiones(cSocios.getControlPeticiones());
+        this.vModificarSeguro = cSocios.getVistaModificarSeguro();
+        this.vListarSocios =cSocios.getVistaListarSocios();
+        this.vAddSocio = cSocios.getVistaAddSocio();
+        this.cPeticiones = cSocios.getControlPeticiones() ;
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
         this.datos = new Datos(cSocios.getDatos());
     }
@@ -174,7 +174,7 @@ public class VistaSocios {
      * @param mensaje Mensaje a mostrar.
      */
     private void txtMostrarMensaje(String mensaje){
-        System.out.println(mensaje);
+        System.out.print(mensaje);
     }
 
     /**
