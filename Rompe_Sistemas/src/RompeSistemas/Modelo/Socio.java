@@ -84,6 +84,7 @@ public abstract class Socio {
     public void setNif(String nif) {
         this.nif = nif;
     }
+
     /**
      * Método toString() de la clase Socio que nos devuelve un String con los datos del socio
      * @return Un String con los datos del socio, como el nombre, el domicilio, el NIF y el email

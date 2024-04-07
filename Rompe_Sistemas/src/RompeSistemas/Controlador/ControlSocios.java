@@ -131,11 +131,23 @@ public class ControlSocios {
 
 
     // Métodos de la vista
-
+    /**
+     * Método para añadir un socio.
+     *
+     * @param socio Socio a añadir.
+     */
     public void addSocio(Socio socio) {
         datos.addObjeto(3, socio);
     }
 
+    /**
+     * Método para modificar un socio.
+     *
+     * @param socio Socio a modificar.
+     */
+    public void modifySocio(Socio socio) {
+        datos.modifyObjeto(3, socio);
+    }
 
     public void showVistaListarSocios() throws ParseException{
         vListarSocios.show();
@@ -150,7 +162,6 @@ public class ControlSocios {
     }
 
     // Métodos gestión de socios
-
     public void removeSocio(int tipoObjeto, int numeroSocio) {
         Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
         for (Socio socio : socios) {
@@ -180,35 +191,29 @@ public class ControlSocios {
             }
         }
         Socio[] socios = listaSocios.toArray(new Socio[0]);
-        // Recorremos el array de socios y mostramos los socios del tipo indicado
+        // Recorremos el array de socios
         for (Socio socio : socios) {
+            // Comprobamos si el tipo de socio es el mismo que el tipo de socio que queremos listar
             if (socio.getTipo() == tipoSocio) {
-                System.out.println(socio.toString());
+                // Mostramos el socio
+                System.out.println(socio);
             }
         }
     }
 
     public void showFacturaMensualSocios() {
-        // Obtenemos la fecha actual
-        LocalDate now = LocalDate.now();
-        // Calculamos la fecha de hace un mes
-        LocalDate oneMonthAgo = now.minusMonths(1);
-
-        // Obtenemos la lista de socios
-        List<Object> sociosList = datos.getArrayList(3);
-        // Obtenemos la lista de inscripciones
-        List<Object> inscripcionesList = datos.getArrayList(2);
+        // Obtenemos la fecha actual y la fecha de hace un mes
+        LocalDate now = LocalDate.now(), oneMonthAgo = now.minusMonths(1);
+        // Obtenemos la lista de socios y la lista de inscripciones
+        List<Object> sociosList = datos.getArrayList(3), inscripcionesList = datos.getArrayList(2);
 
         // Recorremos la lista de socios
         for (Object obj : sociosList) {
-            if (obj instanceof Socio) {
-                Socio socio = (Socio) obj;
+            if (obj instanceof Socio socio) {
                 double total = 0.0;
-
                 // Recorremos la lista de inscripciones
                 for (Object objInscripcion : inscripcionesList) {
-                    if (objInscripcion instanceof Inscripcion) {
-                        Inscripcion inscripcion = (Inscripcion) objInscripcion;
+                    if (objInscripcion instanceof Inscripcion inscripcion) {
                         // Comprobamos si el socio de la inscripción es el socio que estamos procesando
                         if (inscripcion.getSocio().equals(socio)) {
                             // Obtenemos la excursión de la inscripción
@@ -221,7 +226,6 @@ public class ControlSocios {
                         }
                     }
                 }
-
                 // Imprimimos el número de socio, el nombre y el total de las inscripciones
                 System.out.println("Número de socio: " + socio.getNumero());
                 System.out.println("Nombre: " + socio.getNombre());
@@ -230,10 +234,25 @@ public class ControlSocios {
         }
     }
 
-    public void modificarSeguro(String numeroSocio, int tipoSeguro) {
-
-
-
+    public void modifySeguro(int tipoSeguro, String numeroSocio) {
+        // Obtenemos la lista de socios
+        List<Object> sociosList = datos.getArrayList(3);
+        // Recorremos la lista de socios
+        for (Object obj : sociosList) {
+            if (obj instanceof Estandar socio) {
+                // Comprobamos si el número de socio del socio es el mismo que el número de socio que queremos modificar
+                if (socio.getNumero() == Integer.parseInt(numeroSocio)) {
+                    // Modificamos el seguro del socio
+                    socio.setSeguro(Seguro.values()[tipoSeguro - 1]);
+                    // Informamos al usuario
+                    System.out.println("Seguro modificado con éxito.");
+                    break;
+                }
+                else {
+                    System.out.println("El número de socio introducido no es de un socio estándar.");
+                }
+            }
+        }
     }
 
 }

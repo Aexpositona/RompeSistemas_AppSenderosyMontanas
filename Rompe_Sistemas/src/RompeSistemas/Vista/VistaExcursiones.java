@@ -149,8 +149,8 @@ public class VistaExcursiones {
      *
      * @throws ParseException Excepción de parseo.
      */
-    private void buttonAddExcursion() throws ParseException {
-        System.out.println("Accediendo a la vista de añadir excursión...");
+    private void buttonVistaAddExcursion() throws ParseException {
+        txtMostrarMensaje("Accediendo a la vista de añadir excursión...");
         vAddExcursion.show();
     }
 
@@ -164,7 +164,7 @@ public class VistaExcursiones {
         // Mostramos las excursiones
         cExcursiones.listExcursiones();
         // Pedimos el código de la excursión a eliminar
-        System.out.println();
+        txtMostrarMensaje("");
         // Mientras no se introduzca un código válido o no se pueda eliminar la excursión
         String respuesta;
         do {
@@ -177,11 +177,11 @@ public class VistaExcursiones {
                     // Cambiamos el resultado a verdadero
                     resultado = true;
                 else {
-                    System.out.println("El código no existe.");
+                    txtMostrarMensaje("El código no existe.");
                 }
             }
             else {
-                System.out.println("El código no es válido.");
+                txtMostrarMensaje("El código no es válido.");
             }
             intentos++;
         }
@@ -192,21 +192,21 @@ public class VistaExcursiones {
             // Eliminamos la excursión
             cExcursiones.removeExcursion(respuesta);
             // Informamos al usuario de que la excursión ha sido eliminada
-            System.out.println("Excursión eliminada.");
+            txtMostrarMensaje("Excursión eliminada.");
         }
         // Si el usuario no está seguro de eliminar la excursión
         else if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("N")){
             // Informamos al usuario de que la operación no se ha realizado
-            System.out.println("Operación cancelada.");
+            txtMostrarMensaje("Operación cancelada.");
         }
     }
 
     /**
      * Método para listar las excursiones.
      */
-    private void buttonListExcursiones(){
+    private void buttonVistaListExcursiones(){
         // Informamos al usuario de que accedemos a la vista de listar excursiones
-        System.out.println("Accediendo a la vista de listar excursiones...");
+        txtMostrarMensaje("Accediendo a la vista de listar excursiones...");
         // Mostramos la vista de listar excursiones
         vListarExcursiones.show();
     }
@@ -216,7 +216,11 @@ public class VistaExcursiones {
      */
     private void buttonAtras(){
         // Informamos al usuario de que volvemos al menú principal
-        System.out.println("Volviendo al menú principal...");
+        txtMostrarMensaje("Volviendo al menú principal...");
+    }
+
+    private void txtMostrarMensaje(String mensaje){
+        System.out.println(mensaje);
     }
 
     /**
@@ -229,20 +233,20 @@ public class VistaExcursiones {
         boolean running = true;
         // Mientras el bucle esté activo
         while (running) {
-            System.out.println("Menú de excursiones");
-            System.out.println("1. Añadir excursión");
-            System.out.println("2. Listar excursiones");
-            System.out.println("3. Eliminar excursión");
-            System.out.println("0. Atrás");
+            txtMostrarMensaje("************ Menú de excursiones ************");
+            txtMostrarMensaje("1. Añadir excursión");
+            txtMostrarMensaje("2. Listar excursiones");
+            txtMostrarMensaje("3. Eliminar excursión");
+            txtMostrarMensaje("0. Atrás");
             // Pedimos una opción
             switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)){
                 // Si la opción es 1, añadimos una excursión
                 case 1:
-                    buttonAddExcursion();
+                    buttonVistaAddExcursion();
                     break;
                 // Si la opción es 2, listamos las excursiones
                 case 2:
-                    buttonListExcursiones();
+                    buttonVistaListExcursiones();
                     break;
                 // Si la opción es 3, eliminamos una excursión
                 case 3:
@@ -255,7 +259,7 @@ public class VistaExcursiones {
                     break;
                 // Si la opción no es válida, informamos al usuario
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
             }
         }

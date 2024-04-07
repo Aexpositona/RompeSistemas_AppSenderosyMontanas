@@ -55,7 +55,7 @@ public class APPSenderosMontanas {
     // Clase principal
     public static void main(String[] args) throws ParseException {
         // Inicializar la aplicación
-        System.out.println("Senderos de Montañas");
+        System.out.println("************ Bienvenid@ a la aplicación de Senderos y Montañas ************");
         APPSenderosMontanas app = new APPSenderosMontanas();
         Datos datos = new Datos();
         DataLoader dataLoader = new DataLoader(datos);
