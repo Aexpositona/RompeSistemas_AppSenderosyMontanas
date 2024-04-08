@@ -2,8 +2,11 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Modelo.Socio;
 
 /**
  * Vista de añadir inscripción de la aplicación.
@@ -15,6 +18,7 @@ public class VistaAddInscripcion {
     private ControlInscripciones cInscripciones;
     private ControlPeticiones cPeticiones;
     private Datos datos;
+    private ControlDatos cDatos;
 
     //Constructores
 
@@ -27,6 +31,7 @@ public class VistaAddInscripcion {
         this.cInscripciones = new ControlInscripciones(cInscripciones);
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
         this.datos = new Datos(cInscripciones.getDatos());
+        this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 
     /**
@@ -38,6 +43,7 @@ public class VistaAddInscripcion {
         this.cInscripciones = vistaAddInscripcion.getControlInscripciones();
         this.cPeticiones = vistaAddInscripcion.getControlPeticiones();
         this.datos = vistaAddInscripcion.getDatos();
+        this.cDatos = vistaAddInscripcion.getControlDatos();
     }
 
     /**
@@ -47,6 +53,7 @@ public class VistaAddInscripcion {
         this.cInscripciones = null;
         this.cPeticiones = null;
         this.datos = null;
+        this.cDatos = null;
     }
 
     //Getters
@@ -60,6 +67,9 @@ public class VistaAddInscripcion {
     public Datos getDatos() {
         return datos;
     }
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
 
     //Setters
 
@@ -72,16 +82,57 @@ public class VistaAddInscripcion {
     public void setDatos(Datos datos) {
         this.datos = datos;
     }
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
         
     //Métodos
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
     public void buttonAddInscripcion(){
-
+        String idSocio, idExcursion;
+        Socio socio;
+        Excursion excursion;
+        // Mostramos mensaje de añadir inscripción
         txtMostrarMensaje("\n-- Añadiendo inscripción --\n");
-        txtMostrarMensaje("- Listado de socios:\n" + datos.listToStringObjetos(3));
-        cInscripciones.addInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduzca el id del socio: "))),2);
+        // Hasta que no se introduzca un id de socio válido, no se sale del bucle
+        do {
+            // Mostramos id y nombre de los socios
+            cInscripciones.listIdsSocios();
+            // Mostramos mensaje de seleccionar socio
+            txtMostrarMensaje("\n-- Seleccionando socio --\n");
+            // Pedimos los datos de la inscripción
+            idSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
+            if (!cDatos.checkExistenciaObjeto(3, idSocio)) {
+                txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
+            } 
+            else {
+                socio = (Socio) datos.getObjeto(3, datos.buscarObjeto(3, idSocio));
+                break;
+            }
+        } 
+        while (true);
+        do {
+            // Mostramos mensaje de seleccionar excursión
+            txtMostrarMensaje("\n-- Seleccionando excursión --\n");
+            // Pedimos los datos de la inscripción
+            cInscripciones.listExcursiones();
+            idExcursion = cPeticiones.pedirString("Introduzca el código de la excursión: ");
+            if (!cDatos.checkExistenciaObjeto(1, idExcursion)) {
+                txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
+            } 
+            else {
+                // Si el id es válido registramos la inscripción
+                excursion = (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, idExcursion));
+                break;
+            }
+        }
+        while (true);
+
+        // Creamos y añadimos la inscripción
+        cInscripciones.addInscripcion(new Inscripcion(datos.getSiguienteCodigo(2), socio, excursion));
+        txtMostrarMensaje("Inscripción añadida correctamente.\n\n");
     }
 
     public void buttonAtras() {

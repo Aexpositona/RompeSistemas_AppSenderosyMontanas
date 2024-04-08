@@ -72,10 +72,10 @@ public class Datos {
      * Método para agregar un objeto a alguno de los ArrayList.
      *
      * @param tipoObjeto Tipo de objeto
-     *                  1 - Excursión
-     *                  2 - Inscripción
-     *                  3 - Socio
-     *                  4 - Federación
+     *                  [1 - Excursión]
+     *                  [2 - Inscripción]
+     *                  [3 - Socio]
+     *                  [4 - Federación]
      * @param objeto     Objeto a agregar
      */
     public void addObjeto(int tipoObjeto, Object objeto) {
@@ -215,7 +215,7 @@ public class Datos {
                     // Obtener el socio en la posición i
                     Socio socio = (Socio) socios.get(i);
                     // Si el nombre del socio es igual al string
-                    if (socio.getNombre().equals(string)) {
+                    if (socio.getNumero().equals(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -451,10 +451,13 @@ public class Datos {
             else {
                 // Recorrer el ArrayList de excursiones
                 for (Object o : excursiones) {
-                    // Si el código de con el código
+                    // Obtener la excursión
                     Excursion excursion = (Excursion) o;
-                    // Añadir la excursión a la lista de objetos
-                    list.add(excursion);
+                    // Si el código de la excursión es igual al código
+                    if (excursion.getCodigo().equals(codigo)) {
+                        // Añadir la excursión a la lista de objetos
+                        list.add(excursion);
+                    }
                 }
             }
         }
@@ -471,8 +474,11 @@ public class Datos {
                 for (Object o : inscripciones) {
                     // Obtener la inscripción
                     Inscripcion inscripcion = (Inscripcion) o;
-                    // Añadir la inscripción a la lista de objetos
-                    list.add(inscripcion);
+                    // Si el número de la inscripción es igual al código
+                    if (inscripcion.getNumero().equals(codigo)) {
+                        // Añadir la inscripción a la lista de objetos
+                        list.add(inscripcion);
+                    }
                 }
             }
         }
@@ -489,8 +495,11 @@ public class Datos {
                 for (Object o : socios) {
                     // Obtener el socio
                     Socio socio = (Socio) o;
-                    // Añadir el socio a la lista de objetos
-                    list.add(socio);
+                    // Si el número del socio es igual al código
+                    if (socio.getNumero().equals(codigo)) {
+                        // Añadir el socio a la lista de objetos
+                        list.add(socio);
+                    }
                 }
             }
         }
@@ -506,8 +515,11 @@ public class Datos {
                 for (Object o : federaciones) {
                     // Obtener la federación
                     Federacion federacion = (Federacion) o;
-                    // Añadir la federación a la lista de objetos
-                    list.add(federacion);
+                    // Si el código de la federación es igual al código
+                    if (federacion.getCodigo().equals(codigo)) {
+                        // Añadir la federación a la lista de objetos
+                        list.add(federacion);
+                    }
                 }
             }
         }
@@ -581,7 +593,7 @@ public class Datos {
             // Si el ArrayList de excursiones no está vacío
             if (!excursiones.isEmpty()) {
                 // Obtener la última excursión
-                Excursion excursion = (Excursion) excursiones.getLast();
+                Excursion excursion = (Excursion) excursiones.get(excursiones.size() - 1);
                 // Obtener el código de la última excursión
                 codigo = excursion.getCodigo();
             }
@@ -596,7 +608,7 @@ public class Datos {
             // Si el ArrayList de inscripciones no está vacío
             if (!inscripciones.isEmpty()) {
                 // Obtener la última inscripción
-                Inscripcion inscripcion = (Inscripcion) inscripciones.getLast();
+                Inscripcion inscripcion = (Inscripcion) inscripciones.get(inscripciones.size() - 1);
                 // Obtener el número de la última inscripción
                 codigo = inscripcion.getNumero();
             }
@@ -611,7 +623,7 @@ public class Datos {
             // Si el ArrayList de socios no está vacío
             if (!socios.isEmpty()) {
                 // Obtener el último socio
-                Socio socio = (Socio) socios.getLast();
+                Socio socio = (Socio) socios.get(socios.size() - 1);
                 // Obtener el código del último socio
                 codigo = String.valueOf(socio.getNumero());
             }
@@ -624,7 +636,7 @@ public class Datos {
             // Si el ArrayList de federaciones no está vacío
             if (!federaciones.isEmpty()) {
                 // Obtener la última federación
-                Federacion federacion = (Federacion) federaciones.getLast();
+                Federacion federacion = (Federacion) federaciones.get(federaciones.size() - 1);
                 // Obtener el código de la última federación
                 codigo = federacion.getCodigo();
             } else {
@@ -947,9 +959,12 @@ public class Datos {
             }
         }
         // Convertir la lista de parámetros a String a formato deseado
-
+        StringBuilder listaFormateada = new StringBuilder();
+        for (String s : list) {
+            listaFormateada.append(s).append("\n");
+        }
         // Devolver la lista de parámetros
-        return list.toString();
+        return listaFormateada.toString();
     }    
 }
 

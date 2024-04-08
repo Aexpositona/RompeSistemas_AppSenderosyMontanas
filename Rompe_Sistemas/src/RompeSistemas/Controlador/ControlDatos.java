@@ -138,40 +138,48 @@ public class ControlDatos {
         // Si el objeto es una excursión
         if (tipoObjeto == 1) {
             // Si la excursión existe
-            if (datos.getArrayList(1).contains(codigo)) {
-                // Informamos al usuario de que la excursión existe
-                System.out.println("La excursión ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(1)) {
+                if (obj instanceof Excursion excursion) {
+                    if (excursion.getCodigo().equals(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         // Si el objeto es una inscripción
         else if (tipoObjeto == 2) {
             // Si la inscripción existe
-            if (datos.getArrayList(2).contains(codigo)) {
-                // Informamos al usuario de que la inscripción existe
-                System.out.println("La inscripción ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(2)) {
+                if (obj instanceof Inscripcion inscripcion) {
+                    if (inscripcion.getNumero().equals(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
             // Si el socio existe
-            if (datos.getArrayList(3).contains(codigo)) {
-                // Informamos al usuario de que el socio existe
-                System.out.println("El socio ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(3)) {
+                if (obj instanceof Socio socio) {
+                    if (socio.getNumero().equals(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         else if (tipoObjeto == 4) {
             // Si la federación existe
-            if (datos.getArrayList(4).contains(codigo)) {
-                // Informamos al usuario de que la federación existe
-                System.out.println("La federación ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(4)) {
+                if (obj instanceof Federacion federacion) {
+                    if (federacion.getCodigo().equals(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         // Devolvemos el resultado

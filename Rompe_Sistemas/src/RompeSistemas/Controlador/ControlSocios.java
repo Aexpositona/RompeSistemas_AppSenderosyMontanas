@@ -30,13 +30,14 @@ public class ControlSocios {
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
-        this.datos = new Datos(app.getDatos());
-        this.cDatos = new ControlDatos(app.getControlDatos());
-        this.vSocios = new VistaSocios(this);
-        this.vModificarSeguro = new VistaModificarSeguro(this);
-        this.vListarSocios = new VistaListarSocios(this);
-        this.vAddSocio = new VistaAddSocio(this);
-        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
+
+        this.vSocios = new VistaSocios();
+        this.vModificarSeguro = new VistaModificarSeguro();
+        this.vListarSocios = new VistaListarSocios();
+        this.vAddSocio = new VistaAddSocio();
+        this.datos = app.getDatos();
+        this.cDatos = app.getControlDatos();
+        this.cPeticiones = app.getControlPeticiones();
 
     }
 
@@ -54,6 +55,20 @@ public class ControlSocios {
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = cSocios.getControlDatos();
         this.datos = cSocios.getDatos();
+    }
+
+    /**
+     * Constructor de ControlSocios vacío.
+     */
+    public ControlSocios() {
+        this.app = null;
+        this.vSocios = null;
+        this.vModificarSeguro = null;
+        this.vListarSocios = null;
+        this.vAddSocio = null;
+        this.cPeticiones = null;
+        this.cDatos = null;
+        this.datos = null;
     }
 
     // Getters

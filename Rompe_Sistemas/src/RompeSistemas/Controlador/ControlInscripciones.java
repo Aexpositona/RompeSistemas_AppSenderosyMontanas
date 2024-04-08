@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Vista.VistaInscripciones;
 import RompeSistemas.Vista.VistaListarInscripciones;
 import RompeSistemas.Vista.VistaAddInscripcion;
@@ -28,9 +29,9 @@ public class ControlInscripciones {
         this.vInscripciones = new VistaInscripciones();
         this.vAddInscripcion = new VistaAddInscripcion();
         this.vListarInscripciones = new VistaListarInscripciones();
-        this.datos = new Datos (app.getDatos());
-        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
-        this.cDatos = new ControlDatos(app.getControlDatos());
+        this.datos = app.getDatos();
+        this.cPeticiones = app.getControlPeticiones();
+        this.cDatos = app.getControlDatos();
     }
 
     /**
@@ -48,6 +49,9 @@ public class ControlInscripciones {
         this.cDatos = cInscripciones.getControlDatos();
     }
 
+    /**
+     * Constructor de ControlInscripciones vacío.
+     */
     public ControlInscripciones() {
         this.vInscripciones = null;
         this.vAddInscripcion = null;
@@ -86,6 +90,10 @@ public class ControlInscripciones {
         return cDatos;
     }
 
+    public ControlInscripciones getControlInscripciones() {
+        return this;
+    }
+
     // Setters
 
     public void setApp(APPSenderosMontanas app) {
@@ -119,8 +127,8 @@ public class ControlInscripciones {
      * @param inscripcion Inscripción a añadir
      * @param tipoObjeto Tipo de objeto a añadir
      */
-    public void addInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.addObjeto(tipoObjeto, inscripcion);
+    public void addInscripcion(Inscripcion inscripcion) {
+        datos.addObjeto(2, inscripcion);
     }
 
     /**
@@ -140,7 +148,16 @@ public class ControlInscripciones {
      * @param numeroSocio Número de socio
      */
     public void listInscripcionesSocio(String numeroSocio) {
-        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosCodigo(2, numeroSocio ));
+        int i;
+        Inscripcion inscripcion;
+        Socio socio;
+        for (i = 0; i < datos.listObjetos(2).size(); i++){
+            inscripcion = (Inscripcion) datos.listObjetos(2).get(i);
+            socio = inscripcion.getSocio();
+            if (socio.getNumero().equals(numeroSocio)) {
+                vListarInscripciones.txtMostrarMensaje("-- Inscripción " + i + " --\n" + datos.listObjetos(2).get(i).toString() + "\n");
+            }
+        }
     }
 
     /**
@@ -155,6 +172,10 @@ public class ControlInscripciones {
 
     public void listIdsSocios() {
         vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, 3));
+    }
+
+    public void listExcursiones() {
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(1, 31));
     }
 
     /**

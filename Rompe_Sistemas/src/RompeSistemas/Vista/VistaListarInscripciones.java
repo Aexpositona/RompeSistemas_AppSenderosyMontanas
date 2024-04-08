@@ -114,7 +114,7 @@ public class VistaListarInscripciones {
         while (running) {
             // Mostramos el menú de listar inscripciones
             txtMostrarMensaje("************ MENÚ LISTAR INSCRIPCIONES ************\n");
-            txtMostrarMensaje("1. Listar inscripción por usuario\n");
+            txtMostrarMensaje("1. Listar inscripción por socio\n");
             txtMostrarMensaje("2. Listar inscripción por fechas\n");
             txtMostrarMensaje("0. Atrás\n");
 
