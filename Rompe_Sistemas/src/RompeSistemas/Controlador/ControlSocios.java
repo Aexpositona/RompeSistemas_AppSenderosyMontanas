@@ -1,5 +1,6 @@
 package RompeSistemas.Controlador;
 
+// Imports
 import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.VistaSocios;
 import RompeSistemas.Vista.VistaModificarSeguro;
@@ -7,10 +8,13 @@ import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Clase que representa el controlador de socios.
+ */
 public class ControlSocios {
 
     // Atributos
@@ -278,38 +282,69 @@ public class ControlSocios {
     }
 
     /**
-     * Método para mostrar la factura mensual de los socios.
+     * Método para calcular la factura de los socios en un rango de fechas.
+     *
+     * @param fechaInicio Fecha de inicio.
+     * @param fechaFin    Fecha de fin.
      */
-    public void showFacturaMensualSocios () {
+    public void calcFacturaFechas (String numSocio, LocalDate fechaInicio, LocalDate fechaFin) {
 
-        // Obtenemos la fecha actual y la fecha de hace un mes
-        LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
         // Obtenemos la lista de socios y la lista de inscripciones
-        List<Object> sociosList = datos.getArrayList(3), inscripcionesList = datos.getArrayList(2);
+        List<Object> listSocios = datos.getArrayList(3), listInscripciones = datos.getArrayList(2);
         // Recorremos la lista de socios
-        for (Object objSocio : sociosList) {
+        for (Object objSocio : listSocios) {
             if (objSocio instanceof Socio socio) {
                 double total = 0.0;
                 // Recorremos la lista de inscripciones
-                for (Object objInscripcion : inscripcionesList) {
+                for (Object objInscripcion : listInscripciones) {
                     // Si el objeto es una inscripción
                     if (objInscripcion instanceof Inscripcion inscripcion) {
-                        // Comprobamos si el socio de la inscripción es el socio que estamos procesando
-                        if (inscripcion.getSocio().equals(socio)) {
+                        // Comprobamos si el socio de la inscripción es el socio que estamos procesando y si el número de socio coincide con el número de socio que estamos buscando o si el número de socio es "NULL"
+                        if (inscripcion.getSocio().equals(socio) && (socio.getNumero().equalsIgnoreCase(numSocio) || numSocio.equals("NULL"))){
                             // Obtenemos la excursión de la inscripción
                             Excursion excursion = inscripcion.getExcursion();
-                            // Comprobamos si la fecha de la excursión está dentro del último mes
-                            if (!inscripcion.getFecha().isBefore(haceUnMes) && !inscripcion.getFecha().isAfter(actual)) {
+                            // Comprobamos si la fecha de la excursión está dentro del rango de fechas
+                            if (inscripcion.getFecha().isAfter(fechaInicio) && inscripcion.getFecha().isBefore(fechaFin)){
                                 // Sumamos el precio de la excursión al total
                                 total += excursion.getPrecio();
                             }
                         }
                     }
                 }
-                // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
-                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
-                vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
+                // Si el número de socio es "NULL"
+                if (numSocio.equals("NULL")){
+                    // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                    vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
+                    vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
+                    // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
+                    LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
+                    LocalDate ahora = LocalDate.now();
+                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
+                    }
+
+                    // Si estamos calculando el total de inscripciones de otro rango de fechas
+                    else {
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del rango de fechas entre " + fechaInicio + " y " + fechaFin + ": " + total + " Euros.\n\n");
+                    }                
+                }
+                // Si el número de socio coincide con el número de socio que estamos buscando
+                else if (socio.getNumero().equalsIgnoreCase(numSocio)){
+                    // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                    vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
+                    vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
+                    // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
+                    LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
+                    LocalDate ahora = LocalDate.now();
+                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
+                    }
+
+                    // Si estamos calculando el total de inscripciones de otro rango de fechas
+                    else {
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del rango de fechas entre " + fechaInicio + " y " + fechaFin + ": " + total + " Euros.\n\n");
+                    }                
+                }
             }
         }
     }

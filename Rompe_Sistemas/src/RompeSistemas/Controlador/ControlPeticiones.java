@@ -119,13 +119,14 @@ public class ControlPeticiones {
         // Mostramos petición
         System.out.println(peticion);
         // Solicitamos y registramos el año introducido por el usuario entre el año actual y dos años más
-        ano = pedirEntero("Introduzca el año: ", minAno, maxAno);
-        // Solicitamos y registramos el mes introducido por el usuario
-        mes = pedirEntero("Introduzca el mes: ", 1, 12);
+        ano = pedirEntero("Introduzca el año (aaaa): ", minAno, maxAno);
+
         // Mientras no se introduzca un día válido repetimos solicitud
         do {
+            // Solicitamos y registramos el mes introducido por el usuario
+            mes = pedirEntero("Introduzca el mes (mm): ", 1, 12);
             // Solicitamos el día y registramos el valor introducido por el usuario
-            dia = pedirEntero("Introduzca el día: ", 1, 31);
+            dia = pedirEntero("Introduzca el día (dd): ", 1, 31);
             // El mes es febrero no puede tener más de 28 días si no es bisiesto
             if (dia > 28 && mes == 2 && !Year.isLeap(ano)) {
                 System.out.println("Febrero no puede tener más de 28 días al no ser bisiesto.");

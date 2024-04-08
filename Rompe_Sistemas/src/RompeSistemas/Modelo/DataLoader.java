@@ -77,10 +77,10 @@ public class DataLoader {
         datos.addObjeto(2, new Inscripcion("INS0002", (Socio) datos.getObjeto(3, datos.buscarObjeto(3, "SOC0002")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0002"))));
         datos.addObjeto(2, new Inscripcion("INS0003", (Socio) datos.getObjeto(3, datos.buscarObjeto(3, "SOC0003")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0003"))));
         inscripcion = (Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, "INS0001"));
-        inscripcion.setFecha(LocalDate.of(2024, 3, 1));
+        inscripcion.setFecha(LocalDate.of(2024, 4, 1));
         inscripcion = (Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, "INS0002"));
-        inscripcion.setFecha(LocalDate.of(2024, 7, 30));
+        inscripcion.setFecha(LocalDate.of(2024, 2, 28));
         inscripcion = (Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, "INS0003"));
-        inscripcion.setFecha(LocalDate.of(2024, 9, 3));
+        inscripcion.setFecha(LocalDate.of(2024, 1, 3));
     }
 }
