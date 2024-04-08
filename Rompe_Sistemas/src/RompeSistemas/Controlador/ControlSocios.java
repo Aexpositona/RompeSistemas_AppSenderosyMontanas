@@ -299,9 +299,9 @@ public class ControlSocios {
                     }
                 }
                 // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero());
-                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre());
-                vSocios.txtMostrarMensaje("Total de inscripciones del último mes: " + total);
+                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + " - ");
+                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre()+ " - ");
+                vSocios.txtMostrarMensaje("Total de inscripciones del último mes: " + total +  "€\n");
             }
         }
     }
