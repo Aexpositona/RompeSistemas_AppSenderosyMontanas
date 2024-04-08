@@ -2,8 +2,6 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
 
-import java.util.Objects;
-
 public class ControlDatos {
 
     // Atributos
@@ -96,7 +94,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El número de la inscripción";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = 7;
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
@@ -109,7 +107,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la federación";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = 7;
         }
         // Si el objeto introducido no reune las condiciones de longitud
         if (codigo.length() != cantidad) {
@@ -140,7 +138,7 @@ public class ControlDatos {
             // Si la excursión existe
             for (Object obj : datos.getArrayList(1)) {
                 if (obj instanceof Excursion excursion) {
-                    if (excursion.getCodigo().equals(codigo)) {
+                    if (excursion.getCodigo().equalsIgnoreCase(codigo)) {
                         // Registramos resultado como verdadero
                         resultado = true;
                     }
@@ -152,7 +150,7 @@ public class ControlDatos {
             // Si la inscripción existe
             for (Object obj : datos.getArrayList(2)) {
                 if (obj instanceof Inscripcion inscripcion) {
-                    if (inscripcion.getNumero().equals(codigo)) {
+                    if (inscripcion.getNumero().equalsIgnoreCase(codigo)) {
                         // Registramos resultado como verdadero
                         resultado = true;
                     }
@@ -164,7 +162,7 @@ public class ControlDatos {
             // Si el socio existe
             for (Object obj : datos.getArrayList(3)) {
                 if (obj instanceof Socio socio) {
-                    if (socio.getNumero().equals(codigo)) {
+                    if (socio.getNumero().equalsIgnoreCase(codigo)) {
                         // Registramos resultado como verdadero
                         resultado = true;
                     }
@@ -175,12 +173,15 @@ public class ControlDatos {
             // Si la federación existe
             for (Object obj : datos.getArrayList(4)) {
                 if (obj instanceof Federacion federacion) {
-                    if (federacion.getCodigo().equals(codigo)) {
+                    if (federacion.getCodigo().equalsIgnoreCase(codigo)) {
                         // Registramos resultado como verdadero
                         resultado = true;
                     }
                 }
             }
+        }
+        else {
+            resultado = false;
         }
         // Devolvemos el resultado
         return resultado;
@@ -189,19 +190,20 @@ public class ControlDatos {
     public boolean isSocioInInscripcion(String numeroSocio) {
         for (Object obj : datos.getArrayList(2)) {
             if (obj instanceof Inscripcion inscripcion) {
-                if (Objects.equals(inscripcion.getSocio().getNumero(), numeroSocio)) {
+                if (inscripcion.getSocio().getNumero().equalsIgnoreCase(numeroSocio)) {
                     return true;
                 }
             }
         }
         return false;
     }
+    
     public boolean checkExistenciaNIF(String nif){
         // Recorremos todos los socios
         for (Object obj : datos.getArrayList(3)) {
             if (obj instanceof Socio socio) {
                 // Si encontramos un socio con el mismo NIF, devolvemos true
-                if (socio.getNif().equals(nif)) {
+                if (socio.getNif().equalsIgnoreCase(nif)) {
                     return true;
                 }
             }

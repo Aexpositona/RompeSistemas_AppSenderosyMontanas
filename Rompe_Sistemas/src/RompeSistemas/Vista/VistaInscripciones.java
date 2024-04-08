@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Datos;
 
@@ -16,6 +17,7 @@ public class VistaInscripciones {
     private VistaAddInscripcion vAddInscripcion;
     private ControlPeticiones cPeticiones;
     private Datos datos;
+    private ControlDatos cDatos;
 
     //Constructores
     /**
@@ -29,6 +31,7 @@ public class VistaInscripciones {
         this.vListarInscripciones = new VistaListarInscripciones(cInscripciones.getVistaListarInscripciones());
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
         this.datos = new Datos(cInscripciones.getDatos());
+        this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 
     /**
@@ -42,6 +45,7 @@ public class VistaInscripciones {
         this.vListarInscripciones = vistaInscripciones.getVistaListarInscripciones();
         this.cPeticiones = vistaInscripciones.getControlPeticiones();
         this.datos = vistaInscripciones.getDatos();
+        this.cDatos = vistaInscripciones.getControlDatos();
     }
 
     public VistaInscripciones() {
@@ -50,6 +54,7 @@ public class VistaInscripciones {
         this.vListarInscripciones = null;
         this.cPeticiones = null;
         this.datos = null;
+        this.cDatos = null;
     }
 
     //Getters
@@ -71,6 +76,10 @@ public class VistaInscripciones {
 
     public Datos getDatos() {
         return datos;
+    }
+
+    public ControlDatos getControlDatos() {
+        return cDatos;
     }
 
     //Setters
@@ -95,6 +104,10 @@ public class VistaInscripciones {
         this.datos = datos;
     }
 
+    public void setControlDatos(ControlDatos cDatos) {
+        this.cDatos = cDatos;
+    }
+
     //Métodos
 
     /**
@@ -109,8 +122,34 @@ public class VistaInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones
      */
     public void buttonRemoveInscripcion() {
-        cInscripciones.removeInscripcion((Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, cPeticiones.pedirString("Introduce el número de inscripción a eliminar: "))), 2);
-
+        // Variables internas
+        String idInscripcion;
+        Inscripcion inscripcion;
+        // Mostramos mensaje de añadir inscripción
+        txtMostrarMensaje("\n-- Eliminando inscripción --\n\n");
+        // Hasta que no se introduzca un id de socio válido, no se sale del bucle
+        do {
+            // Mostramos id y nombre de los socios
+            cInscripciones.listInscripciones();
+            // Mostramos mensaje de seleccionar socio
+            txtMostrarMensaje("\n-- Seleccionando Incripción a eliminar --\n");
+            // Pedimos los datos de la inscripción
+            idInscripcion = cPeticiones.pedirString("Introduzca el código de la inscripción a eliminar: ");
+            // Si el id introducido no es válido, mostramos mensaje de error
+            if (!cInscripciones.getControlDatos().checkExistenciaObjeto(2, idInscripcion)) {
+                txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n\n");
+            } 
+            // Si el id introducido es válido, creamos la inscripción y salimos del bucle
+            else {
+                inscripcion = (Inscripcion) cInscripciones.getDatos().getObjeto(2, cInscripciones.getDatos().buscarObjeto(2, idInscripcion));
+                break;
+            }
+        } 
+        while (true);
+        // Eliminamos la inscripción        
+        cInscripciones.removeInscripcion(inscripcion);
+        // Mostramos mensaje de inscripción eliminada
+        txtMostrarMensaje("Inscripción eliminada correctamente.\n\n");
     }
 
     /**

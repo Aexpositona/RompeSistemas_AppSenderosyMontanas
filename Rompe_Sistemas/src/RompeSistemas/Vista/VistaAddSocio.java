@@ -92,13 +92,18 @@ public class VistaAddSocio {
         txtMostrarMensaje("2. Federado\n");
         txtMostrarMensaje("3. Infantil\n");
         int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: (1, 2 o 3)", 1, 3);
-        // Pedir NIF del socio
-        nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+
         // Mientras el NIF introducido ya exista, pedir otro NIF
-        while(cDatos.checkExistenciaNIF(nif)){
-            txtMostrarMensaje("El NIF introducido ya existe. Introduce otro NIF.");
+        do{
             nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+            if (!cDatos.checkExistenciaNIF(nif)) {
+                break;
+            }
+            else {
+                txtMostrarMensaje("El NIF introducido ya existe. Introduce otro NIF.");
+            }
         }
+        while(true);
         // Si el tipo de socio es Estándar
         if (tipoSocio == 1) {
             // Pedir nombre del socio mediante un método
@@ -108,8 +113,9 @@ public class VistaAddSocio {
             // Mostramos tipos de seguro disponibles
             txtMostrarMensaje("Tipos de seguro disponibles:");
             Seguro[] seguros = Seguro.values();
+            // Mostramos los tipos de seguro
             for (Seguro value : seguros) {
-                System.out.println(value.name());
+                txtMostrarMensaje(value.name());
             }
             // Pedir tipo de seguro
             String seguroInput = cPeticiones.pedirString("Introduce el nombre del tipo de seguro del socio: ");
@@ -165,18 +171,6 @@ public class VistaAddSocio {
             nombre = pedirNombreSocio();
             // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
-            do{
-                // Pedir número de socio del tutor
-                numSocioTutor = cPeticiones.pedirString("Introduce el número de socio del tutor: ");
-                // Comprobar si el socio tutor existe
-                if (!cDatos.checkExistenciaObjeto(3, numSocioTutor)) {
-                    txtMostrarMensaje("El socio tutor no existe. Introduce un número de socio válido.");
-                }
-                else {
-                    break;
-                }
-            } while (true);
-            // Pedir número de socio del tutor
             do{
                 // Pedir número de socio del tutor
                 numSocioTutor = cPeticiones.pedirString("Introduce el número de socio del tutor: ");

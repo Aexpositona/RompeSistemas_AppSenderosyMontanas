@@ -172,7 +172,7 @@ public class Datos {
                     // Obtener la excursión en la posición i
                     Excursion excursion = (Excursion) excursiones.get(i);
                     // Si el código de la excursión es igual al string
-                    if (excursion.getCodigo().contentEquals(string)) {
+                    if (excursion.getCodigo().equalsIgnoreCase(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -193,7 +193,7 @@ public class Datos {
                     // Obtener la inscripción en la posición i
                     Inscripcion inscripcion = (Inscripcion) inscripciones.get(i);
                     // Si el número de la inscripción es igual al string
-                    if (inscripcion.getNumero().equals(string)) {
+                    if (inscripcion.getNumero().equalsIgnoreCase(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -214,7 +214,7 @@ public class Datos {
                     // Obtener el socio en la posición i
                     Socio socio = (Socio) socios.get(i);
                     // Si el nombre del socio es igual al string
-                    if (socio.getNumero().equals(string)) {
+                    if (socio.getNumero().equalsIgnoreCase(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -234,7 +234,7 @@ public class Datos {
                     // Obtener la federación en la posición i
                     Federacion federacion = (Federacion) federaciones.get(i);
                     // Si el código de la federación es igual al string
-                    if (federacion.getCodigo().equals(string)) {
+                    if (federacion.getCodigo().equalsIgnoreCase(string)) {
                         // Devolver la posición i
                         return i;
                     }
@@ -434,7 +434,7 @@ public class Datos {
             else if (tipoObjeto == 4)
                 result.append("-- Federación ").append(list.indexOf(o) + 1).append(" --\n");
             // Añadir objeto a la lista
-            result.append("-- ").append(o.toString()).append("\n");
+            result.append(o.toString()).append("\n");
         }
         // Devolver la lista de objetos en formato String
         return result.toString();
@@ -468,7 +468,7 @@ public class Datos {
                     // Obtener la excursión
                     Excursion excursion = (Excursion) o;
                     // Si el código de la excursión es igual al código
-                    if (excursion.getCodigo().equals(codigo)) {
+                    if (excursion.getCodigo().equalsIgnoreCase(codigo)) {
                         // Añadir la excursión a la lista de objetos
                         list.add(excursion);
                     }
@@ -489,7 +489,7 @@ public class Datos {
                     // Obtener la inscripción
                     Inscripcion inscripcion = (Inscripcion) o;
                     // Si el número de la inscripción es igual al código
-                    if (inscripcion.getNumero().equals(codigo)) {
+                    if (inscripcion.getNumero().equalsIgnoreCase(codigo)) {
                         // Añadir la inscripción a la lista de objetos
                         list.add(inscripcion);
                     }
@@ -510,7 +510,7 @@ public class Datos {
                     // Obtener el socio
                     Socio socio = (Socio) o;
                     // Si el número del socio es igual al código
-                    if (socio.getNumero().equals(codigo)) {
+                    if (socio.getNumero().equalsIgnoreCase(codigo)) {
                         // Añadir el socio a la lista de objetos
                         list.add(socio);
                     }
@@ -530,7 +530,7 @@ public class Datos {
                     // Obtener la federación
                     Federacion federacion = (Federacion) o;
                     // Si el código de la federación es igual al código
-                    if (federacion.getCodigo().equals(codigo)) {
+                    if (federacion.getCodigo().equalsIgnoreCase(codigo)) {
                         // Añadir la federación a la lista de objetos
                         list.add(federacion);
                     }
@@ -692,12 +692,16 @@ public class Datos {
         if ((Integer.parseInt(codigo.substring(3)) + 1 < 10)){
             return codigo.substring(0, 3) + "000" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
         }
-        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 100))
+        // Si el código es menor que 100
+        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 100)){
             return codigo.substring(0, 3) + "00" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
-        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 1000))
+        }
+        else if ((Integer.parseInt(codigo.substring(3)) + 1 < 1000)){
             return codigo.substring(0, 3) + "0" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
-        else
+        }
+        else{
             return codigo.substring(0, 3) + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+        }
     }
 
     public String getUltimoCodigo(int tipoObjeto) {

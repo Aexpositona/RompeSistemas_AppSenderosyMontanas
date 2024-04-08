@@ -137,8 +137,8 @@ public class ControlInscripciones {
      * @param inscripcion Inscripción a eliminar
      * @param tipoObjeto Tipo de objeto a eliminar
      */
-    public void removeInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.removeObjeto(tipoObjeto, inscripcion);
+    public void removeInscripcion(Inscripcion inscripcion) {
+        datos.removeObjeto(2, inscripcion);
     }
 
     /**

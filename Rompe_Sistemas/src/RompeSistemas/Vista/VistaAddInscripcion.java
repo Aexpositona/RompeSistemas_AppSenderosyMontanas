@@ -104,24 +104,29 @@ public class VistaAddInscripcion {
             txtMostrarMensaje("\n-- Seleccionando socio --\n");
             // Pedimos los datos de la inscripción
             idSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
+            // Si el id introducido no es válido, mostramos mensaje de error
             if (!cDatos.checkExistenciaObjeto(3, idSocio)) {
                 txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
             } 
+            // Si el id introducido es válido, creamos el socio y salimos del bucle
             else {
                 socio = (Socio) datos.getObjeto(3, datos.buscarObjeto(3, idSocio));
                 break;
             }
         } 
         while (true);
+        // Hasta que no se introduzca un id de excursión válido, no se sale del bucle
         do {
             // Mostramos mensaje de seleccionar excursión
             txtMostrarMensaje("\n-- Seleccionando excursión --\n");
             // Pedimos los datos de la inscripción
             cInscripciones.listExcursiones();
             idExcursion = cPeticiones.pedirString("Introduzca el código de la excursión: ");
+            // Si el id introducido no es válido, mostramos mensaje de error
             if (!cDatos.checkExistenciaObjeto(1, idExcursion)) {
                 txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
-            } 
+            }
+            // Si el id introducido es válido, creamos la excursión y salimos del bucle 
             else {
                 // Si el id es válido registramos la inscripción
                 excursion = (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, idExcursion));
@@ -129,12 +134,12 @@ public class VistaAddInscripcion {
             }
         }
         while (true);
-
         // Creamos y añadimos la inscripción
         cInscripciones.addInscripcion(new Inscripcion(datos.getSiguienteCodigo(2), socio, excursion));
         txtMostrarMensaje("Inscripción añadida correctamente.\n\n");
     }
 
+    // Método para añadir un botón que nos permite volver al menú de inscripciones
     public void buttonAtras() {
         txtMostrarMensaje("Volviendo al menú inscripciones...\n\n");
     }
@@ -149,9 +154,9 @@ public class VistaAddInscripcion {
     }
 
     public void show() {
-
+        // Variables internas
         boolean running = true;
-
+        // Mientras se ejecute la vista
         while (running) {
             // Mostramos el menú
             txtMostrarMensaje("************ MENÚ AÑADIR INSCRIPCIÓN ************\n");
@@ -166,7 +171,7 @@ public class VistaAddInscripcion {
                     buttonAtras();
                     running = false;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
             }
         }
