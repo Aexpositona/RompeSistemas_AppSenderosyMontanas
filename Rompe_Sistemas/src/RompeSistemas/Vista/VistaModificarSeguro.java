@@ -102,7 +102,9 @@ public class VistaModificarSeguro {
                 } 
                 else {
                     txtMostrarMensaje("El socio no es un usuario Estandar. No se puede modificar el seguro.\n");
-                }       
+                }
+            }else{
+                txtMostrarMensaje("El número de socio introducido no es válido o no existe.\n");
             }
         }
         while (!valido);

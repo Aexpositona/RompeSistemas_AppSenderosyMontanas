@@ -190,7 +190,6 @@ public class ControlSocios {
     /**
      * Método para eliminar un socio.
      *
-     * @param tipoObjeto  Tipo de objeto.
      * @param numeroSocio Número de socio.
      */
     public void removeSocio(String numeroSocio) {
@@ -235,6 +234,42 @@ public class ControlSocios {
      * @param tipoSocio  Tipo de socio.
      */
     public String listTipoSocios(int tipoObjeto, int tipoSocio) {
+        // Según el tipo de socio, mostramos un mensaje
+        ArrayList<Socio> listaSocios = new ArrayList<>();
+        vListarSocios.txtMostrarMensaje("\n");
+        switch (tipoSocio) {
+            case 1:
+                System.out.println("Listado de socios estándar:");
+                break;
+            case 2:
+                System.out.println("Listado de socios federados:");
+                break;
+            case 3:
+                System.out.println("Listado de socios infantiles:");
+                break;
+            default:
+                System.out.println("Tipo de socio no válido.");
+                break;
+        }
+        // Recorremos la lista de objetos
+        for (Object objeto : datos.getArrayList(tipoObjeto)) {
+            // Si el objeto es un socio del tipo que queremos listar
+            if (objeto instanceof Socio) {
+                if (objeto instanceof Estandar && tipoSocio == 1 || objeto instanceof Federado && tipoSocio == 2 || objeto instanceof Infantil && tipoSocio == 3) {
+                    listaSocios.add((Socio) objeto);
+                }
+            }
+        }
+        // Formatemaos la lista de socios
+        StringBuilder listaSociosString = new StringBuilder();
+        for (Socio socio : listaSocios) {
+            listaSociosString.append(socio.toString()).append("\n");
+        }
+        // Devolvemos la lista de socios
+        return listaSociosString.toString();
+    }
+
+    public String listTipoSocios1(int tipoObjeto, int tipoSocio) {
         // Según el tipo de socio, mostramos un mensaje
         ArrayList<Socio> listaSocios = new ArrayList<>();
         vListarSocios.txtMostrarMensaje("\n");

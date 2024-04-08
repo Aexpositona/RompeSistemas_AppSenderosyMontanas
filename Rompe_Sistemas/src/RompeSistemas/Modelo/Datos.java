@@ -396,7 +396,11 @@ public class Datos {
                     // Obtener el socio
                     Socio socio = (Socio) o;
                     // Añadir el socio a la lista de objetos
-                    list.add(socio);
+                    if (socio instanceof Estandar){
+                        Estandar estandar = (Estandar) socio;
+                        list.add(estandar);
+                    }
+
                 }
             }
         }
@@ -777,7 +781,7 @@ public class Datos {
      *                  2 - Inscripción
      *                  3 - Socio
      *                  4 - Federación
-     * @param codigo     Código
+     * @param parametro     Parámetro
      *                  [1 - Excursión
      *                      1 - Código
      *                      2 - Descrición
