@@ -19,7 +19,7 @@ public class ControlMenuPrincipal {
     /**
      * Constructor de ControlMenuPrincipal.
      *
-     * @param appSenderosMontanas
+     * @param app APPSenderosMontanas
      */
     public ControlMenuPrincipal(APPSenderosMontanas app) {
         this.cPeticiones = app.getControlPeticiones();
