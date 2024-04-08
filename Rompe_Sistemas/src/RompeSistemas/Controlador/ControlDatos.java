@@ -197,6 +197,18 @@ public class ControlDatos {
         }
         return false;
     }
+
+    // Método para comprobar si un socio está asociado a una un socio infantil
+    public boolean isSocioInInfantil(String numeroSocio) {
+        for (Object obj : datos.getArrayList(3)) {
+            if (obj instanceof Infantil infantil) {
+                if (infantil.getNumSocioTutor().equalsIgnoreCase(numeroSocio)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
     public boolean checkExistenciaNIF(String nif){
         // Recorremos todos los socios

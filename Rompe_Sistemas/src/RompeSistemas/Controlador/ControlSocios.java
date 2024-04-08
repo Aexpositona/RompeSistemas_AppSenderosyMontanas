@@ -193,20 +193,28 @@ public class ControlSocios {
      * @param tipoObjeto  Tipo de objeto.
      * @param numeroSocio Número de socio.
      */
-    public void removeSocio(int tipoObjeto, String numeroSocio) {
-        // Obtenemos un array de socios de la lista de socios
-        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
+    public void removeSocio(String numeroSocio) {
+        int tipoObjeto = 3;
+        List<Object> socios = datos.getArrayList(tipoObjeto);
         // Recorremos el array de socios
-        for (Socio socio : socios) {
+        for (Object socio : socios) {
             // Si el número de socio existe y no está inscrito en alguna excursión
             if ((!cDatos.isSocioInInscripcion(numeroSocio)) && cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio)) {
                 datos.removeObjeto(tipoObjeto, socio);
-                System.out.println("Socio eliminado con éxito.");
+                vSocios.txtMostrarMensaje("Socio eliminado con éxito.\n\n");
                 break;
-            } else if (cDatos.isSocioInInscripcion(numeroSocio)) {
-                System.out.println("El socio está asociado a una inscripción. No se puede eliminar.");
-            } else {
-                System.out.println("El socio no existe.");
+            } 
+            else if (cDatos.isSocioInInscripcion(numeroSocio)) {
+                vSocios.txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.\n\n");
+                break;
+            } 
+            else if (cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio) && !cDatos.isSocioInInfantil(numeroSocio)) {
+                vSocios.txtMostrarMensaje("El socio está asociado a un usuario infantil. No se puede eliminar.\n\n");
+                break;
+            }
+            else {
+                vSocios.txtMostrarMensaje("El socio no existe.\n\n");
+                break;
             }
         }
     }
@@ -216,8 +224,8 @@ public class ControlSocios {
      * Método listar todos los socios.
      */
     // Métodos para listar socios
-    public void listSocios(int tipoObjeto) {
-        vListarSocios.txtMostrarMensaje(datos.listToStringObjetos(tipoObjeto));
+    public void listSocios() {
+        vListarSocios.txtMostrarMensaje(datos.listToStringObjetos(3));
     }
 
     /**
@@ -313,6 +321,15 @@ public class ControlSocios {
                 }
             }
         }
+    }
+
+    /**
+     * Método para listar los seguros de los socios.
+     */
+    public void listSeguros() {
+        // Obtenemos la lista de socios
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- " + Seguro.BASICO.toString() + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- " + Seguro.COMPLETO.toString() + "\n");
     }
 }
 

@@ -92,6 +92,7 @@ public class Estandar extends Socio {
      */
     @Override
     public String toString() {
+        super.setTipo(tipo);
         return super.toString() +
                 "Seguro: " + seguro + "\n";
     }

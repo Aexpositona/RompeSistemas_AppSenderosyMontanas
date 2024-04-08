@@ -26,6 +26,10 @@ public class VistaAddSocio {
         this.datos = new Datos(cSocios.getDatos());
     }
 
+    /**
+     * Constructor de copia de la clase VistaAddSocio
+     * @param vistaAddSocio VistaAddSocio a copiar
+     */
     public VistaAddSocio(VistaAddSocio vistaAddSocio) {
         this.cSocios = vistaAddSocio.getControlSocios();
         this.cPeticiones = vistaAddSocio.getControlPeticiones();
@@ -33,6 +37,9 @@ public class VistaAddSocio {
         this.datos = vistaAddSocio.getDatos();
     }
 
+    /**
+     * Constructor vacío de la clase VistaAddSocio
+     */
     public VistaAddSocio() {
         this.cSocios = null;
         this.cPeticiones = null;
@@ -40,9 +47,7 @@ public class VistaAddSocio {
         this.datos = null;
     }
 
-
     //Getters
-
     public ControlSocios getControlSocios() {
         return cSocios;
     }
@@ -197,6 +202,7 @@ public class VistaAddSocio {
         // Informamos al usuario de que volvemos al menú de socios
         txtMostrarMensaje("Volviendo al menú de socios...\n\n");
     }
+
     // Comprobar último número de socio y devolver el siguiente
     private String obtenerNumeroSocio() {
         // Si no hay socios, devolver 1
@@ -226,7 +232,9 @@ public class VistaAddSocio {
      * Método para mostrar la vista de añadir socio
      */
     public void show() throws ParseException {
+        // Variables internas
         boolean running = true;
+        // Mientras se ejecute la vista
         while (running) {
             // Mostramos menú de añadir socio
             txtMostrarMensaje("************ MENú AÑADIR SOCIO ************\n");
@@ -243,6 +251,7 @@ public class VistaAddSocio {
                 default:
                     txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
+                    
             }
         }
     }

@@ -71,7 +71,7 @@ public abstract class Socio {
      *        3 - Socio Infantil
      */
     public int getTipo() {
-        return 0;
+        return tipo;
     }
 
     /**
@@ -106,6 +106,7 @@ public abstract class Socio {
      *             3 - Socio Infantil
      */
     public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     /**

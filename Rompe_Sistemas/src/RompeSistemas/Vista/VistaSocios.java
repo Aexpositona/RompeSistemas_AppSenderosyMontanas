@@ -32,6 +32,10 @@ public class VistaSocios {
         this.datos = new Datos(cSocios.getDatos());
     }
 
+    /**
+     * Método constructor de copia de la clase VistaSocios
+     * @param vistaSocios VistaSocios a copiar
+     */
     public VistaSocios(VistaSocios vistaSocios) {
         this.cSocios = vistaSocios.getControlSocios();
         this.vModificarSeguro = vistaSocios.getVistaModificarSeguro();
@@ -42,6 +46,9 @@ public class VistaSocios {
         this.datos = vistaSocios.getDatos();
     }
 
+    /**
+     * Método constructor vacío de la clase VistaSocios
+     */
     public VistaSocios() {
         this.cSocios = null;
         this.vModificarSeguro = null;
@@ -116,25 +123,23 @@ public class VistaSocios {
      * Método para añadir un botón que nos permite añadir un socio
      */
     public void buttonAddSocio() throws ParseException {
-        System.out.println("Navegando a la vista de añadir socio");
+        System.out.println("Navegando a la vista de añadir socio...\n\n");
         vAddSocio.show();
     }
 
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
-
     public void buttonRemoveSocio() {
+        // Variables internas
+        // Listar socios
+        txtMostrarMensaje("\n");
+        cSocios.listSocios();
+        txtMostrarMensaje("\n");
+        // Solicitar número de socio a eliminar
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio que quieres eliminar: ");
-        try {
-            if (!cDatos.checkExistenciaObjeto(2, numeroSocio)) {
-                cSocios.removeSocio(3, numeroSocio);
-            } else {
-                txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.");
-            }
-        } catch (NumberFormatException e) {
-            txtMostrarMensaje("El número de socio debe ser un número entero. Inténtelo de nuevo.");
-        }
+        // Llamamos al método de ControlSocios para eliminar el socio con el número introducido
+        cSocios.removeSocio(numeroSocio);
     }
 
     /**

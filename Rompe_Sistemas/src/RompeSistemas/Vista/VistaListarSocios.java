@@ -56,7 +56,7 @@ public class VistaListarSocios {
      * Método para añadir un botón que nos permite listar los socios
      */
     private void buttonListSocios(){
-        cSocios.listSocios(3);
+        cSocios.listSocios();
     }
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
