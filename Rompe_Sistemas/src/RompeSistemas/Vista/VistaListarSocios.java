@@ -44,15 +44,44 @@ public class VistaListarSocios {
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
-    
+
+    /**
+     * Método para añadir un botón que nos permite listar los tipos de socios
+     */
+    private void buttonListTipoSocio(){
+        txtMostrarMensaje(cSocios.listTipoSocios(3, cPeticiones.pedirEntero("\nIntroduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Selecciona una opción (1,2 o 3): ", 1, 3)));
+    }
+
+    /**
+     * Método para añadir un botón que nos permite listar los socios
+     */
+    private void buttonListSocios(){
+        cSocios.listSocios();
+    }
+    /**
+     * Método para añadir un botón que nos permite ir hacia atrás
+     */
+    private void buttonAtras() throws ParseException {
+        txtMostrarMensaje("Volviendo a la vista anterior...\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje){
+        System.out.print(mensaje);
+    }
+
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Listar tipos de socios");
-            System.out.println("2. Listar socios");
-            System.out.println("0. Atrás");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2 o 0)", 0, 2)) {
+            txtMostrarMensaje("************ MENú LISTAR SOCIOS ************\n");
+            txtMostrarMensaje("1. Listar tipos de socios\n");
+            txtMostrarMensaje("2. Listar socios\n");
+            txtMostrarMensaje("0. Atrás\n");
+            switch (cPeticiones.pedirEntero("Seleccione una opción(1, 2 o 0): ", 0, 2)) {
                 case 1:
                     buttonListTipoSocio();
                     break;
@@ -64,31 +93,12 @@ public class VistaListarSocios {
                     running = false;
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }
     }
 
-    /**
-     * Método para añadir un botón que nos permite listar los tipos de socios
-     */
-    private void buttonListTipoSocio(){
-        cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar: 1- Estandar, 2- Federado, 3- Infantil: ", 1, 3));
-    }
 
-    /**
-     * Método para añadir un botón que nos permite listar los socios
-     */
-    private void buttonListSocios(){
-        cSocios.listSocios(3);
-    }
-    /**
-     * Método para añadir un botón que nos permite ir hacia atrás
-     */
-    private void buttonAtras() throws ParseException {
-        System.out.println("Volviendo a la vista anterior");
-        return;
-    }
 
 }

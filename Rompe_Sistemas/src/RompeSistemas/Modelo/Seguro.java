@@ -95,11 +95,14 @@ public enum Seguro {
     //Método toString
     @Override
     public String toString() {
-        String mensaje = "";
+        int i = 0;
         for (Seguro seguro : Seguro.values()) {
-           mensaje = seguro.id + " - " + seguro.nombre + " - " + seguro.precio + "€";
-        };
-        return mensaje;
+            if (seguro.id == id) {
+                i++;
+                return i + " - " + seguro.nombre + " - " + seguro.precio + " Euros";
+            }
+        }
+        return null;
     }
 
 }

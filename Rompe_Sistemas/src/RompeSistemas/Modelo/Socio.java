@@ -1,11 +1,14 @@
 package RompeSistemas.Modelo;
 
+/**
+ * Clase Socio que define los atributos y métodos de un socio
+ */
 public abstract class Socio {
 
     //Atributos
-    private final int tipo;
+    private int tipo;
     private String nombre;
-    private int numero;
+    private String numero;
     public String nif;
     //Constructores
 
@@ -15,7 +18,7 @@ public abstract class Socio {
      * @param numero Es el número del socio
      * @param nif Es el NIF del socio
      */
-    public Socio(String nombre, int numero, String nif) {
+    public Socio(String nombre, String numero, String nif) {
         this.tipo = 0;
         this.nombre = nombre;
         this.numero = numero;
@@ -39,7 +42,7 @@ public abstract class Socio {
     public Socio() {
         this.tipo = 0;
         this.nombre = "";
-        this.numero = 0;
+        this.numero = "";
         this.nif = "";
     }
 
@@ -56,7 +59,7 @@ public abstract class Socio {
      * Método get() de la clase Socio que nos devuelve el número del socio
      * @return
      */
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
@@ -68,7 +71,7 @@ public abstract class Socio {
      *        3 - Socio Infantil
      */
     public int getTipo() {
-        return 0;
+        return tipo;
     }
 
     /**
@@ -91,7 +94,7 @@ public abstract class Socio {
      * Método set() de la clase Socio que nos permite definir el número del socio
      * @param numero Es el número del socio
      */
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -103,8 +106,13 @@ public abstract class Socio {
      *             3 - Socio Infantil
      */
     public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
+    /**
+     * Método set() de la clase Socio que nos permite definir el NIF del socio
+     * @param nif Es el NIF del socio
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
@@ -113,7 +121,6 @@ public abstract class Socio {
      * Método toString() de la clase Socio que nos devuelve un String con los datos del socio
      * @return Un String con los datos del socio, como el nombre, el domicilio, el NIF y el email
      */
-    @Override
     public String toString() {
         String tipoSocio = "";
         if (tipo == 1) {
@@ -125,9 +132,9 @@ public abstract class Socio {
         else if (tipo == 3) {
             tipoSocio = "Infantil";
         }
-        return " Nombre: " + nombre +
+        return "Nombre: " + nombre +
                 "\nNumero de socio: " + numero +
                 "\nNIF: " + nif +
-                "\nTipo: " + tipoSocio + "\n ";
+                "\nTipo: " + tipoSocio + "\n";
     }
 }

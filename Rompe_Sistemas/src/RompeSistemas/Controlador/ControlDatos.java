@@ -94,7 +94,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El número de la inscripción";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = 7;
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
@@ -107,7 +107,7 @@ public class ControlDatos {
             // Mensaje de error
             mensaje = "El código de la federación";
             // Cantidad de caracteres
-            cantidad = 5;
+            cantidad = 7;
         }
         // Si el objeto introducido no reune las condiciones de longitud
         if (codigo.length() != cantidad) {
@@ -136,62 +136,86 @@ public class ControlDatos {
         // Si el objeto es una excursión
         if (tipoObjeto == 1) {
             // Si la excursión existe
-            if (datos.getArrayList(1).contains(codigo)) {
-                // Informamos al usuario de que la excursión existe
-                System.out.println("La excursión ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(1)) {
+                if (obj instanceof Excursion excursion) {
+                    if (excursion.getCodigo().equalsIgnoreCase(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         // Si el objeto es una inscripción
         else if (tipoObjeto == 2) {
             // Si la inscripción existe
-            if (datos.getArrayList(2).contains(codigo)) {
-                // Informamos al usuario de que la inscripción existe
-                System.out.println("La inscripción ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(2)) {
+                if (obj instanceof Inscripcion inscripcion) {
+                    if (inscripcion.getNumero().equalsIgnoreCase(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         // Si el objeto es un socio
         else if (tipoObjeto == 3) {
             // Si el socio existe
-            if (datos.getArrayList(3).contains(codigo)) {
-                // Informamos al usuario de que el socio existe
-                System.out.println("El socio ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(3)) {
+                if (obj instanceof Socio socio) {
+                    if (socio.getNumero().equalsIgnoreCase(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
         }
         else if (tipoObjeto == 4) {
             // Si la federación existe
-            if (datos.getArrayList(4).contains(codigo)) {
-                // Informamos al usuario de que la federación existe
-                System.out.println("La federación ya existe.");
-                // Registramos resultado como verdadero
-                resultado = true;
+            for (Object obj : datos.getArrayList(4)) {
+                if (obj instanceof Federacion federacion) {
+                    if (federacion.getCodigo().equalsIgnoreCase(codigo)) {
+                        // Registramos resultado como verdadero
+                        resultado = true;
+                    }
+                }
             }
+        }
+        else {
+            resultado = false;
         }
         // Devolvemos el resultado
         return resultado;
     }
 
-    public boolean isSocioInInscripcion(int numeroSocio) {
+    public boolean isSocioInInscripcion(String numeroSocio) {
         for (Object obj : datos.getArrayList(2)) {
             if (obj instanceof Inscripcion inscripcion) {
-                if (inscripcion.getSocio().getNumero() == numeroSocio) {
+                if (inscripcion.getSocio().getNumero().equalsIgnoreCase(numeroSocio)) {
                     return true;
                 }
             }
         }
         return false;
     }
+
+    // Método para comprobar si un socio está asociado a una un socio infantil
+    public boolean isSocioInInfantil(String numeroSocio) {
+        for (Object obj : datos.getArrayList(3)) {
+            if (obj instanceof Infantil infantil) {
+                if (infantil.getNumSocioTutor().equalsIgnoreCase(numeroSocio)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     public boolean checkExistenciaNIF(String nif){
         // Recorremos todos los socios
         for (Object obj : datos.getArrayList(3)) {
             if (obj instanceof Socio socio) {
                 // Si encontramos un socio con el mismo NIF, devolvemos true
-                if (socio.getNif().equals(nif)) {
+                if (socio.getNif().equalsIgnoreCase(nif)) {
                     return true;
                 }
             }

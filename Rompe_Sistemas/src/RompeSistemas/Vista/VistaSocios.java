@@ -5,14 +5,13 @@ import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
 
-import java.util.Scanner;
 import java.text.ParseException;
 
 public class VistaSocios {
 
     private VistaModificarSeguro vModificarSeguro;
     private VistaListarSocios vListarSocios;
-    private VistaAddSocio vAñadirSocio;
+    private VistaAddSocio vAddSocio;
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
@@ -24,30 +23,37 @@ public class VistaSocios {
      * @param cSocios es el controlador de socios
      */
     public VistaSocios(ControlSocios cSocios) {
-        this.cSocios = cSocios;
+        this.cSocios = new ControlSocios(cSocios);
         this.vModificarSeguro = cSocios.getVistaModificarSeguro();
-        this.vListarSocios = cSocios.getVistaListarSocios();
-        this.vAñadirSocio = cSocios.getVistaAddSocio();
-        this.cPeticiones = cSocios.getControlPeticiones();
-        this.cDatos = cSocios.getControlDatos();
-        this.datos = cSocios.getDatos();
+        this.vListarSocios =cSocios.getVistaListarSocios();
+        this.vAddSocio = cSocios.getVistaAddSocio();
+        this.cPeticiones = cSocios.getControlPeticiones() ;
+        this.cDatos = new ControlDatos(cSocios.getControlDatos());
+        this.datos = new Datos(cSocios.getDatos());
     }
 
+    /**
+     * Método constructor de copia de la clase VistaSocios
+     * @param vistaSocios VistaSocios a copiar
+     */
     public VistaSocios(VistaSocios vistaSocios) {
         this.cSocios = vistaSocios.getControlSocios();
         this.vModificarSeguro = vistaSocios.getVistaModificarSeguro();
         this.vListarSocios = vistaSocios.getVistaListarSocios();
-        this.vAñadirSocio = vistaSocios.getVistaAddSocio();
+        this.vAddSocio = vistaSocios.getVistaAddSocio();
         this.cPeticiones = vistaSocios.getControlPeticiones();
         this.cDatos = vistaSocios.getControlDatos();
         this.datos = vistaSocios.getDatos();
     }
 
+    /**
+     * Método constructor vacío de la clase VistaSocios
+     */
     public VistaSocios() {
         this.cSocios = null;
         this.vModificarSeguro = null;
         this.vListarSocios = null;
-        this.vAñadirSocio = null;
+        this.vAddSocio = null;
         this.cPeticiones = null;
         this.cDatos = null;
         this.datos = null;
@@ -68,7 +74,7 @@ public class VistaSocios {
     }
 
     public VistaAddSocio getVistaAddSocio() {
-        return vAñadirSocio;
+        return vAddSocio;
     }
 
     public ControlPeticiones getControlPeticiones() {
@@ -97,8 +103,8 @@ public class VistaSocios {
         this.vListarSocios = vListarSocios;
     }
 
-    public void setVistaAddSocio(VistaAddSocio vAñadirSocio) {
-        this.vAñadirSocio = vAñadirSocio;
+    public void setVistaAddSocio(VistaAddSocio vAddSocio) {
+        this.vAddSocio = vAddSocio;
     }
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
@@ -114,18 +120,81 @@ public class VistaSocios {
     }
 
     /**
+     * Método para añadir un botón que nos permite añadir un socio
+     */
+    public void buttonAddSocio() throws ParseException {
+        System.out.println("Navegando a la vista de añadir socio...\n\n");
+        vAddSocio.show();
+    }
+
+    /**
+     * Método para añadir un botón que nos permite modificar un seguro
+     */
+    public void buttonRemoveSocio() {
+        // Variables internas
+        // Listar socios
+        txtMostrarMensaje("\n");
+        cSocios.listSocios();
+        txtMostrarMensaje("\n");
+        // Solicitar número de socio a eliminar
+        String numeroSocio = cPeticiones.pedirString("Introduce el número de socio que quieres eliminar: ");
+        // Llamamos al método de ControlSocios para eliminar el socio con el número introducido
+        cSocios.removeSocio(numeroSocio);
+    }
+
+    /**
+     * Método para añadir un botón que nos permite modificar un seguro
+     */
+    public void buttonModTipoSeguro() throws ParseException {
+        txtMostrarMensaje("Navegando a la vista de modificar seguro...\n\n");
+        vModificarSeguro.show();
+    }
+
+    /**
+     * Método para añadir un botón que nos permite listar los socios
+     */
+    public void ButtonListSocios() throws ParseException {
+        txtMostrarMensaje("Navegando a la vista de listar socios...\n\n");
+        vListarSocios.show();
+    }
+
+    /**
+     * Método para añadir un botón que nos permite mostrar la información de los socios
+     */
+    public void buttonShowFacturaMensualSocios(){
+        txtMostrarMensaje("-- Mostrando la factura mensual de los socios --\n\n");
+        cSocios.showFacturaMensualSocios();
+    }
+
+    /**
+     * Método para añadir un botón que nos permite ir hacia atrás
+     */
+    public void buttonAtras() throws ParseException {
+        txtMostrarMensaje("Volviendo a la vista anterior\n\n");
+    }
+
+    /**
+     * Método para mostrar un mensaje.
+     *
+     * @param mensaje Mensaje a mostrar.
+     */
+    public void txtMostrarMensaje(String mensaje){
+        System.out.print(mensaje);
+    }
+
+    /**
      * Método para mostrar la vista de socios
      */
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            System.out.println("Seleccione una opción: ");
-            System.out.println("1. Añadir socio");
-            System.out.println("2. Eliminar socio");
-            System.out.println("3. Modificar tipo de seguro");
-            System.out.println("4. Listar socios");
-            System.out.println("5. Mostrar factura mensual de los socios");
-            System.out.println("0. Atrás");
+            txtMostrarMensaje("************ MENú SOCIOS ************\n");
+            txtMostrarMensaje("1. Añadir socio\n");
+            txtMostrarMensaje("2. Eliminar socio\n");
+            txtMostrarMensaje("3. Modificar tipo de seguro\n");
+            txtMostrarMensaje("4. Listar socios\n");
+            txtMostrarMensaje("5. Mostrar factura mensual de los socios\n");
+            txtMostrarMensaje("0. Atrás\n");
             switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0): ", 0, 5)) {
                 case 1:
                     buttonAddSocio();
@@ -147,71 +216,9 @@ public class VistaSocios {
                     running = false;
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }
     }
-    /**
-     * Método para añadir un botón que nos permite añadir un socio
-     */
-    public void buttonAddSocio() throws ParseException {
-        System.out.println("Navegando a la vista de añadir socio");
-        vAñadirSocio.show();
-    }
-
-    /**
-     * Método para añadir un botón que nos permite modificar un seguro
-     */
-
-    public void buttonRemoveSocio() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Introduce el número de socio que quieres eliminar: ");
-        String numeroSocioStr = scanner.nextLine();
-        try {
-            int numeroSocio = Integer.parseInt(numeroSocioStr);
-            if (!cDatos.isSocioInInscripcion(numeroSocio)) {
-                cSocios.removeSocio(3, numeroSocio);
-            } else {
-                System.out.println("El socio está asociado a una inscripción. No se puede eliminar.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("El número de socio debe ser un número entero. Inténtelo de nuevo.");
-        }
-    }
-
-    /**
-     * Método para añadir un botón que nos permite modificar un seguro
-     */
-    public void buttonModTipoSeguro() throws ParseException {
-        System.out.println("Navegando a la vista de modificar seguro");
-        vModificarSeguro.show();
-    }
-
-    /**
-     * Método para añadir un botón que nos permite listar los socios
-     */
-    public void ButtonListSocios() throws ParseException {
-        System.out.println("Navegando a la vista de listar socios");
-        vListarSocios.show();
-    }
-
-
-
-    /**
-     * Método para añadir un botón que nos permite mostrar la información de los socios
-     */
-    public void buttonShowFacturaMensualSocios(){
-        System.out.println("Mostrando la factura mensual de los socios");
-        cSocios.showFacturaMensualSocios();
-    }
-
-    /**
-     * Método para añadir un botón que nos permite ir hacia atrás
-     */
-    public void buttonAtras() throws ParseException {
-        System.out.println("Volviendo a la vista anterior");
-        return;
-    }
-
 }

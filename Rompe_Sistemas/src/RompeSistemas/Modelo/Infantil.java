@@ -2,7 +2,7 @@ package RompeSistemas.Modelo;
 
 public class Infantil extends Socio {
 
-    private final int numSocioTutor;
+    private String numSocioTutor;
     private static final int tipo = 3;
 
     //Métodos constructores
@@ -12,7 +12,7 @@ public class Infantil extends Socio {
      * @param numero es el número del socio
      * @param numSocioTutor es el número de socio del tutor
      */
-    public Infantil(String nombre, int numero,String nif, int numSocioTutor){
+    public Infantil(String nombre, String numero,String nif, String numSocioTutor){
         super(nombre,numero,nif);
         this.numSocioTutor = numSocioTutor;
         super.setTipo(tipo);
@@ -33,11 +33,20 @@ public class Infantil extends Socio {
      */
     public Infantil(){
         super();
-        this.numSocioTutor = 0;
+        this.numSocioTutor = "";
         super.setTipo(tipo);
     }
 
-    @Override
+    //Métodos Getters
+    /**
+     * Método que nos devuelve el número de socio del tutor
+     * @return El número de socio del tutor
+     */
+
+    public String getNumSocioTutor() {
+        return numSocioTutor;
+    }
+
     public int getTipo() {
         return tipo;
     }
@@ -46,12 +55,26 @@ public class Infantil extends Socio {
     //Métodos Setters
 
     /**
+     * Método que nos permite modificar el número de socio del tutor
+     * @param numSocioTutor es el nuevo número de socio del tutor
+     */
+
+    public void setNumSocioTutor(String numSocioTutor) {
+        this.numSocioTutor = numSocioTutor;
+    }
+
+    public void setTipo(int tipo) {
+        super.setTipo(tipo);
+    }
+
+    /**
      * Método toString() de la clase Infantil que nos devuelve un String los datos del socio
      * @return El nombre, el número del socio, el tipò de socio y el número de socio del tutor
      */
     @Override
     public String toString(){
+        super.setTipo(tipo);
         return super.toString() +
-                "\nNumero de socio del tutor: " + numSocioTutor + "\n";
+                "Numero de socio del tutor: " + numSocioTutor + "\n";
     }
 }

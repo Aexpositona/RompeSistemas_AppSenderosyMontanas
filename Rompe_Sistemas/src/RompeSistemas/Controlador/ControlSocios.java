@@ -25,18 +25,19 @@ public class ControlSocios {
 
     /**
      * Constructor de ControlSocios.
-     * 
+     *
      * @param app APPSenderosMontanas asociada al controlador.
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
-        this.datos = new Datos(app.getDatos());
-        this.cDatos = new ControlDatos(app.getControlDatos());
-        this.vSocios = new VistaSocios(this);
-        this.vModificarSeguro = new VistaModificarSeguro(this);
-        this.vListarSocios = new VistaListarSocios(this);
-        this.vAddSocio = new VistaAddSocio(this);
-        this.cPeticiones = new ControlPeticiones(app.getControlPeticiones());
+
+        this.vSocios = new VistaSocios();
+        this.vModificarSeguro = new VistaModificarSeguro();
+        this.vListarSocios = new VistaListarSocios();
+        this.vAddSocio = new VistaAddSocio();
+        this.datos = app.getDatos();
+        this.cDatos = app.getControlDatos();
+        this.cPeticiones = app.getControlPeticiones();
 
     }
 
@@ -54,6 +55,20 @@ public class ControlSocios {
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = cSocios.getControlDatos();
         this.datos = cSocios.getDatos();
+    }
+
+    /**
+     * Constructor de ControlSocios vacío.
+     */
+    public ControlSocios() {
+        this.app = null;
+        this.vSocios = null;
+        this.vModificarSeguro = null;
+        this.vListarSocios = null;
+        this.vAddSocio = null;
+        this.cPeticiones = null;
+        this.cDatos = null;
+        this.datos = null;
     }
 
     // Getters
@@ -125,12 +140,13 @@ public class ControlSocios {
 
     // Métodos
 
-    public void show() throws ParseException{
+    public void show() throws ParseException {
         vSocios.show();
     }
 
 
     // Métodos de la vista
+
     /**
      * Método para añadir un socio.
      *
@@ -149,70 +165,126 @@ public class ControlSocios {
         datos.modifyObjeto(3, socio);
     }
 
-    public void showVistaListarSocios() throws ParseException{
+    /**
+     * Método para mostrar la vista de modificar seguro.
+     */
+    public void showVistaListarSocios() throws ParseException {
         vListarSocios.show();
     }
-    
-    public void showVistaAddSocio() throws ParseException{
+
+    /**
+     * Método para mostrar la vista de añadir socio.
+     */
+    public void showVistaAddSocio() throws ParseException {
         vAddSocio.show();
     }
 
-    public void showVistaModificarSeguro() throws ParseException{
+    /**
+     * Método para mostrar la vista de modificar seguro.
+     */
+    public void showVistaModificarSeguro() throws ParseException {
         vModificarSeguro.show();
     }
 
-    // Métodos gestión de socios
-    public void removeSocio(int tipoObjeto, int numeroSocio) {
-        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
-        for (Socio socio : socios) {
-            if (socio.getNumero() == numeroSocio) {
+
+    /**
+     * Método para eliminar un socio.
+     *
+     * @param tipoObjeto  Tipo de objeto.
+     * @param numeroSocio Número de socio.
+     */
+    public void removeSocio(String numeroSocio) {
+        int tipoObjeto = 3;
+        List<Object> socios = datos.getArrayList(tipoObjeto);
+        // Recorremos el array de socios
+        for (Object socio : socios) {
+            // Si el número de socio existe y no está inscrito en alguna excursión
+            if ((!cDatos.isSocioInInscripcion(numeroSocio)) && cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio)) {
                 datos.removeObjeto(tipoObjeto, socio);
+                vSocios.txtMostrarMensaje("Socio eliminado con éxito.\n\n");
+                break;
+            } 
+            else if (cDatos.isSocioInInscripcion(numeroSocio)) {
+                vSocios.txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.\n\n");
+                break;
+            } 
+            else if (cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio) && !cDatos.isSocioInInfantil(numeroSocio)) {
+                vSocios.txtMostrarMensaje("El socio está asociado a un usuario infantil. No se puede eliminar.\n\n");
+                break;
+            }
+            else {
+                vSocios.txtMostrarMensaje("El socio no existe.\n\n");
                 break;
             }
         }
     }
+
+
+    /**
+     * Método listar todos los socios.
+     */
     // Métodos para listar socios
-    public void listSocios(int tipoObjeto) {
-        // Obtenemos un array de socios de la lista de socios
-        Socio[] socios = datos.getArrayList(tipoObjeto).toArray(new Socio[0]);
-        // Recorremos el array de socios y mostramos cada socio
-        for (Socio socio : socios) {
-            System.out.println(socio.toString());
-        }
+    public void listSocios() {
+        vListarSocios.txtMostrarMensaje(datos.listToStringObjetos(3));
     }
 
-    public void listTipoSocios(int tipoObjeto, int tipoSocio) {
-        // Obtenemos un array de socios de la lista de socios
-        List<Object> listaObjetos = datos.getArrayList(tipoObjeto);
-        List<Socio> listaSocios = new ArrayList<>();
-        for (Object objeto : listaObjetos) {
+    /**
+     * Método para listar los socios de un tipo concreto.
+     *
+     * @param tipoObjeto Tipo de objeto.
+     * @param tipoSocio  Tipo de socio.
+     */
+    public String listTipoSocios(int tipoObjeto, int tipoSocio) {
+        // Según el tipo de socio, mostramos un mensaje
+        ArrayList<Socio> listaSocios = new ArrayList<>();
+        vListarSocios.txtMostrarMensaje("\n");
+        switch (tipoSocio) {
+            case 1:
+                System.out.println("Listado de socios estándar:");
+                break;
+            case 2:
+                System.out.println("Listado de socios federados:");
+                break;
+            case 3:
+                System.out.println("Listado de socios infantiles:");
+                break;
+            default:
+                System.out.println("Tipo de socio no válido.");
+                break;
+        }
+        // Recorremos la lista de objetos
+        for (Object objeto : datos.getArrayList(tipoObjeto)) {
+            // Si el objeto es un socio del tipo que queremos listar
             if (objeto instanceof Socio) {
-                listaSocios.add((Socio) objeto);
+                if (objeto instanceof Estandar && tipoSocio == 1 || objeto instanceof Federado && tipoSocio == 2 || objeto instanceof Infantil && tipoSocio == 3) {
+                    listaSocios.add((Socio) objeto);
+                }
             }
         }
-        Socio[] socios = listaSocios.toArray(new Socio[0]);
-        // Recorremos el array de socios
-        for (Socio socio : socios) {
-            // Comprobamos si el tipo de socio es el mismo que el tipo de socio que queremos listar
-            if (socio.getTipo() == tipoSocio) {
-                // Mostramos el socio
-                System.out.println(socio);
-            }
+        // Formatemaos la lista de socios
+        StringBuilder listaSociosString = new StringBuilder();
+        for (Socio socio : listaSocios) {
+            listaSociosString.append(socio.toString()).append("\n");
         }
+        // Devolvemos la lista de socios
+        return listaSociosString.toString();
     }
 
-    public void showFacturaMensualSocios() {
+    /**
+     * Método para mostrar la factura mensual de los socios.
+     */
+    public void showFacturaMensualSocios () {
         // Obtenemos la fecha actual y la fecha de hace un mes
         LocalDate now = LocalDate.now(), oneMonthAgo = now.minusMonths(1);
         // Obtenemos la lista de socios y la lista de inscripciones
         List<Object> sociosList = datos.getArrayList(3), inscripcionesList = datos.getArrayList(2);
-
         // Recorremos la lista de socios
         for (Object obj : sociosList) {
             if (obj instanceof Socio socio) {
                 double total = 0.0;
                 // Recorremos la lista de inscripciones
                 for (Object objInscripcion : inscripcionesList) {
+                    // Si el objeto es una inscripción
                     if (objInscripcion instanceof Inscripcion inscripcion) {
                         // Comprobamos si el socio de la inscripción es el socio que estamos procesando
                         if (inscripcion.getSocio().equals(socio)) {
@@ -227,32 +299,47 @@ public class ControlSocios {
                     }
                 }
                 // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                System.out.println("Número de socio: " + socio.getNumero());
-                System.out.println("Nombre: " + socio.getNombre());
-                System.out.println("Total de inscripciones del último mes: " + total);
+                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero());
+                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre());
+                vSocios.txtMostrarMensaje("Total de inscripciones del último mes: " + total);
             }
         }
     }
 
-    public void modifySeguro(int tipoSeguro, String numeroSocio) {
-        // Obtenemos la lista de socios
-        List<Object> sociosList = datos.getArrayList(3);
+    /**
+     * Método para modificar el seguro de un socio.
+     *
+     * @param tipoSeguro Tipo de seguro.
+     * @param numeroSocio Número de socio.
+     */
+    public void modifySeguro (int tipoSeguro, String numeroSocio){
+
         // Recorremos la lista de socios
-        for (Object obj : sociosList) {
-            if (obj instanceof Estandar socio) {
-                // Comprobamos si el número de socio del socio es el mismo que el número de socio que queremos modificar
-                if (socio.getNumero() == Integer.parseInt(numeroSocio)) {
-                    // Modificamos el seguro del socio
-                    socio.setSeguro(Seguro.values()[tipoSeguro - 1]);
-                    // Informamos al usuario
-                    System.out.println("Seguro modificado con éxito.");
-                    break;
-                }
-                else {
-                    System.out.println("El número de socio introducido no es de un socio estándar.");
+        for (Object obj : datos.getArrayList(3)) {
+            // Si el objeto es un socio
+            if (obj instanceof Socio socio) {
+                // Si el número de socio coincide con el número de socio del socio
+                if (socio.getNumero().equals(numeroSocio)) {
+                    // Si el socio es un usuario estándar
+                    if (socio instanceof Estandar) {
+                        // Modificamos el seguro del socio
+                        ((Estandar) socio).setSeguro(Seguro.values()[tipoSeguro - 1]);
+                        // Mostramos un mensaje de éxito
+                        vModificarSeguro.txtMostrarMensaje("Seguro modificado con éxito.\n\n");
+                        break;
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Método para listar los seguros de los socios.
+     */
+    public void listSeguros() {
+        // Obtenemos la lista de socios
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- " + Seguro.BASICO.toString() + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- " + Seguro.COMPLETO.toString() + "\n");
+    }
 }
+

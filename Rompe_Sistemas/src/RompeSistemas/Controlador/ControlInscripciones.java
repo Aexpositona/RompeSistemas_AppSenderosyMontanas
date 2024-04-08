@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Vista.VistaInscripciones;
 import RompeSistemas.Vista.VistaListarInscripciones;
 import RompeSistemas.Vista.VistaAddInscripcion;
@@ -24,11 +25,13 @@ public class ControlInscripciones {
      *
      */
     public ControlInscripciones(APPSenderosMontanas app) {
+        this.app = app;
         this.vInscripciones = new VistaInscripciones();
         this.vAddInscripcion = new VistaAddInscripcion();
         this.vListarInscripciones = new VistaListarInscripciones();
         this.datos = app.getDatos();
         this.cPeticiones = app.getControlPeticiones();
+        this.cDatos = app.getControlDatos();
     }
 
     /**
@@ -37,13 +40,18 @@ public class ControlInscripciones {
      * @param cInscripciones ControlInscripciones a copiar
      */
     public ControlInscripciones(ControlInscripciones cInscripciones) {
+        this.app = cInscripciones.getApp();
         this.vInscripciones = cInscripciones.getVistaInscripciones();
         this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
         this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
         this.datos = cInscripciones.getDatos();
         this.cPeticiones = cInscripciones.getControlPeticiones();
+        this.cDatos = cInscripciones.getControlDatos();
     }
 
+    /**
+     * Constructor de ControlInscripciones vacío.
+     */
     public ControlInscripciones() {
         this.vInscripciones = null;
         this.vAddInscripcion = null;
@@ -82,6 +90,10 @@ public class ControlInscripciones {
         return cDatos;
     }
 
+    public ControlInscripciones getControlInscripciones() {
+        return this;
+    }
+
     // Setters
 
     public void setApp(APPSenderosMontanas app) {
@@ -115,8 +127,8 @@ public class ControlInscripciones {
      * @param inscripcion Inscripción a añadir
      * @param tipoObjeto Tipo de objeto a añadir
      */
-    public void addInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.addObjeto(tipoObjeto, inscripcion);
+    public void addInscripcion(Inscripcion inscripcion) {
+        datos.addObjeto(2, inscripcion);
     }
 
     /**
@@ -125,8 +137,15 @@ public class ControlInscripciones {
      * @param inscripcion Inscripción a eliminar
      * @param tipoObjeto Tipo de objeto a eliminar
      */
-    public void removeInscripcion(Inscripcion inscripcion, int tipoObjeto) {
-        datos.removeObjeto(tipoObjeto, inscripcion);
+    public void removeInscripcion(Inscripcion inscripcion) {
+        datos.removeObjeto(2, inscripcion);
+    }
+
+    /**
+     * Lista todas las inscripciones.
+     */
+    public void listInscripciones() {
+        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetos(2));
     }
 
     /**
@@ -135,18 +154,41 @@ public class ControlInscripciones {
      * @param tipoObjeto Tipo de objeto a listar
      * @param numeroSocio Número de socio
      */
-    public void listInscripcionesSocio(int tipoObjeto, String numeroSocio) {
-        System.out.println(datos.listToStringObjetosCodigo(tipoObjeto, numeroSocio ));
+    public void listInscripcionesSocio(String numeroSocio) {
+        // Variables internas
+        int i;
+        Inscripcion inscripcion;
+        Socio socio;
+        // Recorremos la lista de inscripciones
+        for (i = 0; i < datos.listObjetos(2).size(); i++){
+            // Guardamos la inscripción
+            inscripcion = (Inscripcion) datos.listObjetos(2).get(i);
+            // Guardamos el socio de la inscripción
+            socio = inscripcion.getSocio();
+            // Si el número del socio coincide con el número del socio introducido
+            if (socio.getNumero().equals(numeroSocio)) {
+                // Mostramos la inscripción
+                vListarInscripciones.txtMostrarMensaje("-- Inscripción " + (i+1) + " --\n" + datos.listObjetos(2).get(i).toString() + "\n");
+            }
+        }
     }
 
     /**
-     * Lista las inscripciones de un socio.
+     * Lista las inscripciones de un socio entre fechas.
      *
-     * @param tipoObjeto Tipo de objeto a listar
-     * @param numeroSocio Número de socio
+     * @param fechaInicial Fecha inicial
+     * @param fechaFinal Fecha final
      */
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
-        System.out.println(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
+        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
+    }
+
+    public void listIdsSocios() {
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, 3));
+    }
+
+    public void listExcursiones() {
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(1, 31));
     }
 
     /**

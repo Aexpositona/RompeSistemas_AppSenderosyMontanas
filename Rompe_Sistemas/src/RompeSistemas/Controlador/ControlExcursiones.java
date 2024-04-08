@@ -38,7 +38,7 @@ public class ControlExcursiones {
      * @param cExcursiones ControlExcursiones a copiar
      */
     public ControlExcursiones(ControlExcursiones cExcursiones) {
-        this.vExcursiones = new VistaExcursiones (cExcursiones.getVistaExcursiones());
+        this.vExcursiones = cExcursiones.getVistaExcursiones();
         this.vAddExcursion = cExcursiones.getVistaAddExcursion();
         this.vListarExcursiones = cExcursiones.getVistaListarExcursiones();
         this.datos = cExcursiones.getDatos();
