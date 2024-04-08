@@ -49,7 +49,7 @@ public class VistaListarSocios {
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
     private void buttonListTipoSocio(){
-        txtMostrarMensaje(cSocios.listTipoSocios(3, cPeticiones.pedirEntero("Introduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Selecciona una opción: (1,2 o 3)", 1, 3)));
+        txtMostrarMensaje(cSocios.listTipoSocios(3, cPeticiones.pedirEntero("\nIntroduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Selecciona una opción (1,2 o 3): ", 1, 3)));
     }
 
     /**
@@ -81,7 +81,7 @@ public class VistaListarSocios {
             txtMostrarMensaje("1. Listar tipos de socios\n");
             txtMostrarMensaje("2. Listar socios\n");
             txtMostrarMensaje("0. Atrás\n");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2 o 0)", 0, 2)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción(1, 2 o 0): ", 0, 2)) {
                 case 1:
                     buttonListTipoSocio();
                     break;

@@ -237,6 +237,7 @@ public class ControlSocios {
     public String listTipoSocios(int tipoObjeto, int tipoSocio) {
         // Según el tipo de socio, mostramos un mensaje
         ArrayList<Socio> listaSocios = new ArrayList<>();
+        vListarSocios.txtMostrarMensaje("\n");
         switch (tipoSocio) {
             case 1:
                 System.out.println("Listado de socios estándar:");
@@ -260,8 +261,13 @@ public class ControlSocios {
                 }
             }
         }
+        // Formatemaos la lista de socios
+        StringBuilder listaSociosString = new StringBuilder();
+        for (Socio socio : listaSocios) {
+            listaSociosString.append(socio.toString()).append("\n");
+        }
         // Devolvemos la lista de socios
-        return listaSocios.toString();
+        return listaSociosString.toString();
     }
 
     /**
@@ -278,6 +284,7 @@ public class ControlSocios {
                 double total = 0.0;
                 // Recorremos la lista de inscripciones
                 for (Object objInscripcion : inscripcionesList) {
+                    // Si el objeto es una inscripción
                     if (objInscripcion instanceof Inscripcion inscripcion) {
                         // Comprobamos si el socio de la inscripción es el socio que estamos procesando
                         if (inscripcion.getSocio().equals(socio)) {
@@ -292,9 +299,9 @@ public class ControlSocios {
                     }
                 }
                 // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                System.out.println("Número de socio: " + socio.getNumero());
-                System.out.println("Nombre: " + socio.getNombre());
-                System.out.println("Total de inscripciones del último mes: " + total);
+                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero());
+                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre());
+                vSocios.txtMostrarMensaje("Total de inscripciones del último mes: " + total);
             }
         }
     }
@@ -306,18 +313,21 @@ public class ControlSocios {
      * @param numeroSocio Número de socio.
      */
     public void modifySeguro (int tipoSeguro, String numeroSocio){
-        // Obtenemos la lista de socios
-        List<Object> sociosList = datos.getArrayList(3);
+
         // Recorremos la lista de socios
-        for (Object obj : sociosList) {
-            if (obj instanceof Estandar socio) {
-                // Comprobamos si el número de socio del socio es el mismo que el número de socio que queremos modificar
+        for (Object obj : datos.getArrayList(3)) {
+            // Si el objeto es un socio
+            if (obj instanceof Socio socio) {
+                // Si el número de socio coincide con el número de socio del socio
                 if (socio.getNumero().equals(numeroSocio)) {
-                    // Modificamos el seguro del socio
-                    socio.setSeguro(Seguro.values()[tipoSeguro - 1]);
-                    break;
-                } else {
-                    System.out.println("El número de socio introducido no es de un socio estándar.");
+                    // Si el socio es un usuario estándar
+                    if (socio instanceof Estandar) {
+                        // Modificamos el seguro del socio
+                        ((Estandar) socio).setSeguro(Seguro.values()[tipoSeguro - 1]);
+                        // Mostramos un mensaje de éxito
+                        vModificarSeguro.txtMostrarMensaje("Seguro modificado con éxito.\n\n");
+                        break;
+                    }
                 }
             }
         }

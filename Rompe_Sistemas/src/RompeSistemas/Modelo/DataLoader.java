@@ -34,9 +34,10 @@ public class DataLoader {
     private void loadSocios(){
 
         // Añadir usuarios estandar a la lista de socios
-        datos.addObjeto(3, new Estandar("Juan", "SOC0001", "1234590A",Seguro.BASICO));
-        datos.addObjeto(3, new Estandar("Luis", "SOC0002", "1234590B",Seguro.COMPLETO));
-        datos.addObjeto(3, new Estandar("Ana", "SOC0003", "1234590C",Seguro.BASICO));
+        datos.addObjeto(3, new Estandar("Juan", "SOC0001", "1234590A", Seguro.BASICO));
+        datos.addObjeto(3, new Estandar("Luis", "SOC0002", "1234590B", Seguro.COMPLETO));
+        datos.addObjeto(3, new Estandar("Ana", "SOC0003", "1234590C", Seguro.BASICO));
+        datos.addObjeto(3, new Estandar("Marcos", "SOC0010", "1234590D", Seguro.COMPLETO));
 
         datos.addObjeto(4, new Federacion("FED001", "Federación de montes"));
         datos.addObjeto(4, new Federacion("FED002", "Federación de ríos"));

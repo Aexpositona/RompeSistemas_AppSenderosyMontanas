@@ -4,6 +4,7 @@ import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Seguro;
 import java.text.ParseException;
 
@@ -94,20 +95,18 @@ public class VistaModificarSeguro {
             // Solicitamos el número de socio al que se le va a modificar el seguro
             numeroSocio = cPeticiones.pedirString("Introduzca el número de socio al que se le va a modificar el seguro: ");
             // Si el número de socio es válido, existe y es un usuario Estandar, se puede modificar el seguro
-            if (cDatos.checkCodigoObjeto(3, numeroSocio) && cDatos.checkExistenciaObjeto(3, numeroSocio)) {
-                valido = true;
-            } 
-            else if (!cDatos.checkCodigoObjeto(3, numeroSocio)) {
-                txtMostrarMensaje("El número de socio introducido no es válido. Inténtelo de nuevo.\n");
-            } 
-            else if (!cDatos.checkExistenciaObjeto(3, numeroSocio)) {
-                txtMostrarMensaje("El número de socio introducido no existe. Inténtelo de nuevo.\n");
-            }
-            else {
-                txtMostrarMensaje("El número de socio introducido no es un usuario Estandar. Inténtelo de nuevo.\n");
+            if (cDatos.checkCodigoObjeto(3, numeroSocio) && cDatos.checkExistenciaObjeto(3, numeroSocio)) { 
+                Object socio = cSocios.getDatos().getObjeto(3, datos.buscarObjeto(3, numeroSocio));
+                if (socio instanceof Estandar) {
+                    valido = true;
+                } 
+                else {
+                    txtMostrarMensaje("El socio no es un usuario Estandar. No se puede modificar el seguro.\n");
+                }       
             }
         }
         while (!valido);
+        // Mostramos los seguros
         cSocios.listSeguros();
         // Solicitamos el tipo de seguro que se le va a asignar al socio
         tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio: ", 1, Seguro.values().length);
