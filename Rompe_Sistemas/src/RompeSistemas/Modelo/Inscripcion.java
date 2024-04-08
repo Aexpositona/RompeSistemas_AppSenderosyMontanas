@@ -1,9 +1,15 @@
 package RompeSistemas.Modelo;
 
+import java.time.LocalDate;
+
+/**
+ * Clase Inscripción que contiene los datos de la inscripción de un socio a una excursión.
+ */
 public class Inscripcion {
     private String numero;
     private Socio socio;
     private Excursion excursion;
+    private LocalDate fechaInscripcion;
 
     //Métodos constructores
     /**
@@ -16,6 +22,7 @@ public class Inscripcion {
         this.numero = numero;
         this.socio = socio;
         this.excursion = excursion;
+        this.fechaInscripcion = LocalDate.now();
     }
 
     /**
@@ -59,11 +66,27 @@ public class Inscripcion {
     }
 
     /**
+     * Método get() nos devuelve la fecha de inscripción.
+     * @return fecha de inscripción.
+     */
+    public LocalDate getFecha() {
+        return fechaInscripcion;
+    }
+
+    /**
      * Método set() para definir a la excursión a la que se inscribe.
      * @param excursion excursión a la que se inscribe.
      */
     public void setExcursion(Excursion excursion) {
         this.excursion = excursion;
+    }
+
+    /**
+     * Método set() para definir la fecha de inscripción.
+     * @param fechaInscripcion fecha de inscripción.
+     */
+    public void setFecha(LocalDate fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
     }
 
     /**
@@ -74,6 +97,7 @@ public class Inscripcion {
     public String toString() {
         return "Número de la inscripción: "+ numero +
                 "\nSocio:" + socio +
+                "\nFecha de inscripción: " + fechaInscripcion +
                 "\n-- Excursion --\n" + excursion + "\n";
     }
 }

@@ -170,7 +170,7 @@ public class VistaSocios {
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() throws ParseException {
-        txtMostrarMensaje("Volviendo a la vista anterior\n\n");
+        txtMostrarMensaje("Volviendo al menú principal...\n\n");
     }
 
     /**

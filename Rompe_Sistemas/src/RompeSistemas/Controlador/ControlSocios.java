@@ -190,7 +190,6 @@ public class ControlSocios {
     /**
      * Método para eliminar un socio.
      *
-     * @param tipoObjeto  Tipo de objeto.
      * @param numeroSocio Número de socio.
      */
     public void removeSocio(String numeroSocio) {
@@ -200,18 +199,24 @@ public class ControlSocios {
         for (Object socio : socios) {
             // Si el número de socio existe y no está inscrito en alguna excursión
             if ((!cDatos.isSocioInInscripcion(numeroSocio)) && cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio)) {
+                // Eliminamos el socio
                 datos.removeObjeto(tipoObjeto, socio);
+                // Mostramos un mensaje de éxito
                 vSocios.txtMostrarMensaje("Socio eliminado con éxito.\n\n");
                 break;
-            } 
+            }
+            // Si el socio está inscrito en alguna excursión
             else if (cDatos.isSocioInInscripcion(numeroSocio)) {
+                // Mostramos un mensaje de error
                 vSocios.txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.\n\n");
                 break;
-            } 
+            }
+            // Si el socio está asociado a un usuario infantil
             else if (cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio) && !cDatos.isSocioInInfantil(numeroSocio)) {
                 vSocios.txtMostrarMensaje("El socio está asociado a un usuario infantil. No se puede eliminar.\n\n");
                 break;
             }
+            // Si el socio no existe
             else {
                 vSocios.txtMostrarMensaje("El socio no existe.\n\n");
                 break;
@@ -261,9 +266,11 @@ public class ControlSocios {
                 }
             }
         }
-        // Formatemaos la lista de socios
+        // Formateamos la lista de socios
         StringBuilder listaSociosString = new StringBuilder();
+        // Recorremos la lista de socios
         for (Socio socio : listaSocios) {
+            // Añadimos el socio a la lista en formato string
             listaSociosString.append(socio.toString()).append("\n");
         }
         // Devolvemos la lista de socios
@@ -274,13 +281,14 @@ public class ControlSocios {
      * Método para mostrar la factura mensual de los socios.
      */
     public void showFacturaMensualSocios () {
+
         // Obtenemos la fecha actual y la fecha de hace un mes
-        LocalDate now = LocalDate.now(), oneMonthAgo = now.minusMonths(1);
+        LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
         // Obtenemos la lista de socios y la lista de inscripciones
         List<Object> sociosList = datos.getArrayList(3), inscripcionesList = datos.getArrayList(2);
         // Recorremos la lista de socios
-        for (Object obj : sociosList) {
-            if (obj instanceof Socio socio) {
+        for (Object objSocio : sociosList) {
+            if (objSocio instanceof Socio socio) {
                 double total = 0.0;
                 // Recorremos la lista de inscripciones
                 for (Object objInscripcion : inscripcionesList) {
@@ -291,7 +299,7 @@ public class ControlSocios {
                             // Obtenemos la excursión de la inscripción
                             Excursion excursion = inscripcion.getExcursion();
                             // Comprobamos si la fecha de la excursión está dentro del último mes
-                            if (!excursion.getFecha().isBefore(oneMonthAgo) && !excursion.getFecha().isAfter(now)) {
+                            if (!inscripcion.getFecha().isBefore(haceUnMes) && !inscripcion.getFecha().isAfter(actual)) {
                                 // Sumamos el precio de la excursión al total
                                 total += excursion.getPrecio();
                             }
@@ -299,9 +307,9 @@ public class ControlSocios {
                     }
                 }
                 // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero());
-                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre());
-                vSocios.txtMostrarMensaje("Total de inscripciones del último mes: " + total);
+                vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
+                vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
+                vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
             }
         }
     }
