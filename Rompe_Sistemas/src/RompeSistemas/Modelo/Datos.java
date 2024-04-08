@@ -3,7 +3,6 @@ package RompeSistemas.Modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * Clase que representa los datos de la aplicación.
@@ -421,8 +420,23 @@ public class Datos {
         // Recoger la lista de objetos en formato String
         StringBuilder result = new StringBuilder();
         for (Object o : list) {
-            result.append(o.toString()).append("\n");
+            // Añadir título numerado a la lista según el tipo de objeto
+            // 1 - Excursión
+            if (tipoObjeto == 1)
+                result.append("-- Excursión ").append(list.indexOf(o) + 1).append(" --\n");
+            // 2 - Inscripción
+            else if (tipoObjeto == 2)
+                result.append("-- Inscripción ").append(list.indexOf(o) + 1).append(" --\n");
+            // 3 - Socio
+            else if (tipoObjeto == 3)
+                result.append("-- Socio ").append(list.indexOf(o) + 1).append(" --\n");
+            // 4 - Federación
+            else if (tipoObjeto == 4)
+                result.append("-- Federación ").append(list.indexOf(o) + 1).append(" --\n");
+            // Añadir objeto a la lista
+            result.append("-- ").append(o.toString()).append("\n");
         }
+        // Devolver la lista de objetos en formato String
         return result.toString();
     }
 
@@ -566,11 +580,42 @@ public class Datos {
                 System.out.println("No hay excursiones en la lista.");
             }
         }
+        // Si el tipo de objeto es 2 (Inscripción)
+        else if (tipoObjeto == 2) {
+            // Si el ArrayList de inscripciones no está vacío
+            if (!inscripciones.isEmpty()) {
+                // Recorrer el ArrayList de inscripciones
+                for (Object o : inscripciones) {
+                    // Obtener la inscripción
+                    Inscripcion inscripcion = (Inscripcion) o;
+                    Excursion excursion = inscripcion.getExcursion();
+                    // Si la fecha de la inscripción está en el rango de fechas
+                    if (excursion.getFecha().isAfter(fechaInicial) && excursion.getFecha().isBefore(fechaFinal)) {
+                        // Añadir la inscripción a la lista de objetos
+                        list.add(inscripcion);
+                    }
+                }
+            }
+            // Si el ArrayList de inscripciones está vacío
+            else {
+                // Mostrar mensaje
+                System.out.println("No hay inscripciones en la lista.");
+            }
+        }
         // Recoger la lista de objetos en formato String
         StringBuilder result = new StringBuilder();
         for (Object o : list) {
+            // Añadir título numerado a la lista según el tipo de objeto
+            // 1 - Excursión
+            if (tipoObjeto == 1)
+                result.append("-- Excursión ").append(list.indexOf(o) + 1).append(" --\n");
+            // 2 - Inscripción
+            else if (tipoObjeto == 2)
+                result.append("-- Inscripción ").append(list.indexOf(o) + 1).append(" --\n");
+            // Añadir objeto a la lista
             result.append(o.toString()).append("\n");
         }
+        // Devolver la lista de objetos en formato String
         return result.toString();
     }
 
@@ -584,7 +629,6 @@ public class Datos {
      *                  4 - Federación
      * @return String - Último código
      */
-
     public String getSiguienteCodigo(int tipoObjeto) {
         // Variables internas
         String codigo = "";
@@ -664,7 +708,7 @@ public class Datos {
             // Si el ArrayList de excursiones no está vacío
             if (!excursiones.isEmpty()) {
                 // Obtener la última excursión
-                Excursion excursion = (Excursion) excursiones.getLast();
+                Excursion excursion = (Excursion) excursiones.get(excursiones.size() - 1);
                 // Obtener el código de la última excursión
                 codigo = excursion.getCodigo();
             }
@@ -679,7 +723,7 @@ public class Datos {
             // Si el ArrayList de inscripciones no está vacío
             if (!inscripciones.isEmpty()) {
                 // Obtener la última inscripción
-                Inscripcion inscripcion = (Inscripcion) inscripciones.getLast();
+                Inscripcion inscripcion = (Inscripcion) inscripciones.get(inscripciones.size() - 1);
                 // Obtener el número de la última inscripción
                 codigo = inscripcion.getNumero();
             }
@@ -694,7 +738,7 @@ public class Datos {
             // Si el ArrayList de socios no está vacío
             if (!socios.isEmpty()) {
                 // Obtener el último socio
-                Socio socio = (Socio) socios.getLast();
+                Socio socio = (Socio) socios.get(socios.size() - 1);
                 // Obtener el código del último socio
                 codigo = String.valueOf(socio.getNumero());
             }
@@ -708,7 +752,7 @@ public class Datos {
             // Si el ArrayList de federaciones no está vacío
             if (!federaciones.isEmpty()) {
                 // Obtener la última federación
-                Federacion federacion = (Federacion) federaciones.getLast();
+                Federacion federacion = (Federacion) federaciones.get(federaciones.size() - 1);
                 // Obtener el código de la última federación
                 codigo = federacion.getCodigo();
             }

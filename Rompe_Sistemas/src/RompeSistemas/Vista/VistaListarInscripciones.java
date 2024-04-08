@@ -63,6 +63,14 @@ public class VistaListarInscripciones {
 
 
     //Métodos
+
+    /**
+     * Método para añadir un botón que nos permite listar todas las inscripciones
+     */
+    public void buttonListInscripciones() {
+        cInscripciones.listInscripciones();
+    }
+
     /**
      * Método para añadir un botón que nos permite listar las inscripciones de un usuario
 
@@ -86,6 +94,7 @@ public class VistaListarInscripciones {
         // Pedimos las fechas
         LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
         LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
+        txtMostrarMensaje("\n");
         // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
         cInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
     }
@@ -106,30 +115,36 @@ public class VistaListarInscripciones {
         System.out.print(mensaje);
     }
 
+    /**
+     * Método para mostrar el menú de listar inscripciones.
+     */
     public void show() {
-
         // Variables internas
         boolean running = true;
         // Mientras no se seleccione la opción de volver atrás
         while (running) {
             // Mostramos el menú de listar inscripciones
             txtMostrarMensaje("************ MENÚ LISTAR INSCRIPCIONES ************\n");
-            txtMostrarMensaje("1. Listar inscripción por socio\n");
-            txtMostrarMensaje("2. Listar inscripción por fechas\n");
+            txtMostrarMensaje("1. Listar todas las inscripciones\n");
+            txtMostrarMensaje("2. Listar inscripción por socio\n");
+            txtMostrarMensaje("3. Listar inscripción por fechas\n");
             txtMostrarMensaje("0. Atrás\n");
 
-            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 2)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
                 case 1:
-                    buttonListInscripcionesSocio();
+                    buttonListInscripciones();
                     break;
                 case 2:
+                    buttonListInscripcionesSocio();
+                    break;
+                case 3:
                     buttonListInscripcionesFechas();
                     break;
                 case 0:
                     buttonAtras();
                     running = false;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.\n");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }

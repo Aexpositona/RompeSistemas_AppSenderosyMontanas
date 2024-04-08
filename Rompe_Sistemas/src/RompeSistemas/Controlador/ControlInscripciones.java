@@ -142,20 +142,33 @@ public class ControlInscripciones {
     }
 
     /**
+     * Lista todas las inscripciones.
+     */
+    public void listInscripciones() {
+        vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetos(2));
+    }
+
+    /**
      * Lista las inscripciones de un socio.
      *
      * @param tipoObjeto Tipo de objeto a listar
      * @param numeroSocio Número de socio
      */
     public void listInscripcionesSocio(String numeroSocio) {
+        // Variables internas
         int i;
         Inscripcion inscripcion;
         Socio socio;
+        // Recorremos la lista de inscripciones
         for (i = 0; i < datos.listObjetos(2).size(); i++){
+            // Guardamos la inscripción
             inscripcion = (Inscripcion) datos.listObjetos(2).get(i);
+            // Guardamos el socio de la inscripción
             socio = inscripcion.getSocio();
+            // Si el número del socio coincide con el número del socio introducido
             if (socio.getNumero().equals(numeroSocio)) {
-                vListarInscripciones.txtMostrarMensaje("-- Inscripción " + i + " --\n" + datos.listObjetos(2).get(i).toString() + "\n");
+                // Mostramos la inscripción
+                vListarInscripciones.txtMostrarMensaje("-- Inscripción " + (i+1) + " --\n" + datos.listObjetos(2).get(i).toString() + "\n");
             }
         }
     }
