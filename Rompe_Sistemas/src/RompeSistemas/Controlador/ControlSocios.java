@@ -8,6 +8,7 @@ import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.temporal.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -280,44 +281,6 @@ public class ControlSocios {
         return listaSociosString.toString();
     }
 
-    public String listTipoSocios1(int tipoObjeto, int tipoSocio) {
-        // Según el tipo de socio, mostramos un mensaje
-        ArrayList<Socio> listaSocios = new ArrayList<>();
-        vListarSocios.txtMostrarMensaje("\n");
-        switch (tipoSocio) {
-            case 1:
-                System.out.println("Listado de socios estándar:");
-                break;
-            case 2:
-                System.out.println("Listado de socios federados:");
-                break;
-            case 3:
-                System.out.println("Listado de socios infantiles:");
-                break;
-            default:
-                System.out.println("Tipo de socio no válido.");
-                break;
-        }
-        // Recorremos la lista de objetos
-        for (Object objeto : datos.getArrayList(tipoObjeto)) {
-            // Si el objeto es un socio del tipo que queremos listar
-            if (objeto instanceof Socio) {
-                if (objeto instanceof Estandar && tipoSocio == 1 || objeto instanceof Federado && tipoSocio == 2 || objeto instanceof Infantil && tipoSocio == 3) {
-                    listaSocios.add((Socio) objeto);
-                }
-            }
-        }
-        // Formateamos la lista de socios
-        StringBuilder listaSociosString = new StringBuilder();
-        // Recorremos la lista de socios
-        for (Socio socio : listaSocios) {
-            // Añadimos el socio a la lista en formato string
-            listaSociosString.append(socio.toString()).append("\n");
-        }
-        // Devolvemos la lista de socios
-        return listaSociosString.toString();
-    }
-
     /**
      * Método para calcular la factura de los socios en un rango de fechas.
      *
@@ -325,13 +288,13 @@ public class ControlSocios {
      * @param fechaFin    Fecha de fin.
      */
     public void calcFacturaFechas (String numSocio, LocalDate fechaInicio, LocalDate fechaFin) {
-        // Variables internas
-        double total = 0.0f;
+
         // Obtenemos la lista de socios y la lista de inscripciones
         List<Object> listSocios = datos.getArrayList(3), listInscripciones = datos.getArrayList(2);
         // Recorremos la lista de socios
         for (Object objSocio : listSocios) {
             if (objSocio instanceof Socio socio) {
+                double total = 0.0;
                 // Recorremos la lista de inscripciones
                 for (Object objInscripcion : listInscripciones) {
                     // Si el objeto es una inscripción
@@ -347,6 +310,40 @@ public class ControlSocios {
                             }
                         }
                     }
+                }
+                // Si el número de socio es "NULL"
+                if (numSocio.equals("NULL")){
+                    // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                    vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
+                    vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
+                    // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
+                    LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
+                    LocalDate ahora = LocalDate.now();
+                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
+                    }
+
+                    // Si estamos calculando el total de inscripciones de otro rango de fechas
+                    else {
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del rango de fechas entre " + fechaInicio + " y " + fechaFin + ": " + total + " Euros.\n\n");
+                    }                
+                }
+                // Si el número de socio coincide con el número de socio que estamos buscando
+                else if (socio.getNumero().equalsIgnoreCase(numSocio)){
+                    // Imprimimos el número de socio, el nombre y el total de las inscripciones
+                    vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
+                    vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
+                    // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
+                    LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
+                    LocalDate ahora = LocalDate.now();
+                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
+                    }
+
+                    // Si estamos calculando el total de inscripciones de otro rango de fechas
+                    else {
+                        vSocios.txtMostrarMensaje("Total de las inscripciones del rango de fechas entre " + fechaInicio + " y " + fechaFin + ": " + total + " Euros.\n\n");
+                    }                
                 }
             }
         }
@@ -388,4 +385,3 @@ public class ControlSocios {
         vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- \n" + Seguro.COMPLETO.toString() + "\n");
     }
 }
-
