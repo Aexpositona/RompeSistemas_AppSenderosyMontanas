@@ -140,7 +140,7 @@ public class VistaAddSocio {
             Estandar estandar = new Estandar(nombre, numero, nif, seguro);
             cSocios.addSocio(estandar);
             // Mostramos mensaje de éxito
-            txtMostrarMensaje("Socio Estándar añadido con éxito.");
+            txtMostrarMensaje("Socio Estándar añadido con éxito.\n");
         }
         // Si el tipo de socio es Federado
         else if (tipoSocio == 2) {
@@ -164,7 +164,7 @@ public class VistaAddSocio {
                 Federado federado = new Federado(nombre, numero, nif, federacion);
                 cSocios.addSocio(federado);
                 // Mostramos mensaje de éxito
-                txtMostrarMensaje("Socio Federado añadido con éxito.");
+                txtMostrarMensaje("Socio Federado añadido con éxito.\n");
             }
             // Si la federación no existe
             else {
