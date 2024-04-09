@@ -129,11 +129,11 @@ public class ControlExcursiones {
     /**
      * Elimina una excursión utilizando la clase Datos.
      *
-     * @param codigo Código de la excursión a eliminar
+     * @param excursion Código de la excursión a eliminar
      */
-    public void removeExcursion(String codigo) {
+    public void removeExcursion(Excursion excursion) {
         // Eliminamos la excursión
-        datos.removeObjeto(1, codigo);
+        datos.removeObjeto(1, excursion);
     }
 
     /**

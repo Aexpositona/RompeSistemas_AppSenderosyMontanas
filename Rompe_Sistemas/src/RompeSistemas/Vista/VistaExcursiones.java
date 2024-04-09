@@ -3,6 +3,9 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Modelo.Excursion;
+import RompeSistemas.Modelo.Inscripcion;
+
 import java.text.ParseException;
 
 /**
@@ -165,12 +168,15 @@ public class VistaExcursiones {
         // Variables internas
         boolean resultado = false;
         int intentos = 0;
-        txtMostrarMensaje("\n");
+        Excursion excursion;
+        txtMostrarMensaje("\n-- Eliminando excursión --\n\n");
         // Mostramos las excursiones
         cExcursiones.listExcursiones();
         // Mientras no se introduzca un código válido o no se pueda eliminar la excursión
         String respuesta;
         do {
+            // Mostramos mensaje de seleccionar socio
+            txtMostrarMensaje("\n-- Seleccionando Excursión a eliminar --\n");
             // Solicitamos el código de la excursión a eliminar
             respuesta = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
             // Si el código es válido
@@ -192,8 +198,9 @@ public class VistaExcursiones {
 
         // Si el usuario está seguro de eliminar la excursión
         if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("S")){
+            excursion = (Excursion) cExcursiones.getDatos().getObjeto(1, cExcursiones.getDatos().buscarObjeto(1, respuesta));
             // Eliminamos la excursión
-            cExcursiones.removeExcursion(respuesta);
+            cExcursiones.removeExcursion(excursion);
             // Informamos al usuario de que la excursión ha sido eliminada
             txtMostrarMensaje("Excursión eliminada.");
         }

@@ -3,6 +3,7 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Datos;
 
@@ -146,10 +147,21 @@ public class VistaInscripciones {
             }
         } 
         while (true);
-        // Eliminamos la inscripción        
-        cInscripciones.removeInscripcion(inscripcion);
-        // Mostramos mensaje de inscripción eliminada
-        txtMostrarMensaje("Inscripción eliminada correctamente.\n\n");
+
+        // Si el usuario está seguro de eliminar la excursión
+        if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la inscripción? (S/N): ").equalsIgnoreCase("S")){
+            // Eliminamos la inscripción
+            cInscripciones.removeInscripcion(inscripcion);
+            // Mostramos mensaje de inscripción eliminada
+            txtMostrarMensaje("Inscripción eliminada correctamente.\n\n");
+        }
+        // Si el usuario no está seguro de eliminar la inscripción
+        else if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la inscripción? (S/N): ").equalsIgnoreCase("N")){
+            // Informamos al usuario de que la operación no se ha realizado
+            txtMostrarMensaje("Operación cancelada.");
+        }
+
+
     }
 
     /**
