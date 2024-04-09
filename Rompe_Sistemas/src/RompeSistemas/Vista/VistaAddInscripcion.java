@@ -170,6 +170,7 @@ public class VistaAddInscripcion {
                 case 0:
                     buttonAtras();
                     running = false;
+                    break;
                 default:
                     txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
