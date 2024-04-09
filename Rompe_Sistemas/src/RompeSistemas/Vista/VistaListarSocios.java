@@ -61,7 +61,7 @@ public class VistaListarSocios {
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
-    private void buttonAtras() throws ParseException {
+    private void buttonAtras() {
         txtMostrarMensaje("Volviendo a la vista anterior...\n\n");
     }
 

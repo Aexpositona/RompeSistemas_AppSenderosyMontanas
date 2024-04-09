@@ -57,7 +57,7 @@ public abstract class Socio {
 
     /**
      * Método get() de la clase Socio que nos devuelve el número del socio
-     * @return
+     * @return El número del socio
      */
     public String getNumero() {
         return numero;

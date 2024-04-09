@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -242,9 +241,8 @@ public class ControlSocios {
     public void listSocios() {
         List<Object> socios = datos.getArrayList(3);
         for (Object obj : socios) {
-            if (obj instanceof Socio) {
-                Socio socio = (Socio) obj;
-                vListarSocios.txtMostrarMensaje(socio.toString() + "\n");
+            if (obj instanceof Socio socio) {
+                vListarSocios.txtMostrarMensaje(socio + "\n");
             }
         }
     }
@@ -323,24 +321,7 @@ public class ControlSocios {
                     }
                 }
                 // Si el número de socio es "NULL"
-                if (numSocio.equals("NULL")){
-                    // Imprimimos el número de socio, el nombre y el total de las inscripciones
-                    vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
-                    vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
-                    // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
-                    LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
-                    LocalDate ahora = LocalDate.now();
-                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
-                        vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
-                    }
-
-                    // Si estamos calculando el total de inscripciones de otro rango de fechas
-                    else {
-                        vSocios.txtMostrarMensaje("Total de las inscripciones del rango de fechas entre " + fechaInicio + " y " + fechaFin + ": " + total + " Euros.\n\n");
-                    }                
-                }
-                // Si el número de socio coincide con el número de socio que estamos buscando
-                else if (socio.getNumero().equalsIgnoreCase(numSocio)){
+                if (numSocio.equals("NULL")|| socio.getNumero().equalsIgnoreCase(numSocio)){
                     // Imprimimos el número de socio, el nombre y el total de las inscripciones
                     vSocios.txtMostrarMensaje("Número de socio: " + socio.getNumero() + "\n");
                     vSocios.txtMostrarMensaje("Nombre: " + socio.getNombre() + "\n");
@@ -379,7 +360,7 @@ public class ControlSocios {
                         // Modificamos el seguro del socio
                         ((Estandar) socio).setSeguro(Seguro.values()[tipoSeguro - 1]);
                         // Mostramos un mensaje de éxito
-                        vModificarSeguro.txtMostrarMensaje("Seguro del usuario " + ((Estandar) socio).getNumero() + " se ha modificado con éxito al tipo de seguro " + ((Estandar) socio).getSeguro().getNombre() + ".\n\n");
+                        vModificarSeguro.txtMostrarMensaje("Seguro del usuario " + socio.getNumero() + " se ha modificado con éxito al tipo de seguro " + ((Estandar) socio).getSeguro().getNombre() + ".\n\n");
                         break;
                     }
                 }
@@ -392,7 +373,7 @@ public class ControlSocios {
      */
     public void listSeguros() {
         // Obtenemos la lista de socios
-        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- \n" + Seguro.BASICO.toString() + "\n");
-        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- \n" + Seguro.COMPLETO.toString() + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- \n" + Seguro.BASICO + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- \n" + Seguro.COMPLETO + "\n");
     }
 }

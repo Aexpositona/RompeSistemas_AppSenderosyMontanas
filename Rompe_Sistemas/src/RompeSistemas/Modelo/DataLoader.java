@@ -39,6 +39,7 @@ public class DataLoader {
         datos.addObjeto(3, new Estandar("Ana", "SOC0003", "1234590C", Seguro.BASICO));
         datos.addObjeto(3, new Estandar("Marcos", "SOC0004", "1234590D", Seguro.COMPLETO));
 
+        // Añadir federaciones a la lista de federaciones
         datos.addObjeto(4, new Federacion("FED001", "Federación de montes"));
         datos.addObjeto(4, new Federacion("FED002", "Federación de ríos"));
         datos.addObjeto(4, new Federacion("FED003", "Federación de montañas"));
@@ -71,11 +72,15 @@ public class DataLoader {
      */
     // Cargar inscripciones
     private void loadInscripciones() {
+        // Variables internas
         Inscripcion inscripcion;
+
         // Añadir inscripciones a la lista de inscripciones
         datos.addObjeto(2, new Inscripcion("INS0001", (Socio) datos.getObjeto(3, datos.buscarObjeto(3, "SOC0001")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0001"))));
         datos.addObjeto(2, new Inscripcion("INS0002", (Socio) datos.getObjeto(3, datos.buscarObjeto(3, "SOC0002")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0002"))));
         datos.addObjeto(2, new Inscripcion("INS0003", (Socio) datos.getObjeto(3, datos.buscarObjeto(3, "SOC0003")), (Excursion) datos.getObjeto(1, datos.buscarObjeto(1, "EXC0003"))));
+
+        // Modificar fechas de inscripciones
         inscripcion = (Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, "INS0001"));
         inscripcion.setFecha(LocalDate.of(2024, 4, 1));
         inscripcion = (Inscripcion) datos.getObjeto(2, datos.buscarObjeto(2, "INS0002"));

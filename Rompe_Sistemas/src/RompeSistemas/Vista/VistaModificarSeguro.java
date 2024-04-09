@@ -122,7 +122,6 @@ public class VistaModificarSeguro {
      */
     public void buttonAtras() throws ParseException {
         txtMostrarMensaje("Volviendo a la vista anterior\n\n");
-        return;
     }
 
 

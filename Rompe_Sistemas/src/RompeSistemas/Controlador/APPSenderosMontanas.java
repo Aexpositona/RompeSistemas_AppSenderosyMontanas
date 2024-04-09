@@ -13,35 +13,35 @@ public class APPSenderosMontanas {
     /**
      * Controladores y vistas de la aplicación.
      */
-    public ControlMenuPrincipal cMenuPrincipal;
+    private ControlMenuPrincipal cMenuPrincipal;
     /**
      * Controlador de inscripciones.
      */
-    public ControlInscripciones cInscripciones;
+    private ControlInscripciones cInscripciones;
     /**
      * Controlador de socios.
      */
-    public ControlSocios cSocios;
+    private ControlSocios cSocios;
     /**
      * Controlador de excursiones.
      */
-    public ControlExcursiones cExcursiones;
+    private ControlExcursiones cExcursiones;
     /**
      * Controlador de datos.
      */
-    public ControlDatos cDatos;
+    private ControlDatos cDatos;
     /**
      * Controlador de peticiones.
      */
-    public ControlPeticiones cPeticiones;
+    private ControlPeticiones cPeticiones;
     /**
      * Controlador de peticiones.
      */
-    public Datos datos;
+    private Datos datos;
     /**
      * Vista del menú principal.
      */
-    public VistaMenuPrincipal vMenuPrincipal;
+    private VistaMenuPrincipal vMenuPrincipal;
 
 
     // Métodos

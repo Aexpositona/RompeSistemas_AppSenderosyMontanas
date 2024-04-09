@@ -4,8 +4,6 @@ import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Excursion;
-import RompeSistemas.Modelo.Inscripcion;
-
 import java.text.ParseException;
 
 /**

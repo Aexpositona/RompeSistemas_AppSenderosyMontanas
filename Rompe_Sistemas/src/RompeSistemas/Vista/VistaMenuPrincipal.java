@@ -110,20 +110,23 @@ public class VistaMenuPrincipal {
             // Si no hemos mostrado el mensaje de bienvenida, lo mostramos
             if (!bienvenida){
                 // Mostrar mensaje de bienvenida
-                txtMostrarMensaje("\n" +
-                "                /\\        /\\\n" +
-                "               /\\/\\      /  \\ \n" +
-                "              /    \\    /    \\\n" +
-                "             /      \\  /\\/\\/\\/\\\n" +
-                "        /\\  /   /\\   \\/   /\\   \\  /\\\n" +
-                "       /  \\/   /  \\   \\  /  \\   \\/  \\\n" +
-                "      /    \\  /    \\   \\/    \\  /    \\\n" +
-                "     /\\/\\/ ~~~~~~~~~~~~~~~~~~~~~~~~~  \\  /\\\n" +
-                "    /       ~ SENDEROS & MONTAÑAS ~    \\/  \\\n" +
-                "   /    /\\ ~~~~~~~~~~~~~~~~~~~~~~~~~   /\\/\\/\\\n" +
-                "  /    /\\/\\   ~ ^  ^  ª  ^  ^  ^  ~   /      \\\n" +
-                " /    /    \\  ~ ª  ^  ^  ^  ª  ^  ~  /        \\\n" +
-                "/____/      ~~~~~~~~~~~~~~~~~~~~~~~~~          \\\n\n");
+                txtMostrarMensaje("""
+
+                                        /\\        /\\
+                                       /\\/\\      /  \\\s
+                                      /    \\    /    \\
+                                     /      \\  /\\/\\/\\/\\
+                                /\\  /   /\\   \\/   /\\   \\  /\\
+                               /  \\/   /  \\   \\  /  \\   \\/  \\
+                              /    \\  /    \\   \\/    \\  /    \\
+                             /\\/\\/ ~~~~~~~~~~~~~~~~~~~~~~~~~  \\  /\\
+                            /       ~ SENDEROS & MONTAÑAS ~    \\/  \\
+                           /    /\\ ~~~~~~~~~~~~~~~~~~~~~~~~~   /\\/\\/\\
+                          /    /\\/\\   ~ ^  ^  ª  ^  ^  ^  ~   /      \\
+                         /    /    \\  ~ ª  ^  ^  ^  ª  ^  ~  /        \\
+                        /____/      ~~~~~~~~~~~~~~~~~~~~~~~~~          \\
+
+                        """);
                 txtMostrarMensaje("************ Bienvenid@ a la aplicación de Senderos y Montañas ************\n\n");
                 // Cambiamos el valor de la variable de bienvenida
                 bienvenida = true;

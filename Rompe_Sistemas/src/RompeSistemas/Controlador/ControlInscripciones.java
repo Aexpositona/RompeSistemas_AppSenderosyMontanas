@@ -124,8 +124,8 @@ public class ControlInscripciones {
 
     /**
      * Añade una inscripción a la lista de inscripciones utilizando la clase Datos.
+     *
      * @param inscripcion Inscripción a añadir
-     * @param tipoObjeto Tipo de objeto a añadir
      */
     public void addInscripcion(Inscripcion inscripcion) {
         datos.addObjeto(2, inscripcion);
@@ -135,7 +135,6 @@ public class ControlInscripciones {
      * Elimina una inscripción de la lista de inscripciones utilizando la clase Datos.
      *
      * @param inscripcion Inscripción a eliminar
-     * @param tipoObjeto Tipo de objeto a eliminar
      */
     public void removeInscripcion(Inscripcion inscripcion) {
         datos.removeObjeto(2, inscripcion);
@@ -151,7 +150,6 @@ public class ControlInscripciones {
     /**
      * Lista las inscripciones de un socio.
      *
-     * @param tipoObjeto Tipo de objeto a listar
      * @param numeroSocio Número de socio
      */
     public void listInscripcionesSocio(String numeroSocio) {
@@ -216,6 +214,5 @@ public class ControlInscripciones {
      * Maneja el evento del botón "Atrás".
      */
     public void buttonAtras() {
-        return;
     }
 }

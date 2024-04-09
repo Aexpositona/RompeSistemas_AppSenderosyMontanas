@@ -179,8 +179,8 @@ public class VistaSocios {
     public void buttonCalcFacturaFechas(){
         txtMostrarMensaje("-- Mostrando la factura entre fechas de los socios --\n\n");
         // Solicitamos la fecha inicial y la fecha final
-        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduce la fecha inicial (aaaa-mm-dd): ", LocalDate.of(2000, 1, 1), LocalDate.now());
-        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduce la fecha final (aaaa-mm-dd): ", fechaInicial, LocalDate.now());
+        LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
+        LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final --", fechaInicial, LocalDate.now());
         // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
         cSocios.calcFacturaFechas("NULL",fechaInicial, fechaFinal);
     }
