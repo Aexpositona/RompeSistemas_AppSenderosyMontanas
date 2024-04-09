@@ -234,9 +234,14 @@ public class ControlSocios {
      */
     // Métodos para listar socios
     public void listSocios() {
-        vListarSocios.txtMostrarMensaje(datos.listToStringObjetos(3));
+        List<Object> socios = datos.getArrayList(3);
+        for (Object obj : socios) {
+            if (obj instanceof Socio) {
+                Socio socio = (Socio) obj;
+                vListarSocios.txtMostrarMensaje(socio.toString() + "\n");
+            }
+        }
     }
-
     /**
      * Método para listar los socios de un tipo concreto.
      *
