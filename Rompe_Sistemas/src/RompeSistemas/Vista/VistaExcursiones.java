@@ -237,13 +237,13 @@ public class VistaExcursiones {
         boolean running = true;
         // Mientras el bucle esté activo
         while (running) {
-            txtMostrarMensaje("************ Menú de excursiones ************");
+            txtMostrarMensaje("************ MENÚ EXCURSIONES ************");
             txtMostrarMensaje("1. Añadir excursión");
             txtMostrarMensaje("2. Listar excursiones");
             txtMostrarMensaje("3. Eliminar excursión");
             txtMostrarMensaje("0. Atrás");
             // Pedimos una opción
-            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)){
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):",0,3)){
                 // Si la opción es 1, añadimos una excursión
                 case 1:
                     buttonVistaAddExcursion();

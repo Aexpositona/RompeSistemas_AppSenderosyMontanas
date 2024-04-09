@@ -77,11 +77,11 @@ public class VistaListarSocios {
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            txtMostrarMensaje("************ MENú LISTAR SOCIOS ************\n");
-            txtMostrarMensaje("1. Listar tipos de socios\n");
-            txtMostrarMensaje("2. Listar socios\n");
+            txtMostrarMensaje("************ MENÚ LISTAR SOCIOS ************\n");
+            txtMostrarMensaje("1. Listar por tipo de socio\n");
+            txtMostrarMensaje("2. Listar todos los socios\n");
             txtMostrarMensaje("0. Atrás\n");
-            switch (cPeticiones.pedirEntero("Seleccione una opción(1, 2 o 0): ", 0, 2)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2 o 0): ", 0, 2)) {
                 case 1:
                     buttonListTipoSocio();
                     break;

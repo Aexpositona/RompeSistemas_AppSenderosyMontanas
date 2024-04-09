@@ -1,14 +1,19 @@
 package RompeSistemas.Vista;
 
+// Imports
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
-
 import java.text.ParseException;
+import java.time.LocalDate;
 
+/**
+ * Clase que representa la vista de socios.
+ */
 public class VistaSocios {
 
+    // Atributos
     private VistaModificarSeguro vModificarSeguro;
     private VistaListarSocios vListarSocios;
     private VistaAddSocio vAddSocio;
@@ -161,16 +166,46 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite mostrar la información de los socios
      */
-    public void buttonShowFacturaMensualSocios(){
+    public void buttonCalcFacturaMensualSocios(){
         txtMostrarMensaje("-- Mostrando la factura mensual de los socios --\n\n");
-        cSocios.showFacturaMensualSocios();
+        // Obtenemos la fecha actual y la fecha de hace un mes
+        LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
+        cSocios.calcFacturaFechas("NULL",haceUnMes, actual);
+    }
+
+    /**
+     * Método para añadir un botón que nos permite mostrar la información de los socios entre dos fechas
+     */
+    public void buttonCalcFacturaFechas(){
+        txtMostrarMensaje("-- Mostrando la factura entre fechas de los socios --\n\n");
+        // Solicitamos la fecha inicial y la fecha final
+        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduce la fecha inicial (aaaa-mm-dd): ", LocalDate.of(2000, 1, 1), LocalDate.now());
+        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduce la fecha final (aaaa-mm-dd): ", fechaInicial, LocalDate.now());
+        // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
+        cSocios.calcFacturaFechas("NULL",fechaInicial, fechaFinal);
+    }
+
+    public void buttonCalcFacturasFechasSocio() {
+        txtMostrarMensaje("-- Mostrando la factura entre fechas de un socio --\n\n");
+        // Listar socios
+        txtMostrarMensaje("\n");
+        cSocios.listSocios();
+        txtMostrarMensaje("\n");
+        // Solicitamos el número de socio
+        String numeroSocio = cPeticiones.pedirString("Introduce el número de socio: ");
+        // Solicitamos la fecha inicial y la fecha final
+        LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
+        LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final  --", fechaInicial, LocalDate.now());
+        txtMostrarMensaje("\n");
+        // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
+        cSocios.calcFacturaFechas(numeroSocio, fechaInicial, fechaFinal);
     }
 
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */
     public void buttonAtras() throws ParseException {
-        txtMostrarMensaje("Volviendo a la vista anterior\n\n");
+        txtMostrarMensaje("Volviendo al menú principal...\n\n");
     }
 
     /**
@@ -186,16 +221,22 @@ public class VistaSocios {
      * Método para mostrar la vista de socios
      */
     public void show() throws ParseException {
+        // Variables internas
         boolean running = true;
+        // Bucle de ejecución
         while (running) {
-            txtMostrarMensaje("************ MENú SOCIOS ************\n");
+            // Mostramos el menú de socios
+            txtMostrarMensaje("************ MENÚ SOCIOS ************\n");
             txtMostrarMensaje("1. Añadir socio\n");
             txtMostrarMensaje("2. Eliminar socio\n");
             txtMostrarMensaje("3. Modificar tipo de seguro\n");
             txtMostrarMensaje("4. Listar socios\n");
             txtMostrarMensaje("5. Mostrar factura mensual de los socios\n");
+            txtMostrarMensaje("6. Mostrar factura entre dos fechas\n");
+            txtMostrarMensaje("7. Mostrar factura entre dos fechas de un socio\n");
             txtMostrarMensaje("0. Atrás\n");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5 o 0): ", 0, 5)) {
+            // Solicitamos una opción
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3, 4, 5, 6, 7 o 0): ", 0, 7)) {
                 case 1:
                     buttonAddSocio();
                     break;
@@ -209,7 +250,13 @@ public class VistaSocios {
                     ButtonListSocios();
                     break;
                 case 5:
-                    buttonShowFacturaMensualSocios();
+                    buttonCalcFacturaMensualSocios();
+                    break;
+                case 6:
+                    buttonCalcFacturaFechas();
+                    break;
+                case 7:
+                    buttonCalcFacturasFechasSocio();
                     break;
                 case 0:
                     buttonAtras();

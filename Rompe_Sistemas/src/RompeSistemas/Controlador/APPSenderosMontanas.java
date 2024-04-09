@@ -55,27 +55,16 @@ public class APPSenderosMontanas {
     // Clase principal
     public static void main(String[] args) throws ParseException {
         // Inicializar la aplicación
-        System.out.println("\n" +
-                "                /\\        /\\\n" +
-                "               /\\/\\      /  \\ \n" +
-                "              /    \\    /    \\\n" +
-                "             /      \\  /\\/\\/\\/\\\n" +
-                "        /\\  /   /\\   \\/   /\\   \\  /\\\n" +
-                "       /  \\/   /  \\   \\  /  \\   \\/  \\\n" +
-                "      /    \\  /    \\   \\/    \\  /    \\\n" +
-                "     /\\/\\/ ~~~~~~~~~~~~~~~~~~~~~~~~~  \\  /\\\n" +
-                "    /       ~ SENDEROS & MONTAÑAS ~    \\/  \\\n" +
-                "   /    /\\ ~~~~~~~~~~~~~~~~~~~~~~~~~   /\\/\\/\\\n" +
-                "  /    /\\/\\   ~ ^  ^  ª  ^  ^  ^  ~   /      \\\n" +
-                " /    /    \\  ~ ª  ^  ^  ^  ª  ^  ~  /        \\\n" +
-                "/____/      ~~~~~~~~~~~~~~~~~~~~~~~~~          \\");
-        System.out.println("************ Bienvenid@ a la aplicación de Senderos y Montañas ************");
         APPSenderosMontanas app = new APPSenderosMontanas();
+        // Inicializar los datos
         Datos datos = new Datos();
         DataLoader dataLoader = new DataLoader(datos);
         dataLoader.load(datos);
+        // Iniciar la aplicación
         app.iniciar(datos);
+        // Mostrar la vista del menú principal
         app.showVistaMenuPrincipal();
+
     }
 
     /**
@@ -85,6 +74,7 @@ public class APPSenderosMontanas {
      * Inicializa los controladores y las vistas de la aplicación.
      */
     public void iniciar(Datos datos) {
+        
         // Inicializar controladores
         this.datos = datos;
         cDatos = new ControlDatos(this);
@@ -94,59 +84,54 @@ public class APPSenderosMontanas {
         cExcursiones = new ControlExcursiones(this);
         cMenuPrincipal = new ControlMenuPrincipal(this);
 
-        // Inicializar vistas
+        // Inicializar vistas y controladores de menú principal
         cMenuPrincipal.setControlExcursiones(cExcursiones);
         cMenuPrincipal.setControlInscripciones(cInscripciones);
         cMenuPrincipal.setControlSocios(cSocios);
         cMenuPrincipal.setVistaMenuPrincipal(new VistaMenuPrincipal());
         cMenuPrincipal.getVistaMenuPrincipal().setControlMenuPrincipal(cMenuPrincipal);
         cMenuPrincipal.getVistaMenuPrincipal().setControlPeticiones(cPeticiones);
-
+        
+        // Inicializar controladores y vistas de inscripciones
         cInscripciones.getVistaInscripciones().setControlInscripciones(cInscripciones);
         cInscripciones.getVistaInscripciones().setControlPeticiones(cPeticiones);
-
         cInscripciones.getVistaListarInscripciones().setControlInscripciones(cInscripciones);
         cInscripciones.getVistaListarInscripciones().setControlPeticiones(cPeticiones);
         cInscripciones.getVistaInscripciones().setVistaListarInscripciones(new VistaListarInscripciones(cInscripciones));
-
         cInscripciones.getVistaAddInscripcion().setControlInscripciones(cInscripciones);
         cInscripciones.getVistaAddInscripcion().setControlPeticiones(cPeticiones);
         cInscripciones.getVistaInscripciones().setVistaAddInscripcion(new VistaAddInscripcion(cInscripciones));
 
-
+        // Inicializar controladores y vistas de socios
         cSocios.getVistaSocios().setControlSocios(cSocios);
         cSocios.getVistaSocios().setControlPeticiones(cPeticiones);
-
         cSocios.getVistaListarSocios().setControlSocios(cSocios);
         cSocios.getVistaListarSocios().setControlPeticiones(cPeticiones);
         cSocios.getVistaSocios().setVistaListarSocios(new VistaListarSocios(cSocios));
-
         cSocios.getVistaAddSocio().setControlSocios(cSocios);
         cSocios.getVistaAddSocio().setControlPeticiones(cPeticiones);
         cSocios.getVistaSocios().setVistaAddSocio(new VistaAddSocio(cSocios));
-
         cSocios.getVistaModificarSeguro().setControlSocios(cSocios);
         cSocios.getVistaModificarSeguro().setControlPeticiones(cPeticiones);
         cSocios.getVistaSocios().setVistaModificarSeguro(new VistaModificarSeguro(cSocios));
 
+        // Inicializar controladores y vistas de excursiones
         cExcursiones.getVistaExcursiones().setControlExcursiones(cExcursiones);
         cExcursiones.getVistaExcursiones().setControlPeticiones(cPeticiones);
         cExcursiones.getVistaExcursiones().setControlDatos(cDatos);
-
         cExcursiones.getVistaListarExcursiones().setControlExcursiones(cExcursiones);
         cExcursiones.getVistaListarExcursiones().setControlPeticiones(cPeticiones);
         cExcursiones.getVistaExcursiones().setVistaListarExcursiones(new VistaListarExcursiones(cExcursiones));
-
-
         cExcursiones.getVistaAddExcursion().setControlExcursiones(cExcursiones);
         cExcursiones.getVistaAddExcursion().setControlPeticiones(cPeticiones);
         cExcursiones.getVistaAddExcursion().setControlDatos(cDatos);
         cExcursiones.getVistaExcursiones().setVistaAddExcursion(new VistaAddExcursion(cExcursiones));
 
+        // Inicializar vista menu principal
         vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
     }
 
-    /**2
+    /**
      * Muestra la vista del menú principal.
      * @throws ParseException excepción de parseo
      */
@@ -278,6 +263,4 @@ public class APPSenderosMontanas {
     public void setDatos(Datos datos) {
         this.datos = datos;
     }
-
-
 }

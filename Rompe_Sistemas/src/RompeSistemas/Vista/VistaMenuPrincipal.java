@@ -23,11 +23,19 @@ public class VistaMenuPrincipal {
         this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
     }
 
+    /**
+     * Constructor de copia de la clase VistaMenuPrincipal.
+     *
+     * @param vistaMenuPrincipal VistaMenuPrincipal a copiar
+     */
     public VistaMenuPrincipal(VistaMenuPrincipal vistaMenuPrincipal) {
         this.cMenuPrincipal = new ControlMenuPrincipal(vistaMenuPrincipal.getControlMenuPrincipal());
         this.cPeticiones = new ControlPeticiones(vistaMenuPrincipal.getControlPeticiones());
     }
 
+    /**
+     * Constructor vacío de la clase VistaMenuPrincipal.
+     */
     public VistaMenuPrincipal() {
         this.cMenuPrincipal = null;
         this.cPeticiones = null;
@@ -97,14 +105,36 @@ public class VistaMenuPrincipal {
      * Método para mostrar la vista.
      */
     public void show() throws ParseException {
-        boolean running = true;
+        boolean running = true, bienvenida = false;
         while (running) {
-            txtMostrarMensaje("************ Menú Principal ************\n");
+            // Si no hemos mostrado el mensaje de bienvenida, lo mostramos
+            if (!bienvenida){
+                // Mostrar mensaje de bienvenida
+                txtMostrarMensaje("\n" +
+                "                /\\        /\\\n" +
+                "               /\\/\\      /  \\ \n" +
+                "              /    \\    /    \\\n" +
+                "             /      \\  /\\/\\/\\/\\\n" +
+                "        /\\  /   /\\   \\/   /\\   \\  /\\\n" +
+                "       /  \\/   /  \\   \\  /  \\   \\/  \\\n" +
+                "      /    \\  /    \\   \\/    \\  /    \\\n" +
+                "     /\\/\\/ ~~~~~~~~~~~~~~~~~~~~~~~~~  \\  /\\\n" +
+                "    /       ~ SENDEROS & MONTAÑAS ~    \\/  \\\n" +
+                "   /    /\\ ~~~~~~~~~~~~~~~~~~~~~~~~~   /\\/\\/\\\n" +
+                "  /    /\\/\\   ~ ^  ^  ª  ^  ^  ^  ~   /      \\\n" +
+                " /    /    \\  ~ ª  ^  ^  ^  ª  ^  ~  /        \\\n" +
+                "/____/      ~~~~~~~~~~~~~~~~~~~~~~~~~          \\\n\n");
+                txtMostrarMensaje("************ Bienvenid@ a la aplicación de Senderos y Montañas ************\n\n");
+                // Cambiamos el valor de la variable de bienvenida
+                bienvenida = true;
+            }
+            // Mostramos el menú principal
+            txtMostrarMensaje("************ MENÚ PRINCIPAL ************\n");
             txtMostrarMensaje("1. Inscripciones\n");
             txtMostrarMensaje("2. Socios\n");
             txtMostrarMensaje("3. Excursiones\n");
             txtMostrarMensaje("0. Salir\n");
-
+            // Solicitamos una opción
             switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):", 0, 3)) {
                 case 1:
                     buttonVistaInscripciones();
