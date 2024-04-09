@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -197,33 +198,38 @@ public class ControlSocios {
      * @param numeroSocio Número de socio.
      */
     public void removeSocio(String numeroSocio) {
-        int tipoObjeto = 3;
-        List<Object> socios = datos.getArrayList(tipoObjeto);
-        // Recorremos el array de socios
-        for (Object socio : socios) {
-            // Si el número de socio existe y no está inscrito en alguna excursión
-            if ((!cDatos.isSocioInInscripcion(numeroSocio)) && cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio)) {
-                // Eliminamos el socio
-                datos.removeObjeto(tipoObjeto, socio);
-                // Mostramos un mensaje de éxito
-                vSocios.txtMostrarMensaje("Socio eliminado con éxito.\n\n");
-                break;
-            }
-            // Si el socio está inscrito en alguna excursión
-            else if (cDatos.isSocioInInscripcion(numeroSocio)) {
-                // Mostramos un mensaje de error
-                vSocios.txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.\n\n");
-                break;
-            }
-            // Si el socio está asociado a un usuario infantil
-            else if (cDatos.checkExistenciaObjeto(tipoObjeto, numeroSocio) && !cDatos.isSocioInInfantil(numeroSocio)) {
-                vSocios.txtMostrarMensaje("El socio está asociado a un usuario infantil. No se puede eliminar.\n\n");
-                break;
-            }
-            // Si el socio no existe
-            else {
-                vSocios.txtMostrarMensaje("El socio no existe.\n\n");
-                break;
+        // Obtenemos la lista de socios
+        List<Object> socios = datos.getArrayList(3);
+        // Recorremos la lista de socios
+        for (int i = 0; i < socios.size(); i++) {
+            // Obtenemos el socio en la posición i
+            Socio socio = (Socio) socios.get(i);
+            // Comparamos el número del socio con el número de socio que queremos eliminar
+            if (socio.getNumero().equals(numeroSocio)) {
+                // Si el número de socio existe y no está inscrito en alguna excursión
+                if ((!cDatos.isSocioInInscripcion(numeroSocio)) && cDatos.checkExistenciaObjeto(3, numeroSocio)) {
+                    // Eliminamos el socio
+                    socios.remove(i);
+                    // Mostramos un mensaje de éxito
+                    vSocios.txtMostrarMensaje("Socio eliminado con éxito.\n\n");
+                    break;
+                }
+                // Si el socio está inscrito en alguna excursión
+                else if (cDatos.isSocioInInscripcion(numeroSocio)) {
+                    // Mostramos un mensaje de error
+                    vSocios.txtMostrarMensaje("El socio está asociado a una inscripción. No se puede eliminar.\n\n");
+                    break;
+                }
+                // Si el socio está asociado a un usuario infantil
+                else if (cDatos.checkExistenciaObjeto(3, numeroSocio) && !cDatos.isSocioInInfantil(numeroSocio)) {
+                    vSocios.txtMostrarMensaje("El socio está asociado a un usuario infantil. No se puede eliminar.\n\n");
+                    break;
+                }
+                // Si el socio no existe
+                else {
+                    vSocios.txtMostrarMensaje("El socio no existe.\n\n");
+                    break;
+                }
             }
         }
     }
