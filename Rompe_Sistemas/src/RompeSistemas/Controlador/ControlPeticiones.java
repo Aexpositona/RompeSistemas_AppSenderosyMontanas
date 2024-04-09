@@ -195,23 +195,19 @@ public class ControlPeticiones {
         return f;
     }
 
-    public String pedirNIF (String peticion){
-        // Variables internas
-        String nif;
+    public String pedirNIF (){
+        String nif = "";
         boolean resultado = false;
-        // Solicitamos el valor hasta obtener un valor válido
+        // Pedimos la introducción de las opciones concretas
+        System.out.print("Introduce el NIF del socio: ");
         do {
-            // Pedimos la introducción de las opciones concretas
-            System.out.println(peticion);
             // Registramos el valor introducido
             nif = scanner.nextLine();
-            // Si el valor introducido no tiene 9 caracteres
-            if (nif.length() != 9) {
+            // Si el valor introducido tiene 9 caracteres
+            if (!nif.isEmpty() && nif.length() != 9) {
                 // Informamos al usuario del error
                 System.out.println("El NIF debe tener 9 caracteres.");
-            }
-            // Si el valor introducido tiene 9 caracteres
-            else {
+            } else if (!nif.isEmpty()) {
                 // Comprobamos que los 8 primeros caracteres sean numéricos
                 for (int i = 0; i < 8; i++) {
                     // Si el caracter no es numérico

@@ -100,7 +100,7 @@ public class VistaAddSocio {
 
         // Mientras el NIF introducido ya exista, pedir otro NIF
         do{
-            nif = cPeticiones.pedirNIF("Introduce el NIF del socio: ");
+            nif = cPeticiones.pedirNIF();
             if (!cDatos.checkExistenciaNIF(nif)) {
                 break;
             }
