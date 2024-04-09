@@ -41,6 +41,7 @@ public class ControlPeticiones {
 
     //Metodo para solicitar y registrar cadena introducida por usuario
     public String pedirString(String peticion) {
+        scanner.useDelimiter("\n");
         //Declaramos variables internas
         String resp;            //Cadena introducida
         //Pedimos la introducción de las opciones concretas
