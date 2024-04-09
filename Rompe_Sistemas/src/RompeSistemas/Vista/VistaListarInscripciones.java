@@ -83,6 +83,7 @@ public class VistaListarInscripciones {
         txtMostrarMensaje("\n");
         // Pedimos el id del socio
         idSocio = cPeticiones.pedirString("Introduzca el id del socio: ");
+        idSocio = idSocio.toUpperCase();
         // Llamamos al método de ControlExcursiones que lista las excursiones de un socio
         cInscripciones.listInscripcionesSocio(idSocio);
     }
