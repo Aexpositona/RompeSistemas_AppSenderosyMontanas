@@ -5,6 +5,10 @@ import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import java.text.ParseException;
 
+/**
+ * Clase que representa la vista de excursiones de la aplicación.
+ *
+ */
 public class VistaExcursiones {
 
     // Atributos
