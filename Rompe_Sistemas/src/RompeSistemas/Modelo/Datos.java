@@ -667,19 +667,23 @@ public class Datos {
             }
         }
         // Si el tipo de objeto es 3 (Socio)
-        else if (tipoObjeto == 3) {
-            // Si el ArrayList de socios no está vacío
-            if (!socios.isEmpty()) {
+        else if (tipoObjeto == 3) { // Si el tipo de objeto es Socio
+            if (!socios.isEmpty()) { // Si el ArrayList de socios no está vacío
                 // Obtener el último socio
-                Socio socio = (Socio) socios.get(socios.size() - 1);
-                // Obtener el código del último socio
-                codigo = String.valueOf(socio.getNumero());
-            }
-            // Si el ArrayList de socios está vacío
-            else {
-                // Asignar el código "SOC0001"
+                Socio ultimoSocio = (Socio) socios.get(socios.size() - 1);
+                // Obtener el número del último socio
+                int ultimoNumero = Integer.parseInt(ultimoSocio.getNumero().substring(3));
+                // Calcular el siguiente número
+                int siguienteNumero = ultimoNumero + 1;
+                // Formatear el siguiente número como una cadena de cuatro dígitos
+                String siguienteNumeroStr = String.format("%04d", siguienteNumero);
+                // Construir el código del siguiente socio
+                codigo = "SOC" + siguienteNumeroStr;
+            } else { // Si el ArrayList de socios está vacío
+                // Asignar el número "SOC0001"
                 codigo = "SOC0001";
             }
+
         } else if (tipoObjeto == 4) {
             // Si el ArrayList de federaciones no está vacío
             if (!federaciones.isEmpty()) {

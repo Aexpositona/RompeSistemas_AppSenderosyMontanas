@@ -116,11 +116,12 @@ public class VistaAddSocio {
             // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
             // Mostramos tipos de seguro disponibles
-            txtMostrarMensaje("Tipos de seguro disponibles:");
+            txtMostrarMensaje("Tipos de seguro disponibles:\n");
             Seguro[] seguros = Seguro.values();
             // Mostramos los tipos de seguro
             for (Seguro value : seguros) {
-                txtMostrarMensaje(value.name());
+                String seguroName = value.name().charAt(0) + value.name().substring(1).toLowerCase();
+                txtMostrarMensaje(seguroName + "\n");
             }
             // Pedir tipo de seguro
             String seguroInput = cPeticiones.pedirString("Introduce el nombre del tipo de seguro del socio: ");
