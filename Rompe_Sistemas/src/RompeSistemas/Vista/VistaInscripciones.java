@@ -187,9 +187,9 @@ public class VistaInscripciones {
             txtMostrarMensaje("1. Añadir inscripción\n");
             txtMostrarMensaje("2. Menú Listar inscripciónes\n");
             txtMostrarMensaje("3. Eliminar inscripción\n");
-            txtMostrarMensaje("0. Salir\n");
+            txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
-            switch (cPeticiones.pedirEntero("Selecciona una opción (1, 2, 3 o 0):",0,3)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):",0,3)) {
                 // Si la opción es 1 mostramos el menú de añadir inscripción
                 case 1:
                     buttonMenuAddInscripcion();

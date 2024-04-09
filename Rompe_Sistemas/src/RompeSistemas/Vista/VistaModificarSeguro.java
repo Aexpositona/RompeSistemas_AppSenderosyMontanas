@@ -110,7 +110,11 @@ public class VistaModificarSeguro {
         cSocios.listSeguros();
         // Solicitamos el tipo de seguro que se le va a asignar al socio
         tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio: ", 1, Seguro.values().length);
+        txtMostrarMensaje("\n");
+
+        // Modificamos el seguro
         cSocios.modifySeguro(tipoSeguro, numeroSocio);
+        
     }
 
     /**
@@ -137,10 +141,10 @@ public class VistaModificarSeguro {
     public void show() throws ParseException {
         boolean running = true;
         while (running) {
-            txtMostrarMensaje("************ MENú MODIFICAR SEGURO ************\n");
+            txtMostrarMensaje("************ MENÚ MODIFICAR SEGURO ************\n");
             txtMostrarMensaje("1. Modificar seguro\n");
             txtMostrarMensaje("0. Atrás\n");
-            switch (cPeticiones.pedirEntero("Seleccione una opción(1 o 0): ", 0, 1)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0): ", 0, 1)) {
                 case 1:
                     buttonModificarSeguro();
                     break;

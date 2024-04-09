@@ -163,7 +163,7 @@ public class VistaAddInscripcion {
             txtMostrarMensaje("1. Añadir inscripción\n");
             txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
-            switch (cPeticiones.pedirEntero("Introduzca una opción: ",0,1)){
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0): ",0,1)){
                 case 1:
                     buttonAddInscripcion();
                     break;

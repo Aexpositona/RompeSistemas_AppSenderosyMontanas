@@ -109,12 +109,12 @@ public class VistaListarExcursiones {
         // Mientras el bucle esté activo
         while (running) {
             // Mostramos el menú
-            txtMostrarMensaje("************ Menu Listar Excursiones ************\n");
+            txtMostrarMensaje("************ MENÚ LISTAR EXCURSIONES ************\n");
             txtMostrarMensaje("1. Listar Excursiones\n");
             txtMostrarMensaje("2. Listar Excursiones por Fecha\n");
             txtMostrarMensaje("0. Atrás\n");
             // Pedimos la opción
-            switch (cPeticiones.pedirEntero("Introduzca una opción: ", 0, 2)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2 o 0): ", 0, 2)) {
                 // Si la opción es 1, listamos las excursiones
                 case 1:
                     buttonListExcursiones();

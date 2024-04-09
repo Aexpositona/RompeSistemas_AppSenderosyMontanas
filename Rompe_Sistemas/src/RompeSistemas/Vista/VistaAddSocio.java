@@ -237,10 +237,10 @@ public class VistaAddSocio {
         // Mientras se ejecute la vista
         while (running) {
             // Mostramos menú de añadir socio
-            txtMostrarMensaje("************ MENú AÑADIR SOCIO ************\n");
+            txtMostrarMensaje("************ MENÚ AÑADIR SOCIO ************\n");
             txtMostrarMensaje("1. Añadir socio\n");
             txtMostrarMensaje("0. Atrás\n");
-            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 1)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0): ", 0, 1)) {
                 case 1:
                     buttonAddSocio();
                     break;

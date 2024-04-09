@@ -151,7 +151,7 @@ public class VistaAddExcursion {
             txtMostrarMensaje("1. Añadir excursión\n");
             txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
-            switch (cPeticiones.pedirEntero("Selecciona una opción (1 o 0):",0,1)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0):",0,1)) {
                 // Si la opción es 1 añadimos una excursión
                 case 1:
                     buttonAddExcursion();

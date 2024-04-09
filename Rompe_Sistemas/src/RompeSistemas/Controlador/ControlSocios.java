@@ -362,13 +362,13 @@ public class ControlSocios {
             // Si el objeto es un socio
             if (obj instanceof Socio socio) {
                 // Si el número de socio coincide con el número de socio del socio
-                if (socio.getNumero().equals(numeroSocio)) {
+                if (socio.getNumero().equalsIgnoreCase(numeroSocio)) {
                     // Si el socio es un usuario estándar
                     if (socio instanceof Estandar) {
                         // Modificamos el seguro del socio
                         ((Estandar) socio).setSeguro(Seguro.values()[tipoSeguro - 1]);
                         // Mostramos un mensaje de éxito
-                        vModificarSeguro.txtMostrarMensaje("Seguro modificado con éxito.\n\n");
+                        vModificarSeguro.txtMostrarMensaje("Seguro del usuario " + ((Estandar) socio).getNumero() + " se ha modificado con éxito al tipo de seguro " + ((Estandar) socio).getSeguro().getNombre() + ".\n\n");
                         break;
                     }
                 }
@@ -381,8 +381,8 @@ public class ControlSocios {
      */
     public void listSeguros() {
         // Obtenemos la lista de socios
-        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- " + Seguro.BASICO.toString() + "\n");
-        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- " + Seguro.COMPLETO.toString() + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 1 -- \n" + Seguro.BASICO.toString() + "\n");
+        vModificarSeguro.txtMostrarMensaje("-- Seguro 2 -- \n" + Seguro.COMPLETO.toString() + "\n");
     }
 }
 

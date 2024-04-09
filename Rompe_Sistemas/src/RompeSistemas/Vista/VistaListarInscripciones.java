@@ -130,7 +130,7 @@ public class VistaListarInscripciones {
             txtMostrarMensaje("3. Listar inscripción por fechas\n");
             txtMostrarMensaje("0. Atrás\n");
 
-            switch (cPeticiones.pedirEntero("Seleccione una opción: ", 0, 3)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0): ", 0, 3)) {
                 case 1:
                     buttonListInscripciones();
                     break;

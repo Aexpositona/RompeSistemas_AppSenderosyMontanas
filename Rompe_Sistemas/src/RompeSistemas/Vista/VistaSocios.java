@@ -194,8 +194,8 @@ public class VistaSocios {
         // Solicitamos el número de socio
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio: ");
         // Solicitamos la fecha inicial y la fecha final
-        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduce la fecha inicial (aaaa-mm-dd): ", LocalDate.of(2000, 1, 1), LocalDate.now());
-        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduce la fecha final (aaaa-mm-dd): ", fechaInicial, LocalDate.now());
+        LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
+        LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final  --", fechaInicial, LocalDate.now());
         txtMostrarMensaje("\n");
         // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
         cSocios.calcFacturaFechas(numeroSocio, fechaInicial, fechaFinal);
@@ -226,7 +226,7 @@ public class VistaSocios {
         // Bucle de ejecución
         while (running) {
             // Mostramos el menú de socios
-            txtMostrarMensaje("************ MENú SOCIOS ************\n");
+            txtMostrarMensaje("************ MENÚ SOCIOS ************\n");
             txtMostrarMensaje("1. Añadir socio\n");
             txtMostrarMensaje("2. Eliminar socio\n");
             txtMostrarMensaje("3. Modificar tipo de seguro\n");
@@ -236,7 +236,7 @@ public class VistaSocios {
             txtMostrarMensaje("7. Mostrar factura entre dos fechas de un socio\n");
             txtMostrarMensaje("0. Atrás\n");
             // Solicitamos una opción
-            switch (cPeticiones.pedirEntero("Seleccione una opción: (1, 2, 3, 4, 5, 6, 7 o 0): ", 0, 7)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3, 4, 5, 6, 7 o 0): ", 0, 7)) {
                 case 1:
                     buttonAddSocio();
                     break;

@@ -129,7 +129,7 @@ public class VistaMenuPrincipal {
                 bienvenida = true;
             }
             // Mostramos el menú principal
-            txtMostrarMensaje("************ Menú Principal ************\n");
+            txtMostrarMensaje("************ MENÚ PRINCIPAL ************\n");
             txtMostrarMensaje("1. Inscripciones\n");
             txtMostrarMensaje("2. Socios\n");
             txtMostrarMensaje("3. Excursiones\n");
