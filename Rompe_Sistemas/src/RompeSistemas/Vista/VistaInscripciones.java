@@ -3,7 +3,6 @@ package RompeSistemas.Vista;
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
-import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Datos;
 

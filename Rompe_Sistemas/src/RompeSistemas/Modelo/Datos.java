@@ -396,8 +396,7 @@ public class Datos {
                     // Obtener el socio
                     Socio socio = (Socio) o;
                     // Añadir el socio a la lista de objetos
-                    if (socio instanceof Estandar){
-                        Estandar estandar = (Estandar) socio;
+                    if (socio instanceof Estandar estandar){
                         list.add(estandar);
                     }
 
@@ -700,17 +699,17 @@ public class Datos {
         }
         // Devolver el código añadiendo 1
         if ((Integer.parseInt(codigo.substring(3)) + 1 < 10)){
-            return codigo.substring(0, 3) + "000" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+            return codigo.substring(0, 3) + "000" + (Integer.parseInt(codigo.substring(3)) + 1);
         }
         // Si el código es menor que 100
         else if ((Integer.parseInt(codigo.substring(3)) + 1 < 100)){
-            return codigo.substring(0, 3) + "00" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+            return codigo.substring(0, 3) + "00" + (Integer.parseInt(codigo.substring(3)) + 1);
         }
         else if ((Integer.parseInt(codigo.substring(3)) + 1 < 1000)){
-            return codigo.substring(0, 3) + "0" + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+            return codigo.substring(0, 3) + "0" + (Integer.parseInt(codigo.substring(3)) + 1);
         }
         else{
-            return codigo.substring(0, 3) + String.valueOf(Integer.parseInt(codigo.substring(3)) + 1);
+            return codigo.substring(0, 3) + (Integer.parseInt(codigo.substring(3)) + 1);
         }
     }
 
@@ -864,59 +863,59 @@ public class Datos {
                         // Fecha
                         case 4 -> list.add(String.valueOf(excursion.getFecha()));
                         // Código - Fecha
-                        case 5 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getFecha()));
+                        case 5 -> list.add(excursion.getCodigo() + " - " + excursion.getFecha());
                         // Descripción - Fecha
-                        case 6 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()));
+                        case 6 -> list.add(excursion.getDescripcion() + " - " + excursion.getFecha());
                         // Código - Descripción - Fecha
-                        case 7 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()));
+                        case 7 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getFecha());
                         // Duración
                         case 8 -> list.add(String.valueOf(excursion.getDuracion()));
                         // Código - Duración
-                        case 9 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getDuracion()));
+                        case 9 -> list.add(excursion.getCodigo() + " - " + excursion.getDuracion());
                         // Descripción - Duración
-                        case 10 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getDuracion()));
+                        case 10 -> list.add(excursion.getDescripcion() + " - " + excursion.getDuracion());
                         // Código - Descripción - Duración
-                        case 11 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getDuracion()));
+                        case 11 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getDuracion());
                         // Fecha - Duración
-                        case 12 -> list.add(String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()));
+                        case 12 -> list.add(excursion.getFecha() + " - " + excursion.getDuracion());
                         // Código - Fecha - Duración
-                        case 13 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()));
+                        case 13 -> list.add(excursion.getCodigo() + " - " + excursion.getFecha() + " - " + excursion.getDuracion());
                         // Descripción - Fecha - Duración
-                        case 14 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()));
+                        case 14 -> list.add(excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getDuracion());
                         // Código - Descripción - Fecha - Duración
-                        case 15 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()));
+                        case 15 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getDuracion());
                         // Precio
-                        case 16 -> list.add(String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 16 -> list.add(excursion.getPrecio() +" Euros.");
                         // Código - Precio
-                        case 17 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 17 -> list.add(excursion.getCodigo() + " - " + excursion.getPrecio() +" Euros.");
                         // Descripción - Precio
-                        case 18 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 18 -> list.add(excursion.getDescripcion() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Descripción - Precio
-                        case 19 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 19 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getPrecio() +" Euros.");
                         // Fecha - Precio
-                        case 20 -> list.add(String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 20 -> list.add(excursion.getFecha() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Fecha - Precio
-                        case 21 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 21 -> list.add(excursion.getCodigo() + " - " + excursion.getFecha() + " - " + excursion.getPrecio() +" Euros.");
                         // Descripción - Fecha - Precio
-                        case 22 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 22 -> list.add(excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Descripción - Fecha - Precio
-                        case 23 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 23 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getPrecio() +" Euros.");
                         // Duración - Precio
-                        case 24 -> list.add(String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 24 -> list.add(excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Duración - Precio
-                        case 25 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 25 -> list.add(excursion.getCodigo() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Descripción - Duración - Precio
-                        case 26 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 26 -> list.add(excursion.getDescripcion() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Descripción - Duración - Precio
-                        case 27 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 27 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Fecha - Duración - Precio
-                        case 28 -> list.add(String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 28 -> list.add(excursion.getFecha() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Fecha - Duración - Precio
-                        case 29 -> list.add(excursion.getCodigo() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 29 -> list.add(excursion.getCodigo() + " - " + excursion.getFecha() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Descripción - Fecha - Duración - Precio
-                        case 30 -> list.add(excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 30 -> list.add(excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                         // Código - Descripción - Fecha - Duración - Precio
-                        case 31 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + String.valueOf(excursion.getFecha()) + " - " + String.valueOf(excursion.getDuracion()) + " - " + String.valueOf(excursion.getPrecio()) +" Euros.");
+                        case 31 -> list.add(excursion.getCodigo() + " - " + excursion.getDescripcion() + " - " + excursion.getFecha() + " - " + excursion.getDuracion() + " - " + excursion.getPrecio() +" Euros.");
                     }
                 }
             }
@@ -943,13 +942,13 @@ public class Datos {
                         // Excursión
                         case 4 -> list.add(String.valueOf(inscripcion.getExcursion()));
                         // Número - Socio
-                        case 3 -> list.add(inscripcion.getNumero() + " - " + String.valueOf(inscripcion.getSocio()));
+                        case 3 -> list.add(inscripcion.getNumero() + " - " + inscripcion.getSocio());
                         // Número - Excursión
-                        case 5 -> list.add(inscripcion.getNumero() + " - " + String.valueOf(inscripcion.getExcursion()));
+                        case 5 -> list.add(inscripcion.getNumero() + " - " + inscripcion.getExcursion());
                         // Socio - Excursión
-                        case 6 -> list.add(String.valueOf(inscripcion.getSocio()) + " - " + String.valueOf(inscripcion.getExcursion()));
+                        case 6 -> list.add(inscripcion.getSocio() + " - " + inscripcion.getExcursion());
                         // Número - Socio - Excursión
-                        case 7 -> list.add(inscripcion.getNumero() + " - " + String.valueOf(inscripcion.getSocio()) + " - " + String.valueOf(inscripcion.getExcursion()));
+                        case 7 -> list.add(inscripcion.getNumero() + " - " + inscripcion.getSocio() + " - " + inscripcion.getExcursion());
                     }
                 }
             }

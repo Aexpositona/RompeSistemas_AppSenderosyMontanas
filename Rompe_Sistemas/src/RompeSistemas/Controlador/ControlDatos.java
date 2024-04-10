@@ -10,7 +10,7 @@ public class ControlDatos {
 
     // Constructor
     public ControlDatos(APPSenderosMontanas app) {
-        this.datos = app.datos;
+        this.datos = app.getDatos();
     }
 
     // Constructor de copia
@@ -180,9 +180,6 @@ public class ControlDatos {
                 }
             }
         }
-        else {
-            resultado = false;
-        }
         // Devolvemos el resultado
         return resultado;
     }
@@ -209,7 +206,7 @@ public class ControlDatos {
         }
         return false;
     }
-    
+
     public boolean checkExistenciaNIF(String nif){
         // Recorremos todos los socios
         for (Object obj : datos.getArrayList(3)) {

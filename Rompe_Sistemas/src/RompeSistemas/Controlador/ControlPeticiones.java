@@ -63,15 +63,15 @@ public class ControlPeticiones {
     /**
      * Metodo para solicitar y registrar número entero introducido por usuario.
      * En este Metodo solicitamos y registramos el número entero introducido por el usuario.
-     * Si se introduce un tipo de dato diferente a un número, generando una excepción, informamos al usuario y registramos el valor inválido -1 para forzar reintento.
-     * Si se supera el número de intentos después de excepción permitidos, informamos al usuario y salimos del programa.
+     * Si no se introduce un valor numérico, capturamos la excepción y solicitamos de nuevo el valor.
+     * Si no se introduce un valor entre el rango establecido, informamos al usuario y solicitamos de nuevo el valor.
      * @param peticion Recibe la petición de introducción de número entero.
-     * @param min Recibe el valor mínimo permitido.
-     * @param max Recibe el valor máximo permitido.
+     * @param min Recibe el valor mínimo del rango.
+     * @param max Recibe el valor máximo del rango.
      * @return int - Devuelve el número entero introducido por el usuario.
      */
 
-    //Metodo para solicitar y registrar número entero introducido por usuario
+    // Metodo para solicitar y registrar número entero introducido por usuario
     public int pedirEntero(String peticion, int min, int max) {
         //Declaramos variables internas
         int i;              //Valor introducido
@@ -197,7 +197,7 @@ public class ControlPeticiones {
     }
 
     public String pedirNIF (){
-        String nif = "";
+        String nif;
         boolean resultado = false;
         // Pedimos la introducción de las opciones concretas
         System.out.print("Introduce el NIF del socio: ");
