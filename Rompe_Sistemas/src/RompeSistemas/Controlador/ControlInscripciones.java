@@ -1,7 +1,12 @@
 package RompeSistemas.Controlador;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 
+import RompeSistemas.Datos.DatabaseConnection;
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Socio;
@@ -152,23 +157,35 @@ public class ControlInscripciones {
      *
      * @param numeroSocio Número de socio
      */
+    /**
+     * Lista las inscripciones de un socio.
+     *
+     * @param numeroSocio Número de socio
+     */
     public void listInscripcionesSocio(String numeroSocio) {
-        // Variables internas
-        int i;
-        Inscripcion inscripcion;
-        Socio socio;
-        // Recorremos la lista de inscripciones
-        for (i = 0; i < datos.listObjetos(2).size(); i++){
-            // Guardamos la inscripción
-            inscripcion = (Inscripcion) datos.listObjetos(2).get(i);
-            // Guardamos el socio de la inscripción
-            socio = inscripcion.getSocio();
-            // Si el número del socio coincide con el número del socio introducido
-            if (socio.getNumero().equals(numeroSocio)) {
-                // Mostramos la inscripción
-                vListarInscripciones.txtMostrarMensaje("-- Inscripción " + (i+1) + " --\n" + datos.listObjetos(2).get(i).toString() + "\n");
+        StringBuilder result = new StringBuilder();
+        try {
+            // Obtener conexión utilizando DatabaseConnection
+            Connection conexion = DatabaseConnection.getConnection();
+
+            // Crear objeto statement
+            Statement statement = conexion.createStatement();
+
+            // Ejecutar sentencia SQL
+            String query = "SELECT * FROM Inscripcion WHERE idSocio = " + numeroSocio;
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Si hay resultados, convertirlos a String y añadirlos al StringBuilder
+            while (resultSet.next()) {
+                // Aquí necesitarás ajustar el código para que coincida con tu esquema de base de datos
+                // y convertir cada resultado a String de la manera que prefieras
+                result.append(resultSet.getString(1)).append("\n");
             }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las inscripciones del socio de la base de datos: " + e.getMessage());
         }
+        vListarInscripciones.txtMostrarMensaje(result.toString());
     }
 
     /**
@@ -182,13 +199,12 @@ public class ControlInscripciones {
     }
 
     public void listIdsSocios() {
-        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, 3));
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, "3"));
     }
 
     public void listExcursiones() {
-        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(1, 31));
+        vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(1, "31"));
     }
-
     /**
      * Muestra la vista para añadir una inscripción.
      */

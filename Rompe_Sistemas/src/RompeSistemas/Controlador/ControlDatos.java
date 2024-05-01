@@ -1,6 +1,12 @@
 package RompeSistemas.Controlador;
 
+import RompeSistemas.Datos.DatabaseConnection;
 import RompeSistemas.Modelo.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ControlDatos {
 
@@ -12,10 +18,9 @@ public class ControlDatos {
     public ControlDatos(APPSenderosMontanas app) {
         this.datos = app.getDatos();
     }
-
     // Constructor de copia
     public ControlDatos (ControlDatos cDatos) {
-        this.datos = new Datos(cDatos.datos);
+        this.datos = new Datos();
     }
 
     // Constructor vacío
@@ -117,107 +122,86 @@ public class ControlDatos {
         else return true;
     }
 
- /**
-     * Metodo para comprobar si existe un objeto.
-     * En este Metodo comprobamos si existe un objeto.
-     * Si el objeto existe, devolvemos verdadero.
-     * @param codigo Recibe el código o número del objeto.
-     * @param tipoObjeto Recibe el tipo de objeto.
-     *                  1-Excursión
-     *                  2-Inscripción
-     *                  3-Socio
-     *                  4-Federación 
-     * @return boolean - Devuelve verdadero si el objeto existe.
+    /**
+     * Método para comprobar la existencia de un objeto en la base de datos.
+     *
+     * @param tipoObjeto Tipo de objeto
+     *                  1 - Excursión
+     *                  2 - Inscripción
+     *                  3 - Socio
+     *                  4 - Federación
+     * @param codigo     Código del objeto
+     * @return true si el objeto existe, false en caso contrario
      */
-    // Método para comprobar si existe un objeto
-    public boolean checkExistenciaObjeto(int tipoObjeto, String codigo){
-        // Variables internas
-        boolean resultado = false;
-        // Si el objeto es una excursión
-        if (tipoObjeto == 1) {
-            // Si la excursión existe
-            for (Object obj : datos.getArrayList(1)) {
-                if (obj instanceof Excursion excursion) {
-                    if (excursion.getCodigo().equalsIgnoreCase(codigo)) {
-                        // Registramos resultado como verdadero
-                        resultado = true;
-                    }
-                }
-            }
-        }
-        // Si el objeto es una inscripción
-        else if (tipoObjeto == 2) {
-            // Si la inscripción existe
-            for (Object obj : datos.getArrayList(2)) {
-                if (obj instanceof Inscripcion inscripcion) {
-                    if (inscripcion.getNumero().equalsIgnoreCase(codigo)) {
-                        // Registramos resultado como verdadero
-                        resultado = true;
-                    }
-                }
-            }
-        }
-        // Si el objeto es un socio
-        else if (tipoObjeto == 3) {
-            // Si el socio existe
-            for (Object obj : datos.getArrayList(3)) {
-                if (obj instanceof Socio socio) {
-                    if (socio.getNumero().equalsIgnoreCase(codigo)) {
-                        // Registramos resultado como verdadero
-                        resultado = true;
-                    }
-                }
-            }
-        }
-        else if (tipoObjeto == 4) {
-            // Si la federación existe
-            for (Object obj : datos.getArrayList(4)) {
-                if (obj instanceof Federacion federacion) {
-                    if (federacion.getCodigo().equalsIgnoreCase(codigo)) {
-                        // Registramos resultado como verdadero
-                        resultado = true;
-                    }
-                }
-            }
-        }
-        // Devolvemos el resultado
-        return resultado;
+    public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) {
+        // Convertir el código a un ID numérico
+        int id = Integer.parseInt(codigo.substring(3));
+
+        // Utilizar el método getObjeto de la clase Datos para comprobar la existencia del objeto
+        Datos datos = new Datos();
+        Object objeto = datos.getObjeto(tipoObjeto, id);
+
+        // Si getObjeto devuelve null, entonces el objeto no existe
+        // Si getObjeto devuelve un objeto, entonces el objeto existe
+        return objeto != null;
     }
 
-    public boolean isSocioInInscripcion(String numeroSocio) {
-        for (Object obj : datos.getArrayList(2)) {
-            if (obj instanceof Inscripcion inscripcion) {
-                if (inscripcion.getSocio().getNumero().equalsIgnoreCase(numeroSocio)) {
-                    return true;
-                }
-            }
+    /**
+     * Método para verificar si un socio está en una inscripción.
+     *
+     * @param idSocio ID del socio
+     * @return true si el socio está en una inscripción, false en caso contrario
+     */
+    public boolean isSocioInInscripcion(int idSocio) {
+        // Utilizamos el método buscarObjeto de la clase Datos para buscar una inscripción con el ID del socio
+        int idInscripcion = datos.buscarObjeto(2, String.valueOf(idSocio));
+
+        // Si el ID de la inscripción es -1, significa que no se encontró ninguna inscripción con el ID del socio
+        if (idInscripcion == -1) {
+            return false;
+        } else {
+            return true;
         }
-        return false;
     }
 
-    // Método para comprobar si un socio está asociado a una un socio infantil
+    /**
+     * Método para verificar si un socio es tutor de un socio infantil.
+     *
+     * @param numeroSocio El número del socio a verificar.
+     * @return Verdadero si el socio es tutor de un socio infantil, falso en caso contrario.
+     */
     public boolean isSocioInInfantil(String numeroSocio) {
-        for (Object obj : datos.getArrayList(3)) {
-            if (obj instanceof Infantil infantil) {
-                if (infantil.getNumSocioTutor().equalsIgnoreCase(numeroSocio)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        // Obtener la representación en cadena de todos los socios infantiles
+        String infantiles = datos.listToStringObjetos(3);
+
+        // Verificar si el número de socio aparece en la cadena
+        return infantiles.contains(numeroSocio);
     }
 
+    /**
+     * Método para comprobar la existencia de un NIF en la base de datos.
+     *
+     * @param nif El NIF a comprobar.
+     * @return true si el NIF existe, false en caso contrario.
+     */
     public boolean checkExistenciaNIF(String nif){
-        // Recorremos todos los socios
-        for (Object obj : datos.getArrayList(3)) {
-            if (obj instanceof Socio socio) {
-                // Si encontramos un socio con el mismo NIF, devolvemos true
-                if (socio.getNif().equalsIgnoreCase(nif)) {
-                    return true;
-                }
+        // Inicializamos el id del socio a 1
+        int idSocio = 1;
+        // Obtenemos el socio con el id actual
+        Socio socio = (Socio) datos.getObjeto(3, idSocio);
+
+        // Mientras haya socios
+        while (socio != null) {
+            // Si el NIF del socio actual coincide con el NIF buscado, devolvemos true
+            if (socio.getNif().equals(nif)) {
+                return true;
             }
+            // Incrementamos el id del socio y obtenemos el siguiente socio
+            idSocio++;
+            socio = (Socio) datos.getObjeto(3, idSocio);
         }
-        // Si no encontramos ningún socio con el mismo NIF, devolvemos false
+
+        // Si no hemos encontrado ningún socio con el NIF buscado, devolvemos false
         return false;
     }
 

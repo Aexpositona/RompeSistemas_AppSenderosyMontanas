@@ -30,7 +30,7 @@ public class VistaAddInscripcion {
     public VistaAddInscripcion(ControlInscripciones cInscripciones) {
         this.cInscripciones = new ControlInscripciones(cInscripciones);
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
-        this.datos = new Datos(cInscripciones.getDatos());
+        this.datos = new Datos();
         this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 

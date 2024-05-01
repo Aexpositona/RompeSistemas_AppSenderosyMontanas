@@ -3,7 +3,7 @@ package RompeSistemas.Modelo;
 /**
  * Clase Socio que define los atributos y métodos de un socio
  */
-public abstract class Socio {
+public class Socio {
 
     //Atributos
     private int tipo;

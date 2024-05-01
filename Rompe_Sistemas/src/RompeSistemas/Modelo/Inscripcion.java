@@ -25,6 +25,9 @@ public class Inscripcion {
         this.fechaInscripcion = LocalDate.now();
     }
 
+    public Inscripcion(String codigoInscripcion, LocalDate fechaInscripcion, String idSocio, String idExcursion) {
+    }
+
     /**
      * Método get() que nos devuelve el número de la inscripción.
      * @return número de la inscripción.

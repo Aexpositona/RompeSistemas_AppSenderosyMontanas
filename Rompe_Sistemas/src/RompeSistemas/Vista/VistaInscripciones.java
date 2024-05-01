@@ -30,7 +30,7 @@ public class VistaInscripciones {
         this.vAddInscripcion = new VistaAddInscripcion(cInscripciones.getVistaAddInscripcion());
         this.vListarInscripciones = new VistaListarInscripciones(cInscripciones.getVistaListarInscripciones());
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
-        this.datos = new Datos(cInscripciones.getDatos());
+        this.datos = new Datos();
         this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 

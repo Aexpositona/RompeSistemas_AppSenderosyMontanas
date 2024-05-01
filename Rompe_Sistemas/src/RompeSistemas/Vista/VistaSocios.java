@@ -34,7 +34,7 @@ public class VistaSocios {
         this.vAddSocio = cSocios.getVistaAddSocio();
         this.cPeticiones = cSocios.getControlPeticiones() ;
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
-        this.datos = new Datos(cSocios.getDatos());
+        this.datos = new Datos();
     }
 
     /**

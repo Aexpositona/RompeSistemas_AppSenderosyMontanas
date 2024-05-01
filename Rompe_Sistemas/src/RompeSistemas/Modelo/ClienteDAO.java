@@ -7,7 +7,7 @@ public class ClienteDAO{
     public void insertarObjeto() {
         try {
             // Crear conexión
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/appsenderosmontanas", "root", "root");
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/appsenderosmontanas", "root", "admin");
 
             // Crear objeto statement
             Statement statement = conexion.createStatement();
@@ -19,4 +19,6 @@ public class ClienteDAO{
             throw new RuntimeException(e);
         }
     }
+
+
 }

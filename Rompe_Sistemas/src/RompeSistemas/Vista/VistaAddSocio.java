@@ -23,7 +23,7 @@ public class VistaAddSocio {
         this.cSocios = new ControlSocios(cSocios);
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
-        this.datos = new Datos(cSocios.getDatos());
+        this.datos = new Datos();
     }
 
     /**
@@ -150,14 +150,11 @@ public class VistaAddSocio {
             numero = obtenerNumeroSocio();
             // Pedir código de federación
             String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-            // Buscar la federación en la lista de federaciones
+            // Buscar la federación en el mapa de federaciones
+            int idFederacion = datos.buscarObjeto(4, codigoFederacion);
             Federacion federacion = null;
-            for (Object obj : datos.getArrayList(4)) {
-                Federacion fed = (Federacion) obj;
-                if (fed.getCodigo().equals(codigoFederacion)) {
-                    federacion = fed;
-                    break;
-                }
+            if (idFederacion != -1) {
+                federacion = (Federacion) datos.getObjeto(4, idFederacion);
             }
             // Si la federación existe
             if (federacion != null) {
@@ -206,11 +203,11 @@ public class VistaAddSocio {
 
     // Comprobar último número de socio y devolver el siguiente
     private String obtenerNumeroSocio() {
-        // Si no hay socios, devolver 1
-        if (datos.getArrayList(3).isEmpty()) {
-            return "";
+        // Si no hay socios, devolver "SOC001"
+        if (datos.getUltimoCodigo(3).isEmpty()) {
+            return "SOC001";
         }
-        // Si hay socios, devolver el último número de socio + 1
+        // Si hay socios, devolver el siguiente número de socio
         else {
             return datos.getSiguienteCodigo(3);
         }
