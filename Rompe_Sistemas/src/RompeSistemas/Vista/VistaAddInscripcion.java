@@ -8,6 +8,8 @@ import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Socio;
 
+import java.sql.SQLException;
+
 /**
  * Vista de añadir inscripción de la aplicación.
  *
@@ -90,7 +92,7 @@ public class VistaAddInscripcion {
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
-    public void buttonAddInscripcion(){
+    public void buttonAddInscripcion() throws SQLException {
         String idSocio, idExcursion;
         Socio socio;
         Excursion excursion;
@@ -153,7 +155,7 @@ public class VistaAddInscripcion {
         System.out.print(mensaje);
     }
 
-    public void show() {
+    public void show() throws SQLException {
         // Variables internas
         boolean running = true;
         // Mientras se ejecute la vista

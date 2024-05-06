@@ -5,6 +5,7 @@ import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.*;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 
 public class VistaAddSocio {
@@ -87,7 +88,7 @@ public class VistaAddSocio {
     /**
      * Método para añadir un socio
      */
-    public void buttonAddSocio() {
+    public void buttonAddSocio() throws SQLException {
         // Variables internas
         String numero, nombre, numSocioTutor, nif;
         Seguro seguro = null;
@@ -229,7 +230,7 @@ public class VistaAddSocio {
     /**
      * Método para mostrar la vista de añadir socio
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         // Variables internas
         boolean running = true;
         // Mientras se ejecute la vista

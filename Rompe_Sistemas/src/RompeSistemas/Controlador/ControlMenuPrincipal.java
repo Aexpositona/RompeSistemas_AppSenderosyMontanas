@@ -1,6 +1,8 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Vista.VistaMenuPrincipal;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -100,15 +102,15 @@ public class ControlMenuPrincipal {
 
     // Métodos
 
-    public void showInscripciones() {
+    public void showInscripciones() throws SQLException {
         cInscripciones.show();
     }
 
-    public void showVistaSocios() throws ParseException {
+    public void showVistaSocios() throws ParseException, SQLException {
         cSocios.show();
     }
 
-    public void showVistaExcursiones() throws ParseException {
+    public void showVistaExcursiones() throws ParseException, SQLException {
         cExcursiones.show();
     }
 

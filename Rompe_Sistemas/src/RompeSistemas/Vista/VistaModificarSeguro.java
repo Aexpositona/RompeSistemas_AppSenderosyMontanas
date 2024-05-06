@@ -6,6 +6,8 @@ import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Seguro;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -83,7 +85,7 @@ public class VistaModificarSeguro {
      * Método para añadir un botón que nos permite modificar un seguro
      */
     // En VistaModificarSeguro.java
-    void buttonModificarSeguro(){
+    void buttonModificarSeguro() throws SQLException {
         String numeroSocio; 
         int tipoSeguro;
         boolean valido = false;
@@ -137,7 +139,7 @@ public class VistaModificarSeguro {
     /**
      * Método para mostrar la vista de modificar seguro
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         boolean running = true;
         while (running) {
             txtMostrarMensaje("************ MENÚ MODIFICAR SEGURO ************\n");

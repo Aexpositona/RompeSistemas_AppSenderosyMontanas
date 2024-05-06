@@ -133,13 +133,32 @@ public class ControlDatos {
      * @param codigo     Código del objeto
      * @return true si el objeto existe, false en caso contrario
      */
-    public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) {
+    public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
         // Convertir el código a un ID numérico
         int id = Integer.parseInt(codigo.substring(3));
 
-        // Utilizar el método getObjeto de la clase Datos para comprobar la existencia del objeto
-        Datos datos = new Datos();
-        Object objeto = datos.getObjeto(tipoObjeto, id);
+        // Obtener el objeto DAO correspondiente a través de FabricaDAO
+        FabricaDAO fabricaDAO = FabricaDAO.getFabricaDAO();
+        DAO dao;
+        switch (tipoObjeto) {
+            case 1:
+                dao = fabricaDAO.getExcursionDAO();
+                break;
+            case 2:
+                dao = fabricaDAO.getInscripcionDAO();
+                break;
+            case 3:
+                dao = fabricaDAO.getSocioDAO();
+                break;
+            case 4:
+                dao = fabricaDAO.getFederacionDAO();
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de objeto no válido");
+        }
+
+        // Utilizar el método getObjeto del objeto DAO para comprobar la existencia del objeto
+        Object objeto = dao.getObjeto(id);
 
         // Si getObjeto devuelve null, entonces el objeto no existe
         // Si getObjeto devuelve un objeto, entonces el objeto existe
@@ -152,7 +171,7 @@ public class ControlDatos {
      * @param idSocio ID del socio
      * @return true si el socio está en una inscripción, false en caso contrario
      */
-    public boolean isSocioInInscripcion(int idSocio) {
+    public boolean isSocioInInscripcion(int idSocio) throws SQLException {
         // Utilizamos el método buscarObjeto de la clase Datos para buscar una inscripción con el ID del socio
         int idInscripcion = datos.buscarObjeto(2, String.valueOf(idSocio));
 
@@ -184,7 +203,7 @@ public class ControlDatos {
      * @param nif El NIF a comprobar.
      * @return true si el NIF existe, false en caso contrario.
      */
-    public boolean checkExistenciaNIF(String nif){
+    public boolean checkExistenciaNIF(String nif) throws SQLException {
         // Inicializamos el id del socio a 1
         int idSocio = 1;
         // Obtenemos el socio con el id actual

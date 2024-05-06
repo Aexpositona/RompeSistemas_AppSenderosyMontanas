@@ -6,6 +6,8 @@ import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Datos;
 
+import java.sql.SQLException;
+
 /**
  * Vista de inscripciones de la aplicación.
  *
@@ -113,7 +115,7 @@ public class VistaInscripciones {
     /**
      * Método para añadir un botón que nos permite añadir una inscripción
      */
-    public void buttonMenuAddInscripcion() {
+    public void buttonMenuAddInscripcion() throws SQLException {
         txtMostrarMensaje("Navegando a la vista de añadir inscripción...\n\n");
         vAddInscripcion.show();
     }
@@ -121,7 +123,7 @@ public class VistaInscripciones {
     /**
      * Método para añadir un botón que nos permite listar las inscripciones
      */
-    public void buttonRemoveInscripcion() {
+    public void buttonRemoveInscripcion() throws SQLException {
         // Variables internas
         String idInscripcion;
         Inscripcion inscripcion;
@@ -188,7 +190,7 @@ public class VistaInscripciones {
         System.out.print(mensaje);
     }
 
-    public void show() {
+    public void show() throws SQLException {
         // Variables internas
         boolean running = true;
         // Mientras la aplicación esté en ejecución

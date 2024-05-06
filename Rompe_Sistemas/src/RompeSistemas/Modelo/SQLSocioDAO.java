@@ -98,8 +98,10 @@ public class SQLSocioDAO implements SocioDAO {
     }
 
     @Override
-    public Socio[] listarSocios() throws SQLException {
-        List<Socio> socios = getAllSocios();
-        return socios.toArray(new Socio[0]);
+    public ResultSet listarSocios() throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Socio";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        return statement.executeQuery();
     }
 }

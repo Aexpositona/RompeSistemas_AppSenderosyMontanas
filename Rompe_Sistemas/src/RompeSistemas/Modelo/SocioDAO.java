@@ -1,5 +1,6 @@
 package RompeSistemas.Modelo;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface SocioDAO {
         public void eliminarSocio(Socio socio) throws SQLException;
         public Socio buscarSocio(int id) throws SQLException;
         public Socio buscarSocio(String dni) throws SQLException;
-        public Socio[] listarSocios() throws SQLException;
+        public ResultSet listarSocios() throws SQLException;
 }

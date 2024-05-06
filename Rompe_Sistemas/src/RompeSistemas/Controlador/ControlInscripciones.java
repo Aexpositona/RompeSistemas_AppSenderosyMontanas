@@ -132,7 +132,7 @@ public class ControlInscripciones {
      *
      * @param inscripcion Inscripción a añadir
      */
-    public void addInscripcion(Inscripcion inscripcion) {
+    public void addInscripcion(Inscripcion inscripcion) throws SQLException {
         datos.addObjeto(2, inscripcion);
     }
 
@@ -141,7 +141,7 @@ public class ControlInscripciones {
      *
      * @param inscripcion Inscripción a eliminar
      */
-    public void removeInscripcion(Inscripcion inscripcion) {
+    public void removeInscripcion(Inscripcion inscripcion) throws SQLException {
         datos.removeObjeto(2, inscripcion);
     }
 
@@ -194,7 +194,7 @@ public class ControlInscripciones {
      * @param fechaInicial Fecha inicial
      * @param fechaFinal Fecha final
      */
-    public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+    public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
         vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
     }
 
@@ -208,21 +208,21 @@ public class ControlInscripciones {
     /**
      * Muestra la vista para añadir una inscripción.
      */
-    public void showVistaAddInscripcion() {
+    public void showVistaAddInscripcion() throws SQLException {
         vAddInscripcion.show();
     }
 
     /**
      * Muestra la vista para listar las inscripciones.
      */
-    public void showVistaListarInscripciones() {
+    public void showVistaListarInscripciones() throws SQLException {
         vListarInscripciones.show();
     }
 
     /**
      * Muestra la vista de inscripciones.
      */
-    public void show() {
+    public void show() throws SQLException {
         vInscripciones.show();
     }
 

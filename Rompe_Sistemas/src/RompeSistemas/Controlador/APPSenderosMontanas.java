@@ -58,8 +58,6 @@ public class APPSenderosMontanas {
         APPSenderosMontanas app = new APPSenderosMontanas();
         // Inicializar los datos
         Datos datos = new Datos();
-        //DataLoader dataLoader = new DataLoader(datos);
-        //dataLoader.load(datos);
         // Iniciar la aplicación
         app.iniciar(datos);
         // Mostrar la vista del menú principal

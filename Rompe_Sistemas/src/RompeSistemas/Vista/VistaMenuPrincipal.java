@@ -2,6 +2,8 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlMenuPrincipal;
 import RompeSistemas.Controlador.ControlPeticiones;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -64,7 +66,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */
-    public void buttonVistaInscripciones(){
+    public void buttonVistaInscripciones() throws SQLException {
         txtMostrarMensaje("Navegando a la vista de inscripciones...\n\n");
         cMenuPrincipal.showInscripciones();
     }
@@ -72,7 +74,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite ir a la vista de socios.
      */
-    public void buttonVistaSocios() throws ParseException {
+    public void buttonVistaSocios() throws ParseException, SQLException {
         txtMostrarMensaje("Navegando a la vista de socios...\n\n");
         cMenuPrincipal.showVistaSocios();
     }
@@ -80,7 +82,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para añadir un botón que nos permite ir a la vista de excursiones.
      */
-    public void buttonVistaExcursiones() throws ParseException {
+    public void buttonVistaExcursiones() throws ParseException, SQLException {
         txtMostrarMensaje("Navegando a la vista de excursiones...\n\n");
         cMenuPrincipal.showVistaExcursiones();
     }
@@ -104,7 +106,7 @@ public class VistaMenuPrincipal {
     /**
      * Método para mostrar la vista.
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         boolean running = true, bienvenida = false;
         while (running) {
             // Si no hemos mostrado el mensaje de bienvenida, lo mostramos

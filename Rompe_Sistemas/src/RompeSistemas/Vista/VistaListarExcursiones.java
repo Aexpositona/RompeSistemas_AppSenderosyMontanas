@@ -2,6 +2,8 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -74,7 +76,7 @@ public class VistaListarExcursiones {
     /**
      * Método que nos permite listar las excursiones entre dos fechas
      */
-    public void buttonListExcursionesFechas(){
+    public void buttonListExcursionesFechas() throws SQLException {
         // Pedimos las fechas
         LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
         LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
@@ -103,7 +105,7 @@ public class VistaListarExcursiones {
      * Método para mostrar el menú de listar excursiones y solicitar una opción.
      */
     // Métodos
-    public void show() {
+    public void show() throws SQLException {
         // Declaramos una variable para controlar el bucle
         boolean running = true;
         // Mientras el bucle esté activo

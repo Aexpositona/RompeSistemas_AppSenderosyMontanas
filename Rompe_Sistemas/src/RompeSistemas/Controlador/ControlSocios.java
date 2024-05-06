@@ -6,6 +6,8 @@ import RompeSistemas.Vista.VistaSocios;
 import RompeSistemas.Vista.VistaModificarSeguro;
 import RompeSistemas.Vista.VistaListarSocios;
 import RompeSistemas.Vista.VistaAddSocio;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.*;
@@ -144,7 +146,7 @@ public class ControlSocios {
 
     // Métodos
 
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         vSocios.show();
     }
 
@@ -156,7 +158,7 @@ public class ControlSocios {
      *
      * @param socio Socio a añadir.
      */
-    public void addSocio(Socio socio) {
+    public void addSocio(Socio socio) throws SQLException {
         datos.addObjeto(3, socio);
     }
 
@@ -165,28 +167,28 @@ public class ControlSocios {
      *
      * @param socio Socio a modificar.
      */
-    public void modifySocio(Socio socio) {
+    public void modifySocio(Socio socio) throws SQLException {
         datos.modifyObjeto(3, socio);
     }
 
     /**
      * Método para mostrar la vista de modificar seguro.
      */
-    public void showVistaListarSocios() throws ParseException {
+    public void showVistaListarSocios() throws ParseException, SQLException {
         vListarSocios.show();
     }
 
     /**
      * Método para mostrar la vista de añadir socio.
      */
-    public void showVistaAddSocio() throws ParseException {
+    public void showVistaAddSocio() throws ParseException, SQLException {
         vAddSocio.show();
     }
 
     /**
      * Método para mostrar la vista de modificar seguro.
      */
-    public void showVistaModificarSeguro() throws ParseException {
+    public void showVistaModificarSeguro() throws ParseException, SQLException {
         vModificarSeguro.show();
     }
 
@@ -197,7 +199,7 @@ public class ControlSocios {
      * @param numeroSocio El número del socio a eliminar.
      * @return Verdadero si el socio se ha eliminado correctamente, falso en caso contrario.
      */
-    public boolean removeSocio(String numeroSocio) {
+    public boolean removeSocio(String numeroSocio) throws SQLException {
         // Convertir el número de socio a un ID numérico
         int idSocio = Integer.parseInt(numeroSocio.substring(3));
 
@@ -223,7 +225,7 @@ public class ControlSocios {
      * Método listar todos los socios.
      */
     // Métodos para listar socios
-    public void listSocios() {
+    public void listSocios() throws SQLException {
         datos.listObjetos(3);
     }
     /**
@@ -261,7 +263,7 @@ public class ControlSocios {
      * @param fechaInicio Fecha de inicio.
      * @param fechaFin Fecha de fin.
      */
-    public void calcFacturaFechas (String numSocio, LocalDate fechaInicio, LocalDate fechaFin) {
+    public void calcFacturaFechas (String numSocio, LocalDate fechaInicio, LocalDate fechaFin) throws SQLException {
 
         // Recorremos la lista de socios
         int i = 1;
@@ -318,7 +320,7 @@ public class ControlSocios {
      * @param tipoSeguro El tipo de seguro a asignar.
      * @param numeroSocio El número del socio al que se le va a modificar el seguro.
      */
-    public void modifySeguro(int tipoSeguro, String numeroSocio) {
+    public void modifySeguro(int tipoSeguro, String numeroSocio) throws SQLException {
         // Convertir el número de socio a un ID numérico
         int idSocio = Integer.parseInt(numeroSocio.substring(3));
 

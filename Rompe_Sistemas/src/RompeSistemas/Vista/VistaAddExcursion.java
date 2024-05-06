@@ -5,6 +5,7 @@ import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Excursion;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -81,7 +82,7 @@ public class VistaAddExcursion {
      * Método para añadir una excursión.
      *
      */
-    public void buttonAddExcursion() {
+    public void buttonAddExcursion() throws SQLException {
         // Variables internas
         boolean resultado;
         String codigo, descripcion;
@@ -141,7 +142,7 @@ public class VistaAddExcursion {
     /**
      * Método para mostrar la vista.
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         // Variables internas
         boolean running = true;
         // Mientras se ejecute la vista

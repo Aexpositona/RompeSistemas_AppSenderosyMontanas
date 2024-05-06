@@ -5,6 +5,8 @@ import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Vista.VistaExcursiones;
 import RompeSistemas.Vista.VistaAddExcursion;
 import RompeSistemas.Vista.VistaListarExcursiones;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -121,7 +123,7 @@ public class ControlExcursiones {
      *
      * @param excursion Excursión a añadir
      */
-    public void addExcursion(Excursion excursion) {
+    public void addExcursion(Excursion excursion) throws SQLException {
         // Añadimos la excursión
         datos.addObjeto(1, excursion);
     }
@@ -131,7 +133,7 @@ public class ControlExcursiones {
      *
      * @param excursion Código de la excursión a eliminar
      */
-    public void removeExcursion(Excursion excursion) {
+    public void removeExcursion(Excursion excursion) throws SQLException {
         // Eliminamos la excursión
         datos.removeObjeto(1, excursion);
     }
@@ -151,7 +153,7 @@ public class ControlExcursiones {
      * @param fechaInicial Fecha inicial
      * @param fechaFinal Fecha final
      */
-    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
         // Mostramos las excursiones entre dos fechas
         vListarExcursiones.txtMostrarMensaje(datos.listToStringObjetosFechas(1,fechaInicial,fechaFinal));
     }
@@ -159,7 +161,7 @@ public class ControlExcursiones {
     /**
      * Muestra la vista para listar las excursiones.
      */
-    public void showVistaListarExcursiones() {
+    public void showVistaListarExcursiones() throws SQLException {
         // Mostramos la vista para listar las excursiones
         vListarExcursiones.show();
     }
@@ -167,7 +169,7 @@ public class ControlExcursiones {
     /**
      * Muestra la vista de excursiones.
      */
-    public void show() throws ParseException{
+    public void show() throws ParseException, SQLException {
         // Mostramos la vista de excursiones
         vExcursiones.show();
     }
@@ -175,7 +177,7 @@ public class ControlExcursiones {
     /**
      * Muestra la vista de añadir excursión.
      */
-    public void showVistaAddExcursion() throws ParseException{
+    public void showVistaAddExcursion() throws ParseException, SQLException {
         // Mostramos la vista de añadir excursión
         vAddExcursion.show();
     }

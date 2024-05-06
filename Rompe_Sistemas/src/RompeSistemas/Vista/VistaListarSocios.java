@@ -2,6 +2,8 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlSocios;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 public class VistaListarSocios {
@@ -55,7 +57,7 @@ public class VistaListarSocios {
     /**
      * Método para añadir un botón que nos permite listar los socios
      */
-    private void buttonListSocios(){
+    private void buttonListSocios() throws SQLException {
         cSocios.listSocios();
     }
     /**
@@ -74,7 +76,7 @@ public class VistaListarSocios {
         System.out.print(mensaje);
     }
 
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         boolean running = true;
         while (running) {
             txtMostrarMensaje("************ MENÚ LISTAR SOCIOS ************\n");

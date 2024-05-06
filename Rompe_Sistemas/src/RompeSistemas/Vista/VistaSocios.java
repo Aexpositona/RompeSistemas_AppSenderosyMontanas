@@ -5,6 +5,8 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -127,7 +129,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite añadir un socio
      */
-    public void buttonAddSocio() throws ParseException {
+    public void buttonAddSocio() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de añadir socio...\n\n");
         vAddSocio.show();
     }
@@ -135,7 +137,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
-    public void buttonRemoveSocio() {
+    public void buttonRemoveSocio() throws SQLException {
         // Variables internas
         // Listar socios
         txtMostrarMensaje("\n");
@@ -150,7 +152,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite modificar un seguro
      */
-    public void buttonModTipoSeguro() throws ParseException {
+    public void buttonModTipoSeguro() throws ParseException, SQLException {
         txtMostrarMensaje("Navegando a la vista de modificar seguro...\n\n");
         vModificarSeguro.show();
     }
@@ -158,7 +160,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite listar los socios
      */
-    public void ButtonListSocios() throws ParseException {
+    public void ButtonListSocios() throws ParseException, SQLException {
         txtMostrarMensaje("Navegando a la vista de listar socios...\n\n");
         vListarSocios.show();
     }
@@ -166,7 +168,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite mostrar la información de los socios
      */
-    public void buttonCalcFacturaMensualSocios(){
+    public void buttonCalcFacturaMensualSocios() throws SQLException {
         txtMostrarMensaje("-- Mostrando la factura mensual de los socios --\n\n");
         // Obtenemos la fecha actual y la fecha de hace un mes
         LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
@@ -176,7 +178,7 @@ public class VistaSocios {
     /**
      * Método para añadir un botón que nos permite mostrar la información de los socios entre dos fechas
      */
-    public void buttonCalcFacturaFechas(){
+    public void buttonCalcFacturaFechas() throws SQLException {
         txtMostrarMensaje("-- Mostrando la factura entre fechas de los socios --\n\n");
         // Solicitamos la fecha inicial y la fecha final
         LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
@@ -185,7 +187,7 @@ public class VistaSocios {
         cSocios.calcFacturaFechas("NULL",fechaInicial, fechaFinal);
     }
 
-    public void buttonCalcFacturasFechasSocio() {
+    public void buttonCalcFacturasFechasSocio() throws SQLException {
         txtMostrarMensaje("-- Mostrando la factura entre fechas de un socio --\n\n");
         // Listar socios
         txtMostrarMensaje("\n");
@@ -220,7 +222,7 @@ public class VistaSocios {
     /**
      * Método para mostrar la vista de socios
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         // Variables internas
         boolean running = true;
         // Bucle de ejecución

@@ -4,6 +4,8 @@ import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.Excursion;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -154,7 +156,7 @@ public class VistaExcursiones {
      *
      * @throws ParseException Excepción de parseo.
      */
-    private void buttonVistaAddExcursion() throws ParseException {
+    private void buttonVistaAddExcursion() throws ParseException, SQLException {
         txtMostrarMensaje("Accediendo a la vista de añadir excursión...\n");
         vAddExcursion.show();
     }
@@ -162,7 +164,7 @@ public class VistaExcursiones {
     /**
      * Método para eliminar una excursión.
      */
-    private void buttonRemoveExcursion(){
+    private void buttonRemoveExcursion() throws SQLException {
         // Variables internas
         boolean resultado = false;
         int intentos = 0;
@@ -241,7 +243,7 @@ public class VistaExcursiones {
      *
      * @throws ParseException Excepción de parseo.
      */
-    public void show() throws ParseException {
+    public void show() throws ParseException, SQLException {
         // Declaramos una variable para controlar el bucle
         boolean running = true;
         // Mientras el bucle esté activo

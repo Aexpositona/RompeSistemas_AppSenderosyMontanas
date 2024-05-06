@@ -2,6 +2,9 @@ package RompeSistemas.Test;
 
 import RompeSistemas.Modelo.Datos;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DatosTest {
@@ -11,7 +14,7 @@ public class DatosTest {
      * socios y federaciones.
      */
     @Test
-    public void testAddObjeto() {
+    public void testAddObjeto() throws SQLException {
         /**
          * Crear un objeto de la clase Datos
          */

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class SQLExcursionDAO implements ExcursionDAO {
     @Override
@@ -17,11 +18,11 @@ public class SQLExcursionDAO implements ExcursionDAO {
     }
 
     @Override
-    public Excursion getExcursion(int id) throws SQLException {
+    public Excursion getExcursion(String id) throws SQLException {
         Connection conexion = DatabaseConnection.getConnection();
         String query = "SELECT * FROM Excursion WHERE idExcursion = ?";
         PreparedStatement statement = conexion.prepareStatement(query);
-        statement.setInt(1, id);
+        statement.setString(1, id);
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
@@ -64,11 +65,21 @@ public class SQLExcursionDAO implements ExcursionDAO {
     }
 
     @Override
-    public void deleteExcursion(int id) throws SQLException {
+    public void deleteExcursion(Excursion id) throws SQLException {
         Connection conexion = DatabaseConnection.getConnection();
         String query = "DELETE FROM Excursion WHERE idExcursion = ?";
         PreparedStatement statement = conexion.prepareStatement(query);
-        statement.setInt(1, id);
+        statement.setString(1, id.getCodigo());
         statement.executeUpdate();
+    }
+
+    @Override
+    public ResultSet getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Excursion WHERE fecha BETWEEN ? AND ?";
+        PreparedStatement statement = ((Connection) conexion).prepareStatement(query);
+        statement.setDate(1, java.sql.Date.valueOf(fechaInicial));
+        statement.setDate(2, java.sql.Date.valueOf(fechaFinal));
+        return statement.executeQuery();
     }
 }
