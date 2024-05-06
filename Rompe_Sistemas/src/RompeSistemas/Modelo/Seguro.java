@@ -53,7 +53,7 @@ public enum Seguro {
         return nombre;
     }
 
-    public Seguro getSeguro(int id) {
+    public static Seguro getSeguro(int id) {
         for (Seguro seguro : Seguro.values()) {
             if (seguro.id == id) {
                 return seguro;

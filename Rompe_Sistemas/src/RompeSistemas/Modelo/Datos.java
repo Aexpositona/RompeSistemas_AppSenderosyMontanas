@@ -6,38 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
-/**
- * Clase que representa los datos de la aplicación.
- */
 public class Datos {
+    private FabricaDAO fabricaDAO;
+
     public Datos() {
+        this.fabricaDAO = new SQLFabricaDAO();
     }
 
 
     // Métodos
 
-    public Seguro getSeguro() {
-        Seguro seguro = null;
-        try {
-            // Obtener conexión utilizando DatabaseConnection
-            Connection conexion = DatabaseConnection.getConnection();
-
-            // Crear objeto statement
-            Statement statement = conexion.createStatement();
-
-            // Ejecutar sentencia SQL
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Seguro");
-
-            // Si hay resultados, obtener el nombre del seguro y convertirlo a un valor de la Enum Seguro
-            if (resultSet.next()) {
-                String nombreSeguro = resultSet.getString("nombreSeguro");
-                seguro = Seguro.valueOf(nombreSeguro.toUpperCase());
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el seguro de la base de datos: " + e.getMessage());
-        }
-        return seguro;
+    public Seguro getSeguro(int id) throws SQLException {
+        SeguroDAO seguroDAO = fabricaDAO.getSeguroDAO();
+        return seguroDAO.getSeguro(id);
     }
     /**
      * Método para obtener un List de un tipo de objeto.

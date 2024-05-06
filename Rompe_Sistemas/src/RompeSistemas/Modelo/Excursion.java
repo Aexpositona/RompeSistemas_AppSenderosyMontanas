@@ -86,7 +86,7 @@ public class Excursion {
      *
      * @return el precio de la excursión
      */
-    public double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
