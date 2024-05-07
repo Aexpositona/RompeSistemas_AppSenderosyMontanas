@@ -13,4 +13,8 @@ public interface FederacionDAO {
     public Federacion buscarFederacion(int id) throws SQLException;
     public Federacion buscarFederacion(String nombre) throws SQLException;
     public ResultSet listarFederaciones() throws SQLException;
+
+    String getUltimoCodigo() throws SQLException;
+
+    ResultSet listarObjetosPorParametro(String parametro) throws SQLException;
 }

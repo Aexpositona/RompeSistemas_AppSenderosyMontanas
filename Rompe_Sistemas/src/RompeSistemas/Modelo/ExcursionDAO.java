@@ -12,4 +12,8 @@ public interface ExcursionDAO {
     void deleteExcursion(Excursion id) throws SQLException;
 
     ResultSet getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException;
+
+    String getUltimoCodigo() throws SQLException;
+
+    ResultSet listarObjetosPorParametro(String parametro) throws SQLException;
 }

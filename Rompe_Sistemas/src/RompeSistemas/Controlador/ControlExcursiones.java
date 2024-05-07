@@ -182,7 +182,7 @@ public class ControlExcursiones {
         vAddExcursion.show();
     }
 
-    public String getUltimoCodigo() {
+    public String getUltimoCodigo() throws SQLException {
         return datos.getUltimoCodigo(1);
     }
 

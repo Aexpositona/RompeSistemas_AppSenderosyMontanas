@@ -198,11 +198,11 @@ public class ControlInscripciones {
         vListarInscripciones.txtMostrarMensaje(datos.listToStringObjetosFechas(2, fechaInicial, fechaFinal));
     }
 
-    public void listIdsSocios() {
+    public void listIdsSocios() throws SQLException {
         vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(3, "3"));
     }
 
-    public void listExcursiones() {
+    public void listExcursiones() throws SQLException {
         vListarInscripciones.txtMostrarMensaje(datos.listParametroObjeto(1, "31"));
     }
     /**

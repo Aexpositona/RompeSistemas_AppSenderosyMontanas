@@ -15,4 +15,8 @@ public interface InscripcionDAO {
         public ResultSet listarInscripciones() throws SQLException;
 
         ResultSet getInscripcionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException;
+
+    String getUltimoCodigo() throws SQLException;
+
+        ResultSet listarObjetosPorParametro(String parametro) throws SQLException;
 }

@@ -76,7 +76,7 @@ public class VistaListarInscripciones {
      * Método para añadir un botón que nos permite listar las inscripciones de un usuario
 
      */
-    public void buttonListInscripcionesSocio(){
+    public void buttonListInscripcionesSocio() throws SQLException {
         // Variables internas
         String idSocio;
         // Mostramos el listado de IDs de socios disponibles

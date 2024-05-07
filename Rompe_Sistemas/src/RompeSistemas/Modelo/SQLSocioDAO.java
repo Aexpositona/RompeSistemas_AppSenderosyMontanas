@@ -104,4 +104,26 @@ public class SQLSocioDAO implements SocioDAO {
         PreparedStatement statement = conexion.prepareStatement(query);
         return statement.executeQuery();
     }
+    @Override
+    public String getUltimoCodigo() throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT MAX(codigoSocio) AS codigoSocio FROM Socio";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("codigoSocio");
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ResultSet listarObjetosPorParametro(String parametro) throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Socio WHERE nombreSocio LIKE ?";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setString(1, "%" + parametro + "%");
+        return statement.executeQuery();
+    }
 }

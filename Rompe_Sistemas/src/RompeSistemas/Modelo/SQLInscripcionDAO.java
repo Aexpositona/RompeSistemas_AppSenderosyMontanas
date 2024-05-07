@@ -102,4 +102,27 @@ public class SQLInscripcionDAO implements InscripcionDAO {
         return statement.executeQuery();
 
     }
+
+    @Override
+    public String getUltimoCodigo() throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT MAX(codigoInscripcion) AS codigoInscripcion FROM Inscripcion";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("codigoInscripcion");
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ResultSet listarObjetosPorParametro(String parametro) throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Inscripcion WHERE codigoInscripcion LIKE ?";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setString(1, "%" + parametro + "%");
+        return statement.executeQuery();
+    }
 }

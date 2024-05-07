@@ -168,7 +168,7 @@ public class VistaInscripciones {
     /**
      * Método para añadir un botón que nos permite listar las inscripciones
      */
-    public void buttonMenuListInscripciones() {
+    public void buttonMenuListInscripciones() throws SQLException {
         txtMostrarMensaje("Navegando a la vista de listar inscripciones...\n\n");
         vListarInscripciones.show();
     }

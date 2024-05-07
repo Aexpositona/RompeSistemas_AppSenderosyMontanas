@@ -203,7 +203,7 @@ public class VistaAddSocio {
     }
 
     // Comprobar último número de socio y devolver el siguiente
-    private String obtenerNumeroSocio() {
+    private String obtenerNumeroSocio() throws SQLException {
         // Si no hay socios, devolver "SOC001"
         if (datos.getUltimoCodigo(3).isEmpty()) {
             return "SOC001";

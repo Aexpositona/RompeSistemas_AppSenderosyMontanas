@@ -82,4 +82,27 @@ public class SQLExcursionDAO implements ExcursionDAO {
         statement.setDate(2, java.sql.Date.valueOf(fechaFinal));
         return statement.executeQuery();
     }
+
+    @Override
+    public String getUltimoCodigo() throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT codigoExcursion FROM Excursion ORDER BY codigoExcursion DESC LIMIT 1";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("codigoExcursion");
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ResultSet listarObjetosPorParametro(String parametro) throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Excursion WHERE descripcion LIKE ?";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setString(1, "%" + parametro + "%");
+        return statement.executeQuery();
+    }
 }

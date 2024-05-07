@@ -475,32 +475,25 @@ public class Datos {
      *                  4 - Federación
      * @return Último código
      */
-    public String getUltimoCodigo(int tipoObjeto) {
+    public String getUltimoCodigo(int tipoObjeto) throws SQLException {
         String ultimoCodigo = "";
-        try {
-            // Obtener conexión utilizando DatabaseConnection
-            Connection conexion = DatabaseConnection.getConnection();
-
-            // Crear objeto statement
-            Statement statement = conexion.createStatement();
-
-            // Ejecutar sentencia SQL
-            String query = "";
-            switch (tipoObjeto) {
-                case 1 -> query = "SELECT codigoExcursion FROM Excursion ORDER BY codigoExcursion DESC LIMIT 1";
-                case 2 -> query = "SELECT codigoInscripcion FROM Inscripcion ORDER BY codigoInscripcion DESC LIMIT 1";
-                case 3 -> query = "SELECT codigoSocio FROM Socio ORDER BY codigoSocio DESC LIMIT 1";
-                case 4 -> query = "SELECT codigoFederacion FROM Federacion ORDER BY codigoFederacion DESC LIMIT 1";
+        switch (tipoObjeto) {
+            case 1 -> {
+                ExcursionDAO excursionDAO = fabricaDAO.getExcursionDAO();
+                ultimoCodigo = excursionDAO.getUltimoCodigo();
             }
-            ResultSet resultSet = statement.executeQuery(query);
-
-            // Si hay resultados, obtener el último código
-            if (resultSet.next()) {
-                ultimoCodigo = resultSet.getString(1);
+            case 2 -> {
+                InscripcionDAO inscripcionDAO = fabricaDAO.getInscripcionDAO();
+                ultimoCodigo = inscripcionDAO.getUltimoCodigo();
             }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el último código de la base de datos: " + e.getMessage());
+            case 3 -> {
+                SocioDAO socioDAO = fabricaDAO.getSocioDAO();
+                ultimoCodigo = socioDAO.getUltimoCodigo();
+            }
+            case 4 -> {
+                FederacionDAO federacionDAO = fabricaDAO.getFederacionDAO();
+                ultimoCodigo = federacionDAO.getUltimoCodigo();
+            }
         }
         return ultimoCodigo;
     }
@@ -516,35 +509,35 @@ public class Datos {
      * @param parametro El parámetro específico para filtrar los objetos
      * @return String que representa los objetos que cumplen con el parámetro
      */
-    public String listParametroObjeto(int tipoObjeto, String parametro) {
+    public String listParametroObjeto(int tipoObjeto, String parametro) throws SQLException {
         StringBuilder result = new StringBuilder();
-        try {
-            // Obtener conexión utilizando DatabaseConnection
-            Connection conexion = DatabaseConnection.getConnection();
-
-            // Crear objeto statement
-            Statement statement = conexion.createStatement();
-
-            // Ejecutar sentencia SQL
-            String query = "";
-            switch (tipoObjeto) {
-                case 1 -> query = "SELECT * FROM Excursion WHERE descripcion LIKE '%" + parametro + "%'";
-                case 2 -> query = "SELECT * FROM Inscripcion WHERE codigoInscripcion LIKE '%" + parametro + "%'";
-                case 3 -> query = "SELECT * FROM Socio WHERE nombreSocio LIKE '%" + parametro + "%'";
-                case 4 -> query = "SELECT * FROM Federacion WHERE nombreFederacion LIKE '%" + parametro + "%'";
+        ResultSet resultSet = null;
+        switch (tipoObjeto) {
+            case 1 -> {
+                ExcursionDAO excursionDAO = fabricaDAO.getExcursionDAO();
+                resultSet = excursionDAO.listarObjetosPorParametro(parametro);
             }
-            ResultSet resultSet = statement.executeQuery(query);
-
-            // Si hay resultados, convertirlos a String y añadirlos al StringBuilder
-            while (resultSet.next()) {
-                // Aquí necesitarás ajustar el código para que coincida con tu esquema de base de datos
-                // y convertir cada resultado a String de la manera que prefieras
-                result.append(resultSet.getString(1)).append("\n");
+            case 2 -> {
+                InscripcionDAO inscripcionDAO = fabricaDAO.getInscripcionDAO();
+                resultSet = inscripcionDAO.listarObjetosPorParametro(parametro);
             }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener los datos de la base de datos: " + e.getMessage());
+            case 3 -> {
+                SocioDAO socioDAO = fabricaDAO.getSocioDAO();
+                resultSet = socioDAO.listarObjetosPorParametro(parametro);
+            }
+            case 4 -> {
+                FederacionDAO federacionDAO = fabricaDAO.getFederacionDAO();
+                resultSet = federacionDAO.listarObjetosPorParametro(parametro);
+            }
         }
+
+        // Si hay resultados, convertirlos a String y añadirlos al StringBuilder
+        while (resultSet != null && resultSet.next()) {
+            // Aquí necesitarás ajustar el código para que coincida con tu esquema de base de datos
+            // y convertir cada resultado a String de la manera que prefieras
+            result.append(resultSet.getString(1)).append("\n");
+        }
+
         return result.toString();
     }
 }

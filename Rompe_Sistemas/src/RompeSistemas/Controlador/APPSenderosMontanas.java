@@ -2,6 +2,8 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.*;
 import RompeSistemas.Vista.*;
+
+import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
@@ -53,7 +55,7 @@ public class APPSenderosMontanas {
      * Llama al método show de la vista del menú principal.
      */
     // Clase principal
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, SQLException {
         // Inicializar la aplicación
         APPSenderosMontanas app = new APPSenderosMontanas();
         // Inicializar los datos
@@ -133,7 +135,7 @@ public class APPSenderosMontanas {
      * Muestra la vista del menú principal.
      * @throws ParseException excepción de parseo
      */
-    private void showVistaMenuPrincipal() throws ParseException{
+    private void showVistaMenuPrincipal() throws ParseException, SQLException {
         // Mostrar la vista del menú principal desde Control Menu Principal
         cMenuPrincipal.show();
     }

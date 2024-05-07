@@ -99,4 +99,26 @@ public class SQLFederacionDAO implements FederacionDAO {
         PreparedStatement statement = conexion.prepareStatement(query);
         return statement.executeQuery();
     }
+    @Override
+    public String getUltimoCodigo() throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT MAX(codigoFederacion) AS codigoFederacion FROM Federacion";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("codigoFederacion");
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ResultSet listarObjetosPorParametro(String parametro) throws SQLException {
+        Connection conexion = DatabaseConnection.getConnection();
+        String query = "SELECT * FROM Federacion WHERE nombreFederacion LIKE ?";
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setString(1, "%" + parametro + "%");
+        return statement.executeQuery();
+    }
 }

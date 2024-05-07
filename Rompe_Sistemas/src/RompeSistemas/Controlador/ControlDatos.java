@@ -134,31 +134,8 @@ public class ControlDatos {
      * @return true si el objeto existe, false en caso contrario
      */
     public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
-        // Convertir el código a un ID numérico
-        int id = Integer.parseInt(codigo.substring(3));
-
-        // Obtener el objeto DAO correspondiente a través de FabricaDAO
-        FabricaDAO fabricaDAO = FabricaDAO.getFabricaDAO();
-        DAO dao;
-        switch (tipoObjeto) {
-            case 1:
-                dao = fabricaDAO.getExcursionDAO();
-                break;
-            case 2:
-                dao = fabricaDAO.getInscripcionDAO();
-                break;
-            case 3:
-                dao = fabricaDAO.getSocioDAO();
-                break;
-            case 4:
-                dao = fabricaDAO.getFederacionDAO();
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de objeto no válido");
-        }
-
-        // Utilizar el método getObjeto del objeto DAO para comprobar la existencia del objeto
-        Object objeto = dao.getObjeto(id);
+        // Utilizar el método getObjeto de la clase Datos para comprobar la existencia del objeto
+        Object objeto = datos.getObjeto(tipoObjeto, Integer.parseInt(codigo));
 
         // Si getObjeto devuelve null, entonces el objeto no existe
         // Si getObjeto devuelve un objeto, entonces el objeto existe
