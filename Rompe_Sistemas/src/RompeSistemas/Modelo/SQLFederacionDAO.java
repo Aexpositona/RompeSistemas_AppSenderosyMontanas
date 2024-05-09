@@ -115,26 +115,67 @@ public class SQLFederacionDAO implements FederacionDAO {
     public Federacion buscarFederacion(String nombre) throws SQLException {
         // Se obtiene la conexión a la base de datos.
         Connection conexion = DatabaseConnection.getConnection();
+        // Se crea la consulta SQL.
         String query = "SELECT * FROM Federacion WHERE nombreFederacion = ?";
+        // Se crea un objeto PreparedStatement con la consulta.
         PreparedStatement statement = conexion.prepareStatement(query);
+        // Se establece el nombre de la federación a buscar en la consulta.
         statement.setString(1, nombre);
+        // Se ejecuta la consulta y se obtiene el resultado.
         ResultSet resultSet = statement.executeQuery();
 
+        // Si hay resultados, se devuelve una federación con los datos obtenidos.
         if (resultSet.next()) {
+            // Se crea un objeto Federacion con los datos obtenidos y se devuelve.
             return new Federacion(
                     resultSet.getString("codigoFederacion"),
                     resultSet.getString("nombreFederacion")
             );
-        } else {
+        } 
+        // Si no hay más resultados, se devuelve null.
+        else {
             return null;
         }
     }
 
+    // Método que lista todas las federaciones.
     @Override
     public ResultSet listarFederaciones() throws SQLException {
+        // Se obtiene la conexión a la base de datos.
         Connection conexion = DatabaseConnection.getConnection();
+        // Se crea la consulta SQL.
         String query = "SELECT * FROM Federacion";
+        // Se crea un objeto PreparedStatement con la consulta.
         PreparedStatement statement = conexion.prepareStatement(query);
+        // Se ejecuta la consulta y se devuelve el resultado.
         return statement.executeQuery();
+    }
+
+    // Método que devuelve una federación a partir de su código.
+    @Override
+    public Federacion getFederacion(String codigo) throws SQLException {
+        // Se obtiene la conexión a la base de datos.
+        Connection conexion = DatabaseConnection.getConnection();
+        // Se crea la consulta SQL.
+        String query = "SELECT * FROM Federacion WHERE codigoFederacion = ?";
+        // Se crea un objeto PreparedStatement con la consulta.
+        PreparedStatement statement = conexion.prepareStatement(query);
+        // Se establece el código de la federación a buscar en la consulta.
+        statement.setString(1, codigo);
+        // Se ejecuta la consulta y se obtiene el resultado.
+        ResultSet resultSet = statement.executeQuery();
+
+        // Si hay resultados, se devuelve una federación con los datos obtenidos.
+        if (resultSet.next()) {
+            // Se crea un objeto Federacion con los datos obtenidos y se devuelve.
+            return new Federacion(
+                    resultSet.getString("codigoFederacion"),
+                    resultSet.getString("nombreFederacion")
+            );
+        } 
+        // Si no hay más resultados, se devuelve null.
+        else {
+            return null;
+        }
     }
 }

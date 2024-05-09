@@ -7,10 +7,11 @@ import java.util.List;
 public interface FederacionDAO {
 
     List<Federacion> getAllFederaciones() throws SQLException;
-    public void insertarFederacion(Federacion federacion) throws SQLException;
-    public void modificarFederacion(Federacion federacion) throws SQLException;
-    public void eliminarFederacion(Federacion federacion) throws SQLException;
-    public Federacion buscarFederacion(int id) throws SQLException;
-    public Federacion buscarFederacion(String nombre) throws SQLException;
-    public ResultSet listarFederaciones() throws SQLException;
+    void insertarFederacion(Federacion federacion) throws SQLException;
+    void modificarFederacion(Federacion federacion) throws SQLException;
+    void eliminarFederacion(Federacion federacion) throws SQLException;
+    Federacion buscarFederacion(int id) throws SQLException;
+    Federacion buscarFederacion(String nombre) throws SQLException;
+    Federacion getFederacion(String codigo) throws SQLException;
+    ResultSet listarFederaciones() throws SQLException;
 }

@@ -6,10 +6,9 @@ import java.time.LocalDate;
 
 public interface ExcursionDAO {
     ResultSet getAllExcursiones() throws SQLException;
-    Excursion getExcursion(String id) throws SQLException;
+    Excursion getExcursion(String codigo) throws SQLException;
     void addExcursion(Excursion excursion) throws SQLException;
     void updateExcursion(Excursion excursion) throws SQLException;
     void deleteExcursion(Excursion id) throws SQLException;
-
     ResultSet getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException;
 }

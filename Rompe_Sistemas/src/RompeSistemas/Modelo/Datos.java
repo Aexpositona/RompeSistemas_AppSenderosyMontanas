@@ -4,13 +4,18 @@ import RompeSistemas.Datos.DatabaseConnection;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Clase que representa la capa de datos de la aplicación.
+ *
+ */
 public class Datos {
+    // Atributos
     private FabricaDAO fabricaDAO;
 
+    // Constructor
     public Datos() {
         this.fabricaDAO = new SQLFabricaDAO();
     }
-
 
     // Métodos
 
@@ -154,19 +159,24 @@ public class Datos {
      * @throws SQLException Si ocurre un error al eliminar el objeto de la base de datos.
      */
     public void removeObjeto(int tipoObjeto, Object objeto) throws SQLException {
+        // Obtener el DAO correspondiente y eliminar el objeto
         switch (tipoObjeto) {
+            // Si el tipo de objeto es 1, eliminar una Excursión
             case 1 -> {
                 ExcursionDAO excursionDAO = fabricaDAO.getExcursionDAO();
                 excursionDAO.deleteExcursion((Excursion) objeto);
             }
+            // Si el tipo de objeto es 2, eliminar una Inscripción
             case 2 -> {
                 InscripcionDAO inscripcionDAO = fabricaDAO.getInscripcionDAO();
                 inscripcionDAO.eliminarInscripcion((Inscripcion) objeto);
             }
+            // Si el tipo de objeto es 3, eliminar un Socio
             case 3 -> {
                 SocioDAO socioDAO = fabricaDAO.getSocioDAO();
                 socioDAO.eliminarSocio((Socio) objeto);
             }
+            // Si el tipo de objeto es 4, eliminar una Federación
             case 4 -> {
                 FederacionDAO federacionDAO = fabricaDAO.getFederacionDAO();
                 federacionDAO.eliminarFederacion((Federacion) objeto);
@@ -206,7 +216,6 @@ public class Datos {
         }
     }
 
-
     /**
      * Método para obtener un objeto de un tipo específico de la base de datos.
      *
@@ -241,7 +250,6 @@ public class Datos {
         }
         return objeto;
     }
-
 
     /**
      * Método para buscar un objeto en la base de datos.

@@ -13,4 +13,5 @@ public interface SocioDAO {
         public Socio buscarSocio(int id) throws SQLException;
         public Socio buscarSocio(String dni) throws SQLException;
         public ResultSet listarSocios() throws SQLException;
+        Socio getSocio(String codigo) throws SQLException;
 }
