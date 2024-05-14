@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Clase que representa el controlador de socios.
@@ -36,7 +34,6 @@ public class ControlSocios {
      */
     public ControlSocios(APPSenderosMontanas app) {
         this.app = app;
-
         this.vSocios = new VistaSocios();
         this.vModificarSeguro = new VistaModificarSeguro();
         this.vListarSocios = new VistaListarSocios();
@@ -44,7 +41,6 @@ public class ControlSocios {
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
-
     }
 
     /**

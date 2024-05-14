@@ -1,7 +1,5 @@
 package RompeSistemas.Modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,4 +13,5 @@ public interface SeguroDAO {
         Seguro buscarSeguro(String nombre) throws SQLException;
         ResultSet listarSeguros() throws SQLException;
         Seguro getSeguro(int id) throws SQLException;
+        ResultSet getCantidadSeguros() throws SQLException;
 }

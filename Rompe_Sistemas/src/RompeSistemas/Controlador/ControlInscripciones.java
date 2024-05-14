@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import RompeSistemas.Datos.DatabaseConnection;
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Inscripcion;
-import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Vista.VistaInscripciones;
 import RompeSistemas.Vista.VistaListarInscripciones;
 import RompeSistemas.Vista.VistaAddInscripcion;

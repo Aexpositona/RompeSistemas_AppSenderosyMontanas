@@ -8,15 +8,12 @@ import java.util.List;
 public interface InscripcionDAO {
 
         List<Inscripcion> getAllInscripciones() throws SQLException;
-        public void insertarInscripcion(Inscripcion inscripcion) throws SQLException;
-        public void modificarInscripcion(Inscripcion inscripcion) throws SQLException;
-        public void eliminarInscripcion(Inscripcion inscripcion) throws SQLException;
-        public Inscripcion buscarInscripcion(String id) throws SQLException;
-        public ResultSet listarInscripciones() throws SQLException;
-
+        void insertarInscripcion(Inscripcion inscripcion) throws SQLException;
+        void modificarInscripcion(Inscripcion inscripcion) throws SQLException;
+        void eliminarInscripcion(Inscripcion inscripcion) throws SQLException;
+        Inscripcion buscarInscripcion(String id) throws SQLException;
+        ResultSet listarInscripciones() throws SQLException;
         ResultSet getInscripcionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException;
-
-    String getUltimoCodigo() throws SQLException;
-
-        ResultSet listarObjetosPorParametro(String parametro) throws SQLException;
+        Inscripcion getInscripcion(String id) throws SQLException;
+        
 }

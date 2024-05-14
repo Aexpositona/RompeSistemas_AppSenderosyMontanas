@@ -8,4 +8,5 @@ public interface FabricaDAO {
     SocioDAO getSocioDAO();
     FederacionDAO getFederacionDAO();
     SeguroDAO getSeguroDAO();
+
 }

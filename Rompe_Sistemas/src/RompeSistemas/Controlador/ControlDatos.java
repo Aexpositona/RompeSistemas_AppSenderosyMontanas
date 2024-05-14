@@ -1,13 +1,15 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Datos.DatabaseConnection;
 import RompeSistemas.Modelo.*;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+/**
+ * Clase ControlDatos.
+ * Esta clase se encarga de gestionar los datos de la aplicación.
+ * Se encarga de comprobar el tipo de objeto, validar la longitud del código o número de un objeto,
+ * comprobar la existencia de un objeto en la base de datos, verificar si un socio está en una inscripción,
+ * verificar si un socio es tutor de un socio infantil y comprobar la existencia de un NIF en la base de datos.
+ */
 public class ControlDatos {
 
     // Atributos
@@ -119,6 +121,7 @@ public class ControlDatos {
             System.out.println(mensaje + " no puede estar vacío. Inténtelo de nuevo.");
             return false;
         }
+        // Si el objeto introducido reune las condiciones de longitud
         else return true;
     }
 
@@ -134,12 +137,41 @@ public class ControlDatos {
      * @return true si el objeto existe, false en caso contrario
      */
     public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
-        // Utilizar el método getObjeto de la clase Datos para comprobar la existencia del objeto
-        Object objeto = datos.getObjeto(tipoObjeto, Integer.parseInt(codigo));
+        
+        // Variables internas
+        FabricaDAO fabricaDAO = new SQLFabricaDAO();
+        ExcursionDAO excursionDAO = fabricaDAO.getExcursionDAO();
+        InscripcionDAO inscripcionDAO = fabricaDAO.getInscripcionDAO();
+        SocioDAO socioDAO = fabricaDAO.getSocioDAO();
+        FederacionDAO federacionDAO = fabricaDAO.getFederacionDAO();
+        Object objeto = new Object();
 
-        // Si getObjeto devuelve null, entonces el objeto no existe
-        // Si getObjeto devuelve un objeto, entonces el objeto existe
-        return objeto != null;
+        // Obtener el objeto DAO correspondiente al tipo de objeto
+        switch (tipoObjeto) {
+            case 1:
+                objeto = excursionDAO.getExcursion(codigo);
+                break;
+            case 2:
+                objeto = inscripcionDAO.getInscripcion(codigo);
+                break;
+            case 3:
+                objeto = socioDAO.getSocio(codigo);
+                break;
+            case 4:
+                objeto = federacionDAO.getFederacion(codigo);
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de objeto no válido");
+        }
+
+        // Si el objeto no es nulo, significa que existe en la base de datos
+        if (objeto != null) {
+            return true;
+        } 
+        // Si el objeto es nulo, significa que no existe en la base de datos
+        else {
+            return false;
+        }
     }
 
     /**

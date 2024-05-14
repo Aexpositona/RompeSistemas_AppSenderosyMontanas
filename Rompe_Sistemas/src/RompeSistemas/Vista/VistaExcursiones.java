@@ -213,6 +213,7 @@ public class VistaExcursiones {
 
     /**
      * Método para listar las excursiones.
+     * @throws SQLException Excepción SQL.
      */
     private void buttonVistaListExcursiones() throws SQLException {
         // Informamos al usuario de que accedemos a la vista de listar excursiones

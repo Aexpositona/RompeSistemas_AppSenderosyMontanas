@@ -114,7 +114,7 @@ public class ControlMenuPrincipal {
         cExcursiones.show();
     }
 
-    public void show() throws ParseException, SQLException{
+    public void show() throws ParseException, SQLException {
         vMenuPrincipal.show();
     }
 }
