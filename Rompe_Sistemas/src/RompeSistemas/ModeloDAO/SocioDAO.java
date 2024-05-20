@@ -1,12 +1,12 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.ModeloDAO;
+
+import RompeSistemas.Modelo.Socio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public interface SocioDAO {
-
-        List<Socio> getAllSocios() throws SQLException;
         public void insertarSocio(Socio socio) throws SQLException;
         public void modificarSocio(Socio socio) throws SQLException;
         public void eliminarSocio(Socio socio) throws SQLException;

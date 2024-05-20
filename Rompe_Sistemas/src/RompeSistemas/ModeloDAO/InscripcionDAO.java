@@ -1,4 +1,6 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.ModeloDAO;
+
+import RompeSistemas.Modelo.Inscripcion;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

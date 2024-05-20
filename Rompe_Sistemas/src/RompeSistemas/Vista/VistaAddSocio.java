@@ -4,6 +4,7 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.*;
+import RompeSistemas.ModeloDAO.InfantilDAO;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,7 +16,7 @@ public class VistaAddSocio {
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
     private Datos datos;
-
+    private InfantilDAO infantilDAO;
     /**
      * Constructor de la clase VistaAddSocio que recibe por parámetros el controlador de socios
      * @param cSocios es el controlador de socios
@@ -25,6 +26,7 @@ public class VistaAddSocio {
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
         this.datos = new Datos();
+        this.infantilDAO = infantilDAO;
     }
 
     /**
@@ -90,7 +92,7 @@ public class VistaAddSocio {
      */
     public void buttonAddSocio() throws SQLException {
         // Variables internas
-        String numero, nombre, numSocioTutor, nif;
+        String numero, nombre, numSocioTutor = "", nif;
         Seguro seguro = null;
         txtMostrarMensaje("-- Procediendo a añadir un socio --\n");
         txtMostrarMensaje("Tipos de socio:\n");
@@ -176,11 +178,11 @@ public class VistaAddSocio {
             // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
             do{
-                // Pedir número de socio del tutor
-                numSocioTutor = cPeticiones.pedirString("Introduce el número de socio del tutor: ");
+                // Pedir código del socio del tutor
+                String codigoSocioTutor = cPeticiones.pedirString("Introduce el código del socio tutor: ");
                 // Comprobar si el socio tutor existe
-                if (!cDatos.checkExistenciaObjeto(3, numSocioTutor)) {
-                    txtMostrarMensaje("El socio tutor no existe. Introduce un número de socio válido.");
+                if (!cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
+                    txtMostrarMensaje("El socio tutor no existe. Introduce un código de socio válido.");
                 }
                 else {
                     break;
@@ -188,7 +190,8 @@ public class VistaAddSocio {
             } while (true);
             // Añadir socio tipo Infantil mediante el controlador de socios
             Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);
-            cSocios.addSocio(infantil);
+            cSocios.addInfantil(infantil); // Modificado
+
             // Mostramos mensaje de éxito
             txtMostrarMensaje("Socio Infantil añadido con éxito.\n");
         }

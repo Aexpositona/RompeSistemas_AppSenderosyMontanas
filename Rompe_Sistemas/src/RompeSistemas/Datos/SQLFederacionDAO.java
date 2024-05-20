@@ -1,6 +1,8 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.Datos;
 
-import RompeSistemas.Datos.DatabaseConnection;
+import RompeSistemas.Modelo.Federacion;
+import RompeSistemas.ModeloDAO.FederacionDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,30 +12,6 @@ import java.util.List;
 
 // Clase que implementa la interfaz FederacionDAO y se encarga de realizar las operaciones de la base de datos relacionadas con las federaciones.
 public class SQLFederacionDAO implements FederacionDAO {
-    // Método que devuelve una lista con todas las federaciones.
-    @Override
-    public List<Federacion> getAllFederaciones() throws SQLException {
-        // Se obtiene la conexión a la base de datos.
-        Connection conexion = DatabaseConnection.getConnection();
-        // Se crea la consulta SQL.
-        String query = "SELECT * FROM Federacion";
-        // Se crea un objeto PreparedStatement con la consulta.
-        PreparedStatement statement = conexion.prepareStatement(query);
-        // Se ejecuta la consulta y se obtiene el resultado.
-        ResultSet resultSet = statement.executeQuery();
-        // Se crea una lista de federaciones.
-        List<Federacion> federaciones = new ArrayList<>();
-        // Mientras haya resultados, se añaden a la lista de federaciones.
-        while (resultSet.next()) {
-            // Se añade una federación a la lista con los datos obtenidos.
-            federaciones.add(new Federacion(
-                    resultSet.getString("codigoFederacion"),
-                    resultSet.getString("nombreFederacion")
-            ));
-        }
-        // Se devuelve la lista de federaciones.
-        return federaciones;
-    }
 
     // Método que devuelve una federación a partir de su id.
     @Override

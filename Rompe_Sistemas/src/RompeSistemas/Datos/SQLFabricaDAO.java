@@ -1,4 +1,6 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.Datos;
+
+import RompeSistemas.ModeloDAO.*;
 
 // Clase que implementa la interfaz FabricaDAO y se encarga de devolver los DAOs de SQL.
 public class SQLFabricaDAO implements FabricaDAO {

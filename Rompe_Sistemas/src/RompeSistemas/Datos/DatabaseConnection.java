@@ -1,8 +1,11 @@
 package RompeSistemas.Datos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import RompeSistemas.Modelo.Socio;
+import RompeSistemas.ModeloDAO.SocioDAO;
+import RompeSistemas.Datos.*;
+import RompeSistemas.ModeloDAO.*;
+import java.sql.*;
+
 
 /**
  * Clase que se encarga de establecer la conexión con la base de datos.

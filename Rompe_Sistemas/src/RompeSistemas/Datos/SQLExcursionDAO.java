@@ -1,6 +1,8 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.Datos;
 
-import RompeSistemas.Datos.DatabaseConnection;
+import RompeSistemas.Modelo.Excursion;
+import RompeSistemas.ModeloDAO.ExcursionDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

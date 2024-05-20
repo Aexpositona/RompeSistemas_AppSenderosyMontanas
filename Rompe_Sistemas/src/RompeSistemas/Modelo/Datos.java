@@ -1,6 +1,8 @@
 package RompeSistemas.Modelo;
 
-import RompeSistemas.Datos.DatabaseConnection;
+import RompeSistemas.Datos.*;
+import RompeSistemas.ModeloDAO.*;
+import RompeSistemas.Datos.SQLSocioDAO;
 import java.sql.*;
 import java.time.LocalDate;
 

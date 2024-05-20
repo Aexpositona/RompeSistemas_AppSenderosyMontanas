@@ -1,6 +1,7 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.Datos;
 
-import RompeSistemas.Datos.DatabaseConnection;
+import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.ModeloDAO.InscripcionDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

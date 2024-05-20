@@ -1,11 +1,11 @@
 package RompeSistemas.Controlador;
 
 // Imports
+import RompeSistemas.Datos.SQLInfantilDAO;
 import RompeSistemas.Modelo.*;
-import RompeSistemas.Vista.VistaSocios;
-import RompeSistemas.Vista.VistaModificarSeguro;
-import RompeSistemas.Vista.VistaListarSocios;
-import RompeSistemas.Vista.VistaAddSocio;
+import RompeSistemas.ModeloDAO.*;
+import RompeSistemas.Vista.*;
+
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -26,7 +26,8 @@ public class ControlSocios {
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
     private Datos datos;
-
+    private SocioDAO socioDAO;
+    private InfantilDAO infantilDAO;
     /**
      * Constructor de ControlSocios.
      *
@@ -41,6 +42,8 @@ public class ControlSocios {
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
+        this.infantilDAO = new SQLInfantilDAO();
+
     }
 
     /**
@@ -57,23 +60,12 @@ public class ControlSocios {
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = cSocios.getControlDatos();
         this.datos = cSocios.getDatos();
+        this.infantilDAO = new SQLInfantilDAO();
+
     }
 
-    /**
-     * Constructor de ControlSocios vacío.
-     */
-    public ControlSocios() {
-        this.app = null;
-        this.vSocios = null;
-        this.vModificarSeguro = null;
-        this.vListarSocios = null;
-        this.vAddSocio = null;
-        this.cPeticiones = null;
-        this.cDatos = null;
-        this.datos = null;
-    }
 
-    // Getters
+// Getters
 
     public APPSenderosMontanas getApp() {
         return app;
@@ -107,33 +99,8 @@ public class ControlSocios {
         return datos;
     }
 
-    // Setters
-    public void setApp(APPSenderosMontanas app) {
-        this.app = app;
-    }
-
-    public void setVistaSocios(VistaSocios vSocios) {
-        this.vSocios = vSocios;
-    }
-
-    public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
-        this.vModificarSeguro = vModificarSeguro;
-    }
-
-    public void setVistaListarSocios(VistaListarSocios vListarSocios) {
-        this.vListarSocios = vListarSocios;
-    }
-
-    public void setVistaAddSocio(VistaAddSocio vAddSocio) {
-        this.vAddSocio = vAddSocio;
-    }
-
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
-    }
-
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
     }
 
     public void setDatos(Datos datos) {
@@ -155,7 +122,11 @@ public class ControlSocios {
      * @param socio Socio a añadir.
      */
     public void addSocio(Socio socio) throws SQLException {
-        datos.addObjeto(3, socio);
+        socioDAO.insertarSocio(socio); // Modificado
+    }
+
+    public void addInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.InsertarInfantil(infantil); // Añadido
     }
 
     /**
@@ -166,28 +137,6 @@ public class ControlSocios {
     public void modifySocio(Socio socio) throws SQLException {
         datos.modifyObjeto(3, socio);
     }
-
-    /**
-     * Método para mostrar la vista de modificar seguro.
-     */
-    public void showVistaListarSocios() throws ParseException, SQLException {
-        vListarSocios.show();
-    }
-
-    /**
-     * Método para mostrar la vista de añadir socio.
-     */
-    public void showVistaAddSocio() throws ParseException, SQLException {
-        vAddSocio.show();
-    }
-
-    /**
-     * Método para mostrar la vista de modificar seguro.
-     */
-    public void showVistaModificarSeguro() throws ParseException, SQLException {
-        vModificarSeguro.show();
-    }
-
 
     /**
      * Método para eliminar un socio.

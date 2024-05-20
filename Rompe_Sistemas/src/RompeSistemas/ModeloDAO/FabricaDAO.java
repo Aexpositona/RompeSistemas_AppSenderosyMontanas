@@ -1,4 +1,4 @@
-package RompeSistemas.Modelo;
+package RompeSistemas.ModeloDAO;
 
 public interface FabricaDAO {
 
