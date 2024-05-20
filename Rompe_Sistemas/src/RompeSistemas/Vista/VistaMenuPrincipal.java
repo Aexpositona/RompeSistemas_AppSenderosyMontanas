@@ -20,19 +20,9 @@ public class VistaMenuPrincipal {
      *
      * @param cMenuPrincipal ControlMenuPrincipal
      */
-    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
+    public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) throws SQLException {
         this.cMenuPrincipal = new ControlMenuPrincipal(cMenuPrincipal);
         this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
-    }
-
-    /**
-     * Constructor de copia de la clase VistaMenuPrincipal.
-     *
-     * @param vistaMenuPrincipal VistaMenuPrincipal a copiar
-     */
-    public VistaMenuPrincipal(VistaMenuPrincipal vistaMenuPrincipal) {
-        this.cMenuPrincipal = new ControlMenuPrincipal(vistaMenuPrincipal.getControlMenuPrincipal());
-        this.cPeticiones = new ControlPeticiones(vistaMenuPrincipal.getControlPeticiones());
     }
 
     /**

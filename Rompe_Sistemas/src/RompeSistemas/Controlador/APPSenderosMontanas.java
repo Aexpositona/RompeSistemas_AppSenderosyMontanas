@@ -73,14 +73,14 @@ public class APPSenderosMontanas {
      * @param datos Recibe los datos de la aplicación.
      * Inicializa los controladores y las vistas de la aplicación.
      */
-    public void iniciar(Datos datos) {
+    public void iniciar(Datos datos) throws SQLException {
         
         // Inicializar controladores
         this.datos = datos;
         cDatos = new ControlDatos(this);
         cPeticiones = new ControlPeticiones();
         cInscripciones = new ControlInscripciones(this);
-        cSocios = new ControlSocios(this);
+        cSocios = new ControlSocios(this.getControlSocios());
         cExcursiones = new ControlExcursiones(this);
         cMenuPrincipal = new ControlMenuPrincipal(this);
 

@@ -1,9 +1,6 @@
 package RompeSistemas.Datos;
 
-import RompeSistemas.Modelo.Federacion;
-import RompeSistemas.Modelo.Infantil;
-import RompeSistemas.Modelo.Seguro;
-import RompeSistemas.Modelo.Socio;
+import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.SocioDAO;
 
 import java.sql.*;
@@ -32,19 +29,41 @@ public class SQLSocioDAO implements SocioDAO {
         int idSocio = rs.getInt(1);
 
         // Dependiendo del tipo de socio, insertar en la tabla correspondiente
-        switch (socio.getTipo()) {
-            case 1: // Socio Estandar
-
-            case 2: // Socio Federado
-
-            case 3: // Socio Infantil
-                // Crear una instancia de SQLInfantilDAO y llamar al método InsertarInfantil
-                SQLInfantilDAO infantilDAO = new SQLInfantilDAO();
-                Infantil infantil = new Infantil();
-                infantilDAO.InsertarInfantil(infantil);
-                break;
+        if (socio instanceof Estandar) {
+            insertarEstandar((Estandar) socio, idSocio);
+        } else if (socio instanceof Federado) {
+            insertarFederado((Federado) socio, idSocio);
+        } else if (socio instanceof Infantil) {
+            insertarInfantil((Infantil) socio, idSocio);
         }
     }
+
+    private void insertarEstandar(Estandar estandar, int idSocio) throws SQLException {
+        String query = "INSERT INTO Estandar (idSocio, idSeguro) VALUES (?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, idSocio);
+        pstmt.setString(2, estandar.getSeguro().name());
+        pstmt.executeUpdate();
+    }
+
+
+    private void insertarFederado(Federado federado, int idSocio) throws SQLException {
+        String query = "INSERT INTO Federado (idSocio, idFederacion) VALUES (?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, idSocio);
+        pstmt.setString(2, federado.getFederacion().getCodigo());
+        pstmt.executeUpdate();
+    }
+
+
+    private void insertarInfantil(Infantil infantil, int idSocio) throws SQLException {
+        String query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, idSocio);
+        pstmt.setString(2, infantil.getNumSocioTutor());
+        pstmt.executeUpdate();
+    }
+
 
     // Método que modifica un socio en la base de datos.
     @Override

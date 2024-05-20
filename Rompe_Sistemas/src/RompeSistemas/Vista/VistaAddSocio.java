@@ -21,7 +21,7 @@ public class VistaAddSocio {
      * Constructor de la clase VistaAddSocio que recibe por parámetros el controlador de socios
      * @param cSocios es el controlador de socios
      */
-    public VistaAddSocio(ControlSocios cSocios) {
+    public VistaAddSocio(ControlSocios cSocios) throws SQLException {
         this.cSocios = new ControlSocios(cSocios);
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = new ControlDatos(cSocios.getControlDatos());

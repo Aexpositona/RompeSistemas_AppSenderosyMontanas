@@ -1,21 +1,20 @@
 package RompeSistemas.Vista;
 
-// Imports
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Modelo.Socio;
+import RompeSistemas.Modelo.Infantil;
+import RompeSistemas.Modelo.Federado;
+import RompeSistemas.Modelo.Estandar;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
-/**
- * Clase que representa la vista de socios.
- */
 public class VistaSocios {
 
-    // Atributos
     private VistaModificarSeguro vModificarSeguro;
     private VistaListarSocios vListarSocios;
     private VistaAddSocio vAddSocio;
@@ -24,25 +23,16 @@ public class VistaSocios {
     private ControlDatos cDatos;
     private Datos datos;
 
-
-    /**
-     * Método constructor de la clase VistaSocios que recibe por parámetros el controlador de socios
-     * @param cSocios es el controlador de socios
-     */
-    public VistaSocios(ControlSocios cSocios) {
-        this.cSocios = new ControlSocios(cSocios);
+    public VistaSocios(ControlSocios cSocios) throws SQLException {
+        this.cSocios = cSocios;
         this.vModificarSeguro = cSocios.getVistaModificarSeguro();
-        this.vListarSocios =cSocios.getVistaListarSocios();
+        this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAddSocio = cSocios.getVistaAddSocio();
-        this.cPeticiones = cSocios.getControlPeticiones() ;
-        this.cDatos = new ControlDatos(cSocios.getControlDatos());
-        this.datos = new Datos();
+        this.cPeticiones = cSocios.getControlPeticiones();
+        this.cDatos = cSocios.getControlDatos();
+        this.datos = cSocios.getDatos();
     }
 
-    /**
-     * Método constructor de copia de la clase VistaSocios
-     * @param vistaSocios VistaSocios a copiar
-     */
     public VistaSocios(VistaSocios vistaSocios) {
         this.cSocios = vistaSocios.getControlSocios();
         this.vModificarSeguro = vistaSocios.getVistaModificarSeguro();
@@ -53,9 +43,6 @@ public class VistaSocios {
         this.datos = vistaSocios.getDatos();
     }
 
-    /**
-     * Método constructor vacío de la clase VistaSocios
-     */
     public VistaSocios() {
         this.cSocios = null;
         this.vModificarSeguro = null;
@@ -65,8 +52,6 @@ public class VistaSocios {
         this.cDatos = null;
         this.datos = null;
     }
-
-    // Getters
 
     public ControlSocios getControlSocios() {
         return cSocios;
@@ -96,8 +81,6 @@ public class VistaSocios {
         return datos;
     }
 
-    // Setters
-
     public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
@@ -126,108 +109,73 @@ public class VistaSocios {
         this.datos = datos;
     }
 
-    /**
-     * Método para añadir un botón que nos permite añadir un socio
-     */
     public void buttonAddSocio() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de añadir socio...\n\n");
         vAddSocio.show();
     }
 
-    /**
-     * Método para añadir un botón que nos permite modificar un seguro
-     */
     public void buttonRemoveSocio() throws SQLException {
-        // Variables internas
-        // Listar socios
-        txtMostrarMensaje("\n");
-        cSocios.listSocios();
-        txtMostrarMensaje("\n");
-        // Solicitar número de socio a eliminar
+        System.out.println("Navegando a la vista de eliminar socio...\n\n");
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio que quieres eliminar: ");
-        // Llamamos al método de ControlSocios para eliminar el socio con el número introducido
-        cSocios.removeSocio(numeroSocio);
+        Socio socio = cSocios.getSocio(numeroSocio);
+        if (socio != null) {
+            if (socio instanceof Infantil) {
+                cSocios.eliminarInfantil((Infantil) socio);
+            } else if (socio instanceof Federado) {
+                cSocios.eliminarFederado((Federado) socio);
+            } else if (socio instanceof Estandar) {
+                cSocios.eliminarEstandar((Estandar) socio);
+            } else {
+                cSocios.eliminarSocio(socio);
+            }
+            System.out.println("Socio eliminado correctamente.");
+        } else {
+            System.out.println("No se encontró el socio con el número: " + numeroSocio);
+        }
     }
 
-    /**
-     * Método para añadir un botón que nos permite modificar un seguro
-     */
     public void buttonModTipoSeguro() throws ParseException, SQLException {
-        txtMostrarMensaje("Navegando a la vista de modificar seguro...\n\n");
+        System.out.println("Navegando a la vista de modificar seguro...\n\n");
         vModificarSeguro.show();
     }
 
-    /**
-     * Método para añadir un botón que nos permite listar los socios
-     */
-    public void ButtonListSocios() throws ParseException, SQLException {
-        txtMostrarMensaje("Navegando a la vista de listar socios...\n\n");
+    public void buttonListSocios() throws ParseException, SQLException {
+        System.out.println("Navegando a la vista de listar socios...\n\n");
         vListarSocios.show();
     }
 
-    /**
-     * Método para añadir un botón que nos permite mostrar la información de los socios
-     */
     public void buttonCalcFacturaMensualSocios() throws SQLException {
-        txtMostrarMensaje("-- Mostrando la factura mensual de los socios --\n\n");
-        // Obtenemos la fecha actual y la fecha de hace un mes
+        System.out.println("-- Mostrando la factura mensual de los socios --\n\n");
         LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
-        cSocios.calcFacturaFechas("NULL",haceUnMes, actual);
+        cSocios.calcFacturaFechas("NULL", haceUnMes, actual);
     }
 
-    /**
-     * Método para añadir un botón que nos permite mostrar la información de los socios entre dos fechas
-     */
     public void buttonCalcFacturaFechas() throws SQLException {
-        txtMostrarMensaje("-- Mostrando la factura entre fechas de los socios --\n\n");
-        // Solicitamos la fecha inicial y la fecha final
+        System.out.println("-- Mostrando la factura entre fechas de los socios --\n\n");
         LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
         LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final --", fechaInicial, LocalDate.now());
-        // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
-        cSocios.calcFacturaFechas("NULL",fechaInicial, fechaFinal);
+        cSocios.calcFacturaFechas("NULL", fechaInicial, fechaFinal);
     }
 
     public void buttonCalcFacturasFechasSocio() throws SQLException {
-        txtMostrarMensaje("-- Mostrando la factura entre fechas de un socio --\n\n");
-        // Listar socios
-        txtMostrarMensaje("\n");
-        cSocios.listSocios();
-        txtMostrarMensaje("\n");
-        // Solicitamos el número de socio
+        System.out.println("-- Mostrando la factura entre fechas de un socio --\n\n");
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio: ");
-        // Solicitamos la fecha inicial y la fecha final
         LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
-        LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final  --", fechaInicial, LocalDate.now());
-        txtMostrarMensaje("\n");
-        // Llamamos al método de ControlSocios para calcular la factura entre las dos fechas
+        LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final --", fechaInicial, LocalDate.now());
         cSocios.calcFacturaFechas(numeroSocio, fechaInicial, fechaFinal);
     }
 
-    /**
-     * Método para añadir un botón que nos permite ir hacia atrás
-     */
     public void buttonAtras() throws ParseException {
-        txtMostrarMensaje("Volviendo al menú principal...\n\n");
+        System.out.println("Volviendo al menú principal...\n\n");
     }
 
-    /**
-     * Método para mostrar un mensaje.
-     *
-     * @param mensaje Mensaje a mostrar.
-     */
-    public void txtMostrarMensaje(String mensaje){
+    public void txtMostrarMensaje(String mensaje) {
         System.out.print(mensaje);
     }
 
-    /**
-     * Método para mostrar la vista de socios
-     */
     public void show() throws ParseException, SQLException {
-        // Variables internas
         boolean running = true;
-        // Bucle de ejecución
         while (running) {
-            // Mostramos el menú de socios
             txtMostrarMensaje("************ MENÚ SOCIOS ************\n");
             txtMostrarMensaje("1. Añadir socio\n");
             txtMostrarMensaje("2. Eliminar socio\n");
@@ -237,7 +185,6 @@ public class VistaSocios {
             txtMostrarMensaje("6. Mostrar factura entre dos fechas\n");
             txtMostrarMensaje("7. Mostrar factura entre dos fechas de un socio\n");
             txtMostrarMensaje("0. Atrás\n");
-            // Solicitamos una opción
             switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3, 4, 5, 6, 7 o 0): ", 0, 7)) {
                 case 1:
                     buttonAddSocio();
@@ -249,7 +196,7 @@ public class VistaSocios {
                     buttonModTipoSeguro();
                     break;
                 case 4:
-                    ButtonListSocios();
+                    buttonListSocios();
                     break;
                 case 5:
                     buttonCalcFacturaMensualSocios();

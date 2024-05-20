@@ -1,20 +1,20 @@
 package RompeSistemas.Controlador;
 
 // Imports
-import RompeSistemas.Datos.SQLInfantilDAO;
+import RompeSistemas.Datos.SQLSocioDAO;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
+import RompeSistemas.ModeloDAO.SQLEstandarDAO;
+import RompeSistemas.ModeloDAO.SQLFederadoDAO;
+import RompeSistemas.ModeloDAO.SQLInfantilDAO;
 import RompeSistemas.Vista.*;
-
-
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.temporal.*;
+import java.time.temporal.ChronoUnit;
 
-/**
- * Clase que representa el controlador de socios.
- */
 public class ControlSocios {
 
     // Atributos
@@ -28,44 +28,51 @@ public class ControlSocios {
     private Datos datos;
     private SocioDAO socioDAO;
     private InfantilDAO infantilDAO;
+    private FederadoDAO federadoDAO;
+    private EstandarDAO estandarDAO;
+
     /**
      * Constructor de ControlSocios.
      *
      * @param app APPSenderosMontanas asociada al controlador.
+     * @param conn Conexión a la base de datos.
      */
-    public ControlSocios(APPSenderosMontanas app) {
+    public ControlSocios(APPSenderosMontanas app, Connection conn) throws SQLException {
         this.app = app;
-        this.vSocios = new VistaSocios();
+        this.vSocios = new VistaSocios(this);
         this.vModificarSeguro = new VistaModificarSeguro();
         this.vListarSocios = new VistaListarSocios();
         this.vAddSocio = new VistaAddSocio();
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
-        this.infantilDAO = new SQLInfantilDAO();
-
+        this.socioDAO = new SQLSocioDAO();
+        this.infantilDAO = new SQLInfantilDAO(conn);
+        this.federadoDAO = new SQLFederadoDAO(conn);
+        this.estandarDAO = new SQLEstandarDAO(conn);
     }
 
     /**
-     * Constructor de ControlSocios de copia.
+     * Constructor de copia de ControlSocios.
      *
-     * @param cSocios ControlSocios a copiar
+     * @param cSocios ControlSocios a copiar.
      */
-    public ControlSocios(ControlSocios cSocios) {
+    public ControlSocios(ControlSocios cSocios) throws SQLException {
         this.app = cSocios.getApp();
-        this.vSocios = cSocios.getVistaSocios();
+        this.vSocios = new VistaSocios(this);
         this.vModificarSeguro = cSocios.getVistaModificarSeguro();
         this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAddSocio = cSocios.getVistaAddSocio();
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = cSocios.getControlDatos();
         this.datos = cSocios.getDatos();
-        this.infantilDAO = new SQLInfantilDAO();
-
+        this.socioDAO = cSocios.getSocioDAO();
+        this.infantilDAO = cSocios.getInfantilDAO();
+        this.federadoDAO = cSocios.getFederadoDAO();
+        this.estandarDAO = cSocios.getEstandarDAO();
     }
 
-
-// Getters
+    // Getters
 
     public APPSenderosMontanas getApp() {
         return app;
@@ -99,6 +106,24 @@ public class ControlSocios {
         return datos;
     }
 
+    public SocioDAO getSocioDAO() {
+        return socioDAO;
+    }
+
+    public InfantilDAO getInfantilDAO() {
+        return infantilDAO;
+    }
+
+    public FederadoDAO getFederadoDAO() {
+        return federadoDAO;
+    }
+
+    public EstandarDAO getEstandarDAO() {
+        return estandarDAO;
+    }
+
+    // Métodos
+
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
@@ -107,66 +132,108 @@ public class ControlSocios {
         this.datos = datos;
     }
 
-    // Métodos
-
     public void show() throws ParseException, SQLException {
         vSocios.show();
     }
 
-
-    // Métodos de la vista
-
-    /**
-     * Método para añadir un socio.
-     *
-     * @param socio Socio a añadir.
-     */
     public void addSocio(Socio socio) throws SQLException {
-        socioDAO.insertarSocio(socio); // Modificado
+        socioDAO.insertarSocio(socio);
+    }
+
+    public Socio getSocio(String codigo) throws SQLException {
+        return socioDAO.getSocio(codigo);
+    }
+
+    public void modificarSocio(Socio socio) throws SQLException {
+        socioDAO.modificarSocio(socio);
+    }
+
+    public void eliminarSocio(Socio socio) throws SQLException {
+        socioDAO.eliminarSocio(socio);
     }
 
     public void addInfantil(Infantil infantil) throws SQLException {
-        infantilDAO.InsertarInfantil(infantil); // Añadido
+        infantilDAO.insertarInfantil(infantil);
     }
 
-    /**
-     * Método para modificar un socio.
-     *
-     * @param socio Socio a modificar.
-     */
-    public void modifySocio(Socio socio) throws SQLException {
-        datos.modifyObjeto(3, socio);
+    public Infantil getInfantil(String codigo) throws SQLException {
+        return infantilDAO.getInfantil(codigo);
+    }
+
+    public void modificarInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.modificarInfantil(infantil);
+    }
+
+    public void eliminarInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.eliminarInfantil(infantil);
+    }
+
+    public ResultSet listarInfantiles() throws SQLException {
+        return infantilDAO.listarInfantiles();
+    }
+
+    public void addFederado(Federado federado) throws SQLException {
+        federadoDAO.insertarFederado(federado);
+    }
+
+    public Federado getFederado(String codigo) throws SQLException {
+        return federadoDAO.getFederado(codigo);
+    }
+
+    public void modificarFederado(Federado federado) throws SQLException {
+        federadoDAO.modificarFederado(federado);
+    }
+
+    public void eliminarFederado(Federado federado) throws SQLException {
+        federadoDAO.eliminarFederado(federado);
+    }
+
+    public ResultSet listarFederados() throws SQLException {
+        return federadoDAO.listarFederados();
+    }
+
+    public void addEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.insertarEstandar(estandar);
+    }
+
+    public Estandar getEstandar(String codigo) throws SQLException {
+        return estandarDAO.getEstandar(codigo);
+    }
+
+    public void modificarEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.modificarEstandar(estandar);
+    }
+
+    public void eliminarEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.eliminarEstandar(estandar);
+    }
+
+    public ResultSet listarEstandares() throws SQLException {
+        return estandarDAO.listarEstandares();
     }
 
     /**
      * Método para eliminar un socio.
      *
-     * @param numeroSocio El número del socio a eliminar.
-     * @return Verdadero si el socio se ha eliminado correctamente, falso en caso contrario.
+     * @param codigo El código del socio a eliminar.
      */
-    public boolean removeSocio(String numeroSocio) throws SQLException {
-        // Convertir el número de socio a un ID numérico
-        int idSocio = Integer.parseInt(numeroSocio.substring(3));
-
-        // Comprobar si el socio existe en la base de datos
-        if (datos.getObjeto(3, idSocio) != null) {
-            // Comprobar si el socio no está en una inscripción y no es tutor de un socio infantil
-            if ((!cDatos.isSocioInInscripcion(idSocio)) && (!cDatos.isSocioInInfantil(numeroSocio))) {
-                // Utilizar el método removeObjeto de la clase Datos para eliminar el socio
-                datos.removeObjeto(3, datos.getObjeto(3, idSocio));
-                return true;
+    public void removeSocio(String codigo) throws SQLException {
+        Socio socio = getSocio(codigo);
+        if (socio != null) {
+            if (socio instanceof Infantil) {
+                eliminarInfantil((Infantil) socio);
+            } else if (socio instanceof Federado) {
+                eliminarFederado((Federado) socio);
+            } else if (socio instanceof Estandar) {
+                eliminarEstandar((Estandar) socio);
             } else {
-                System.out.println("El socio no se puede eliminar porque está en una inscripción o es tutor de un socio infantil.");
-                return false;
+                eliminarSocio(socio);
             }
         } else {
-            System.out.println("El socio no existe.");
-            return false;
+            throw new SQLException("No se encontró el socio con el código: " + codigo);
         }
     }
-
-
-    /**
+/**
      * Método listar todos los socios.
      */
     // Métodos para listar socios
@@ -244,7 +311,7 @@ public class ControlSocios {
                     // Si estamos calculando el total de inscripciones del último mes descontando el tiempo de ejecución
                     LocalDate ahoraMenosMes = LocalDate.now().minusMonths(1);
                     LocalDate ahora = LocalDate.now();
-                    if(((int)ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
+                    if(((int) ChronoUnit.DAYS.between(fechaInicio, ahoraMenosMes) == 0) && ((int)ChronoUnit.DAYS.between(fechaFin, ahora) == 0)){
                         vSocios.txtMostrarMensaje("Total de las inscripciones del último mes: " + total + " Euros.\n\n");
                     }
 

@@ -5,6 +5,8 @@ import RompeSistemas.Modelo.Datos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class APPSenderosMontanasTest {
@@ -19,7 +21,7 @@ public class APPSenderosMontanasTest {
     }
 
     @Test
-    public void testIniciar() {
+    public void testIniciar() throws SQLException {
         app.iniciar(datos);
 
         // Comprobar que controladores y vistas están inicializados

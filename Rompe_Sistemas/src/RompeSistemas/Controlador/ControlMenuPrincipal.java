@@ -36,8 +36,8 @@ public class ControlMenuPrincipal {
      *
      * @param cMenuPrincipal ControlMenuPrincipal a copiar
      */
-    public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) {
-        this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal());
+    public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) throws SQLException {
+        this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal().getControlMenuPrincipal());
         this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones());
         this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios());
         this.cExcursiones = new ControlExcursiones (cMenuPrincipal.getCOntrolExcursiones());
