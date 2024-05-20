@@ -2,43 +2,35 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.Datos;
 import RompeSistemas.Modelo.Excursion;
+import RompeSistemas.ModeloDAO.ExcursionDAO;
 import RompeSistemas.Vista.VistaExcursiones;
 import RompeSistemas.Vista.VistaAddExcursion;
 import RompeSistemas.Vista.VistaListarExcursiones;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
 public class ControlExcursiones {
-    // Atributos
     private ControlDatos cDatos;
     private ControlPeticiones cPeticiones;
     private Datos datos;
     private VistaExcursiones vExcursiones;
     private VistaAddExcursion vAddExcursion;
     private VistaListarExcursiones vListarExcursiones;
+    private ExcursionDAO excursionDAO;
 
-    /**
-     * Constructor de ControlExcursiones.
-     *
-     * @param app APPSenderosMontanas asociada al controlador.
-     */
-    // Constructor
-    public ControlExcursiones(APPSenderosMontanas app) {
+    public ControlExcursiones(APPSenderosMontanas app) throws SQLException {
         this.vExcursiones = new VistaExcursiones();
         this.vAddExcursion = new VistaAddExcursion();
         this.vListarExcursiones = new VistaListarExcursiones();
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
+        this.excursionDAO = datos.getFabricaDAO().getExcursionDAO();
     }
 
-    /**
-     * Constructor de ControlExcursiones de copia.
-     *
-     * @param cExcursiones ControlExcursiones a copiar
-     */
     public ControlExcursiones(ControlExcursiones cExcursiones) {
         this.vExcursiones = cExcursiones.getVistaExcursiones();
         this.vAddExcursion = cExcursiones.getVistaAddExcursion();
@@ -46,11 +38,8 @@ public class ControlExcursiones {
         this.datos = cExcursiones.getDatos();
         this.cDatos = cExcursiones.getControlDatos();
         this.cPeticiones = cExcursiones.getControlPeticiones();
+        this.excursionDAO = cExcursiones.getExcursionDAO();
     }
-
-    /**
-     * Constructor de ControlExcursiones vacío.
-     */
 
     public ControlExcursiones() {
         this.vExcursiones = null;
@@ -59,14 +48,13 @@ public class ControlExcursiones {
         this.datos = null;
         this.cDatos = null;
         this.cPeticiones = null;
+        this.excursionDAO = null;
     }
-
-    // Getters
 
     public VistaExcursiones getVistaExcursiones() {
         return vExcursiones;
     }
-    
+
     public VistaAddExcursion getVistaAddExcursion() {
         return vAddExcursion;
     }
@@ -87,11 +75,9 @@ public class ControlExcursiones {
         return cPeticiones;
     }
 
-    public ControlExcursiones getControlExcursiones() {
-        return this;
+    public ExcursionDAO getExcursionDAO() {
+        return excursionDAO;
     }
-
-    // Setters
 
     public void setDatos(Datos datos) {
         this.datos = datos;
@@ -117,83 +103,61 @@ public class ControlExcursiones {
         this.cPeticiones = cPeticiones;
     }
 
-    // Métodos
-    /**
-     * Añade una excursión utilizando la clase Datos.
-     *
-     * @param excursion Excursión a añadir
-     */
     public void addExcursion(Excursion excursion) throws SQLException {
-        // Añadimos la excursión
-        datos.addObjeto(1, excursion);
+        excursionDAO.addExcursion(excursion);
     }
 
-    /**
-     * Elimina una excursión utilizando la clase Datos.
-     *
-     * @param excursion Código de la excursión a eliminar
-     */
     public void removeExcursion(Excursion excursion) throws SQLException {
-        // Eliminamos la excursión
-        datos.removeObjeto(1, excursion);
+        excursionDAO.deleteExcursion(excursion);
     }
 
-    /**
-     * Lista las excursiones utilizando la clase Datos.
-     *
-     */
-    public void listExcursiones() {
-        // Mostramos las excursiones
-        vListarExcursiones.txtMostrarMensaje(datos.listToStringObjetos(1));
+    public void listExcursiones() throws SQLException {
+        ResultSet rs = excursionDAO.getAllExcursiones();
+        while (rs.next()) {
+            System.out.println("Código: " + rs.getString("codigoExcursion"));
+            System.out.println("Descripción: " + rs.getString("descripcion"));
+            System.out.println("Fecha: " + rs.getDate("fecha").toLocalDate());
+            System.out.println("Duración: " + rs.getInt("duracion"));
+            System.out.println("Precio: " + rs.getFloat("precio"));
+            System.out.println();
+        }
     }
 
-    /**
-     * Lista las excursiones entre dos fechas utilizando la clase Datos.
-     *
-     * @param fechaInicial Fecha inicial
-     * @param fechaFinal Fecha final
-     */
     public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        // Mostramos las excursiones entre dos fechas
-        vListarExcursiones.txtMostrarMensaje(datos.listToStringObjetosFechas(1,fechaInicial,fechaFinal));
+        ResultSet rs = excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
+        while (rs.next()) {
+            System.out.println("Código: " + rs.getString("codigoExcursion"));
+            System.out.println("Descripción: " + rs.getString("descripcion"));
+            System.out.println("Fecha: " + rs.getDate("fecha").toLocalDate());
+            System.out.println("Duración: " + rs.getInt("duracion"));
+            System.out.println("Precio: " + rs.getFloat("precio"));
+            System.out.println();
+        }
     }
 
-    /**
-     * Muestra la vista para listar las excursiones.
-     */
     public void showVistaListarExcursiones() throws SQLException {
-        // Mostramos la vista para listar las excursiones
         vListarExcursiones.show();
     }
 
-    /**
-     * Muestra la vista de excursiones.
-     */
     public void show() throws ParseException, SQLException {
-        // Mostramos la vista de excursiones
         vExcursiones.show();
     }
 
-    /**
-     * Muestra la vista de añadir excursión.
-     */
     public void showVistaAddExcursion() throws ParseException, SQLException {
-        // Mostramos la vista de añadir excursión
         vAddExcursion.show();
     }
 
     public String getUltimoCodigo() throws SQLException {
-        return datos.getUltimoCodigo(1);
+        return excursionDAO.getUltimoCodigo();
     }
 
-    public String getSiguienteCodigo() {
-        return datos.getSiguienteCodigo(1);
+    public String getSiguienteCodigo() throws SQLException {
+        String ultimoCodigo = getUltimoCodigo();
+        if (ultimoCodigo == null) {
+            return "EXC0001";
+        } else {
+            int numero = Integer.parseInt(ultimoCodigo.substring(3)) + 1;
+            return String.format("EXC%04d", numero);
+        }
     }
 }
-
-
-
-
-
-
-

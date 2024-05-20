@@ -23,12 +23,12 @@ public class ControlMenuPrincipal {
      *
      * @param app APPSenderosMontanas
      */
-    public ControlMenuPrincipal(APPSenderosMontanas app) {
-        this.cPeticiones = app.getControlPeticiones();
-        this.vMenuPrincipal = app.getVistaMenuPrincipal();
-        this.cInscripciones = app.getControlInscripciones();
-        this.cSocios = app.getControlSocios();
-        this.cExcursiones = app.getControlExcursiones();
+    public ControlMenuPrincipal(APPSenderosMontanas app) throws SQLException {
+        this.vMenuPrincipal = new VistaMenuPrincipal(this);
+        this.cInscripciones = new ControlInscripciones(app);
+        this.cSocios = new ControlSocios(app);
+        this.cExcursiones = new ControlExcursiones(app);
+        this.cPeticiones = new ControlPeticiones();
     }
 
     /**
@@ -36,18 +36,17 @@ public class ControlMenuPrincipal {
      *
      * @param cMenuPrincipal ControlMenuPrincipal a copiar
      */
-    public ControlMenuPrincipal (ControlMenuPrincipal cMenuPrincipal) throws SQLException {
+    public ControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) throws SQLException {
         this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal().getControlMenuPrincipal());
-        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones());
-        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios());
-        this.cExcursiones = new ControlExcursiones (cMenuPrincipal.getCOntrolExcursiones());
-        this.cPeticiones = new ControlPeticiones (cMenuPrincipal.getControlPeticiones());
+        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones().getApp());
+        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios().getApp());
+        this.cExcursiones = new ControlExcursiones(cMenuPrincipal.getControlExcursiones());
+        this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
     }
 
     /**
      * Constructor de ControlMenuPrincipal vacío.
      */
-
     public ControlMenuPrincipal() {
         this.vMenuPrincipal = null;
         this.cInscripciones = null;
@@ -58,7 +57,7 @@ public class ControlMenuPrincipal {
 
     // Getters
 
-    public VistaMenuPrincipal getVistaMenuPrincipal(){
+    public VistaMenuPrincipal getVistaMenuPrincipal() {
         return vMenuPrincipal;
     }
 
@@ -70,7 +69,7 @@ public class ControlMenuPrincipal {
         return cSocios;
     }
 
-    public ControlExcursiones getCOntrolExcursiones() {
+    public ControlExcursiones getControlExcursiones() {
         return cExcursiones;
     }
 
@@ -98,11 +97,11 @@ public class ControlMenuPrincipal {
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
-    } 
+    }
 
     // Métodos
 
-    public void showInscripciones() throws SQLException {
+    public void showInscripciones() throws SQLException, ParseException {
         cInscripciones.show();
     }
 

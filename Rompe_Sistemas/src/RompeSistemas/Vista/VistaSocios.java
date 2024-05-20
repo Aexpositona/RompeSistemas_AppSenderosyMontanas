@@ -2,12 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Controlador.ControlDatos;
-import RompeSistemas.Modelo.Datos;
-import RompeSistemas.Modelo.Socio;
-import RompeSistemas.Modelo.Infantil;
-import RompeSistemas.Modelo.Federado;
-import RompeSistemas.Modelo.Estandar;
+import RompeSistemas.Modelo.*;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -20,8 +15,6 @@ public class VistaSocios {
     private VistaAddSocio vAddSocio;
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
-    private ControlDatos cDatos;
-    private Datos datos;
 
     public VistaSocios(ControlSocios cSocios) throws SQLException {
         this.cSocios = cSocios;
@@ -29,8 +22,6 @@ public class VistaSocios {
         this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAddSocio = cSocios.getVistaAddSocio();
         this.cPeticiones = cSocios.getControlPeticiones();
-        this.cDatos = cSocios.getControlDatos();
-        this.datos = cSocios.getDatos();
     }
 
     public VistaSocios(VistaSocios vistaSocios) {
@@ -39,8 +30,6 @@ public class VistaSocios {
         this.vListarSocios = vistaSocios.getVistaListarSocios();
         this.vAddSocio = vistaSocios.getVistaAddSocio();
         this.cPeticiones = vistaSocios.getControlPeticiones();
-        this.cDatos = vistaSocios.getControlDatos();
-        this.datos = vistaSocios.getDatos();
     }
 
     public VistaSocios() {
@@ -49,8 +38,6 @@ public class VistaSocios {
         this.vListarSocios = null;
         this.vAddSocio = null;
         this.cPeticiones = null;
-        this.cDatos = null;
-        this.datos = null;
     }
 
     public ControlSocios getControlSocios() {
@@ -73,14 +60,6 @@ public class VistaSocios {
         return cPeticiones;
     }
 
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
-
-    public Datos getDatos() {
-        return datos;
-    }
-
     public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
@@ -101,14 +80,6 @@ public class VistaSocios {
         this.cPeticiones = cPeticiones;
     }
 
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
-
-    public void setDatos(Datos datos) {
-        this.datos = datos;
-    }
-
     public void buttonAddSocio() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de añadir socio...\n\n");
         vAddSocio.show();
@@ -119,15 +90,7 @@ public class VistaSocios {
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio que quieres eliminar: ");
         Socio socio = cSocios.getSocio(numeroSocio);
         if (socio != null) {
-            if (socio instanceof Infantil) {
-                cSocios.eliminarInfantil((Infantil) socio);
-            } else if (socio instanceof Federado) {
-                cSocios.eliminarFederado((Federado) socio);
-            } else if (socio instanceof Estandar) {
-                cSocios.eliminarEstandar((Estandar) socio);
-            } else {
-                cSocios.eliminarSocio(socio);
-            }
+            cSocios.eliminarSocio(socio);
             System.out.println("Socio eliminado correctamente.");
         } else {
             System.out.println("No se encontró el socio con el número: " + numeroSocio);
@@ -186,34 +149,18 @@ public class VistaSocios {
             txtMostrarMensaje("7. Mostrar factura entre dos fechas de un socio\n");
             txtMostrarMensaje("0. Atrás\n");
             switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3, 4, 5, 6, 7 o 0): ", 0, 7)) {
-                case 1:
-                    buttonAddSocio();
-                    break;
-                case 2:
-                    buttonRemoveSocio();
-                    break;
-                case 3:
-                    buttonModTipoSeguro();
-                    break;
-                case 4:
-                    buttonListSocios();
-                    break;
-                case 5:
-                    buttonCalcFacturaMensualSocios();
-                    break;
-                case 6:
-                    buttonCalcFacturaFechas();
-                    break;
-                case 7:
-                    buttonCalcFacturasFechasSocio();
-                    break;
-                case 0:
+                case 1 -> buttonAddSocio();
+                case 2 -> buttonRemoveSocio();
+                case 3 -> buttonModTipoSeguro();
+                case 4 -> buttonListSocios();
+                case 5 -> buttonCalcFacturaMensualSocios();
+                case 6 -> buttonCalcFacturaFechas();
+                case 7 -> buttonCalcFacturasFechasSocio();
+                case 0 -> {
                     buttonAtras();
                     running = false;
-                    break;
-                default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
-                    break;
+                }
+                default -> txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
             }
         }
     }

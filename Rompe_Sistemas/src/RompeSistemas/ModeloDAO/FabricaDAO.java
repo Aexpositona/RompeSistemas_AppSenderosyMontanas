@@ -3,8 +3,6 @@ package RompeSistemas.ModeloDAO;
 import java.sql.SQLException;
 
 public interface FabricaDAO {
-
-
     ExcursionDAO getExcursionDAO() throws SQLException;
     InscripcionDAO getInscripcionDAO() throws SQLException;
     SocioDAO getSocioDAO() throws SQLException;

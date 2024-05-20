@@ -1,6 +1,7 @@
 package RompeSistemas.Datos;
 
 import RompeSistemas.ModeloDAO.*;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,7 +14,7 @@ public class SQLFabricaDAO implements FabricaDAO {
     private ExcursionDAO excursionDAO;
     private InscripcionDAO inscripcionDAO;
     private FederacionDAO federacionDAO;
-
+    private SeguroDAO seguroDAO;
 
     public SQLFabricaDAO(Connection conn) {
         this.conn = conn;
@@ -24,6 +25,7 @@ public class SQLFabricaDAO implements FabricaDAO {
         this.excursionDAO = new SQLExcursionDAO(conn);
         this.inscripcionDAO = new SQLInscripcionDAO(conn);
         this.federacionDAO = new SQLFederacionDAO(conn);
+        this.seguroDAO = new SQLSeguroDAO(conn); // Create SeguroDAO without connection, as it doesn't need one
     }
 
     @Override
@@ -62,7 +64,7 @@ public class SQLFabricaDAO implements FabricaDAO {
     }
 
     @Override
-    public SeguroDAO getSeguroDAO() throws SQLException {
-        return null;
+    public SeguroDAO getSeguroDAO() {
+        return seguroDAO;
     }
 }

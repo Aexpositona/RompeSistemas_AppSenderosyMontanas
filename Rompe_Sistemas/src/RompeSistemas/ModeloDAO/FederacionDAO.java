@@ -5,9 +5,7 @@ import RompeSistemas.Modelo.Federacion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public interface FederacionDAO {
-
     void insertarFederacion(Federacion federacion) throws SQLException;
     void modificarFederacion(Federacion federacion) throws SQLException;
     void eliminarFederacion(Federacion federacion) throws SQLException;

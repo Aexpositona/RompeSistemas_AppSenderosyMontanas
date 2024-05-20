@@ -25,7 +25,7 @@ public class SQLEstandarDAO implements EstandarDAO {
 
     @Override
     public Estandar getEstandar(String codigo) throws SQLException {
-        String query = "SELECT e.*, s.* FROM Estandar e JOIN Socio s ON e.idSocio = s.idSocio WHERE s.codigoSocio = ?";
+        String query = "SELECT e.*, s.*, sg.nombreSeguro FROM Estandar e JOIN Socio s ON e.idSocio = s.idSocio JOIN Seguro sg ON e.idSeguro = sg.idSeguro WHERE s.codigoSocio = ?";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setString(1, codigo);
         ResultSet rs = pstmt.executeQuery();
@@ -34,7 +34,6 @@ public class SQLEstandarDAO implements EstandarDAO {
             estandar.setNumero(rs.getString("codigoSocio"));
             estandar.setNombre(rs.getString("nombreSocio"));
             estandar.setNif(rs.getString("nifSocio"));
-            // Asumir que Seguro es un objeto con un constructor que acepta id y nombre
             estandar.setSeguro(Seguro.valueOf(rs.getString("nombreSeguro")));
             return estandar;
         }
@@ -72,12 +71,11 @@ public class SQLEstandarDAO implements EstandarDAO {
 
     @Override
     public void insertarEstandar(Estandar estandar) throws SQLException {
-        String query = "INSERT INTO Socio (tipo, codigoSocio, nombreSocio, nifSocio) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setInt(1, estandar.getTipo());
-        pstmt.setString(2, estandar.getNumero());
-        pstmt.setString(3, estandar.getNombre());
-        pstmt.setString(4, estandar.getNif());
+        pstmt.setString(2, estandar.getNombre());
+        pstmt.setString(3, estandar.getNif());
         pstmt.executeUpdate();
 
         ResultSet rs = pstmt.getGeneratedKeys();

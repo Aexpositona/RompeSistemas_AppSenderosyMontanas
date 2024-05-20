@@ -3,10 +3,7 @@ package RompeSistemas.Datos;
 import RompeSistemas.Modelo.Infantil;
 import RompeSistemas.ModeloDAO.InfantilDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SQLInfantilDAO implements InfantilDAO {
     private Connection conn;
@@ -51,6 +48,7 @@ public class SQLInfantilDAO implements InfantilDAO {
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, infantil.getNombre());
         pstmt.setString(2, infantil.getNif());
+        pstmt.setString(3, infantil.getNumero());
         pstmt.executeUpdate();
     }
 
@@ -69,22 +67,22 @@ public class SQLInfantilDAO implements InfantilDAO {
 
     @Override
     public void insertarInfantil(Infantil infantil) throws SQLException {
-        String query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, obtenerIdSocio(infantil.getNumero()));
-        pstmt.setInt(2, obtenerIdSocio(infantil.getNumSocioTutor()));
+        String query = "INSERT INTO Socio (tipo, codigoSocio, nombreSocio, nifSocio) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        pstmt.setInt(1, infantil.getTipo());
+        pstmt.setString(2, infantil.getNumero());
+        pstmt.setString(3, infantil.getNombre());
+        pstmt.setString(4, infantil.getNif());
         pstmt.executeUpdate();
-    }
 
-    private int obtenerIdSocio(String numero) throws SQLException {
-        String query = "SELECT idSocio FROM Socio WHERE codigoSocio = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, numero);
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet rs = pstmt.getGeneratedKeys();
         if (rs.next()) {
-            return rs.getInt("idSocio");
-        } else {
-            throw new SQLException("No se encontró el socio con el número: " + numero);
+            int idSocio = rs.getInt(1);
+            query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idSocio);
+            pstmt.setString(2, infantil.getNumSocioTutor());
+            pstmt.executeUpdate();
         }
     }
 }

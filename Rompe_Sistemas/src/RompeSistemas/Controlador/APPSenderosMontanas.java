@@ -38,7 +38,6 @@ public class APPSenderosMontanas {
         this.cSocios = new ControlSocios(this, datos.getConnection());
         this.cExcursiones = new ControlExcursiones(this);
         this.cMenuPrincipal = new ControlMenuPrincipal(this);
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "root", "admin");
 
         cDatos = new ControlDatos(this);
         cPeticiones = new ControlPeticiones();

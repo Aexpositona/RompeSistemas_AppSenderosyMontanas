@@ -1,7 +1,9 @@
-package RompeSistemas.ModeloDAO;
+package RompeSistemas.Datos;
 
 import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.Modelo.Federado;
+import RompeSistemas.ModeloDAO.FederadoDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +49,7 @@ public class SQLFederadoDAO implements FederadoDAO {
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, federado.getNombre());
         pstmt.setString(2, federado.getNif());
+        pstmt.setString(3, federado.getNumero());
         pstmt.executeUpdate();
     }
 
@@ -65,12 +68,11 @@ public class SQLFederadoDAO implements FederadoDAO {
 
     @Override
     public void insertarFederado(Federado federado) throws SQLException {
-        String query = "INSERT INTO Socio (tipo, codigoSocio, nombreSocio, nifSocio) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setInt(1, federado.getTipo());
-        pstmt.setString(2, federado.getNumero());
-        pstmt.setString(3, federado.getNombre());
-        pstmt.setString(4, federado.getNif());
+        pstmt.setString(2, federado.getNombre());
+        pstmt.setString(3, federado.getNif());
         pstmt.executeUpdate();
 
         ResultSet rs = pstmt.getGeneratedKeys();
