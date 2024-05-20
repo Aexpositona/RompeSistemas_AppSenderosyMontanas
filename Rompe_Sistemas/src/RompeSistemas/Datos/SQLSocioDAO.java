@@ -14,7 +14,7 @@ public class SQLSocioDAO implements SocioDAO {
 
     @Override
     public ResultSet listarSocios() throws SQLException {
-        String query = "SELECT * FROM Socio";
+        String query = "SELECT * FROM socio";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }

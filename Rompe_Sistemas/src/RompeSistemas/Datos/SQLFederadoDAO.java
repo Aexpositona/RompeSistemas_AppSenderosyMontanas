@@ -49,7 +49,6 @@ public class SQLFederadoDAO implements FederadoDAO {
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, federado.getNombre());
         pstmt.setString(2, federado.getNif());
-        pstmt.setString(3, federado.getNumero());
         pstmt.executeUpdate();
     }
 
@@ -68,21 +67,25 @@ public class SQLFederadoDAO implements FederadoDAO {
 
     @Override
     public void insertarFederado(Federado federado) throws SQLException {
-        String query = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-        pstmt.setInt(1, federado.getTipo());
-        pstmt.setString(2, federado.getNombre());
-        pstmt.setString(3, federado.getNif());
-        pstmt.executeUpdate();
+        // Primero, insertar en la tabla Socio
+        String querySocio = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
+        PreparedStatement pstmtSocio = conn.prepareStatement(querySocio, PreparedStatement.RETURN_GENERATED_KEYS);
+        pstmtSocio.setInt(1, federado.getTipo());
+        pstmtSocio.setString(2, federado.getNombre());
+        pstmtSocio.setString(3, federado.getNif());
+        pstmtSocio.executeUpdate();
 
-        ResultSet rs = pstmt.getGeneratedKeys();
+        // Obtener el ID del socio recién insertado
+        ResultSet rs = pstmtSocio.getGeneratedKeys();
         if (rs.next()) {
             int idSocio = rs.getInt(1);
-            query = "INSERT INTO Federado (idSocio, idFederacion) VALUES (?, (SELECT idFederacion FROM Federacion WHERE codigoFederacion = ?))";
-            pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, idSocio);
-            pstmt.setString(2, federado.getFederacion().getCodigo());
-            pstmt.executeUpdate();
+
+            // Insertar en la tabla Federado
+            String queryFederado = "INSERT INTO Federado (idSocio, idFederacion) VALUES (?, (SELECT idFederacion FROM Federacion WHERE codigoFederacion = ?))";
+            PreparedStatement pstmtFederado = conn.prepareStatement(queryFederado);
+            pstmtFederado.setInt(1, idSocio);
+            pstmtFederado.setString(2, federado.getFederacion().getCodigo());
+            pstmtFederado.executeUpdate();
         }
     }
 }

@@ -22,24 +22,24 @@ public class ControlSocios {
     private FederadoDAO federadoDAO;
     private EstandarDAO estandarDAO;
     private SeguroDAO seguroDAO;
-    private ExcursionDAO excursionDAO; // Añadido
-    private InscripcionDAO inscripcionDAO; // Añadido
+    private ExcursionDAO excursionDAO;
+    private InscripcionDAO inscripcionDAO;
 
     public ControlSocios(APPSenderosMontanas app) throws SQLException {
         this.app = app;
+        this.cPeticiones = new ControlPeticiones();
+        this.cDatos = new ControlDatos(app.getDatos());
         this.vSocios = new VistaSocios(this);
         this.vModificarSeguro = new VistaModificarSeguro(this);
         this.vListarSocios = new VistaListarSocios(this);
         this.vAddSocio = new VistaAddSocio(this);
-        this.cPeticiones = new ControlPeticiones();
-        this.cDatos = new ControlDatos(app.getDatos());
         this.socioDAO = app.getDatos().getFabricaDAO().getSocioDAO();
         this.infantilDAO = app.getDatos().getFabricaDAO().getInfantilDAO();
         this.federadoDAO = app.getDatos().getFabricaDAO().getFederadoDAO();
         this.estandarDAO = app.getDatos().getFabricaDAO().getEstandarDAO();
         this.seguroDAO = app.getDatos().getFabricaDAO().getSeguroDAO();
-        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO(); // Añadido
-        this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO(); // Añadido
+        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO();
+        this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
     }
 
     public void show() throws ParseException, SQLException {
@@ -208,5 +208,21 @@ public class ControlSocios {
 
     public APPSenderosMontanas getApp() {
         return app;
+    }
+
+    public void setVistaSocios(VistaSocios vSocios) {
+        this.vSocios = vSocios;
+    }
+
+    public void setVistaListarSocios(VistaListarSocios vListarSocios) {
+        this.vListarSocios = vListarSocios;
+    }
+
+    public void setVistaAddSocio(VistaAddSocio vAddSocio) {
+        this.vAddSocio = vAddSocio;
+    }
+
+    public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
+        this.vModificarSeguro = vModificarSeguro;
     }
 }

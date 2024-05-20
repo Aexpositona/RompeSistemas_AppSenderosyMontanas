@@ -18,7 +18,10 @@ public class SQLEstandarDAO implements EstandarDAO {
 
     @Override
     public ResultSet listarEstandares() throws SQLException {
-        String query = "SELECT * FROM Estandar";
+        String query = "SELECT s.codigoSocio, s.nombreSocio, s.nifSocio, sg.nombreSeguro " +
+                "FROM Estandar e " +
+                "JOIN Socio s ON e.idSocio = s.idSocio " +
+                "JOIN Seguro sg ON e.idSeguro = sg.idSeguro";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }
@@ -52,7 +55,6 @@ public class SQLEstandarDAO implements EstandarDAO {
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, estandar.getNombre());
         pstmt.setString(2, estandar.getNif());
-        pstmt.setString(3, estandar.getNumero());
         pstmt.executeUpdate();
     }
 

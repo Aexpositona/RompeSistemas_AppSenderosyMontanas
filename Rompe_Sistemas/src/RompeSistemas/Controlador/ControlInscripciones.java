@@ -105,4 +105,16 @@ public class ControlInscripciones {
     public APPSenderosMontanas getApp() {
         return app;
     }
+
+    public void setVistaInscripciones(VistaInscripciones vInscripciones) {
+        this.vInscripciones = vInscripciones;
+    }
+
+    public void setVistaListarInscripciones(VistaListarInscripciones vListarInscripciones) {
+        this.vListarInscripciones = vListarInscripciones;
+    }
+
+    public void setVistaAddInscripcion(VistaAddInscripcion vAddInscripcion) {
+        this.vAddInscripcion = vAddInscripcion;
+    }
 }

@@ -4,45 +4,37 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.*;
+import RompeSistemas.ModeloDAO.InfantilDAO;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 
 public class VistaAddSocio {
-
     // Atributos
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
+    private InfantilDAO infantilDAO;
 
-    /**
-     * Constructor de la clase VistaAddSocio que recibe por parámetros el controlador de socios
-     * @param cSocios es el controlador de socios
-     */
+    // Constructores
     public VistaAddSocio(ControlSocios cSocios) {
         this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = cSocios.getControlDatos();
     }
 
-    /**
-     * Constructor de copia de la clase VistaAddSocio
-     * @param vistaAddSocio VistaAddSocio a copiar
-     */
     public VistaAddSocio(VistaAddSocio vistaAddSocio) {
         this.cSocios = vistaAddSocio.getControlSocios();
         this.cPeticiones = vistaAddSocio.getControlPeticiones();
         this.cDatos = vistaAddSocio.getControlDatos();
     }
 
-    /**
-     * Constructor vacío de la clase VistaAddSocio
-     */
     public VistaAddSocio() {
         this.cSocios = null;
         this.cPeticiones = null;
         this.cDatos = null;
     }
+
 
     // Getters
     public ControlSocios getControlSocios() {

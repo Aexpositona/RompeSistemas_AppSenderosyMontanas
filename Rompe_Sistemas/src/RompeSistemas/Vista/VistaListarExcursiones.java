@@ -31,8 +31,10 @@ public class VistaListarExcursiones {
      * @param vistaListarExcursiones VistaListarExcursiones a copiar.
      */
     public VistaListarExcursiones(VistaListarExcursiones vistaListarExcursiones) {
-        this.cExcursiones = vistaListarExcursiones.getControlExcursiones();
-        this.cPeticiones = vistaListarExcursiones.getControlPeticiones();
+        if (vistaListarExcursiones != null) {
+            this.cExcursiones = vistaListarExcursiones.getControlExcursiones();
+            this.cPeticiones = vistaListarExcursiones.getControlPeticiones();
+        }
     }
 
     /**
@@ -53,6 +55,7 @@ public class VistaListarExcursiones {
     }
 
     // Setters
+
     public void setControlExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
     }
@@ -82,7 +85,7 @@ public class VistaListarExcursiones {
     }
 
     /**
-     * Método que nos permite ir hacia atras
+     * Método que nos permite ir hacia atrás
      */
     public void buttonAtras() {
         // Mostramos mensaje de vuelta

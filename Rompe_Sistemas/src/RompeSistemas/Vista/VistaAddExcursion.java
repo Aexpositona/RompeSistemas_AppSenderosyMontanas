@@ -29,16 +29,21 @@ public class VistaAddExcursion {
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
         this.cPeticiones = cExcursiones.getControlPeticiones();
+        this.controlDatos = cExcursiones.getControlDatos();
     }
 
     public VistaAddExcursion(VistaAddExcursion vistaAddExcursion) {
-        this.cExcursiones = vistaAddExcursion.getControlExcursiones();
-        this.cPeticiones = vistaAddExcursion.getControlPeticiones();
+        if (vistaAddExcursion != null) {
+            this.cExcursiones = vistaAddExcursion.getControlExcursiones();
+            this.cPeticiones = vistaAddExcursion.getControlPeticiones();
+            this.controlDatos = vistaAddExcursion.getControlDatos();
+        }
     }
 
     public VistaAddExcursion() {
         this.cExcursiones = null;
         this.cPeticiones = null;
+        this.controlDatos = null;
     }
 
     // Getters
@@ -65,6 +70,14 @@ public class VistaAddExcursion {
         this.cPeticiones = cPeticiones;
     }
 
+    public void setControlDatos(ControlDatos controlDatos) {
+        this.controlDatos = controlDatos;
+    }
+
+    public ControlDatos getControlDatos() {
+        return controlDatos;
+    }
+
     /**
      * Método para añadir una excursión.
      *
@@ -89,9 +102,7 @@ public class VistaAddExcursion {
             if (descripcion.length() < 5) {
                 // Informamos al usuario de que la descripción no puede estar vacía
                 txtMostrarMensaje("Descripción inválida. La descripción no puede estar vacía y ha de tener al menos 5 caracteres.\n");
-            }
-            // Si la descripción no está vacía y tiene al menos 5 caracteres
-            else {
+            } else {
                 // Cambiamos el resultado a verdadero
                 resultado = true;
             }
@@ -154,13 +165,5 @@ public class VistaAddExcursion {
                     break;
             }
         }
-    }
-
-    public void setControlDatos(ControlDatos controlDatos) {
-        this.controlDatos = controlDatos;
-    }
-
-    public ControlDatos getControlDatos() {
-        return controlDatos;
     }
 }

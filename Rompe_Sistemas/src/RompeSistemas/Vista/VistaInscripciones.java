@@ -6,29 +6,26 @@ import RompeSistemas.Controlador.ControlPeticiones;
 import java.sql.SQLException;
 
 public class VistaInscripciones {
-    //Atributos
+    // Atributos
     private ControlInscripciones cInscripciones;
     private VistaListarInscripciones vListarInscripciones;
     private VistaAddInscripcion vAddInscripcion;
     private ControlPeticiones cPeticiones;
 
-    //Constructores
-    public VistaInscripciones(ControlInscripciones cInscripciones) {
+    // Constructores
+    public VistaInscripciones(ControlInscripciones cInscripciones) throws SQLException {
         this.cInscripciones = cInscripciones;
-        this.vAddInscripcion = cInscripciones.getVistaAddInscripcion();
-        this.vListarInscripciones = cInscripciones.getVistaListarInscripciones();
+        this.vAddInscripcion = new VistaAddInscripcion(cInscripciones);
+        this.vListarInscripciones = new VistaListarInscripciones(cInscripciones);
         this.cPeticiones = cInscripciones.getControlPeticiones();
     }
 
-
-
-    //Getters
-
+    // Getters
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
 
-    //Setters
+    // Setters
     public void setControlInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
     }
@@ -45,19 +42,12 @@ public class VistaInscripciones {
         this.cPeticiones = cPeticiones;
     }
 
-    //Métodos
-
-    /**
-     * Método para añadir un botón que nos permite añadir una inscripción
-     */
+    // Métodos
     public void buttonMenuAddInscripcion() throws SQLException {
         txtMostrarMensaje("Navegando a la vista de añadir inscripción...\n\n");
         vAddInscripcion.show();
     }
 
-    /**
-     * Método para añadir un botón que nos permite eliminar una inscripción
-     */
     public void buttonRemoveInscripcion() throws SQLException {
         txtMostrarMensaje("\n-- Eliminando inscripción --\n\n");
         cInscripciones.listInscripciones();
@@ -74,26 +64,15 @@ public class VistaInscripciones {
         }
     }
 
-    /**
-     * Método para añadir un botón que nos permite listar las inscripciones
-     */
     public void buttonMenuListInscripciones() throws SQLException {
         txtMostrarMensaje("Navegando a la vista de listar inscripciones...\n\n");
         vListarInscripciones.show();
     }
 
-    /**
-     * Método para añadir un botón que nos permite ir hacia atrás
-     */
     public void buttonAtras() {
         txtMostrarMensaje("Volviendo al menú principal...\n\n");
     }
 
-    /**
-     * Método para mostrar un mensaje.
-     *
-     * @param mensaje Mensaje a mostrar.
-     */
     public void txtMostrarMensaje(String mensaje) {
         System.out.print(mensaje);
     }
