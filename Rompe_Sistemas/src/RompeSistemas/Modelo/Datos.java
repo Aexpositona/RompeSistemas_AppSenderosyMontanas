@@ -16,7 +16,7 @@ public class Datos {
 
     // Constructor
     public Datos() {
-        this.fabricaDAO = new SQLFabricaDAO();
+        this.fabricaDAO = new SQLFabricaDAO(conn);
     }
 
     // Métodos
@@ -46,8 +46,8 @@ public class Datos {
      */
     public Object getPrimerObjeto(int tipoObjeto) throws SQLException {
         Object objeto = null;
-        Connection conexion = DatabaseConnection.getConnection();
-        Statement statement = conexion.createStatement();
+        Connection conn = DatabaseConnection.getConnection();
+        Statement statement = conn.createStatement();
         String query = "";
         switch (tipoObjeto) {
             case 1 -> query = "SELECT * FROM Excursion LIMIT 1";
@@ -77,12 +77,12 @@ public class Datos {
                     String nifSocio = resultSet.getString("nifSocio");
 
                     // Instanciar los DAOs
-                    SQLSocioDAO socioDAO = new SQLSocioDAO();
+                    SQLSocioDAO socioDAO = new SQLSocioDAO(conn);
                     SQLSeguroDAO seguroDAO = new SQLSeguroDAO();
                     SQLFederacionDAO federacionDAO = new SQLFederacionDAO();
 
                     // Consulta adicional para obtener datos de Estandar
-                    Statement statementEstandar = conexion.createStatement();
+                    Statement statementEstandar = conn.createStatement();
                     ResultSet resultSetEstandar = statementEstandar.executeQuery("SELECT * FROM Estandar WHERE idSocio = " + codigoSocio);
                     if (resultSetEstandar.next()) {
                         int idSeguro = resultSetEstandar.getInt("idSeguro");
@@ -91,7 +91,7 @@ public class Datos {
                     }
 
                     // Consulta adicional para obtener datos de Infantil
-                    Statement statementInfantil = conexion.createStatement();
+                    Statement statementInfantil = conn.createStatement();
                     ResultSet resultSetInfantil = statementInfantil.executeQuery("SELECT * FROM Infantil WHERE idSocio = " + codigoSocio);
                     if (resultSetInfantil.next()) {
                         int idSocioTutor = resultSetInfantil.getInt("idSocioTutor");
@@ -101,7 +101,7 @@ public class Datos {
                     }
 
                     // Consulta adicional para obtener datos de Federado
-                    Statement statementFederado = conexion.createStatement();
+                    Statement statementFederado = conn.createStatement();
                     ResultSet resultSetFederado = statementFederado.executeQuery("SELECT * FROM Federado WHERE idSocio = " + codigoSocio);
                     if (resultSetFederado.next()) {
                         int idFederacion = resultSetFederado.getInt("idFederacion");

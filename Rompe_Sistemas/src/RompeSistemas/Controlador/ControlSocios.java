@@ -1,11 +1,9 @@
 package RompeSistemas.Controlador;
 
-// Imports
 import RompeSistemas.Datos.SQLSocioDAO;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
 import RompeSistemas.ModeloDAO.SQLEstandarDAO;
-import RompeSistemas.ModeloDAO.SQLFederadoDAO;
 import RompeSistemas.ModeloDAO.SQLInfantilDAO;
 import RompeSistemas.Vista.*;
 import java.sql.Connection;
@@ -17,7 +15,6 @@ import java.time.temporal.ChronoUnit;
 
 public class ControlSocios {
 
-    // Atributos
     private APPSenderosMontanas app;
     private VistaSocios vSocios;
     private VistaModificarSeguro vModificarSeguro;
@@ -31,12 +28,6 @@ public class ControlSocios {
     private FederadoDAO federadoDAO;
     private EstandarDAO estandarDAO;
 
-    /**
-     * Constructor de ControlSocios.
-     *
-     * @param app APPSenderosMontanas asociada al controlador.
-     * @param conn Conexión a la base de datos.
-     */
     public ControlSocios(APPSenderosMontanas app, Connection conn) throws SQLException {
         this.app = app;
         this.vSocios = new VistaSocios(this);
@@ -46,20 +37,15 @@ public class ControlSocios {
         this.datos = app.getDatos();
         this.cDatos = app.getControlDatos();
         this.cPeticiones = app.getControlPeticiones();
-        this.socioDAO = new SQLSocioDAO();
+        this.socioDAO = new SQLSocioDAO(conn);
         this.infantilDAO = new SQLInfantilDAO(conn);
         this.federadoDAO = new SQLFederadoDAO(conn);
         this.estandarDAO = new SQLEstandarDAO(conn);
     }
 
-    /**
-     * Constructor de copia de ControlSocios.
-     *
-     * @param cSocios ControlSocios a copiar.
-     */
     public ControlSocios(ControlSocios cSocios) throws SQLException {
         this.app = cSocios.getApp();
-        this.vSocios = new VistaSocios(this);
+        this.vSocios = new VistaSocios(this); // Inicializar VistaSocios con 'this'
         this.vModificarSeguro = cSocios.getVistaModificarSeguro();
         this.vListarSocios = cSocios.getVistaListarSocios();
         this.vAddSocio = cSocios.getVistaAddSocio();
@@ -71,8 +57,6 @@ public class ControlSocios {
         this.federadoDAO = cSocios.getFederadoDAO();
         this.estandarDAO = cSocios.getEstandarDAO();
     }
-
-    // Getters
 
     public APPSenderosMontanas getApp() {
         return app;
@@ -121,8 +105,6 @@ public class ControlSocios {
     public EstandarDAO getEstandarDAO() {
         return estandarDAO;
     }
-
-    // Métodos
 
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
@@ -212,11 +194,6 @@ public class ControlSocios {
         return estandarDAO.listarEstandares();
     }
 
-    /**
-     * Método para eliminar un socio.
-     *
-     * @param codigo El código del socio a eliminar.
-     */
     public void removeSocio(String codigo) throws SQLException {
         Socio socio = getSocio(codigo);
         if (socio != null) {

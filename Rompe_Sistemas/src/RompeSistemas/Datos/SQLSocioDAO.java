@@ -11,6 +11,10 @@ import static RompeSistemas.Datos.DatabaseConnection.getConnection;
 // Clase que implementa la interfaz SocioDAO y se encarga de realizar las operaciones de la base de datos relacionadas con los socios.
 public class SQLSocioDAO implements SocioDAO {
     private Connection conn;
+
+    public SQLSocioDAO(Connection conn) {
+        this.conn = conn;
+    }
     // Método que añade un socio a la base de datos.
     @Override
     public void insertarSocio(Socio socio) throws SQLException {

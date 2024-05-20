@@ -1,10 +1,19 @@
 package RompeSistemas.Datos;
 
 import RompeSistemas.ModeloDAO.*;
+import RompeSistemas.ModeloDAO.SQLEstandarDAO;
+import RompeSistemas.ModeloDAO.SQLInfantilDAO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 // Clase que implementa la interfaz FabricaDAO y se encarga de devolver los DAOs de SQL.
 public class SQLFabricaDAO implements FabricaDAO {
-    // Método que devuelve un objeto ExcursionDAO.
+    private Connection conn;
+
+    public SQLFabricaDAO(Connection conn) {
+        this.conn = conn;
+    }
     @Override
     public ExcursionDAO getExcursionDAO() {
         return new SQLExcursionDAO();
@@ -18,8 +27,8 @@ public class SQLFabricaDAO implements FabricaDAO {
 
     // Método que devuelve un objeto SocioDAO.
     @Override
-    public SocioDAO getSocioDAO() {
-        return new SQLSocioDAO();
+    public SocioDAO getSocioDAO() throws SQLException {
+        return new SQLSocioDAO(conn);
     }
 
     // Método que devuelve un objeto FederacionDAO.
@@ -32,5 +41,20 @@ public class SQLFabricaDAO implements FabricaDAO {
     @Override
     public SeguroDAO getSeguroDAO() {
         return new SQLSeguroDAO();
+    }
+
+    @Override
+    public InfantilDAO getInfantilDAO() throws SQLException {
+        return new SQLInfantilDAO(conn);
+    }
+
+    @Override
+    public FederadoDAO getFederadoDAO() throws SQLException {
+        return new SQLFederadoDAO(conn);
+    }
+
+    @Override
+    public EstandarDAO getEstandarDAO() throws SQLException {
+        return new SQLEstandarDAO(conn);
     }
 }
