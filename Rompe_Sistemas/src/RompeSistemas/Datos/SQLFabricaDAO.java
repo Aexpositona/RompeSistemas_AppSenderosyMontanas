@@ -1,8 +1,6 @@
 package RompeSistemas.Datos;
 
 import RompeSistemas.ModeloDAO.*;
-import RompeSistemas.ModeloDAO.SQLEstandarDAO;
-import RompeSistemas.ModeloDAO.SQLInfantilDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,13 +14,13 @@ public class SQLFabricaDAO implements FabricaDAO {
     }
     @Override
     public ExcursionDAO getExcursionDAO() {
-        return new SQLExcursionDAO();
+        return new SQLExcursionDAO(conn);
     }
     
     // Método que devuelve un objeto InscripcionDAO.
     @Override
     public InscripcionDAO getInscripcionDAO() {
-        return new SQLInscripcionDAO();
+        return new SQLInscripcionDAO(conn);
     }
 
     // Método que devuelve un objeto SocioDAO.
@@ -34,7 +32,7 @@ public class SQLFabricaDAO implements FabricaDAO {
     // Método que devuelve un objeto FederacionDAO.
     @Override
     public FederacionDAO getFederacionDAO() {
-        return new SQLFederacionDAO();
+        return new SQLFederacionDAO(conn);
     }
     
     // Método que devuelve un objeto SeguroDAO.

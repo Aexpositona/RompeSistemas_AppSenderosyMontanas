@@ -1,40 +1,20 @@
 package RompeSistemas.Datos;
 
-import RompeSistemas.Modelo.Socio;
-import RompeSistemas.ModeloDAO.SocioDAO;
-import RompeSistemas.Datos.*;
-import RompeSistemas.ModeloDAO.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-
-/**
- * Clase que se encarga de establecer la conexión con la base de datos.
- *
- */
 public class DatabaseConnection {
-    // URL de la base de datos
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/appsenderosmontanas";
-    // Usuario de la base de datos
-    private static final String DATABASE_USER = "root";
-    // Contraseña de la base de datos
-    private static final String DATABASE_PASSWORD = "admin";
+    private static final String URL = "jdbc:mysql://localhost:3306/APPSenderosMontanas";
+    private static final String USER = "root";
+    private static final String PASSWORD = "admin";
 
-    // Establecer la conexión con la base de datos
-    public static Connection getConnection() {
-        // Definimos conexión a la base de datos nula
-        Connection connection = null;
-        // Intentamos establecer la conexión con la base de datos
-        try {
-            // Establecemos la conexión con la base de datos
-            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+    public static Connection conn = null;
+
+    public static Connection getConnection() throws SQLException {
+        if (conn == null || conn.isClosed()) {
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
         }
-        // En caso de error, mostramos un mensaje de error
-        catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
-            // Mostramos la traza del error
-            e.printStackTrace();
-        }
-        // Retornamos la conexión establecida
-        return connection;
+        return conn;
     }
 }

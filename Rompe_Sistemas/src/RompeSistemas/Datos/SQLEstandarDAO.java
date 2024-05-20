@@ -1,7 +1,8 @@
-package RompeSistemas.ModeloDAO;
+package RompeSistemas.Datos;
 
 import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Seguro;
+import RompeSistemas.ModeloDAO.EstandarDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

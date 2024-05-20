@@ -1,10 +1,8 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Datos.SQLSocioDAO;
+import RompeSistemas.Datos.*;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
-import RompeSistemas.ModeloDAO.SQLEstandarDAO;
-import RompeSistemas.ModeloDAO.SQLInfantilDAO;
 import RompeSistemas.Vista.*;
 import java.sql.Connection;
 import java.sql.ResultSet;

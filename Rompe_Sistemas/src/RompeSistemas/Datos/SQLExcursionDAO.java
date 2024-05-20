@@ -11,8 +11,12 @@ import java.time.LocalDate;
 
 // Clase que implementa la interfaz ExcursionDAO y se encarga de realizar las operaciones de la base de datos relacionadas con las excursiones.
 public class SQLExcursionDAO implements ExcursionDAO {
-    
-    // Método que devuelve un ResultSet con todas las excursiones.
+    private Connection conn;
+
+    public SQLExcursionDAO(Connection conn) {
+        this.conn = conn;
+    }
+// Método que devuelve un ResultSet con todas las excursiones.
     @Override
     public ResultSet getAllExcursiones() throws SQLException {
         // Se obtiene la conexión a la base de datos.

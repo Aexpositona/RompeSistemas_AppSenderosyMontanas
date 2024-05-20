@@ -32,7 +32,7 @@ public class APPSenderosMontanas {
 
     public void iniciar(Datos datos) throws SQLException {
         this.datos = datos;
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "user", "password");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "root", "admin");
 
         cDatos = new ControlDatos(this);
         cPeticiones = new ControlPeticiones();

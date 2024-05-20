@@ -12,13 +12,25 @@ import java.time.LocalDate;
  */
 public class Datos {
     // Atributos
+    private Connection conn;
     private FabricaDAO fabricaDAO;
 
-    // Constructor
     public Datos() {
-        this.fabricaDAO = new SQLFabricaDAO(conn);
+        try {
+            conn = DatabaseConnection.getConnection();
+            fabricaDAO = new SQLFabricaDAO(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    public Connection getConnection() {
+        return conn;
+    }
+
+    public FabricaDAO getFabricaDAO() {
+        return fabricaDAO;
+    }
     // Métodos
 
     /**
@@ -79,7 +91,7 @@ public class Datos {
                     // Instanciar los DAOs
                     SQLSocioDAO socioDAO = new SQLSocioDAO(conn);
                     SQLSeguroDAO seguroDAO = new SQLSeguroDAO();
-                    SQLFederacionDAO federacionDAO = new SQLFederacionDAO();
+                    SQLFederacionDAO federacionDAO = new SQLFederacionDAO(conn);
 
                     // Consulta adicional para obtener datos de Estandar
                     Statement statementEstandar = conn.createStatement();

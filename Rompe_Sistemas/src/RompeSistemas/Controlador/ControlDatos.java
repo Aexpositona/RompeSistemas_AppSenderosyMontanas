@@ -1,9 +1,10 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Datos.SQLFabricaDAO;
+import RompeSistemas.Datos.*;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -14,13 +15,28 @@ import java.sql.SQLException;
  * verificar si un socio es tutor de un socio infantil y comprobar la existencia de un NIF en la base de datos.
  */
 public class ControlDatos {
+    private Datos datos;
+    private SocioDAO socioDAO;
+    private InfantilDAO infantilDAO;
+    private FederadoDAO federadoDAO;
+    private EstandarDAO estandarDAO;
+    private ExcursionDAO excursionDAO;
+    private InscripcionDAO inscripcionDAO;
+    private FederacionDAO federacionDAO;
 
-    // Atributos
-    private final Datos datos;
-
-
+    public ControlDatos(Datos datos) throws SQLException {
+        this.datos = datos;
+        Connection conn = datos.getConnection();
+        this.socioDAO = new SQLSocioDAO(conn);
+        this.infantilDAO = new SQLInfantilDAO(conn);
+        this.federadoDAO = new SQLFederadoDAO(conn);
+        this.estandarDAO = new SQLEstandarDAO(conn);
+        this.excursionDAO = new SQLExcursionDAO(conn);
+        this.inscripcionDAO = new SQLInscripcionDAO(conn);
+        this.federacionDAO = new SQLFederacionDAO(conn);
+    }
     // Constructor
-    public ControlDatos(APPSenderosMontanas app) {
+    ControlDatos(APPSenderosMontanas app) {
         this.datos = app.getDatos();
     }
     // Constructor de copia
@@ -34,6 +50,69 @@ public class ControlDatos {
     }
 
     // Métodos
+    public void addSocio(Socio socio) throws SQLException {
+        socioDAO.insertarSocio(socio);
+    }
+
+    public Socio getSocio(String codigo) throws SQLException {
+        return socioDAO.getSocio(codigo);
+    }
+
+    public void modificarSocio(Socio socio) throws SQLException {
+        socioDAO.modificarSocio(socio);
+    }
+
+    public void eliminarSocio(Socio socio) throws SQLException {
+        socioDAO.eliminarSocio(socio);
+    }
+
+    public void addInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.insertarInfantil(infantil);
+    }
+
+    public Infantil getInfantil(String codigo) throws SQLException {
+        return infantilDAO.getInfantil(codigo);
+    }
+
+    public void modificarInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.modificarInfantil(infantil);
+    }
+
+    public void eliminarInfantil(Infantil infantil) throws SQLException {
+        infantilDAO.eliminarInfantil(infantil);
+    }
+
+    public void addFederado(Federado federado) throws SQLException {
+        federadoDAO.insertarFederado(federado);
+    }
+
+    public Federado getFederado(String codigo) throws SQLException {
+        return federadoDAO.getFederado(codigo);
+    }
+
+    public void modificarFederado(Federado federado) throws SQLException {
+        federadoDAO.modificarFederado(federado);
+    }
+
+    public void eliminarFederado(Federado federado) throws SQLException {
+        federadoDAO.eliminarFederado(federado);
+    }
+
+    public void addEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.insertarEstandar(estandar);
+    }
+
+    public Estandar getEstandar(String codigo) throws SQLException {
+        return estandarDAO.getEstandar(codigo);
+    }
+
+    public void modificarEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.modificarEstandar(estandar);
+    }
+
+    public void eliminarEstandar(Estandar estandar) throws SQLException {
+        estandarDAO.eliminarEstandar(estandar);
+    }
 
     /**
      * Método para comprobar el tipo de objeto.
@@ -140,14 +219,7 @@ public class ControlDatos {
      * @return true si el objeto existe, false en caso contrario
      */
     public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
-        
-        // Variables internas
-        FabricaDAO fabricaDAO = new SQLFabricaDAO();
-        ExcursionDAO excursionDAO = fabricaDAO.getExcursionDAO();
-        InscripcionDAO inscripcionDAO = fabricaDAO.getInscripcionDAO();
-        SocioDAO socioDAO = fabricaDAO.getSocioDAO();
-        FederacionDAO federacionDAO = fabricaDAO.getFederacionDAO();
-        Object objeto = new Object();
+        Object objeto = null;
 
         // Obtener el objeto DAO correspondiente al tipo de objeto
         switch (tipoObjeto) {
@@ -168,14 +240,9 @@ public class ControlDatos {
         }
 
         // Si el objeto no es nulo, significa que existe en la base de datos
-        if (objeto != null) {
-            return true;
-        } 
-        // Si el objeto es nulo, significa que no existe en la base de datos
-        else {
-            return false;
-        }
+        return objeto != null;
     }
+
 
     /**
      * Método para verificar si un socio está en una inscripción.

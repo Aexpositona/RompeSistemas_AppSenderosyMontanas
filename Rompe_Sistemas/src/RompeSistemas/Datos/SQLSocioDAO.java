@@ -43,13 +43,13 @@ public class SQLSocioDAO implements SocioDAO {
     }
 
     private void insertarEstandar(Estandar estandar, int idSocio) throws SQLException {
+        int idSeguro = estandar.getSeguro().getId();
         String query = "INSERT INTO Estandar (idSocio, idSeguro) VALUES (?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setInt(1, idSocio);
-        pstmt.setString(2, estandar.getSeguro().name());
+        pstmt.setInt(2, idSeguro);
         pstmt.executeUpdate();
     }
-
 
     private void insertarFederado(Federado federado, int idSocio) throws SQLException {
         String query = "INSERT INTO Federado (idSocio, idFederacion) VALUES (?, ?)";
@@ -64,10 +64,21 @@ public class SQLSocioDAO implements SocioDAO {
         String query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setInt(1, idSocio);
-        pstmt.setString(2, infantil.getNumSocioTutor());
+        pstmt.setInt(2, obtenerIdSocioTutor(infantil.getNumSocioTutor()));
         pstmt.executeUpdate();
     }
 
+    private int obtenerIdSocioTutor(String numSocioTutor) throws SQLException {
+        String query = "SELECT idSocio FROM Socio WHERE codigoSocio = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, numSocioTutor);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("idSocio");
+        } else {
+            throw new SQLException("No se encontró el socio tutor con el número: " + numSocioTutor);
+        }
+    }
 
     // Método que modifica un socio en la base de datos.
     @Override
@@ -171,27 +182,13 @@ public class SQLSocioDAO implements SocioDAO {
     // Método que devuelve un socio por su código.
     @Override
     public Socio getSocio(String codigo) throws SQLException {
-        // Se obtiene la conexión a la base de datos.
-        Connection conexion = getConnection();
-        // Se crea la consulta SQL.
         String query = "SELECT * FROM Socio WHERE codigoSocio = ?";
-        // Se crea un objeto PreparedStatement con la consulta.
-        PreparedStatement statement = conexion.prepareStatement(query);
-        // Se añade el código del socio a la consulta.
-        statement.setString(1, codigo);
-        // Se ejecuta la consulta y se obtiene el resultado.
-        ResultSet resultSet = statement.executeQuery();
-        // Si hay resultados, se devuelve el primer socio.
-        if (resultSet.next()) {
-            return new Socio(
-                    resultSet.getString("nombreSocio"),
-                    resultSet.getString("codigoSocio"),
-                    resultSet.getString("nifSocio")
-            );
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, codigo);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return new Socio(rs.getString("nombreSocio"), rs.getString("codigoSocio"), rs.getString("nifSocio"));
         }
-        // Si no hay resultados, se devuelve null.
-        else {
-            return null;
-        }
+        return null;
     }
 }

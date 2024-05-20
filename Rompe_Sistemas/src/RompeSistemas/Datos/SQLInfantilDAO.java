@@ -1,6 +1,8 @@
-package RompeSistemas.ModeloDAO;
+package RompeSistemas.Datos;
 
 import RompeSistemas.Modelo.Infantil;
+import RompeSistemas.ModeloDAO.InfantilDAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

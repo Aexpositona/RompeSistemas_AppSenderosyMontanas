@@ -13,7 +13,12 @@ import java.util.List;
 
 // Clase que implementa la interfaz InscripcionDAO y se encarga de realizar las operaciones de la base de datos relacionadas con las inscripciones.
 public class SQLInscripcionDAO implements InscripcionDAO {
-    
+    private Connection conn;
+
+    public SQLInscripcionDAO(Connection conn) {
+        this.conn = conn;
+    }
+
     // Método que devuelve una lista con todas las inscripciones.
     @Override
     public List<Inscripcion> getAllInscripciones() throws SQLException {

@@ -12,6 +12,11 @@ import java.util.List;
 
 // Clase que implementa la interfaz FederacionDAO y se encarga de realizar las operaciones de la base de datos relacionadas con las federaciones.
 public class SQLFederacionDAO implements FederacionDAO {
+    private Connection conn;
+
+    public SQLFederacionDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     // Método que devuelve una federación a partir de su id.
     @Override
