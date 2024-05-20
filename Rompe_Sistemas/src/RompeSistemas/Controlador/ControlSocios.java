@@ -7,6 +7,7 @@ import RompeSistemas.Vista.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 
 public class ControlSocios {
     private APPSenderosMontanas app;
@@ -21,6 +22,8 @@ public class ControlSocios {
     private FederadoDAO federadoDAO;
     private EstandarDAO estandarDAO;
     private SeguroDAO seguroDAO;
+    private ExcursionDAO excursionDAO; // Añadido
+    private InscripcionDAO inscripcionDAO; // Añadido
 
     public ControlSocios(APPSenderosMontanas app) throws SQLException {
         this.app = app;
@@ -35,6 +38,8 @@ public class ControlSocios {
         this.federadoDAO = app.getDatos().getFabricaDAO().getFederadoDAO();
         this.estandarDAO = app.getDatos().getFabricaDAO().getEstandarDAO();
         this.seguroDAO = app.getDatos().getFabricaDAO().getSeguroDAO();
+        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO(); // Añadido
+        this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO(); // Añadido
     }
 
     public void show() throws ParseException, SQLException {
@@ -53,6 +58,25 @@ public class ControlSocios {
         }
     }
 
+    public void listTipoSocios(int tipo) throws SQLException {
+        ResultSet rs;
+        switch (tipo) {
+            case 1:
+                rs = estandarDAO.listarEstandares();
+                break;
+            case 2:
+                rs = federadoDAO.listarFederados();
+                break;
+            case 3:
+                rs = infantilDAO.listarInfantiles();
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de socio no válido");
+        }
+        while (rs.next()) {
+            System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio"));
+        }
+    }
     public void listSocios() throws SQLException {
         ResultSet rs = socioDAO.listarSocios();
         while (rs.next()) {
@@ -109,6 +133,54 @@ public class ControlSocios {
     public void showVistaModificarSeguro() throws SQLException, ParseException {
         vModificarSeguro.show();
     }
+
+    // Métodos de cálculo de facturas
+
+    public void calcularFacturaMensualSocios() throws SQLException {
+        LocalDate fechaFinal = LocalDate.now();
+        LocalDate fechaInicial = fechaFinal.minusMonths(1);
+        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+        float totalFactura = 0;
+
+        while (rs.next()) {
+            String codigoExcursion = rs.getString("idExcursion");
+            Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+            totalFactura += excursion.getPrecio();
+        }
+
+        System.out.println("Total factura mensual de los socios: " + totalFactura + " euros.");
+    }
+
+    public void calcularFacturaFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
+        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+        float totalFactura = 0;
+
+        while (rs.next()) {
+            String codigoExcursion = rs.getString("idExcursion");
+            Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+            totalFactura += excursion.getPrecio();
+        }
+
+        System.out.println("Total factura entre fechas de los socios: " + totalFactura + " euros.");
+    }
+
+    public void calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
+        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+        float totalFactura = 0;
+
+        while (rs.next()) {
+            String codigoSocio = rs.getString("idSocio");
+            if (codigoSocio.equals(numeroSocio)) {
+                String codigoExcursion = rs.getString("idExcursion");
+                Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+                totalFactura += excursion.getPrecio();
+            }
+        }
+
+        System.out.println("Total factura entre fechas para el socio " + numeroSocio + ": " + totalFactura + " euros.");
+    }
+
+    // Getters
 
     public VistaSocios getVistaSocios() {
         return vSocios;

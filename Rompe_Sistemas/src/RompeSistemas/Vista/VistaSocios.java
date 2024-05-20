@@ -82,42 +82,35 @@ public class VistaSocios {
 
     public void buttonAddSocio() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de añadir socio...\n\n");
-        vAddSocio.show();
+        cSocios.showVistaAddSocio();
     }
 
     public void buttonRemoveSocio() throws SQLException {
         System.out.println("Navegando a la vista de eliminar socio...\n\n");
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio que quieres eliminar: ");
-        Socio socio = cSocios.getSocio(numeroSocio);
-        if (socio != null) {
-            cSocios.eliminarSocio(socio);
-            System.out.println("Socio eliminado correctamente.");
-        } else {
-            System.out.println("No se encontró el socio con el número: " + numeroSocio);
-        }
+        cSocios.removeSocio(numeroSocio);
     }
 
     public void buttonModTipoSeguro() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de modificar seguro...\n\n");
-        vModificarSeguro.show();
+        cSocios.showVistaModificarSeguro();
     }
 
     public void buttonListSocios() throws ParseException, SQLException {
         System.out.println("Navegando a la vista de listar socios...\n\n");
-        vListarSocios.show();
+        cSocios.showVistaListarSocios();
     }
 
     public void buttonCalcFacturaMensualSocios() throws SQLException {
         System.out.println("-- Mostrando la factura mensual de los socios --\n\n");
-        LocalDate actual = LocalDate.now(), haceUnMes = actual.minusMonths(1);
-        cSocios.calcFacturaFechas("NULL", haceUnMes, actual);
+        cSocios.calcularFacturaMensualSocios();
     }
 
     public void buttonCalcFacturaFechas() throws SQLException {
         System.out.println("-- Mostrando la factura entre fechas de los socios --\n\n");
         LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
         LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final --", fechaInicial, LocalDate.now());
-        cSocios.calcFacturaFechas("NULL", fechaInicial, fechaFinal);
+        cSocios.calcularFacturaFechas(fechaInicial, fechaFinal);
     }
 
     public void buttonCalcFacturasFechasSocio() throws SQLException {
@@ -125,10 +118,10 @@ public class VistaSocios {
         String numeroSocio = cPeticiones.pedirString("Introduce el número de socio: ");
         LocalDate fechaInicial = cPeticiones.pedirFecha("-- Introduce la fecha inicial --", LocalDate.of(2000, 1, 1), LocalDate.now());
         LocalDate fechaFinal = cPeticiones.pedirFecha("-- Introduce la fecha final --", fechaInicial, LocalDate.now());
-        cSocios.calcFacturaFechas(numeroSocio, fechaInicial, fechaFinal);
+        cSocios.calcularFacturasFechasSocio(numeroSocio, fechaInicial, fechaFinal);
     }
 
-    public void buttonAtras() throws ParseException {
+    public void buttonAtras() {
         System.out.println("Volviendo al menú principal...\n\n");
     }
 

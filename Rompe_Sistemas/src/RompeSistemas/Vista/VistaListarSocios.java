@@ -11,7 +11,6 @@ public class VistaListarSocios {
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
 
-
     public VistaListarSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
@@ -28,7 +27,6 @@ public class VistaListarSocios {
     }
 
     // Getters
-
     public ControlSocios getControlSocios() {
         return cSocios;
     }
@@ -38,7 +36,6 @@ public class VistaListarSocios {
     }
 
     // Setters
-
     public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
@@ -50,8 +47,9 @@ public class VistaListarSocios {
     /**
      * Método para añadir un botón que nos permite listar los tipos de socios
      */
-    private void buttonListTipoSocio(){
-        txtMostrarMensaje(cSocios.listTipoSocios(3, cPeticiones.pedirEntero("\nIntroduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Selecciona una opción (1,2 o 3): ", 1, 3)));
+    private void buttonListTipoSocio() throws SQLException {
+        int tipo = cPeticiones.pedirEntero("\nIntroduzca el tipo de socio a listar:\n 1.Estándar\n 2.Federado\n 3.Infantil\n Seleccione una opción (1, 2 o 3): ", 1, 3);
+        cSocios.listTipoSocios(tipo);
     }
 
     /**
@@ -60,6 +58,7 @@ public class VistaListarSocios {
     private void buttonListSocios() throws SQLException {
         cSocios.listSocios();
     }
+
     /**
      * Método para añadir un botón que nos permite ir hacia atrás
      */

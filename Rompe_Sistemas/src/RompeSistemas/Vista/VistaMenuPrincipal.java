@@ -21,8 +21,8 @@ public class VistaMenuPrincipal {
      * @param cMenuPrincipal ControlMenuPrincipal
      */
     public VistaMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) throws SQLException {
-        this.cMenuPrincipal = new ControlMenuPrincipal(cMenuPrincipal);
-        this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
+        this.cMenuPrincipal = cMenuPrincipal;
+        this.cPeticiones = cMenuPrincipal.getControlPeticiones();
     }
 
     /**
@@ -52,11 +52,11 @@ public class VistaMenuPrincipal {
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
-    
+
     /**
      * Método para añadir un botón que nos permite ir a la vista de inscripciones.
      */
-    public void buttonVistaInscripciones() throws SQLException {
+    public void buttonVistaInscripciones() throws SQLException, ParseException {
         txtMostrarMensaje("Navegando a la vista de inscripciones...\n\n");
         cMenuPrincipal.showInscripciones();
     }
@@ -131,22 +131,14 @@ public class VistaMenuPrincipal {
             txtMostrarMensaje("0. Salir\n");
             // Solicitamos una opción
             switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):", 0, 3)) {
-                case 1:
-                    buttonVistaInscripciones();
-                    break;
-                case 2:
-                    buttonVistaSocios();
-                    break;
-                case 3:
-                    buttonVistaExcursiones();
-                    break;
-                case 0:
+                case 1 -> buttonVistaInscripciones();
+                case 2 -> buttonVistaSocios();
+                case 3 -> buttonVistaExcursiones();
+                case 0 -> {
                     buttonVistaSalir();
                     running = false;
-                    break;
-                default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
-                    break;
+                }
+                default -> txtMostrarMensaje("Opción no válida. Intente de nuevo.");
             }
         }
     }

@@ -2,11 +2,11 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlSocios;
-import RompeSistemas.Controlador.ControlDatos;
-import RompeSistemas.Modelo.Datos;
-import RompeSistemas.Modelo.Estandar;
 import RompeSistemas.Modelo.Seguro;
+import RompeSistemas.Modelo.Socio;
+import RompeSistemas.Modelo.Estandar;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -17,30 +17,23 @@ public class VistaModificarSeguro {
 
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
-    private ControlDatos cDatos;
-    private Datos datos;
+
     /**
      * Método constructor de la clase VistaModificarSeguro que recibe por parámetros el número de socio y el tipo de seguro
      */
     public VistaModificarSeguro(ControlSocios cSocios) {
         this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
-        this.datos = cSocios.getDatos();
-        this.cDatos = cSocios.getControlDatos();
     }
 
     public VistaModificarSeguro(VistaModificarSeguro vistaModificarSeguro) {
         this.cSocios = vistaModificarSeguro.getControlSocios();
         this.cPeticiones = vistaModificarSeguro.getControlPeticiones();
-        this.datos = vistaModificarSeguro.getDatos();
-        this.cDatos = vistaModificarSeguro.getControlDatos();
     }
 
     public VistaModificarSeguro() {
         this.cSocios = null;
         this.cPeticiones = null;
-        this.datos = null;
-        this.cDatos = null;
     }
 
     // Getters
@@ -53,14 +46,6 @@ public class VistaModificarSeguro {
         return cPeticiones;
     }
 
-    public Datos getDatos() {
-        return datos;
-    }
-
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
-
     // Setters
 
     public void setControlSocios(ControlSocios cSocios) {
@@ -71,52 +56,46 @@ public class VistaModificarSeguro {
         this.cPeticiones = cPeticiones;
     }
 
-    public void setDatos(Datos datos) {
-        this.datos = datos;
-    }
-
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
-
     // Métodos
 
     /**
-     * Método para añadir un botón que nos permite modificar un seguro
+     * Método para modificar un seguro
      */
-    // En VistaModificarSeguro.java
     void buttonModificarSeguro() throws SQLException {
-        String numeroSocio; 
+        String numeroSocio;
         int tipoSeguro;
         boolean valido = false;
-        do{
+
+        do {
             // Mostramos los socios
             txtMostrarMensaje("\n");
             cSocios.listSocios();
             txtMostrarMensaje("\n");
             // Solicitamos el número de socio al que se le va a modificar el seguro
             numeroSocio = cPeticiones.pedirString("Introduzca el número de socio al que se le va a modificar el seguro: ");
-            // Si el número de socio es válido, existe y es un usuario Estandar, se puede modificar el seguro
-            if (cDatos.checkCodigoObjeto(3, numeroSocio) && cDatos.checkExistenciaObjeto(3, numeroSocio)) { 
-                Object socio = cSocios.getDatos().getObjeto(3, datos.buscarObjeto(3, numeroSocio));
-                if (socio instanceof Estandar) {
-                    valido = true;
-                } 
-                else {
-                    txtMostrarMensaje("El socio no es un usuario Estandar. No se puede modificar el seguro.\n");
-                }       
+            // Si el número de socio es válido y es un usuario Estandar, se puede modificar el seguro
+            Socio socio = cSocios.getControlDatos().getSocio(numeroSocio);
+            if (socio != null && socio instanceof Estandar) {
+                valido = true;
+            } else {
+                txtMostrarMensaje("El socio no es un usuario Estandar. No se puede modificar el seguro.\n");
             }
-        }
-        while (!valido);
+        } while (!valido);
+
         // Mostramos los seguros
-        cSocios.listSeguros();
+        ResultSet rsSeguros = cSocios.listarSeguros();
+        while (rsSeguros.next()) {
+            System.out.println("ID: " + rsSeguros.getInt("idSeguro") + ", Nombre: " + rsSeguros.getString("nombreSeguro") + ", Precio: " + rsSeguros.getFloat("precioSeguro"));
+        }
+
         // Solicitamos el tipo de seguro que se le va a asignar al socio
         tipoSeguro = cPeticiones.pedirEntero("Introduzca el tipo de seguro que se le va a asignar al socio: ", 1, Seguro.values().length);
         txtMostrarMensaje("\n");
 
         // Modificamos el seguro
-        cSocios.modifySeguro(tipoSeguro, numeroSocio);
-        
+        Estandar estandar = (Estandar) cSocios.getControlDatos().getSocio(numeroSocio);
+        estandar.setSeguro(Seguro.getSeguro(tipoSeguro));
+        cSocios.modificarSocio(estandar);
     }
 
     /**
@@ -146,16 +125,12 @@ public class VistaModificarSeguro {
             txtMostrarMensaje("1. Modificar seguro\n");
             txtMostrarMensaje("0. Atrás\n");
             switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0): ", 0, 1)) {
-                case 1:
-                    buttonModificarSeguro();
-                    break;
-                case 0:
+                case 1 -> buttonModificarSeguro();
+                case 0 -> {
                     buttonAtras();
                     running = false;
-                    break;
-                default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.n");
-                    break;
+                }
+                default -> txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
             }
         }
     }
