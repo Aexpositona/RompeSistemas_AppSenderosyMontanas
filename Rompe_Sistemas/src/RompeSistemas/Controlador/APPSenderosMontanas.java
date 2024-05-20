@@ -35,14 +35,14 @@ public class APPSenderosMontanas {
         this.cDatos = new ControlDatos(datos);
         this.cPeticiones = new ControlPeticiones();
         this.cInscripciones = new ControlInscripciones(this);
-        this.cSocios = new ControlSocios(this, datos.getConnection());
+        this.cSocios = new ControlSocios(this);
         this.cExcursiones = new ControlExcursiones(this);
         this.cMenuPrincipal = new ControlMenuPrincipal(this);
 
-        cDatos = new ControlDatos(this);
+        cDatos = new ControlDatos(datos);
         cPeticiones = new ControlPeticiones();
         cInscripciones = new ControlInscripciones(this);
-        cSocios = new ControlSocios(this, conn);
+        cSocios = new ControlSocios(this);
         cExcursiones = new ControlExcursiones(this);
         cMenuPrincipal = new ControlMenuPrincipal(this);
 

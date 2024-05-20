@@ -10,147 +10,66 @@ import java.text.ParseException;
 
 /**
  * Clase que representa la vista de excursiones de la aplicación.
- *
  */
 public class VistaExcursiones {
 
     // Atributos
     private VistaAddExcursion vAddExcursion;
     private VistaListarExcursiones vListarExcursiones;
-    private ControlDatos cDatos;
     private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
+    private ControlDatos controlDatos;
 
     /**
      * Constructor de VistaExcursiones.
      *
      * @param cExcursiones ControlExcursiones asociado a la vista.
      */
-    // Constructor
     public VistaExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = new ControlExcursiones(cExcursiones);
-        this.cDatos = new ControlDatos (cExcursiones.getControlDatos());
-        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+        this.cExcursiones = cExcursiones;
+        this.cPeticiones = cExcursiones.getControlPeticiones();
         this.vAddExcursion = new VistaAddExcursion(cExcursiones.getVistaAddExcursion());
-    }
-    /**
-     * Constructor de VistaExcursiones de copia.
-     *
-     * @param vistaExcursiones VistaExcursiones a copiar
-     */
-    public VistaExcursiones(VistaExcursiones vistaExcursiones) {
-        this.cExcursiones = vistaExcursiones.getControlExcursiones();
-        this.cDatos = vistaExcursiones.getControlDatos();
-        this.cPeticiones = vistaExcursiones.getControlPeticiones();
-        this.vAddExcursion = vistaExcursiones.getVistaAddExcursion();
-        this.vListarExcursiones = vistaExcursiones.getVistaListarExcursiones();
-    }
-    /**
-     * Constructor de VistaExcursiones vacío.
-     */
-    public VistaExcursiones() {
-        this.cExcursiones = null;
-        this.cDatos = null;
-        this.cPeticiones = null;
-        this.vAddExcursion = null;
+        this.vListarExcursiones = new VistaListarExcursiones(cExcursiones.getVistaListarExcursiones());
     }
 
     // Getters
 
-    /**
-     * Método para obtener el controlador de excursiones.
-     *
-     * @return ControlExcursiones
-     */
     public ControlExcursiones getControlExcursiones() {
         return cExcursiones;
     }
 
-    /**
-     * Método para obtener el controlador de datos.
-     *
-     * @return ControlDatos
-     */
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
-
-    /**
-     * Método para obtener el controlador de peticiones.
-     *
-     * @return ControlPeticiones
-     */
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;
     }
 
-    /**
-     * Método para obtener la vista de añadir excursión.
-     *
-     * @return VistaAddExcursion
-     */
     public VistaAddExcursion getVistaAddExcursion() {
         return vAddExcursion;
     }
 
-    /**
-     * Método para obtener la vista de listar excursiones.
-     *
-     * @return VistaListarExcursiones
-     */
     public VistaListarExcursiones getVistaListarExcursiones() {
         return vListarExcursiones;
     }
 
     // Setters
 
-    /**
-     * Método para establecer el controlador de excursiones.
-     *
-     * @param cExcursiones ControlExcursiones
-     */
     public void setControlExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
     }
 
-    /**
-     * Método para establecer el controlador de datos.
-     *
-     * @param cDatos ControlDatos
-     */
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }  
-
-    /**
-     * Método para establecer el controlador de peticiones.
-     *
-     * @param cPeticiones ControlPeticiones
-     */
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
 
-    /**
-     * Método para establecer la vista de añadir excursión.
-     *
-     * @param vAddExcursion VistaAddExcursion
-     */
     public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
         this.vAddExcursion = vAddExcursion;
     }
 
-    /**
-     * Método para establecer la vista de listar excursiones.
-     *
-     * @param vListarExcursiones VistaListarExcursiones
-     */
     public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
         this.vListarExcursiones = vListarExcursiones;
     }
 
     // Métodos
-    
+
     /**
      * Método para añadir una excursión.
      *
@@ -165,49 +84,26 @@ public class VistaExcursiones {
      * Método para eliminar una excursión.
      */
     private void buttonRemoveExcursion() throws SQLException {
-        // Variables internas
-        boolean resultado = false;
-        int intentos = 0;
-        Excursion excursion;
+        String codigoExcursion;
         txtMostrarMensaje("\n-- Eliminando excursión --\n\n");
-        // Mostramos las excursiones
         cExcursiones.listExcursiones();
-        // Mientras no se introduzca un código válido o no se pueda eliminar la excursión
-        String respuesta;
-        do {
-            // Mostramos mensaje de seleccionar socio
-            txtMostrarMensaje("\n-- Seleccionando Excursión a eliminar --\n");
-            // Solicitamos el código de la excursión a eliminar
-            respuesta = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
-            // Si el código es válido
-            if (cDatos.checkCodigoObjeto(1,respuesta)) {
-                // Si el código existe
-                if (cDatos.checkExistenciaObjeto(1, respuesta))
-                    // Cambiamos el resultado a verdadero
-                    resultado = true;
-                else {
-                    txtMostrarMensaje("El código no existe.\n");
-                }
-            }
-            else {
-                txtMostrarMensaje("El código no es válido.\n");
-            }
-            intentos++;
-        }
-        while (!resultado && intentos < 3);
 
-        // Si el usuario está seguro de eliminar la excursión
-        if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("S")){
-            excursion = (Excursion) cExcursiones.getDatos().getObjeto(1, cExcursiones.getDatos().buscarObjeto(1, respuesta));
-            // Eliminamos la excursión
-            cExcursiones.removeExcursion(excursion);
-            // Informamos al usuario de que la excursión ha sido eliminada
-            txtMostrarMensaje("Excursión eliminada.");
+        while (true) {
+            txtMostrarMensaje("\n-- Seleccionando Excursión a eliminar --\n");
+            codigoExcursion = cPeticiones.pedirString("Introduzca el código de la excursión a eliminar: ");
+            if (cExcursiones.checkExistenciaExcursion(codigoExcursion)) {
+                break;
+            } else {
+                txtMostrarMensaje("El código de la excursión no es válido. Inténtelo de nuevo.\n");
+            }
         }
-        // Si el usuario no está seguro de eliminar la excursión
-        else if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la excursión? (S/N): ").equalsIgnoreCase("N")){
-            // Informamos al usuario de que la operación no se ha realizado
-            txtMostrarMensaje("Operación cancelada.");
+
+        if (cPeticiones.pedirConfirmacion("¿Está seguro de que desea eliminar la excursión? (S/N): ")) {
+            Excursion excursion = cExcursiones.getExcursion(codigoExcursion);
+            cExcursiones.removeExcursion(excursion);
+            txtMostrarMensaje("Excursión eliminada correctamente.\n");
+        } else {
+            txtMostrarMensaje("Operación cancelada.\n");
         }
     }
 
@@ -216,17 +112,14 @@ public class VistaExcursiones {
      * @throws SQLException Excepción SQL.
      */
     private void buttonVistaListExcursiones() throws SQLException {
-        // Informamos al usuario de que accedemos a la vista de listar excursiones
         txtMostrarMensaje("Accediendo a la vista de listar excursiones...\n");
-        // Mostramos la vista de listar excursiones
         vListarExcursiones.show();
     }
 
     /**
      * Método para volver al menú principal.
      */
-    private void buttonAtras(){
-        // Informamos al usuario de que volvemos al menú principal
+    private void buttonAtras() {
         txtMostrarMensaje("Volviendo al menú principal...\n");
     }
 
@@ -235,7 +128,7 @@ public class VistaExcursiones {
      *
      * @param mensaje Mensaje a mostrar.
      */
-    private void txtMostrarMensaje(String mensaje){
+    private void txtMostrarMensaje(String mensaje) {
         System.out.println(mensaje);
     }
 
@@ -245,39 +138,39 @@ public class VistaExcursiones {
      * @throws ParseException Excepción de parseo.
      */
     public void show() throws ParseException, SQLException {
-        // Declaramos una variable para controlar el bucle
         boolean running = true;
-        // Mientras el bucle esté activo
         while (running) {
             txtMostrarMensaje("************ MENÚ EXCURSIONES ************");
             txtMostrarMensaje("1. Añadir excursión");
             txtMostrarMensaje("2. Listar excursiones");
             txtMostrarMensaje("3. Eliminar excursión");
             txtMostrarMensaje("0. Atrás");
-            // Pedimos una opción
-            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):",0,3)){
-                // Si la opción es 1, añadimos una excursión
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0):", 0, 3)) {
                 case 1:
                     buttonVistaAddExcursion();
                     break;
-                // Si la opción es 2, listamos las excursiones
                 case 2:
                     buttonVistaListExcursiones();
                     break;
-                // Si la opción es 3, eliminamos una excursión
                 case 3:
                     buttonRemoveExcursion();
                     break;
-                // Si la opción es 0, volvemos al menú principal
                 case 0:
                     buttonAtras();
                     running = false;
                     break;
-                // Si la opción no es válida, informamos al usuario
                 default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.");
+                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
                     break;
             }
         }
+    }
+
+    public void setControlDatos(ControlDatos controlDatos) {
+        this.controlDatos = controlDatos;
+    }
+
+    public ControlDatos getControlDatos() {
+        return controlDatos;
     }
 }

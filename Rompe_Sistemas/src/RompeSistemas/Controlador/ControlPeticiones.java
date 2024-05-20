@@ -102,4 +102,18 @@ public class ControlPeticiones {
         }
         return nif;
     }
+
+    public boolean pedirConfirmacion(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String respuesta = scanner.nextLine().trim().toUpperCase();
+            if (respuesta.equals("S")) {
+                return true;
+            } else if (respuesta.equals("N")) {
+                return false;
+            } else {
+                System.out.println("Respuesta no válida. Por favor, introduzca 'S' para sí o 'N' para no.");
+            }
+        }
+    }
 }

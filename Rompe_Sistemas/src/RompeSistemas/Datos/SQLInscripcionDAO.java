@@ -26,6 +26,11 @@ public class SQLInscripcionDAO implements InscripcionDAO {
         statement.setString(4, inscripcion.getExcursion().getCodigo());
         statement.executeUpdate();
     }
+    public ResultSet getAllInscripciones() throws SQLException {
+        String query = "SELECT * FROM Inscripcion";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        return stmt.executeQuery();
+    }
 
     @Override
     public void modificarInscripcion(Inscripcion inscripcion) throws SQLException {
@@ -73,6 +78,14 @@ public class SQLInscripcionDAO implements InscripcionDAO {
     }
 
     @Override
+    public ResultSet getInscripcionesPorSocio(String idSocio) throws SQLException {
+        String query = "SELECT * FROM Inscripcion WHERE idSocio = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, idSocio);
+        return stmt.executeQuery();
+    }
+
+    @Override
     public ResultSet getInscripcionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
         String query = "SELECT * FROM Inscripcion WHERE fechaInscripcion BETWEEN ? AND ?";
         PreparedStatement statement = conn.prepareStatement(query);
@@ -99,4 +112,5 @@ public class SQLInscripcionDAO implements InscripcionDAO {
             return null;
         }
     }
+
 }

@@ -17,9 +17,8 @@ public class VistaAddExcursion {
 
     // Atributos
     private ControlExcursiones cExcursiones; // Instancia de ControlExcursiones
-    private ControlDatos cDatos; // Instancia de ControlDatos
     private ControlPeticiones cPeticiones; // Instancia de ControlPeticiones
-
+    private ControlDatos controlDatos;
 
     // Constructor
     /**
@@ -28,20 +27,17 @@ public class VistaAddExcursion {
      * @param cExcursiones ControlExcursiones
      */
     public VistaAddExcursion(ControlExcursiones cExcursiones) {
-        this.cExcursiones = new ControlExcursiones(cExcursiones);
-        this.cDatos = new ControlDatos(cExcursiones.getControlDatos());
-        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+        this.cExcursiones = cExcursiones;
+        this.cPeticiones = cExcursiones.getControlPeticiones();
     }
 
     public VistaAddExcursion(VistaAddExcursion vistaAddExcursion) {
         this.cExcursiones = vistaAddExcursion.getControlExcursiones();
-        this.cDatos = vistaAddExcursion.getControlDatos();
         this.cPeticiones = vistaAddExcursion.getControlPeticiones();
     }
 
     public VistaAddExcursion() {
         this.cExcursiones = null;
-        this.cDatos = null;
         this.cPeticiones = null;
     }
 
@@ -49,10 +45,6 @@ public class VistaAddExcursion {
 
     public ControlExcursiones getControlExcursiones() {
         return cExcursiones;
-    }
-
-    public ControlDatos getControlDatos() {
-        return cDatos;
     }
 
     public ControlPeticiones getControlPeticiones() {
@@ -69,15 +61,10 @@ public class VistaAddExcursion {
         this.cExcursiones = cExcursiones;
     }
 
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
-
     public void setControlPeticiones(ControlPeticiones cPeticiones) {
         this.cPeticiones = cPeticiones;
     }
 
-    
     /**
      * Método para añadir una excursión.
      *
@@ -108,8 +95,7 @@ public class VistaAddExcursion {
                 // Cambiamos el resultado a verdadero
                 resultado = true;
             }
-        }
-        while (!resultado);
+        } while (!resultado);
         // Solicitamos la fecha de la excursión
         fecha = cPeticiones.pedirFecha("-- Introduzca a continuación la fecha de la excursión --", LocalDate.now(), LocalDate.now().plusYears(2));
         // Mientras no se introduzca un precio válido
@@ -125,7 +111,7 @@ public class VistaAddExcursion {
     /**
      * Método para añadir un botón que nos permite cancelar la operación.
      */
-    public void buttonAtras() throws ParseException{
+    public void buttonAtras() throws ParseException {
         // Informamos al usuario de que volvemos al menú de excursiones
         txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
     }
@@ -135,7 +121,7 @@ public class VistaAddExcursion {
      *
      * @param mensaje Mensaje a mostrar.
      */
-    private void txtMostrarMensaje(String mensaje){
+    private void txtMostrarMensaje(String mensaje) {
         System.out.print(mensaje);
     }
 
@@ -152,7 +138,7 @@ public class VistaAddExcursion {
             txtMostrarMensaje("1. Añadir excursión\n");
             txtMostrarMensaje("0. Atrás\n");
             // Solicitamos la opción
-            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0):",0,1)) {
+            switch (cPeticiones.pedirEntero("Seleccione una opción (1 o 0):", 0, 1)) {
                 // Si la opción es 1 añadimos una excursión
                 case 1:
                     buttonAddExcursion();
@@ -168,5 +154,13 @@ public class VistaAddExcursion {
                     break;
             }
         }
+    }
+
+    public void setControlDatos(ControlDatos controlDatos) {
+        this.controlDatos = controlDatos;
+    }
+
+    public ControlDatos getControlDatos() {
+        return controlDatos;
     }
 }

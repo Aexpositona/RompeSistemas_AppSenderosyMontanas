@@ -72,7 +72,12 @@ public class ControlDatos {
             socioDAO.modificarSocio(socio);
         }
     }
-
+public void modificarFederacion(Federacion federacion) throws SQLException {
+        federacionDAO.modificarFederacion(federacion);
+    }
+    public void getExcursion(String codigo) throws SQLException {
+        excursionDAO.getExcursion(codigo);
+    }
     public void eliminarSocio(Socio socio) throws SQLException {
         if (socio instanceof Infantil) {
             infantilDAO.eliminarInfantil((Infantil) socio);
@@ -213,5 +218,33 @@ public class ControlDatos {
             }
         }
         return false;
+    }
+    /**
+     * Método para obtener el siguiente código de un tipo de objeto específico.
+     *
+     * @param tipoObjeto Tipo de objeto
+     * @return El siguiente código disponible para el tipo de objeto
+     */
+    public String getSiguienteCodigo(int tipoObjeto) throws SQLException {
+        String query = switch (tipoObjeto) {
+            case 1 -> "SELECT codigoExcursion FROM Excursion ORDER BY codigoExcursion DESC LIMIT 1";
+            case 2 -> "SELECT codigoInscripcion FROM Inscripcion ORDER BY codigoInscripcion DESC LIMIT 1";
+            case 3 -> "SELECT codigoSocio FROM Socio ORDER BY codigoSocio DESC LIMIT 1";
+            case 4 -> "SELECT codigoFederacion FROM Federacion ORDER BY codigoFederacion DESC LIMIT 1";
+            default -> throw new IllegalArgumentException("Tipo de objeto no válido");
+        };
+
+        try (ResultSet rs = datos.getConnection().createStatement().executeQuery(query)) {
+            if (rs.next()) {
+                String ultimoCodigo = rs.getString(1);
+                int numero = Integer.parseInt(ultimoCodigo.substring(3));
+                numero++;
+                String relleno = numero < 10 ? "000" : numero < 100 ? "00" : numero < 1000 ? "0" : "";
+                return ultimoCodigo.substring(0, 3) + relleno + numero;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el siguiente código de la base de datos: " + e.getMessage());
+        }
+        return "";
     }
 }

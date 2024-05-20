@@ -21,8 +21,8 @@ public class VistaListarExcursiones {
      */
     // Constructor
     public VistaListarExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = new ControlExcursiones(cExcursiones);
-        this.cPeticiones = new ControlPeticiones(cExcursiones.getControlPeticiones());
+        this.cExcursiones = cExcursiones;
+        this.cPeticiones = cExcursiones.getControlPeticiones();
     }
 
     /**
@@ -31,8 +31,8 @@ public class VistaListarExcursiones {
      * @param vistaListarExcursiones VistaListarExcursiones a copiar.
      */
     public VistaListarExcursiones(VistaListarExcursiones vistaListarExcursiones) {
-        this.cExcursiones = new ControlExcursiones(vistaListarExcursiones.getControlExcursiones());
-        this.cPeticiones = new ControlPeticiones(vistaListarExcursiones.getControlPeticiones());
+        this.cExcursiones = vistaListarExcursiones.getControlExcursiones();
+        this.cPeticiones = vistaListarExcursiones.getControlPeticiones();
     }
 
     /**
@@ -52,10 +52,7 @@ public class VistaListarExcursiones {
         return cPeticiones;
     }
 
-    
-
     // Setters
-
     public void setControlExcursiones(ControlExcursiones cExcursiones) {
         this.cExcursiones = cExcursiones;
     }
@@ -67,7 +64,7 @@ public class VistaListarExcursiones {
     /**
      * Método que nos permite listar todas las excursiones
      */
-    public void buttonListExcursiones() {
+    public void buttonListExcursiones() throws SQLException {
         txtMostrarMensaje("\n");
         // Llamamos al método de ControlExcursiones que lista las excursiones
         cExcursiones.listExcursiones();
@@ -78,7 +75,7 @@ public class VistaListarExcursiones {
      */
     public void buttonListExcursionesFechas() throws SQLException {
         // Pedimos las fechas
-        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
+        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ", LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
         LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
         // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
         cExcursiones.listExcursionesFechas(fechaInicial, fechaFinal);
@@ -87,7 +84,7 @@ public class VistaListarExcursiones {
     /**
      * Método que nos permite ir hacia atras
      */
-    public void buttonAtras(){
+    public void buttonAtras() {
         // Mostramos mensaje de vuelta
         txtMostrarMensaje("Volviendo al menú de excursiones...\n\n");
     }
@@ -100,7 +97,7 @@ public class VistaListarExcursiones {
     public void txtMostrarMensaje(String mensaje) {
         System.out.print(mensaje);
     }
-    
+
     /**
      * Método para mostrar el menú de listar excursiones y solicitar una opción.
      */

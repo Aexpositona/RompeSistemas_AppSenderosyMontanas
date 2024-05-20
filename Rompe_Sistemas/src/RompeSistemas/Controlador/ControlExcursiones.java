@@ -22,7 +22,7 @@ public class ControlExcursiones {
     private ExcursionDAO excursionDAO;
 
     public ControlExcursiones(APPSenderosMontanas app) throws SQLException {
-        this.vExcursiones = new VistaExcursiones();
+        this.vExcursiones = new VistaExcursiones(this);
         this.vAddExcursion = new VistaAddExcursion();
         this.vListarExcursiones = new VistaListarExcursiones();
         this.datos = app.getDatos();
@@ -159,5 +159,14 @@ public class ControlExcursiones {
             int numero = Integer.parseInt(ultimoCodigo.substring(3)) + 1;
             return String.format("EXC%04d", numero);
         }
+    }
+
+    public boolean checkExistenciaExcursion(String codigoExcursion) throws SQLException {
+        Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+        return excursion != null;
+    }
+
+    public Excursion getExcursion(String codigoExcursion) throws SQLException {
+        return excursionDAO.getExcursion(codigoExcursion);
     }
 }

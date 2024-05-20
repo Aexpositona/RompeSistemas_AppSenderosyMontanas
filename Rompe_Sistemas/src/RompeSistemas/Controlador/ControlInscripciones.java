@@ -1,12 +1,13 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Modelo.*;
-import RompeSistemas.ModeloDAO.*;
-import RompeSistemas.Vista.*;
+import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.ModeloDAO.InscripcionDAO;
+import RompeSistemas.Vista.VistaInscripciones;
+import RompeSistemas.Vista.VistaAddInscripcion;
+import RompeSistemas.Vista.VistaListarInscripciones;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.time.LocalDate;
 
 public class ControlInscripciones {
@@ -28,7 +29,7 @@ public class ControlInscripciones {
         this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
     }
 
-    public void show() throws ParseException, SQLException {
+    public void show() throws SQLException {
         vInscripciones.show();
     }
 
@@ -37,7 +38,17 @@ public class ControlInscripciones {
     }
 
     public void listInscripciones() throws SQLException {
-        ResultSet rs = inscripcionDAO.listarInscripciones();
+        ResultSet rs = inscripcionDAO.getAllInscripciones();
+        while (rs.next()) {
+            System.out.println("Código Inscripción: " + rs.getString("codigoInscripcion") +
+                    ", Fecha Inscripción: " + rs.getDate("fechaInscripcion").toLocalDate() +
+                    ", Código Socio: " + rs.getString("idSocio") +
+                    ", Código Excursión: " + rs.getString("idExcursion"));
+        }
+    }
+
+    public void listInscripcionesSocio(String idSocio) throws SQLException {
+        ResultSet rs = inscripcionDAO.getInscripcionesPorSocio(idSocio);
         while (rs.next()) {
             System.out.println("Código Inscripción: " + rs.getString("codigoInscripcion") +
                     ", Fecha Inscripción: " + rs.getDate("fechaInscripcion").toLocalDate() +

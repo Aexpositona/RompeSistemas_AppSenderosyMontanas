@@ -1,8 +1,10 @@
 package RompeSistemas.Vista;
 
+import RompeSistemas.Controlador.ControlExcursiones;
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Controlador.ControlDatos;
+import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.Modelo.Socio;
@@ -18,18 +20,22 @@ public class VistaAddInscripcion {
     private ControlInscripciones cInscripciones;
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
+    private ControlExcursiones cExcursiones;
+    private ControlSocios cSocios;  // Añadido
 
-    //Constructores
+    // Constructores
 
     /**
      * Método constructor de la clase VistaAddInscripcion que recibe por parámetros la vista de control de inscripciones.
      *
      * @param cInscripciones ControlInscripciones
      */
-    public VistaAddInscripcion(ControlInscripciones cInscripciones) {
+    public VistaAddInscripcion(ControlInscripciones cInscripciones) throws SQLException {
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
         this.cDatos = cInscripciones.getControlDatos();
+        this.cExcursiones = new ControlExcursiones(cInscripciones.getApp());
+        this.cSocios = new ControlSocios(cInscripciones.getApp());  // Añadido
     }
 
     /**
@@ -41,6 +47,8 @@ public class VistaAddInscripcion {
         this.cInscripciones = vistaAddInscripcion.getControlInscripciones();
         this.cPeticiones = vistaAddInscripcion.getControlPeticiones();
         this.cDatos = vistaAddInscripcion.getControlDatos();
+        this.cExcursiones = vistaAddInscripcion.getControlExcursiones();
+        this.cSocios = vistaAddInscripcion.getControlSocios();  // Añadido
     }
 
     /**
@@ -50,9 +58,11 @@ public class VistaAddInscripcion {
         this.cInscripciones = null;
         this.cPeticiones = null;
         this.cDatos = null;
+        this.cExcursiones = null;
+        this.cSocios = null;  // Añadido
     }
 
-    //Getters
+    // Getters
 
     public ControlInscripciones getControlInscripciones() {
         return cInscripciones;
@@ -66,7 +76,15 @@ public class VistaAddInscripcion {
         return cDatos;
     }
 
-    //Setters
+    public ControlExcursiones getControlExcursiones() {
+        return cExcursiones;
+    }
+
+    public ControlSocios getControlSocios() {  // Añadido
+        return cSocios;
+    }
+
+    // Setters
 
     public void setControlInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
@@ -80,10 +98,18 @@ public class VistaAddInscripcion {
         this.cDatos = cDatos;
     }
 
-    //Métodos
+    public void setControlExcursiones(ControlExcursiones cExcursiones) {
+        this.cExcursiones = cExcursiones;
+    }
+
+    public void setControlSocios(ControlSocios cSocios) {  // Añadido
+        this.cSocios = cSocios;
+    }
+
+    // Métodos
 
     /**
-     * Método para añadir un botón que nos permite añadir una inscripción
+     * Método para añadir una inscripción.
      */
     public void buttonAddInscripcion() throws SQLException {
         String idSocio, idExcursion;
@@ -95,7 +121,7 @@ public class VistaAddInscripcion {
 
         // Selección del socio
         while (true) {
-            cDatos.listSocios();
+            cSocios.listSocios();  // Cambiado a cSocios
             txtMostrarMensaje("\n-- Seleccionando socio --\n");
             idSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
             if (cDatos.checkExistenciaObjeto(3, idSocio)) {
@@ -108,11 +134,11 @@ public class VistaAddInscripcion {
 
         // Selección de la excursión
         while (true) {
-            cDatos.listExcursiones();
+            cExcursiones.listExcursiones();  // Cambiado a cExcursiones
             txtMostrarMensaje("\n-- Seleccionando excursión --\n");
             idExcursion = cPeticiones.pedirString("Introduzca el código de la excursión: ");
             if (cDatos.checkExistenciaObjeto(1, idExcursion)) {
-                excursion = cDatos.getExcursion(idExcursion);
+                cDatos.getExcursion(idExcursion);
                 break;
             } else {
                 txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
@@ -125,7 +151,7 @@ public class VistaAddInscripcion {
     }
 
     /**
-     * Método para añadir un botón que nos permite volver al menú de inscripciones
+     * Método para añadir un botón que nos permite volver al menú de inscripciones.
      */
     public void buttonAtras() {
         txtMostrarMensaje("Volviendo al menú inscripciones...\n\n");
@@ -155,7 +181,7 @@ public class VistaAddInscripcion {
                     running = false;
                     break;
                 default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
+                    txtMostrarMensaje("Opción no válida. Inténtelo de nuevo.\n");
                     break;
             }
         }

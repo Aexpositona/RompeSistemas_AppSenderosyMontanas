@@ -8,20 +8,19 @@ import java.time.LocalDate;
 
 public class VistaListarInscripciones {
 
-
-    //Atributos
+    // Atributos
     private ControlInscripciones cInscripciones;
     private ControlPeticiones cPeticiones;
 
-    //Constructores
+    // Constructores
     /**
      * Método constructor de la clase VistaListarInscripciones que recibe por parámetros la vista de control de inscripciones.
      *
      * @param cInscripciones ControlInscripciones
      */
     public VistaListarInscripciones(ControlInscripciones cInscripciones) {
-        this.cInscripciones = new ControlInscripciones(cInscripciones);
-        this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
+        this.cInscripciones = cInscripciones;
+        this.cPeticiones = cInscripciones.getControlPeticiones();
     }
 
     /**
@@ -42,7 +41,7 @@ public class VistaListarInscripciones {
         this.cPeticiones = null;
     }
 
-    //Getters
+    // Getters
 
     public ControlInscripciones getControlInscripciones() {
         return cInscripciones;
@@ -52,7 +51,7 @@ public class VistaListarInscripciones {
         return cPeticiones;
     }
 
-    //Setters
+    // Setters
 
     public void setControlInscripciones(ControlInscripciones cInscripciones) {
         this.cInscripciones = cInscripciones;
@@ -62,47 +61,34 @@ public class VistaListarInscripciones {
         this.cPeticiones = cPeticiones;
     }
 
-
-    //Métodos
+    // Métodos
 
     /**
-     * Método para añadir un botón que nos permite listar todas las inscripciones
+     * Método para listar todas las inscripciones.
      */
-    public void buttonListInscripciones() {
+    public void buttonListInscripciones() throws SQLException {
         cInscripciones.listInscripciones();
     }
 
     /**
-     * Método para añadir un botón que nos permite listar las inscripciones de un usuario
-
+     * Método para listar las inscripciones de un socio.
      */
     public void buttonListInscripcionesSocio() throws SQLException {
-        // Variables internas
-        String idSocio;
-        // Mostramos el listado de IDs de socios disponibles
-        cInscripciones.listIdsSocios();
-        txtMostrarMensaje("\n");
-        // Pedimos el id del socio
-        idSocio = cPeticiones.pedirString("Introduzca el id del socio: ");
-        idSocio = idSocio.toUpperCase();
-        // Llamamos al método de ControlExcursiones que lista las excursiones de un socio
+        String idSocio = cPeticiones.pedirString("Introduzca el código del socio: ");
         cInscripciones.listInscripcionesSocio(idSocio);
     }
 
     /**
-     * Método para añadir un botón que nos permite listar las inscripciones por fechas
+     * Método para listar las inscripciones por fechas.
      */
     public void buttonListInscripcionesFechas() throws SQLException {
-        // Pedimos las fechas
-        LocalDate fechaInicial = cPeticiones.pedirFecha("\n-- Introduzca la fecha inicial -- ",LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
-        LocalDate fechaFinal = cPeticiones.pedirFecha("\n-- Introduzca la fecha final -- ", fechaInicial, LocalDate.now().plusYears(2));
-        txtMostrarMensaje("\n");
-        // Llamamos al método de ControlExcursiones que lista las excursiones entre dos fechas
+        LocalDate fechaInicial = cPeticiones.pedirFecha("Introduzca la fecha inicial (YYYY-MM-DD): ", LocalDate.parse("2000-01-01"), LocalDate.now().plusYears(2));
+        LocalDate fechaFinal = cPeticiones.pedirFecha("Introduzca la fecha final (YYYY-MM-DD): ", fechaInicial, LocalDate.now().plusYears(2));
         cInscripciones.listInscripcionesFechas(fechaInicial, fechaFinal);
     }
 
     /**
-     * Método para añadir un botón que nos permite ir hacia atrás
+     * Método para volver al menú anterior.
      */
     public void buttonAtras() {
         txtMostrarMensaje("Volviendo al menú inscripciones...\n\n");
@@ -121,18 +107,16 @@ public class VistaListarInscripciones {
      * Método para mostrar el menú de listar inscripciones.
      */
     public void show() throws SQLException {
-        // Variables internas
         boolean running = true;
-        // Mientras no se seleccione la opción de volver atrás
         while (running) {
-            // Mostramos el menú de listar inscripciones
             txtMostrarMensaje("************ MENÚ LISTAR INSCRIPCIONES ************\n");
             txtMostrarMensaje("1. Listar todas las inscripciones\n");
             txtMostrarMensaje("2. Listar inscripción por socio\n");
             txtMostrarMensaje("3. Listar inscripción por fechas\n");
             txtMostrarMensaje("0. Atrás\n");
 
-            switch (cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0): ", 0, 3)) {
+            int opcion = cPeticiones.pedirEntero("Seleccione una opción (1, 2, 3 o 0): ", 0, 3);
+            switch (opcion) {
                 case 1:
                     buttonListInscripciones();
                     break;
@@ -145,8 +129,9 @@ public class VistaListarInscripciones {
                 case 0:
                     buttonAtras();
                     running = false;
+                    break;
                 default:
-                    txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
+                    txtMostrarMensaje("Opción no válida. Inténtelo de nuevo.\n");
                     break;
             }
         }

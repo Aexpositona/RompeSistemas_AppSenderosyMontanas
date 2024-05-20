@@ -2,10 +2,8 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlInscripciones;
 import RompeSistemas.Controlador.ControlPeticiones;
-import RompeSistemas.Modelo.Inscripcion;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 
 public class VistaInscripciones {
     //Atributos
@@ -22,32 +20,9 @@ public class VistaInscripciones {
         this.cPeticiones = cInscripciones.getControlPeticiones();
     }
 
-    public VistaInscripciones(VistaInscripciones vistaInscripciones) {
-        this.cInscripciones = vistaInscripciones.getControlInscripciones();
-        this.vAddInscripcion = vistaInscripciones.getVistaAddInscripcion();
-        this.vListarInscripciones = vistaInscripciones.getVistaListarInscripciones();
-        this.cPeticiones = vistaInscripciones.getControlPeticiones();
-    }
 
-    public VistaInscripciones() {
-        this.cInscripciones = null;
-        this.vAddInscripcion = null;
-        this.vListarInscripciones = null;
-        this.cPeticiones = null;
-    }
 
     //Getters
-    public ControlInscripciones getControlInscripciones() {
-        return cInscripciones;
-    }
-
-    public VistaAddInscripcion getVistaAddInscripcion() {
-        return vAddInscripcion;
-    }
-
-    public VistaListarInscripciones getVistaListarInscripciones() {
-        return vListarInscripciones;
-    }
 
     public ControlPeticiones getControlPeticiones() {
         return cPeticiones;

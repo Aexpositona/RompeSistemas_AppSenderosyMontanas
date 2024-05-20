@@ -4,31 +4,25 @@ import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlDatos;
 import RompeSistemas.Controlador.ControlPeticiones;
 import RompeSistemas.Modelo.*;
-import RompeSistemas.ModeloDAO.InfantilDAO;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import static RompeSistemas.Datos.DatabaseConnection.conn;
-
 public class VistaAddSocio {
 
-    //Atributos
+    // Atributos
     private ControlSocios cSocios;
     private ControlPeticiones cPeticiones;
     private ControlDatos cDatos;
-    private Datos datos;
-    private InfantilDAO infantilDAO;
+
     /**
      * Constructor de la clase VistaAddSocio que recibe por parámetros el controlador de socios
      * @param cSocios es el controlador de socios
      */
-    public VistaAddSocio(ControlSocios cSocios) throws SQLException {
-        this.cSocios = new ControlSocios(cSocios);
+    public VistaAddSocio(ControlSocios cSocios) {
+        this.cSocios = cSocios;
         this.cPeticiones = cSocios.getControlPeticiones();
-        this.cDatos = new ControlDatos(cSocios.getControlDatos());
-        this.datos = new Datos(conn);
-        this.infantilDAO = infantilDAO;
+        this.cDatos = cSocios.getControlDatos();
     }
 
     /**
@@ -39,7 +33,6 @@ public class VistaAddSocio {
         this.cSocios = vistaAddSocio.getControlSocios();
         this.cPeticiones = vistaAddSocio.getControlPeticiones();
         this.cDatos = vistaAddSocio.getControlDatos();
-        this.datos = vistaAddSocio.getDatos();
     }
 
     /**
@@ -49,10 +42,9 @@ public class VistaAddSocio {
         this.cSocios = null;
         this.cPeticiones = null;
         this.cDatos = null;
-        this.datos = null;
     }
 
-    //Getters
+    // Getters
     public ControlSocios getControlSocios() {
         return cSocios;
     }
@@ -61,16 +53,11 @@ public class VistaAddSocio {
         return cPeticiones;
     }
 
-    public Datos getDatos() {
-        return datos;
-    }
-
     public ControlDatos getControlDatos() {
         return cDatos;
     }
-    
-    //Setters
 
+    // Setters
     public void setControlSocios(ControlSocios cSocios) {
         this.cSocios = cSocios;
     }
@@ -79,15 +66,11 @@ public class VistaAddSocio {
         this.cPeticiones = cPeticiones;
     }
 
-    public void setDatos(Datos datos) {
-        this.datos = datos;
-    }
-
     public void setControlDatos(ControlDatos cDatos) {
         this.cDatos = cDatos;
     }
 
-    //Métodos
+    // Métodos
 
     /**
      * Método para añadir un socio
@@ -104,94 +87,68 @@ public class VistaAddSocio {
         int tipoSocio = cPeticiones.pedirEntero("Introduzca el tipo de socio que desea añadir: (1, 2 o 3)", 1, 3);
 
         // Mientras el NIF introducido ya exista, pedir otro NIF
-        do{
+        do {
             nif = cPeticiones.pedirNIF();
             if (!cDatos.checkExistenciaNIF(nif)) {
                 break;
-            }
-            else {
+            } else {
                 txtMostrarMensaje("El NIF introducido ya existe. Introduce otro NIF.");
             }
-        }
-        while(true);
-        // Si el tipo de socio es Estándar
-        if (tipoSocio == 1) {
-            // Pedir nombre del socio mediante un método
-            nombre = pedirNombreSocio();
-            // Obtener el número de socio mediante un método
-            numero = obtenerNumeroSocio();
-            // Mostramos tipos de seguro disponibles
-            txtMostrarMensaje("Tipos de seguro disponibles:\n");
-            Seguro[] seguros = Seguro.values();
-            // Mostramos los tipos de seguro
-            for (Seguro value : seguros) {
-                String seguroName = value.name().charAt(0) + value.name().substring(1).toLowerCase();
-                txtMostrarMensaje(seguroName + "\n");
-            }
-            // Pedir tipo de seguro
-            String seguroInput = cPeticiones.pedirString("Introduce el nombre del tipo de seguro del socio: ");
-            switch (seguroInput.toUpperCase()) {
-                case "COMPLETO":
-                    seguro = Seguro.COMPLETO;
-                    break;
-                case "BASICO":
-                    seguro = Seguro.BASICO;
-                    break;
-                default:
-                    txtMostrarMensaje("Tipo de seguro no válido. Intente de nuevo.");
-                    break;
-            }
-            // Añadir socio tipo Estandar mediante el controlador de socios
-            Estandar estandar = new Estandar(nombre, numero, nif, seguro);
-            cSocios.addSocio(estandar);
-            // Mostramos mensaje de éxito
-            txtMostrarMensaje("Socio Estándar añadido con éxito.\n");
-        }
-        // Si el tipo de socio es Federado
-        else if (tipoSocio == 2) {
-            // Pedir nombre del socio mediante un método
-            nombre = pedirNombreSocio();
-            // Obtener el número de socio mediante un método
-            numero = obtenerNumeroSocio();
-            // Pedir código de federación
-            String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
-            // Buscar la federación en el mapa de federaciones
-            int idFederacion = datos.buscarObjeto(4, codigoFederacion);
-            Federacion federacion = null;
-            if (idFederacion != -1) {
-                federacion = (Federacion) datos.getObjeto(4, idFederacion);
-            }
-            // Si la federación existe
-            if (federacion != null) {
-                Federado federado = new Federado(nombre, numero, nif, federacion);
-                cSocios.addSocio(federado);
-                // Mostramos mensaje de éxito
-                txtMostrarMensaje("Socio Federado añadido con éxito.\n");
-            }
-            // Si la federación no existe
-            else {
-                txtMostrarMensaje("El código de federación introducido no existe. Intente de nuevo.");
-            }
-        }
-        // Si el tipo de socio es Infantil
-        else if (tipoSocio == 3) {
-            nombre = pedirNombreSocio();
-            numero = obtenerNumeroSocio();
-            do {
-                String codigoSocioTutor = cPeticiones.pedirString("Introduce el código del socio tutor: ");
-                if (cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
-                    numSocioTutor = codigoSocioTutor;
-                    break;
-                } else {
-                    txtMostrarMensaje("El socio tutor no existe. Introduce un código de socio válido.");
+        } while (true);
+
+        // Pedir nombre del socio mediante un método
+        nombre = pedirNombreSocio();
+        // Obtener el número de socio mediante un método
+        numero = obtenerNumeroSocio();
+
+        switch (tipoSocio) {
+            case 1: // Socio Estándar
+                // Mostrar tipos de seguro disponibles
+                txtMostrarMensaje("Tipos de seguro disponibles:\n");
+                Seguro[] seguros = Seguro.values();
+                for (Seguro value : seguros) {
+                    String seguroName = value.name().charAt(0) + value.name().substring(1).toLowerCase();
+                    txtMostrarMensaje(seguroName + "\n");
                 }
-            } while (true);
-            Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);
-            cSocios.addSocio(infantil);
-            txtMostrarMensaje("Socio Infantil añadido con éxito.\n");
-        }
-        else {
-            txtMostrarMensaje("Tipo de socio no válido.\n");
+                // Pedir tipo de seguro
+                String seguroInput = cPeticiones.pedirString("Introduce el nombre del tipo de seguro del socio: ");
+                seguro = Seguro.valueOf(seguroInput.toUpperCase());
+                // Añadir socio tipo Estándar mediante el controlador de socios
+                Estandar estandar = new Estandar(nombre, numero, nif, seguro);
+                cSocios.addSocio(estandar);
+                txtMostrarMensaje("Socio Estándar añadido con éxito.\n");
+                break;
+
+            case 2: // Socio Federado
+                String codigoFederacion = cPeticiones.pedirString("Introduce el código de la federación a la que pertenece el socio: ");
+                Federacion federacion = cDatos.getFederacion(codigoFederacion);
+                if (federacion != null) {
+                    Federado federado = new Federado(nombre, numero, nif, federacion);
+                    cSocios.addSocio(federado);
+                    txtMostrarMensaje("Socio Federado añadido con éxito.\n");
+                } else {
+                    txtMostrarMensaje("El código de federación introducido no existe. Intente de nuevo.");
+                }
+                break;
+
+            case 3: // Socio Infantil
+                do {
+                    String codigoSocioTutor = cPeticiones.pedirString("Introduce el código del socio tutor: ");
+                    if (cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
+                        numSocioTutor = codigoSocioTutor;
+                        break;
+                    } else {
+                        txtMostrarMensaje("El socio tutor no existe. Introduce un código de socio válido.");
+                    }
+                } while (true);
+                Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);
+                cSocios.addSocio(infantil);
+                txtMostrarMensaje("Socio Infantil añadido con éxito.\n");
+                break;
+
+            default:
+                txtMostrarMensaje("Tipo de socio no válido.\n");
+                break;
         }
     }
 
@@ -203,12 +160,12 @@ public class VistaAddSocio {
     // Comprobar último número de socio y devolver el siguiente
     private String obtenerNumeroSocio() throws SQLException {
         // Si no hay socios, devolver "SOC001"
-        if (datos.getUltimoCodigo(3).isEmpty()) {
+        if (cDatos.getSiguienteCodigo(3).isEmpty()) {
             return "SOC001";
         }
         // Si hay socios, devolver el siguiente número de socio
         else {
-            return datos.getSiguienteCodigo(3);
+            return cDatos.getSiguienteCodigo(3);
         }
     }
 
@@ -221,7 +178,7 @@ public class VistaAddSocio {
      *
      * @param mensaje Mensaje a mostrar.
      */
-    public void txtMostrarMensaje(String mensaje){
+    public void txtMostrarMensaje(String mensaje) {
         System.out.print(mensaje);
     }
 
@@ -248,9 +205,7 @@ public class VistaAddSocio {
                 default:
                     txtMostrarMensaje("Opción no válida. Intente de nuevo.");
                     break;
-                    
             }
         }
     }
-
 }
