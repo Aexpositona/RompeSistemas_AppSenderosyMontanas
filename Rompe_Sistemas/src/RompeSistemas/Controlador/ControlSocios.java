@@ -32,9 +32,9 @@ public class ControlSocios {
         this.vModificarSeguro = new VistaModificarSeguro();
         this.vListarSocios = new VistaListarSocios();
         this.vAddSocio = new VistaAddSocio();
-        this.datos = app.getDatos();
-        this.cDatos = app.getControlDatos();
-        this.cPeticiones = app.getControlPeticiones();
+        this.datos = new Datos(conn);
+        this.cDatos = new ControlDatos(datos);
+        this.cPeticiones = new ControlPeticiones();
         this.socioDAO = new SQLSocioDAO(conn);
         this.infantilDAO = new SQLInfantilDAO(conn);
         this.federadoDAO = new SQLFederadoDAO(conn);

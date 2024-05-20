@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
+import static RompeSistemas.Datos.DatabaseConnection.conn;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class APPSenderosMontanasTest {
@@ -17,7 +18,7 @@ public class APPSenderosMontanasTest {
     @BeforeEach
     public void setup() {
         app = new APPSenderosMontanas();
-        datos = new Datos();
+        datos = new Datos(conn);
     }
 
     @Test

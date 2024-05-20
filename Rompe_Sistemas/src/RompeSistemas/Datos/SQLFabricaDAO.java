@@ -1,58 +1,68 @@
 package RompeSistemas.Datos;
 
 import RompeSistemas.ModeloDAO.*;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
-// Clase que implementa la interfaz FabricaDAO y se encarga de devolver los DAOs de SQL.
 public class SQLFabricaDAO implements FabricaDAO {
     private Connection conn;
+    private SocioDAO socioDAO;
+    private InfantilDAO infantilDAO;
+    private FederadoDAO federadoDAO;
+    private EstandarDAO estandarDAO;
+    private ExcursionDAO excursionDAO;
+    private InscripcionDAO inscripcionDAO;
+    private FederacionDAO federacionDAO;
+
 
     public SQLFabricaDAO(Connection conn) {
         this.conn = conn;
+        this.socioDAO = new SQLSocioDAO(conn);
+        this.infantilDAO = new SQLInfantilDAO(conn);
+        this.federadoDAO = new SQLFederadoDAO(conn);
+        this.estandarDAO = new SQLEstandarDAO(conn);
+        this.excursionDAO = new SQLExcursionDAO(conn);
+        this.inscripcionDAO = new SQLInscripcionDAO(conn);
+        this.federacionDAO = new SQLFederacionDAO(conn);
     }
+
+    @Override
+    public SocioDAO getSocioDAO() {
+        return socioDAO;
+    }
+
+    @Override
+    public InfantilDAO getInfantilDAO() {
+        return infantilDAO;
+    }
+
+    @Override
+    public FederadoDAO getFederadoDAO() {
+        return federadoDAO;
+    }
+
+    @Override
+    public EstandarDAO getEstandarDAO() {
+        return estandarDAO;
+    }
+
     @Override
     public ExcursionDAO getExcursionDAO() {
-        return new SQLExcursionDAO(conn);
+        return excursionDAO;
     }
-    
-    // Método que devuelve un objeto InscripcionDAO.
+
     @Override
     public InscripcionDAO getInscripcionDAO() {
-        return new SQLInscripcionDAO(conn);
+        return inscripcionDAO;
     }
 
-    // Método que devuelve un objeto SocioDAO.
-    @Override
-    public SocioDAO getSocioDAO() throws SQLException {
-        return new SQLSocioDAO(conn);
-    }
-
-    // Método que devuelve un objeto FederacionDAO.
     @Override
     public FederacionDAO getFederacionDAO() {
-        return new SQLFederacionDAO(conn);
-    }
-    
-    // Método que devuelve un objeto SeguroDAO.
-    @Override
-    public SeguroDAO getSeguroDAO() {
-        return new SQLSeguroDAO();
+        return federacionDAO;
     }
 
     @Override
-    public InfantilDAO getInfantilDAO() throws SQLException {
-        return new SQLInfantilDAO(conn);
-    }
-
-    @Override
-    public FederadoDAO getFederadoDAO() throws SQLException {
-        return new SQLFederadoDAO(conn);
-    }
-
-    @Override
-    public EstandarDAO getEstandarDAO() throws SQLException {
-        return new SQLEstandarDAO(conn);
+    public SeguroDAO getSeguroDAO() throws SQLException {
+        return null;
     }
 }

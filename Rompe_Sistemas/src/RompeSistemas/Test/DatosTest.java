@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static RompeSistemas.Datos.DatabaseConnection.conn;
 
 public class DatosTest {
 
@@ -18,7 +18,7 @@ public class DatosTest {
         /**
          * Crear un objeto de la clase Datos
          */
-        Datos datos = new Datos();
+        Datos datos = new Datos(conn);
 
         /**
          * Crear un objeto

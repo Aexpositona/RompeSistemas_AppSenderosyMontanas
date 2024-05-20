@@ -8,6 +8,8 @@ import RompeSistemas.Modelo.Datos;
 
 import java.sql.SQLException;
 
+import static RompeSistemas.Datos.DatabaseConnection.conn;
+
 /**
  * Vista de inscripciones de la aplicación.
  *
@@ -32,7 +34,7 @@ public class VistaInscripciones {
         this.vAddInscripcion = new VistaAddInscripcion(cInscripciones.getVistaAddInscripcion());
         this.vListarInscripciones = new VistaListarInscripciones(cInscripciones.getVistaListarInscripciones());
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
-        this.datos = new Datos();
+        this.datos = new Datos(conn);
         this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 

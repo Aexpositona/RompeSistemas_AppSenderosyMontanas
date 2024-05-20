@@ -9,6 +9,8 @@ import RompeSistemas.ModeloDAO.InfantilDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import static RompeSistemas.Datos.DatabaseConnection.conn;
+
 public class VistaAddSocio {
 
     //Atributos
@@ -25,7 +27,7 @@ public class VistaAddSocio {
         this.cSocios = new ControlSocios(cSocios);
         this.cPeticiones = cSocios.getControlPeticiones();
         this.cDatos = new ControlDatos(cSocios.getControlDatos());
-        this.datos = new Datos();
+        this.datos = new Datos(conn);
         this.infantilDAO = infantilDAO;
     }
 
@@ -173,26 +175,19 @@ public class VistaAddSocio {
         }
         // Si el tipo de socio es Infantil
         else if (tipoSocio == 3) {
-            // Pedir nombre del socio mediante un método
             nombre = pedirNombreSocio();
-            // Obtener el número de socio mediante un método
             numero = obtenerNumeroSocio();
-            do{
-                // Pedir código del socio del tutor
+            do {
                 String codigoSocioTutor = cPeticiones.pedirString("Introduce el código del socio tutor: ");
-                // Comprobar si el socio tutor existe
-                if (!cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
+                if (cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
+                    numSocioTutor = codigoSocioTutor;
+                    break;
+                } else {
                     txtMostrarMensaje("El socio tutor no existe. Introduce un código de socio válido.");
                 }
-                else {
-                    break;
-                }
             } while (true);
-            // Añadir socio tipo Infantil mediante el controlador de socios
             Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);
-            cSocios.addInfantil(infantil); // Modificado
-
-            // Mostramos mensaje de éxito
+            cSocios.addSocio(infantil);
             txtMostrarMensaje("Socio Infantil añadido con éxito.\n");
         }
         else {

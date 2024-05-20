@@ -10,6 +10,8 @@ import RompeSistemas.Modelo.Socio;
 
 import java.sql.SQLException;
 
+import static RompeSistemas.Datos.DatabaseConnection.conn;
+
 /**
  * Vista de añadir inscripción de la aplicación.
  *
@@ -32,7 +34,7 @@ public class VistaAddInscripcion {
     public VistaAddInscripcion(ControlInscripciones cInscripciones) {
         this.cInscripciones = new ControlInscripciones(cInscripciones);
         this.cPeticiones = new ControlPeticiones(cInscripciones.getControlPeticiones());
-        this.datos = new Datos();
+        this.datos = new Datos(conn);
         this.cDatos = new ControlDatos(cInscripciones.getControlDatos());
     }
 

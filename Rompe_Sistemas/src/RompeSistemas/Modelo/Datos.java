@@ -15,10 +15,10 @@ public class Datos {
     private Connection conn;
     private FabricaDAO fabricaDAO;
 
-    public Datos() {
+    public Datos(Connection conn) {
         try {
-            conn = DatabaseConnection.getConnection();
-            fabricaDAO = new SQLFabricaDAO(conn);
+            this.conn = DatabaseConnection.getConnection();
+            fabricaDAO = new SQLFabricaDAO(this.conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }

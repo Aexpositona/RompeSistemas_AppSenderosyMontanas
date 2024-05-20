@@ -1,11 +1,11 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Datos.*;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
+
+import static RompeSistemas.Datos.DatabaseConnection.conn;
 
 /**
  * Clase ControlDatos.
@@ -26,14 +26,13 @@ public class ControlDatos {
 
     public ControlDatos(Datos datos) throws SQLException {
         this.datos = datos;
-        Connection conn = datos.getConnection();
-        this.socioDAO = new SQLSocioDAO(conn);
-        this.infantilDAO = new SQLInfantilDAO(conn);
-        this.federadoDAO = new SQLFederadoDAO(conn);
-        this.estandarDAO = new SQLEstandarDAO(conn);
-        this.excursionDAO = new SQLExcursionDAO(conn);
-        this.inscripcionDAO = new SQLInscripcionDAO(conn);
-        this.federacionDAO = new SQLFederacionDAO(conn);
+        this.socioDAO = datos.getFabricaDAO().getSocioDAO();
+        this.infantilDAO = datos.getFabricaDAO().getInfantilDAO();
+        this.federadoDAO = datos.getFabricaDAO().getFederadoDAO();
+        this.estandarDAO = datos.getFabricaDAO().getEstandarDAO();
+        this.excursionDAO = datos.getFabricaDAO().getExcursionDAO();
+        this.inscripcionDAO = datos.getFabricaDAO().getInscripcionDAO();
+        this.federacionDAO = datos.getFabricaDAO().getFederacionDAO();
     }
     // Constructor
     ControlDatos(APPSenderosMontanas app) {
@@ -41,7 +40,7 @@ public class ControlDatos {
     }
     // Constructor de copia
     public ControlDatos (ControlDatos cDatos) {
-        this.datos = new Datos();
+        this.datos = new Datos(conn);
     }
 
     // Constructor vacío
@@ -57,7 +56,9 @@ public class ControlDatos {
     public Socio getSocio(String codigo) throws SQLException {
         return socioDAO.getSocio(codigo);
     }
-
+    public Federacion getFederacion(String codigo) throws SQLException {
+        return federacionDAO.getFederacion(codigo);
+    }
     public void modificarSocio(Socio socio) throws SQLException {
         socioDAO.modificarSocio(socio);
     }
@@ -221,7 +222,6 @@ public class ControlDatos {
     public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
         Object objeto = null;
 
-        // Obtener el objeto DAO correspondiente al tipo de objeto
         switch (tipoObjeto) {
             case 1:
                 objeto = excursionDAO.getExcursion(codigo);
@@ -239,9 +239,9 @@ public class ControlDatos {
                 throw new IllegalArgumentException("Tipo de objeto no válido");
         }
 
-        // Si el objeto no es nulo, significa que existe en la base de datos
         return objeto != null;
     }
+
 
 
     /**

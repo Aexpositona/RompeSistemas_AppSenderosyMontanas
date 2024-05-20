@@ -25,13 +25,19 @@ public class APPSenderosMontanas {
 
     public static void main(String[] args) throws ParseException, SQLException {
         APPSenderosMontanas app = new APPSenderosMontanas();
-        Datos datos = new Datos();
+        Datos datos = new Datos(DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "root", "admin"));
         app.iniciar(datos);
         app.showVistaMenuPrincipal();
     }
 
     public void iniciar(Datos datos) throws SQLException {
         this.datos = datos;
+        this.cDatos = new ControlDatos(datos);
+        this.cPeticiones = new ControlPeticiones();
+        this.cInscripciones = new ControlInscripciones(this);
+        this.cSocios = new ControlSocios(this, datos.getConnection());
+        this.cExcursiones = new ControlExcursiones(this);
+        this.cMenuPrincipal = new ControlMenuPrincipal(this);
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "root", "admin");
 
         cDatos = new ControlDatos(this);
