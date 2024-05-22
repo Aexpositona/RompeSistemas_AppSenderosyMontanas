@@ -34,8 +34,8 @@ public class VistaAddInscripcion {
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
         this.cDatos = cInscripciones.getControlDatos();
-        this.cExcursiones = new ControlExcursiones(cInscripciones.getApp());
-        this.cSocios = new ControlSocios(cInscripciones.getApp());  // Añadido
+        this.cExcursiones = new ControlExcursiones(cInscripciones.getApp(), cPeticiones);
+        this.cSocios = new ControlSocios(cInscripciones.getApp(), cPeticiones);  // Añadido
     }
 
     /**

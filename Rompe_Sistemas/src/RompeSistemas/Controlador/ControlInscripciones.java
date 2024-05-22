@@ -19,8 +19,9 @@ public class ControlInscripciones {
     private ControlDatos cDatos;
     private InscripcionDAO inscripcionDAO;
 
-    public ControlInscripciones(APPSenderosMontanas app) throws SQLException {
+    public ControlInscripciones(APPSenderosMontanas app, ControlPeticiones cPeticiones) throws SQLException {
         this.app = app;
+        this.cPeticiones = cPeticiones;
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
         this.vListarInscripciones = new VistaListarInscripciones(this);
@@ -28,6 +29,8 @@ public class ControlInscripciones {
         this.cDatos = new ControlDatos(app.getDatos());
         this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
     }
+
+
 
     public void show() throws SQLException {
         vInscripciones.show();

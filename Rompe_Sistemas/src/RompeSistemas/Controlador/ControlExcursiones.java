@@ -21,7 +21,7 @@ public class ControlExcursiones {
     private VistaListarExcursiones vListarExcursiones;
     private ExcursionDAO excursionDAO;
 
-    public ControlExcursiones(APPSenderosMontanas app) throws SQLException {
+    public ControlExcursiones(APPSenderosMontanas app, ControlPeticiones cPeticiones) throws SQLException {
         this.vExcursiones = new VistaExcursiones(this);
         this.vAddExcursion = new VistaAddExcursion();
         this.vListarExcursiones = new VistaListarExcursiones();
@@ -50,6 +50,8 @@ public class ControlExcursiones {
         this.cPeticiones = null;
         this.excursionDAO = null;
     }
+
+
 
     public VistaExcursiones getVistaExcursiones() {
         return vExcursiones;

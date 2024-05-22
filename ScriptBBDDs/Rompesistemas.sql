@@ -93,6 +93,29 @@ INSERT INTO Seguro (idSeguro, nombreSeguro, precio)
 VALUES (1,'Básico', 100.00), (2,'Completo', 200.00);
 SELECT * FROM Seguro;
 
+
+-- Trigger para insertar código en socios
+DELIMITER $$
+
+CREATE TRIGGER before_insert_socios
+BEFORE INSERT ON Socio
+FOR EACH ROW
+BEGIN
+    DECLARE max_code INT;
+    DECLARE new_code VARCHAR(10);
+
+    -- Obtener el mayor código actual y extraer el número
+    SELECT COALESCE(MAX(CAST(SUBSTRING(codigoSocio, 4) AS UNSIGNED)), 0) INTO max_code FROM Socio;
+
+    -- Generar el nuevo código incrementado
+    SET new_code = CONCAT('SOC', LPAD(max_code + 1, 4, '0'));
+
+    -- Asignar el nuevo código al nuevo registro
+    SET NEW.codigoSocio = new_code;
+END$$
+
+DELIMITER ;
+
 -- Función para definir código alfanumérico tipos de socio
 DROP FUNCTION IF EXISTS gen_codigo;
 DELIMITER //

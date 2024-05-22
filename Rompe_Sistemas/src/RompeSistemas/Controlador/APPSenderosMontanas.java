@@ -36,10 +36,10 @@ public class APPSenderosMontanas {
         this.cPeticiones = new ControlPeticiones();
 
         // Inicializamos los controladores con sus vistas correspondientes
-        this.cInscripciones = new ControlInscripciones(this);
-        this.cSocios = new ControlSocios(this);
-        this.cExcursiones = new ControlExcursiones(this);
-        this.cMenuPrincipal = new ControlMenuPrincipal(this);
+        this.cInscripciones = new ControlInscripciones(this, cPeticiones);
+        this.cSocios = new ControlSocios(this, cPeticiones);
+        this.cExcursiones = new ControlExcursiones(this, cPeticiones);
+        this.cMenuPrincipal = new ControlMenuPrincipal(this, cPeticiones);
 
         // Inicializamos y configuramos las vistas para ControlMenuPrincipal
         vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);

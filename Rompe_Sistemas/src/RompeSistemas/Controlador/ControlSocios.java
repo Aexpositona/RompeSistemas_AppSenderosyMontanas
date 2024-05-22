@@ -25,7 +25,7 @@ public class ControlSocios {
     private ExcursionDAO excursionDAO;
     private InscripcionDAO inscripcionDAO;
 
-    public ControlSocios(APPSenderosMontanas app) throws SQLException {
+    public ControlSocios(APPSenderosMontanas app, ControlPeticiones cPeticiones) throws SQLException {
         this.app = app;
         this.cPeticiones = new ControlPeticiones();
         this.cDatos = new ControlDatos(app.getDatos());
@@ -41,6 +41,8 @@ public class ControlSocios {
         this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO();
         this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
     }
+
+
 
     public void show() throws ParseException, SQLException {
         vSocios.show();
