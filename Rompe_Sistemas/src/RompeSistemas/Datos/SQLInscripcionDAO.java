@@ -18,12 +18,35 @@ public class SQLInscripcionDAO implements InscripcionDAO {
 
     @Override
     public void insertarInscripcion(Inscripcion inscripcion) throws SQLException {
+        // Obtener idSocio a partir del codigoSocio
+        String querySocio = "SELECT idSocio FROM Socio WHERE codigoSocio = ?";
+        PreparedStatement stmtSocio = conn.prepareStatement(querySocio);
+        stmtSocio.setString(1, inscripcion.getSocio().getNumero());
+        ResultSet rsSocio = stmtSocio.executeQuery();
+
+        if (!rsSocio.next()) {
+            throw new SQLException("No se encontró el socio con código: " + inscripcion.getSocio().getNumero());
+        }
+        int idSocio = rsSocio.getInt("idSocio");
+
+        // Obtener idExcursion a partir del codigoExcursion
+        String queryExcursion = "SELECT idExcursion FROM Excursion WHERE codigoExcursion = ?";
+        PreparedStatement stmtExcursion = conn.prepareStatement(queryExcursion);
+        stmtExcursion.setString(1, inscripcion.getExcursion().getCodigo());
+        ResultSet rsExcursion = stmtExcursion.executeQuery();
+
+        if (!rsExcursion.next()) {
+            throw new SQLException("No se encontró la excursión con código: " + inscripcion.getExcursion().getCodigo());
+        }
+        int idExcursion = rsExcursion.getInt("idExcursion");
+
+        // Insertar la inscripción utilizando los IDs obtenidos
         String query = "INSERT INTO Inscripcion (codigoInscripcion, fechaInscripcion, idSocio, idExcursion) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, inscripcion.getNumero());
         statement.setDate(2, java.sql.Date.valueOf(inscripcion.getFecha()));
-        statement.setString(3, inscripcion.getSocio().getNumero());
-        statement.setString(4, inscripcion.getExcursion().getCodigo());
+        statement.setInt(3, idSocio);
+        statement.setInt(4, idExcursion);
         statement.executeUpdate();
     }
     public ResultSet getAllInscripciones() throws SQLException {

@@ -23,12 +23,12 @@ public class ControlMenuPrincipal {
      *
      * @param app APPSenderosMontanas
      */
-    public ControlMenuPrincipal(APPSenderosMontanas app, ControlPeticiones cPeticiones) throws SQLException {
-        this.cPeticiones = new ControlPeticiones();
+    public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
-        this.cInscripciones = new ControlInscripciones(app, cPeticiones);
-        this.cSocios = new ControlSocios(app, cPeticiones);
-        this.cExcursiones = new ControlExcursiones(app, cPeticiones);
+        this.cInscripciones = new ControlInscripciones(app, cDatos, cPeticiones);
+        this.cSocios = new ControlSocios(app, cDatos, cPeticiones);
+        this.cExcursiones = new ControlExcursiones(app, cDatos, cPeticiones);
+        this.cPeticiones = cPeticiones;
 
     }
 
@@ -39,9 +39,9 @@ public class ControlMenuPrincipal {
      */
     public ControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) throws SQLException {
         this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal().getControlMenuPrincipal());
-        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones().getApp(), cMenuPrincipal.getControlInscripciones().getControlPeticiones());
-        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios().getApp(), cMenuPrincipal.getControlSocios().getControlPeticiones());
-        this.cExcursiones = new ControlExcursiones(cMenuPrincipal.getControlExcursiones());
+        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones().getApp(), cMenuPrincipal.getControlInscripciones().getControlDatos(), cMenuPrincipal.getControlInscripciones().getControlPeticiones());
+        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios().getApp(), cMenuPrincipal.getControlSocios().getControlDatos(), cMenuPrincipal.getControlSocios().getControlPeticiones());
+        this.cExcursiones = new ControlExcursiones(cMenuPrincipal.getControlExcursiones().getApp(), cMenuPrincipal.getControlExcursiones().getControlDatos(), cMenuPrincipal.getControlExcursiones().getControlPeticiones());
         this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
     }
 

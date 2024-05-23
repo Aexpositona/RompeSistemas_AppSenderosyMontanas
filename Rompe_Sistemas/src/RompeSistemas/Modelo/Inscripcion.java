@@ -19,6 +19,11 @@ public class Inscripcion {
      * @param excursion es excursión a la que se inscribe
      */
     public Inscripcion(String numero, Socio socio, Excursion excursion) {
+
+        if (excursion == null) {
+            throw new IllegalArgumentException("La excursión no puede ser nula");
+        }
+
         this.numero = numero;
         this.socio = socio;
         this.excursion = excursion;
@@ -26,6 +31,31 @@ public class Inscripcion {
     }
 
     public Inscripcion(String codigoInscripcion, LocalDate fechaInscripcion, String idSocio, String idExcursion) {
+        this.numero = codigoInscripcion;
+        this.fechaInscripcion = fechaInscripcion;
+        this.socio = new Socio();
+        this.excursion = new Excursion();
+    }
+
+    /**
+     * Método constructor de la clase Inscripcion que recibe un objeto de la misma clase para copiar los atributos.
+     * @param inscripcion objeto de la clase Inscripcion
+     */
+    public Inscripcion(Inscripcion inscripcion) {
+        this.numero = inscripcion.numero;
+        this.socio = inscripcion.socio;
+        this.excursion = inscripcion.excursion;
+        this.fechaInscripcion = inscripcion.fechaInscripcion;
+    }
+
+    /**
+     * Constructor vacío para generar sobrecarga de constructores.
+     */
+    public Inscripcion() {
+        this.numero = "";
+        this.socio = new Socio();
+        this.excursion = new Excursion();
+        this.fechaInscripcion = LocalDate.now();
     }
 
     /**

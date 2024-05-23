@@ -19,15 +19,15 @@ public class ControlInscripciones {
     private ControlDatos cDatos;
     private InscripcionDAO inscripcionDAO;
 
-    public ControlInscripciones(APPSenderosMontanas app, ControlPeticiones cPeticiones) throws SQLException {
+    public ControlInscripciones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
         this.app = app;
         this.cPeticiones = cPeticiones;
+        this.cDatos = cDatos;
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
         this.vListarInscripciones = new VistaListarInscripciones(this);
-        this.cPeticiones = new ControlPeticiones();
-        this.cDatos = new ControlDatos(app.getDatos());
         this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
+
     }
 
 
@@ -37,6 +37,9 @@ public class ControlInscripciones {
     }
 
     public void addInscripcion(Inscripcion inscripcion) throws SQLException {
+        if (inscripcion.getExcursion() == null) {
+            throw new IllegalArgumentException("La excursión no puede ser nula");
+        }
         inscripcionDAO.insertarInscripcion(inscripcion);
     }
 
