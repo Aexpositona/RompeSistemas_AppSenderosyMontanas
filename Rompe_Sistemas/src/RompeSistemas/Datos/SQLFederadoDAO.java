@@ -15,13 +15,18 @@ public class SQLFederadoDAO implements FederadoDAO {
     public SQLFederadoDAO(Connection conn) {
         this.conn = conn;
     }
+    
 
     @Override
     public ResultSet listarFederados() throws SQLException {
-        String query = "SELECT * FROM Federado";
+        String query = "SELECT s.codigoSocio, s.nombreSocio, s.nifSocio, f.nombreFederacion " +
+                "FROM Federado e " +
+                "JOIN Socio s ON e.idSocio = s.idSocio " +
+                "JOIN Federacion f ON e.idFederacion = f.idFederacion";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }
+
 
     @Override
     public Federado getFederado(String codigo) throws SQLException {

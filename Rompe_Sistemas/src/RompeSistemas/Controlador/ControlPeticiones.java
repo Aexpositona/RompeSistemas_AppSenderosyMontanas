@@ -87,6 +87,7 @@ public class ControlPeticiones {
         return f;
     }
 
+
     public String pedirNIF() {
         String nif = "";
         boolean resultado = false;

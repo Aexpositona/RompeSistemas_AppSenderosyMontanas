@@ -76,8 +76,13 @@ public class ControlSocios {
                 throw new IllegalArgumentException("Tipo de socio no válido");
         }
         while (rs.next()) {
-            System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio"));
+            if (tipo == 3) {
+                System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio") + ", Código del Tutor: " + rs.getString("codigoTutor"));
+            } else {
+                System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio"));
+            }
         }
+
     }
     public void listSocios() throws SQLException {
         ResultSet rs = socioDAO.listarSocios();

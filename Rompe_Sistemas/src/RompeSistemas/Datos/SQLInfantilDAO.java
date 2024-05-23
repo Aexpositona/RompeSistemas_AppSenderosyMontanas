@@ -12,12 +12,20 @@ public class SQLInfantilDAO implements InfantilDAO {
         this.conn = conn;
     }
 
+
+
+
     @Override
     public ResultSet listarInfantiles() throws SQLException {
-        String query = "SELECT * FROM Infantil";
+        String query = "SELECT s.codigoSocio, s.nombreSocio, s.nifSocio, t.codigoSocio AS codigoTutor " +
+                "FROM Infantil i " +
+                "JOIN Socio s ON i.idSocio = s.idSocio " +
+                "JOIN Socio t ON i.idSocioTutor = t.idSocio";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }
+
+
 
     @Override
     public Infantil getInfantil(String codigo) throws SQLException {
