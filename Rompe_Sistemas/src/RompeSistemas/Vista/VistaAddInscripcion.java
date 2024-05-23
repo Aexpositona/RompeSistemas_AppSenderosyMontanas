@@ -34,8 +34,9 @@ public class VistaAddInscripcion {
         this.cInscripciones = cInscripciones;
         this.cPeticiones = cInscripciones.getControlPeticiones();
         this.cDatos = cInscripciones.getControlDatos();
-        this.cExcursiones = new ControlExcursiones(cInscripciones.getApp());
-        this.cSocios = new ControlSocios(cInscripciones.getApp());  // Añadido
+        this.cExcursiones = new ControlExcursiones(cInscripciones.getApp(),cDatos, cPeticiones);
+        this.cSocios = new ControlSocios(cInscripciones.getApp(), cDatos, cPeticiones);
+
     }
 
     /**
@@ -138,11 +139,14 @@ public class VistaAddInscripcion {
             txtMostrarMensaje("\n-- Seleccionando excursión --\n");
             idExcursion = cPeticiones.pedirString("Introduzca el código de la excursión: ");
             if (cDatos.checkExistenciaObjeto(1, idExcursion)) {
-                cDatos.getExcursion(idExcursion);
-                break;
+                excursion = cDatos.getExcursion(idExcursion);
+                if (excursion != null) {
+                    break;
+                }
             } else {
                 txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n");
             }
+
         }
 
         // Creamos y añadimos la inscripción

@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 
 public class ControlExcursiones {
+    private APPSenderosMontanas app;
     private ControlDatos cDatos;
     private ControlPeticiones cPeticiones;
     private Datos datos;
@@ -21,34 +22,19 @@ public class ControlExcursiones {
     private VistaListarExcursiones vListarExcursiones;
     private ExcursionDAO excursionDAO;
 
-    public ControlExcursiones(APPSenderosMontanas app) throws SQLException {
+    public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
+        this.app = app;
+        this.cDatos = cDatos;
+        this.cPeticiones = cPeticiones; // Pasar ControlPeticiones aquí
         this.vExcursiones = new VistaExcursiones(this);
-        this.vAddExcursion = new VistaAddExcursion();
-        this.vListarExcursiones = new VistaListarExcursiones();
-        this.datos = app.getDatos();
-        this.cDatos = app.getControlDatos();
-        this.cPeticiones = app.getControlPeticiones();
-        this.excursionDAO = datos.getFabricaDAO().getExcursionDAO();
+        this.vAddExcursion = new VistaAddExcursion(this);
+        this.vListarExcursiones = new VistaListarExcursiones(this);
+        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO();
     }
 
-    public ControlExcursiones(ControlExcursiones cExcursiones) {
-        this.vExcursiones = cExcursiones.getVistaExcursiones();
-        this.vAddExcursion = cExcursiones.getVistaAddExcursion();
-        this.vListarExcursiones = cExcursiones.getVistaListarExcursiones();
-        this.datos = cExcursiones.getDatos();
-        this.cDatos = cExcursiones.getControlDatos();
-        this.cPeticiones = cExcursiones.getControlPeticiones();
-        this.excursionDAO = cExcursiones.getExcursionDAO();
-    }
 
-    public ControlExcursiones() {
-        this.vExcursiones = null;
-        this.vAddExcursion = null;
-        this.vListarExcursiones = null;
-        this.datos = null;
-        this.cDatos = null;
-        this.cPeticiones = null;
-        this.excursionDAO = null;
+    public APPSenderosMontanas getApp() {
+        return app;
     }
 
     public VistaExcursiones getVistaExcursiones() {
@@ -169,4 +155,6 @@ public class ControlExcursiones {
     public Excursion getExcursion(String codigoExcursion) throws SQLException {
         return excursionDAO.getExcursion(codigoExcursion);
     }
+
+
 }

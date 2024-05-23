@@ -22,8 +22,9 @@ public class ControlDatos {
     private ExcursionDAO excursionDAO;
     private InscripcionDAO inscripcionDAO;
     private FederacionDAO federacionDAO;
+    private ControlPeticiones cPeticiones;
 
-    public ControlDatos(Datos datos) throws SQLException {
+    public ControlDatos(Datos datos, ControlPeticiones cPeticiones) throws SQLException {
         this.datos = datos;
         FabricaDAO fabricaDAO = datos.getFabricaDAO();
         this.socioDAO = fabricaDAO.getSocioDAO();
@@ -33,11 +34,12 @@ public class ControlDatos {
         this.excursionDAO = fabricaDAO.getExcursionDAO();
         this.inscripcionDAO = fabricaDAO.getInscripcionDAO();
         this.federacionDAO = fabricaDAO.getFederacionDAO();
+        this.cPeticiones = cPeticiones;
     }
 
     // Constructor vacío
     public ControlDatos() throws SQLException {
-        this(new Datos());
+        this(new Datos(), new ControlPeticiones());
     }
 
     // Métodos
@@ -75,8 +77,8 @@ public class ControlDatos {
 public void modificarFederacion(Federacion federacion) throws SQLException {
         federacionDAO.modificarFederacion(federacion);
     }
-    public void getExcursion(String codigo) throws SQLException {
-        excursionDAO.getExcursion(codigo);
+    public Excursion getExcursion(String codigo) throws SQLException {
+        return excursionDAO.getExcursion(codigo);
     }
     public void eliminarSocio(Socio socio) throws SQLException {
         if (socio instanceof Infantil) {
@@ -247,4 +249,5 @@ public void modificarFederacion(Federacion federacion) throws SQLException {
         }
         return "";
     }
+
 }

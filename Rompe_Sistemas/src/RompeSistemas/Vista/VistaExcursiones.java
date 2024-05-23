@@ -156,7 +156,7 @@ public class VistaExcursiones {
      */
     private void buttonVistaAddExcursion() throws ParseException, SQLException {
         txtMostrarMensaje("Accediendo a la vista de añadir excursión...\n");
-        vAddExcursion.show();
+        cExcursiones.showVistaAddExcursion();
     }
 
     /**

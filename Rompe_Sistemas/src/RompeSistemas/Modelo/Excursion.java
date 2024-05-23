@@ -43,6 +43,17 @@ public class Excursion {
         this.precio = excursion.precio;
     }
 
+    /**
+     * Constructor vacío para generar sobrecarga de constructores.
+     */
+    public Excursion() {
+        this.codigo = "";
+        this.descripcion = "";
+        this.fecha = LocalDate.now();
+        this.duracion = 0;
+        this.precio = 0;
+    }
+
     // Métodos Getters
 
     /**

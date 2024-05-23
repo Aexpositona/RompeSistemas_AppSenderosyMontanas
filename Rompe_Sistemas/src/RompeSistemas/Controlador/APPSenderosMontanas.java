@@ -32,14 +32,15 @@ public class APPSenderosMontanas {
 
     public void iniciar(Datos datos) throws SQLException {
         this.datos = datos;
-        this.cDatos = new ControlDatos(datos);
         this.cPeticiones = new ControlPeticiones();
+        this.cDatos = new ControlDatos(datos, cPeticiones);
+
 
         // Inicializamos los controladores con sus vistas correspondientes
-        this.cInscripciones = new ControlInscripciones(this);
-        this.cSocios = new ControlSocios(this);
-        this.cExcursiones = new ControlExcursiones(this);
-        this.cMenuPrincipal = new ControlMenuPrincipal(this);
+        this.cInscripciones = new ControlInscripciones(this,cDatos, cPeticiones);
+        this.cSocios = new ControlSocios(this, cDatos, cPeticiones);
+        this.cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones);
+        this.cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones);
 
         // Inicializamos y configuramos las vistas para ControlMenuPrincipal
         vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);
