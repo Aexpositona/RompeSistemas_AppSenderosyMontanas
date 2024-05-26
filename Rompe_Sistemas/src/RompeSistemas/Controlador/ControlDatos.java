@@ -151,21 +151,21 @@ public void modificarFederacion(Federacion federacion) throws SQLException {
      * @param codigo     Código del objeto
      * @return true si el objeto existe, false en caso contrario
      */
-    public boolean checkExistenciaObjeto(int tipoObjeto, String codigo) throws SQLException {
+    public boolean checkExistenciaObjeto(int tipoObjeto, String identificador) throws SQLException {
         Object objeto = null;
 
         switch (tipoObjeto) {
             case 1:
-                objeto = excursionDAO.getExcursion(codigo);
+                objeto = excursionDAO.getExcursion(identificador);
                 break;
             case 2:
-                objeto = inscripcionDAO.getInscripcion(codigo);
+                objeto = inscripcionDAO.getInscripcion(identificador);
                 break;
             case 3:
-                objeto = socioDAO.getSocio(codigo);
+                objeto = socioDAO.getSocio(identificador);
                 break;
             case 4:
-                objeto = federacionDAO.getFederacion(codigo);
+                objeto = federacionDAO.getFederacion(identificador);
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de objeto no válido");

@@ -73,11 +73,12 @@ public class SQLEstandarDAO implements EstandarDAO {
 
     @Override
     public void insertarEstandar(Estandar estandar) throws SQLException {
-        String query = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Socio (tipo, nombreSocio, nifSocio, codigoSocio) VALUES (?, ?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
         pstmt.setInt(1, estandar.getTipo());
         pstmt.setString(2, estandar.getNombre());
         pstmt.setString(3, estandar.getNif());
+        pstmt.setString(4, estandar.getNumero()); // Aquí insertamos el código del socio
         pstmt.executeUpdate();
 
         ResultSet rs = pstmt.getGeneratedKeys();

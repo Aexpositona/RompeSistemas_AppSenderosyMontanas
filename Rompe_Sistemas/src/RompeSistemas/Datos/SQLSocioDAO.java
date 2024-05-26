@@ -55,12 +55,11 @@ public class SQLSocioDAO implements SocioDAO {
 
     @Override
     public void insertarSocio(Socio socio) throws SQLException {
-        String query = "INSERT INTO Socio (tipo, codigoSocio, nombreSocio, nifSocio) VALUES (?, ?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        pstmt.setInt(1, socio.getTipo());
+        String query = "INSERT INTO Socio (nombreSocio, codigoSocio, nifSocio) VALUES (?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, socio.getNombre());
         pstmt.setString(2, socio.getNumero());
-        pstmt.setString(3, socio.getNombre());
-        pstmt.setString(4, socio.getNif());
+        pstmt.setString(3, socio.getNif());
         pstmt.executeUpdate();
     }
 

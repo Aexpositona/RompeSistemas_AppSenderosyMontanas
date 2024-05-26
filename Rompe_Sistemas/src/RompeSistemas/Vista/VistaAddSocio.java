@@ -69,7 +69,7 @@ public class VistaAddSocio {
      */
     public void buttonAddSocio() throws SQLException {
         // Variables internas
-        String numero, nombre, numSocioTutor = "", nif;
+        String numero, nombre = "", nif;
         Seguro seguro = null;
         txtMostrarMensaje("-- Procediendo a añadir un socio --\n");
         txtMostrarMensaje("Tipos de socio:\n");
@@ -124,13 +124,15 @@ public class VistaAddSocio {
                 break;
 
             case 3: // Socio Infantil
+                String numSocioTutor = ""  ;
                 do {
-                    String codigoSocioTutor = cPeticiones.pedirString("Introduce el código del socio tutor: ");
-                    if (cDatos.checkExistenciaObjeto(3, codigoSocioTutor)) {
+                    String codigoSocioTutor = cPeticiones.pedirString("Introduce el número del socio tutor: ");
+                    ControlDatos socioDAO   = new ControlDatos();
+                    if (socioDAO.getSocio(codigoSocioTutor) != null) {
                         numSocioTutor = codigoSocioTutor;
                         break;
                     } else {
-                        txtMostrarMensaje("El socio tutor no existe. Introduce un código de socio válido.");
+                        txtMostrarMensaje("El socio tutor no existe. Introduce un número de socio válido.");
                     }
                 } while (true);
                 Infantil infantil = new Infantil(nombre, numero, nif, numSocioTutor);

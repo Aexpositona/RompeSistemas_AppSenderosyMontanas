@@ -14,7 +14,9 @@ public class SQLInfantilDAO implements InfantilDAO {
 
     @Override
     public ResultSet listarInfantiles() throws SQLException {
-        String query = "SELECT * FROM Infantil";
+        String query = "SELECT s.codigoSocio, s.nombreSocio, s.nifSocio, i.idSocioTutor " +
+                "FROM Infantil i " +
+                "JOIN Socio s ON i.idSocio = s.idSocio";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }
@@ -78,11 +80,21 @@ public class SQLInfantilDAO implements InfantilDAO {
         ResultSet rs = pstmt.getGeneratedKeys();
         if (rs.next()) {
             int idSocio = rs.getInt(1);
-            query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
+
+            // Obtener el idSocio del tutor a partir de su número de socio
+            query = "SELECT idSocio FROM Socio WHERE codigoSocio = ?";
             pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, idSocio);
-            pstmt.setString(2, infantil.getNumSocioTutor());
-            pstmt.executeUpdate();
+            pstmt.setString(1, infantil.getNumSocioTutor());
+            ResultSet rsTutor = pstmt.executeQuery();
+            if (rsTutor.next()) {
+                int idSocioTutor = rsTutor.getInt("idSocio");
+
+                query = "INSERT INTO Infantil (idSocio, idSocioTutor) VALUES (?, ?)";
+                pstmt = conn.prepareStatement(query);
+                pstmt.setInt(1, idSocio);
+                pstmt.setInt(2, idSocioTutor);
+                pstmt.executeUpdate();
+            }
         }
     }
 }

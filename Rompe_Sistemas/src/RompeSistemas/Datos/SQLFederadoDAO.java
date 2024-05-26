@@ -18,7 +18,10 @@ public class SQLFederadoDAO implements FederadoDAO {
 
     @Override
     public ResultSet listarFederados() throws SQLException {
-        String query = "SELECT * FROM Federado";
+        String query = "SELECT s.codigoSocio, s.nombreSocio, s.nifSocio, f.codigoFederacion " +
+                "FROM Federado e " +
+                "JOIN Socio s ON e.idSocio = s.idSocio " +
+                "JOIN Federacion f ON e.idFederacion = f.idFederacion";
         PreparedStatement pstmt = conn.prepareStatement(query);
         return pstmt.executeQuery();
     }
@@ -68,11 +71,12 @@ public class SQLFederadoDAO implements FederadoDAO {
     @Override
     public void insertarFederado(Federado federado) throws SQLException {
         // Primero, insertar en la tabla Socio
-        String querySocio = "INSERT INTO Socio (tipo, nombreSocio, nifSocio) VALUES (?, ?, ?)";
+        String querySocio = "INSERT INTO Socio (tipo, nombreSocio, nifSocio, codigoSocio) VALUES (?, ?, ?, ?)";
         PreparedStatement pstmtSocio = conn.prepareStatement(querySocio, PreparedStatement.RETURN_GENERATED_KEYS);
         pstmtSocio.setInt(1, federado.getTipo());
         pstmtSocio.setString(2, federado.getNombre());
         pstmtSocio.setString(3, federado.getNif());
+        pstmtSocio.setString(4, federado.getNumero()); // Aquí insertamos el código del socio
         pstmtSocio.executeUpdate();
 
         // Obtener el ID del socio recién insertado

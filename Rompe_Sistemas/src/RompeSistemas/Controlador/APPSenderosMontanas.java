@@ -25,7 +25,7 @@ public class APPSenderosMontanas {
 
     public static void main(String[] args) throws ParseException, SQLException {
         APPSenderosMontanas app = new APPSenderosMontanas();
-        Datos datos = new Datos(DriverManager.getConnection("jdbc:mysql://localhost:3306/APPSenderosMontanas", "root", "admin"));
+        Datos datos = new Datos(DriverManager.getConnection("jdbc:mysql://localhost:3306/appsenderosmontanas", "root", "admin"));
         app.iniciar(datos);
         app.showVistaMenuPrincipal();
     }
