@@ -100,4 +100,24 @@ public class SQLExcursionDAO implements ExcursionDAO {
         pstmt.setString(1, "%" + parametro + "%");
         return pstmt.executeQuery();
     }
+
+
+    @Override
+    public Excursion getExcursionPorCodigo(String codigoExcursion) throws SQLException {
+        String query = "SELECT * FROM Excursion WHERE codigoExcursion = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, codigoExcursion);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            return new Excursion(
+                    rs.getString("codigoExcursion"),
+                    rs.getString("descripcion"),
+                    rs.getDate("fecha").toLocalDate(),
+                    rs.getInt("duracion"),
+                    rs.getFloat("precio")
+            );
+        }
+        return null; // Asegurarse de devolver null si no se encuentra la excursión
+    }
 }

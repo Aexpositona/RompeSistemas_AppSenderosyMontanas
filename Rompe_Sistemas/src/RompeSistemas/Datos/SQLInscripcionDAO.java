@@ -3,16 +3,14 @@ package RompeSistemas.Datos;
 import RompeSistemas.Modelo.Inscripcion;
 import RompeSistemas.ModeloDAO.InscripcionDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 
 public class SQLInscripcionDAO implements InscripcionDAO {
     private Connection conn;
 
     public SQLInscripcionDAO(Connection conn) {
+
         this.conn = conn;
     }
 
@@ -110,12 +108,16 @@ public class SQLInscripcionDAO implements InscripcionDAO {
 
     @Override
     public ResultSet getInscripcionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        String query = "SELECT * FROM Inscripcion WHERE fechaInscripcion BETWEEN ? AND ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setDate(1, java.sql.Date.valueOf(fechaInicial));
-        statement.setDate(2, java.sql.Date.valueOf(fechaFinal));
-        return statement.executeQuery();
+        String query = "SELECT i.codigoInscripcion, i.fechaInscripcion, i.idSocio, i.idExcursion, ex.codigoExcursion " +
+                "FROM Inscripcion i " +
+                "JOIN Excursion ex ON i.idExcursion = ex.idExcursion " +
+                "WHERE i.fechaInscripcion BETWEEN ? AND ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setDate(1, Date.valueOf(fechaInicial));
+        pstmt.setDate(2, Date.valueOf(fechaFinal));
+        return pstmt.executeQuery();
     }
+
 
     @Override
     public Inscripcion getInscripcion(String codigo) throws SQLException {

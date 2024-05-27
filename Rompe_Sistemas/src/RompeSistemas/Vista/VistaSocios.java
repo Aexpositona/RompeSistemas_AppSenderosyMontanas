@@ -2,6 +2,7 @@ package RompeSistemas.Vista;
 
 import RompeSistemas.Controlador.ControlSocios;
 import RompeSistemas.Controlador.ControlPeticiones;
+import RompeSistemas.Modelo.Socio;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -54,8 +55,13 @@ public class VistaSocios {
      * Método para añadir un botón que nos permite eliminar un socio
      */
     public void buttonRemoveSocio() throws SQLException {
-        String codigo = cPeticiones.pedirString("Introduzca el código del socio a eliminar: ");
-        cSocios.removeSocio(codigo);
+        String codigoSocio = cPeticiones.pedirString("Introduzca el código del socio a eliminar: ");
+        Socio socio = cSocios.getControlDatos().getSocio(codigoSocio);
+        if (socio != null) {
+            cSocios.removeSocio(socio);
+        } else {
+            txtMostrarMensaje("Socio no encontrado.\n");
+        }
     }
 
     /**
