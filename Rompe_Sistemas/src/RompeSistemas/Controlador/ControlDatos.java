@@ -92,6 +92,7 @@ public void modificarFederacion(Federacion federacion) throws SQLException {
         }
     }
 
+
     public void addInfantil(Infantil infantil) throws SQLException {
         infantilDAO.insertarInfantil(infantil);
     }
@@ -148,7 +149,7 @@ public void modificarFederacion(Federacion federacion) throws SQLException {
      *                  2 - Inscripción
      *                  3 - Socio
      *                  4 - Federación
-     * @param codigo     Código del objeto
+     *
      * @return true si el objeto existe, false en caso contrario
      */
     public boolean checkExistenciaObjeto(int tipoObjeto, String identificador) throws SQLException {

@@ -86,23 +86,15 @@ public class ControlSocios {
         }
     }
 
-    public void removeSocio(String codigo) throws SQLException {
-        Socio socio = socioDAO.getSocio(codigo);
+    public void removeSocio(Socio socio) throws SQLException {
         if (socio != null) {
-            if (socio instanceof Infantil) {
-                infantilDAO.eliminarInfantil((Infantil) socio);
-            } else if (socio instanceof Federado) {
-                federadoDAO.eliminarFederado((Federado) socio);
-            } else if (socio instanceof Estandar) {
-                estandarDAO.eliminarEstandar((Estandar) socio);
-            } else {
-                socioDAO.eliminarSocio(socio);
-            }
+            socioDAO.eliminarSocio(socio);
             System.out.println("Socio eliminado correctamente.");
         } else {
             System.out.println("Socio no encontrado.");
         }
     }
+
 
     public void modificarSocio(Socio socio) throws SQLException {
         if (socio instanceof Infantil) {
@@ -158,13 +150,21 @@ public class ControlSocios {
         float totalFactura = 0;
 
         while (rs.next()) {
-            String codigoExcursion = rs.getString("idExcursion");
-            Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
-            totalFactura += excursion.getPrecio();
+            String codigoExcursion = rs.getString("codigoExcursion");
+            System.out.println("Recuperado codigoExcursion: " + codigoExcursion);  // Añadir depuración
+            Excursion excursion = excursionDAO.getExcursionPorCodigo(codigoExcursion);
+            if (excursion != null) {
+                totalFactura += excursion.getPrecio();
+            } else {
+                System.out.println("No se encontró la excursión con código: " + codigoExcursion);
+            }
         }
 
         System.out.println("Total factura entre fechas de los socios: " + totalFactura + " euros.");
     }
+
+
+
 
     public void calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
         ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);

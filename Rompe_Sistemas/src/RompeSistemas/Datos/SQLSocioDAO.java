@@ -47,11 +47,43 @@ public class SQLSocioDAO implements SocioDAO {
 
     @Override
     public void eliminarSocio(Socio socio) throws SQLException {
-        String query = "DELETE FROM Socio WHERE codigoSocio = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
+        // Obtener el idSocio basado en el objeto Socio
+        String getIdQuery = "SELECT idSocio FROM Socio WHERE codigoSocio = ?";
+        PreparedStatement pstmt = conn.prepareStatement(getIdQuery);
         pstmt.setString(1, socio.getNumero());
-        pstmt.executeUpdate();
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            int idSocio = rs.getInt("idSocio");
+
+            // Eliminar en las tablas dependientes
+            String deleteEstandarQuery = "DELETE FROM Estandar WHERE idSocio = ?";
+            PreparedStatement deleteEstandarStmt = conn.prepareStatement(deleteEstandarQuery);
+            deleteEstandarStmt.setInt(1, idSocio);
+            deleteEstandarStmt.executeUpdate();
+
+            String deleteInfantilQuery = "DELETE FROM Infantil WHERE idSocio = ?";
+            PreparedStatement deleteInfantilStmt = conn.prepareStatement(deleteInfantilQuery);
+            deleteInfantilStmt.setInt(1, idSocio);
+            deleteInfantilStmt.executeUpdate();
+
+            String deleteFederadoQuery = "DELETE FROM Federado WHERE idSocio = ?";
+            PreparedStatement deleteFederadoStmt = conn.prepareStatement(deleteFederadoQuery);
+            deleteFederadoStmt.setInt(1, idSocio);
+            deleteFederadoStmt.executeUpdate();
+
+            // Eliminar en la tabla Socio
+            String deleteSocioQuery = "DELETE FROM Socio WHERE idSocio = ?";
+            PreparedStatement deleteSocioStmt = conn.prepareStatement(deleteSocioQuery);
+            deleteSocioStmt.setInt(1, idSocio);
+            deleteSocioStmt.executeUpdate();
+
+            System.out.println("Socio eliminado correctamente.");
+        } else {
+            System.out.println("Socio no encontrado.");
+        }
     }
+
 
     @Override
     public void insertarSocio(Socio socio) throws SQLException {
