@@ -1,123 +1,70 @@
 package RompeSistemas.Controlador;
 
-import RompeSistemas.Modelo.Datos;
+import RompeSistemas.Datos.SQLExcursionDAO;
 import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.ModeloDAO.ExcursionDAO;
 import RompeSistemas.Vista.VistaExcursiones;
 import RompeSistemas.Vista.VistaAddExcursion;
 import RompeSistemas.Vista.VistaListarExcursiones;
 
-import java.sql.ResultSet;
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class ControlExcursiones {
-    private APPSenderosMontanas app;
+    private EntityManager entityManager;
     private ControlDatos cDatos;
-    private ControlPeticiones cPeticiones;
-    private Datos datos;
+    private ExcursionDAO excursionDAO;
     private VistaExcursiones vExcursiones;
     private VistaAddExcursion vAddExcursion;
     private VistaListarExcursiones vListarExcursiones;
-    private ExcursionDAO excursionDAO;
+    private ControlPeticiones cPeticiones;
 
-    public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
-        this.app = app;
+    public ControlExcursiones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager entityManager) {
+        this.entityManager = entityManager;
         this.cDatos = cDatos;
-        this.cPeticiones = cPeticiones; // Pasar ControlPeticiones aquí
+        this.cPeticiones = cPeticiones;
+        this.excursionDAO = new SQLExcursionDAO(entityManager);
         this.vExcursiones = new VistaExcursiones(this);
         this.vAddExcursion = new VistaAddExcursion(this);
         this.vListarExcursiones = new VistaListarExcursiones(this);
-        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO();
     }
 
-
-    public APPSenderosMontanas getApp() {
-        return app;
-    }
-
-    public VistaExcursiones getVistaExcursiones() {
-        return vExcursiones;
-    }
-
-    public VistaAddExcursion getVistaAddExcursion() {
-        return vAddExcursion;
-    }
-
-    public VistaListarExcursiones getVistaListarExcursiones() {
-        return vListarExcursiones;
-    }
-
-    public Datos getDatos() {
-        return datos;
-    }
-
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
-
-    public ControlPeticiones getControlPeticiones() {
-        return cPeticiones;
-    }
-
-    public ExcursionDAO getExcursionDAO() {
-        return excursionDAO;
-    }
-
-    public void setDatos(Datos datos) {
-        this.datos = datos;
-    }
-
-    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
-        this.vExcursiones = vExcursiones;
-    }
-
-    public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
-        this.vAddExcursion = vAddExcursion;
-    }
-
-    public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
-        this.vListarExcursiones = vListarExcursiones;
-    }
-
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
-
-    public void setControlPeticiones(ControlPeticiones cPeticiones) {
-        this.cPeticiones = cPeticiones;
-    }
-
-    public void addExcursion(Excursion excursion) throws SQLException {
-        excursionDAO.addExcursion(excursion);
-    }
-
-    public void removeExcursion(Excursion excursion) throws SQLException {
-        excursionDAO.deleteExcursion(excursion);
-    }
-
-    public void listExcursiones() throws SQLException {
-        ResultSet rs = excursionDAO.getAllExcursiones();
-        while (rs.next()) {
-            System.out.println("Código: " + rs.getString("codigoExcursion"));
-            System.out.println("Descripción: " + rs.getString("descripcion"));
-            System.out.println("Fecha: " + rs.getDate("fecha").toLocalDate());
-            System.out.println("Duración: " + rs.getInt("duracion"));
-            System.out.println("Precio: " + rs.getFloat("precio"));
-            System.out.println();
+    public void addExcursion(Excursion excursion) {
+        entityManager.getTransaction().begin();
+        try {
+            excursionDAO.addExcursion(excursion);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
         }
     }
 
-    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        ResultSet rs = excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
-        while (rs.next()) {
-            System.out.println("Código: " + rs.getString("codigoExcursion"));
-            System.out.println("Descripción: " + rs.getString("descripcion"));
-            System.out.println("Fecha: " + rs.getDate("fecha").toLocalDate());
-            System.out.println("Duración: " + rs.getInt("duracion"));
-            System.out.println("Precio: " + rs.getFloat("precio"));
-            System.out.println();
+    public void removeExcursion(Excursion excursion) {
+        entityManager.getTransaction().begin();
+        try {
+            excursionDAO.deleteExcursion(excursion);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+    public void listExcursiones() {
+        List<Excursion> excursiones = excursionDAO.getAllExcursiones();
+        for (Excursion excursion : excursiones) {
+            System.out.println("Código: " + excursion.getCodigo() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
+        }
+    }
+
+    public void listExcursionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        List<Excursion> excursiones = excursionDAO.getExcursionesPorFecha(fechaInicial, fechaFinal);
+        for (Excursion excursion : excursiones) {
+            System.out.println("Código: " + excursion.getCodigo() + ", Descripción: " + excursion.getDescripcion() + ", Fecha: " + excursion.getFecha());
         }
     }
 
@@ -133,28 +80,42 @@ public class ControlExcursiones {
         vAddExcursion.show();
     }
 
-    public String getUltimoCodigo() throws SQLException {
-        return excursionDAO.getUltimoCodigo();
+    public String getUltimoCodigo() {
+        return cDatos.getSiguienteCodigo(1); // 1 para tipo Excursión
     }
 
-    public String getSiguienteCodigo() throws SQLException {
-        String ultimoCodigo = getUltimoCodigo();
-        if (ultimoCodigo == null) {
-            return "EXC0001";
-        } else {
-            int numero = Integer.parseInt(ultimoCodigo.substring(3)) + 1;
-            return String.format("EXC%04d", numero);
-        }
+    public String getSiguienteCodigo() {
+        return cDatos.getSiguienteCodigo(1); // 1 para tipo Excursión
     }
 
-    public boolean checkExistenciaExcursion(String codigoExcursion) throws SQLException {
-        Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
-        return excursion != null;
+    public boolean checkExistenciaExcursion(String codigoExcursion) {
+        return excursionDAO.getExcursionPorCodigo(codigoExcursion) != null;
     }
 
-    public Excursion getExcursion(String codigoExcursion) throws SQLException {
-        return excursionDAO.getExcursion(codigoExcursion);
+    public Excursion getExcursion(String codigoExcursion) {
+        return excursionDAO.getExcursionPorCodigo(codigoExcursion);
     }
 
+    public void setVistaExcursiones(VistaExcursiones vExcursiones) {
+        this.vExcursiones = vExcursiones;
+    }
+
+    public void setVistaAddExcursion(VistaAddExcursion vAddExcursion) {
+        this.vAddExcursion = vAddExcursion;
+    }
+
+    public void setVistaListarExcursiones(VistaListarExcursiones vListarExcursiones) {
+        this.vListarExcursiones = vListarExcursiones;
+    }
+
+    // Método para obtener ControlDatos
+    public ControlDatos getControlDatos() {
+        return cDatos;
+    }
+
+    // Método para obtener ControlPeticiones
+    public ControlPeticiones getControlPeticiones() {
+        return cPeticiones;
+    }
 
 }

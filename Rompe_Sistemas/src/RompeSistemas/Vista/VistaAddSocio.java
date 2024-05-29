@@ -8,6 +8,7 @@ import RompeSistemas.ModeloDAO.InfantilDAO;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 public class VistaAddSocio {
     // Atributos
@@ -34,7 +35,6 @@ public class VistaAddSocio {
         this.cPeticiones = null;
         this.cDatos = null;
     }
-
 
     // Getters
     public ControlSocios getControlSocios() {
@@ -81,7 +81,7 @@ public class VistaAddSocio {
         // Mientras el NIF introducido ya exista, pedir otro NIF
         do {
             nif = cPeticiones.pedirNIF();
-            if (!cDatos.checkExistenciaNIF(nif)) {
+            if (!nifExiste(nif)) {
                 break;
             } else {
                 txtMostrarMensaje("El NIF introducido ya existe. Introduce otro NIF.");
@@ -124,11 +124,10 @@ public class VistaAddSocio {
                 break;
 
             case 3: // Socio Infantil
-                String numSocioTutor = ""  ;
+                String numSocioTutor = "";
                 do {
                     String codigoSocioTutor = cPeticiones.pedirString("Introduce el número del socio tutor: ");
-                    ControlDatos socioDAO   = new ControlDatos();
-                    if (socioDAO.getSocio(codigoSocioTutor) != null) {
+                    if (cSocios.getSocio(codigoSocioTutor) != null) {
                         numSocioTutor = codigoSocioTutor;
                         break;
                     } else {
@@ -144,6 +143,16 @@ public class VistaAddSocio {
                 txtMostrarMensaje("Tipo de socio no válido.\n");
                 break;
         }
+    }
+
+    private boolean nifExiste(String nif) throws SQLException {
+        List<Socio> listSocios = cSocios.listSocios();
+        for (Socio socio : listSocios) {
+            if (socio.getNif().equals(nif)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void buttonAtras() throws ParseException {

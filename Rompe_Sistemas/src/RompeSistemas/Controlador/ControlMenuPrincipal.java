@@ -2,6 +2,7 @@ package RompeSistemas.Controlador;
 
 import RompeSistemas.Vista.VistaMenuPrincipal;
 
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -17,32 +18,38 @@ public class ControlMenuPrincipal {
     private ControlSocios cSocios;
     private ControlExcursiones cExcursiones;
     private ControlPeticiones cPeticiones;
+    private EntityManager em;
 
     /**
      * Constructor de ControlMenuPrincipal.
      *
      * @param app APPSenderosMontanas
+     * @param cDatos ControlDatos
+     * @param cPeticiones ControlPeticiones
+     * @param em EntityManager
      */
-    public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
+    public ControlMenuPrincipal(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em) throws SQLException {
+        this.em = em;
         this.vMenuPrincipal = new VistaMenuPrincipal(this);
-        this.cInscripciones = new ControlInscripciones(app, cDatos, cPeticiones);
-        this.cSocios = new ControlSocios(app, cDatos, cPeticiones);
-        this.cExcursiones = new ControlExcursiones(app, cDatos, cPeticiones);
+        this.cInscripciones = new ControlInscripciones(em, cDatos, cPeticiones);
+        this.cSocios = new ControlSocios(app, cDatos, cPeticiones, em);
+        this.cExcursiones = new ControlExcursiones(app, cDatos, cPeticiones, em);
         this.cPeticiones = cPeticiones;
-
     }
 
     /**
      * Constructor de ControlMenuPrincipal de copia.
      *
      * @param cMenuPrincipal ControlMenuPrincipal a copiar
+     * @param em EntityManager
      */
-    public ControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) throws SQLException {
-        this.vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal.getVistaMenuPrincipal().getControlMenuPrincipal());
-        this.cInscripciones = new ControlInscripciones(cMenuPrincipal.getControlInscripciones().getApp(), cMenuPrincipal.getControlInscripciones().getControlDatos(), cMenuPrincipal.getControlInscripciones().getControlPeticiones());
-        this.cSocios = new ControlSocios(cMenuPrincipal.getControlSocios().getApp(), cMenuPrincipal.getControlSocios().getControlDatos(), cMenuPrincipal.getControlSocios().getControlPeticiones());
-        this.cExcursiones = new ControlExcursiones(cMenuPrincipal.getControlExcursiones().getApp(), cMenuPrincipal.getControlExcursiones().getControlDatos(), cMenuPrincipal.getControlExcursiones().getControlPeticiones());
-        this.cPeticiones = new ControlPeticiones(cMenuPrincipal.getControlPeticiones());
+    public ControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal, EntityManager em) {
+        this.em = em;
+        this.vMenuPrincipal = cMenuPrincipal.getVistaMenuPrincipal();
+        this.cInscripciones = cMenuPrincipal.getControlInscripciones();
+        this.cSocios = cMenuPrincipal.getControlSocios();
+        this.cExcursiones = cMenuPrincipal.getControlExcursiones();
+        this.cPeticiones = cMenuPrincipal.getControlPeticiones();
     }
 
     /**

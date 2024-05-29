@@ -1,28 +1,23 @@
 package RompeSistemas.Datos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/appsenderosmontanas";
-    private static final String USER = "root";
-    private static final String PASSWORD = "admin";
+    private static final String PERSISTENCE_UNIT_NAME = "AppSenderosMontanasPU";
+    private static EntityManagerFactory emf = null;
 
-    public static Connection conn = null;
-
-    public static Connection getConnection() throws SQLException {
-        if (conn == null || conn.isClosed()) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                throw new SQLException("MySQL JDBC Driver not found.", e);
-            }
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    public static EntityManager getEntityManager() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         }
-        return conn;
+        return emf.createEntityManager();
+    }
+
+    public static void close() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
     }
 }
-
-

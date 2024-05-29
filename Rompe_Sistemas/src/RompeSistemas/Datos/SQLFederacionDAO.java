@@ -3,93 +3,76 @@ package RompeSistemas.Datos;
 import RompeSistemas.Modelo.Federacion;
 import RompeSistemas.ModeloDAO.FederacionDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class SQLFederacionDAO implements FederacionDAO {
-    private Connection conn;
+    private EntityManager em;
 
-    public SQLFederacionDAO(Connection conn) {
-        this.conn = conn;
+    public SQLFederacionDAO(EntityManager em) {
+        this.em = em;
     }
 
     @Override
-    public void insertarFederacion(Federacion federacion) throws SQLException {
-        String query = "INSERT INTO Federacion (codigoFederacion, nombreFederacion) VALUES (?, ?)";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, federacion.getCodigo());
-        statement.setString(2, federacion.getNombre());
-        statement.executeUpdate();
-    }
-
-    @Override
-    public void modificarFederacion(Federacion federacion) throws SQLException {
-        String query = "UPDATE Federacion SET nombreFederacion = ? WHERE codigoFederacion = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, federacion.getNombre());
-        statement.setString(2, federacion.getCodigo());
-        statement.executeUpdate();
-    }
-
-    @Override
-    public void eliminarFederacion(Federacion federacion) throws SQLException {
-        String query = "DELETE FROM Federacion WHERE codigoFederacion = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, federacion.getCodigo());
-        statement.executeUpdate();
-    }
-
-    @Override
-    public Federacion buscarFederacion(int id) throws SQLException {
-        String query = "SELECT * FROM Federacion WHERE idFederacion = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            return new Federacion(
-                    resultSet.getString("codigoFederacion"),
-                    resultSet.getString("nombreFederacion")
-            );
+    public void insertarFederacion(Federacion federacion) {
+        em.getTransaction().begin();
+        try {
+            em.persist(federacion);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null;
     }
 
     @Override
-    public Federacion buscarFederacion(String nombre) throws SQLException {
-        String query = "SELECT * FROM Federacion WHERE nombreFederacion = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, nombre);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            return new Federacion(
-                    resultSet.getString("codigoFederacion"),
-                    resultSet.getString("nombreFederacion")
-            );
+    public void modificarFederacion(Federacion federacion) {
+        em.getTransaction().begin();
+        try {
+            em.merge(federacion);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null;
     }
 
     @Override
-    public Federacion getFederacion(String codigo) throws SQLException {
-        String query = "SELECT * FROM Federacion WHERE codigoFederacion = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, codigo);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            return new Federacion(
-                    resultSet.getString("codigoFederacion"),
-                    resultSet.getString("nombreFederacion")
-            );
+    public void eliminarFederacion(Federacion federacion) {
+        em.getTransaction().begin();
+        try {
+            Federacion federacionToDelete = em.contains(federacion) ? federacion : em.merge(federacion);
+            em.remove(federacionToDelete);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null;
     }
 
     @Override
-    public ResultSet listarFederaciones() throws SQLException {
-        String query = "SELECT * FROM Federacion";
-        PreparedStatement statement = conn.prepareStatement(query);
-        return statement.executeQuery();
+    public Federacion buscarFederacion(int id) {
+        return em.find(Federacion.class, id);
+    }
+
+    @Override
+    public Federacion buscarFederacion(String nombre) {
+        String query = "SELECT f FROM Federacion f WHERE f.nombre = :nombre";
+        TypedQuery<Federacion> tq = em.createQuery(query, Federacion.class);
+        tq.setParameter("nombre", nombre);
+        List<Federacion> resultados = tq.getResultList();
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public Federacion getFederacion(String codigo) {
+        return em.find(Federacion.class, codigo);
+    }
+
+    @Override
+    public List<Federacion> listarFederaciones() {
+        TypedQuery<Federacion> query = em.createQuery("SELECT f FROM Federacion f", Federacion.class);
+        return query.getResultList();
     }
 }

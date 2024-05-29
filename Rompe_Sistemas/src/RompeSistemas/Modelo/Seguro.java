@@ -41,3 +41,4 @@ public enum Seguro {
         return id + " - " + nombre + " - " + precio + " Euros";
     }
 }
+

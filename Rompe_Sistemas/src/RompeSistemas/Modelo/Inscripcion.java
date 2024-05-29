@@ -1,25 +1,39 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
 import java.time.LocalDate;
 
-/**
- * Clase Inscripción que contiene los datos de la inscripción de un socio a una excursión.
- */
+@Entity
 public class Inscripcion {
+
+    @Id
+    @Column(nullable = false, unique = true)
     private String numero;
+
+    @ManyToOne
+    @JoinColumn(name = "socio_id", nullable = false)
     private Socio socio;
+
+    @ManyToOne
+    @JoinColumn(name = "excursion_codigo", nullable = false)
     private Excursion excursion;
+
+    @Column(nullable = false)
     private LocalDate fechaInscripcion;
 
-    //Métodos constructores
+    // Métodos constructores
+
     /**
-     ** Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, los socio y las excursion.
+     ** Método constructor de la clase Inscripcion que recibe por parámetros el número de inscripción, el socio y la excursión.
      * @param numero es el número que identifica la inscripción
      * @param socio es el socio que se inscribe
-     * @param excursion es excursión a la que se inscribe
+     * @param excursion es la excursión a la que se inscribe
      */
     public Inscripcion(String numero, Socio socio, Excursion excursion) {
-
         if (excursion == null) {
             throw new IllegalArgumentException("La excursión no puede ser nula");
         }
@@ -33,8 +47,8 @@ public class Inscripcion {
     public Inscripcion(String codigoInscripcion, LocalDate fechaInscripcion, String idSocio, String idExcursion) {
         this.numero = codigoInscripcion;
         this.fechaInscripcion = fechaInscripcion;
-        this.socio = new Socio();
-        this.excursion = new Excursion();
+        this.socio = new Socio(); // Se debería resolver la relación correctamente
+        this.excursion = new Excursion(); // Se debería resolver la relación correctamente
     }
 
     /**
@@ -58,80 +72,90 @@ public class Inscripcion {
         this.fechaInscripcion = LocalDate.now();
     }
 
+    // Métodos Getters
+
     /**
-     * Método get() que nos devuelve el número de la inscripción.
-     * @return número de la inscripción.
+     * Obtiene el número de la inscripción.
+     *
+     * @return el número de la inscripción
      */
     public String getNumero() {
         return numero;
     }
 
     /**
-     * Método set() para definir el número de la inscripción
-     * @param numero número de la inscripción.
+     * Establece el número de la inscripción.
+     *
+     * @param numero el número de la inscripción
      */
     public void setNumero(String numero) {
         this.numero = numero;
     }
 
     /**
-     * Método get() nos devuelve el socio que se inscribe.
-     * @return socio que se inscribe.
+     * Obtiene el socio que se inscribe.
+     *
+     * @return el socio que se inscribe
      */
     public Socio getSocio() {
         return socio;
     }
 
     /**
-     * Método set() para definir el socio que se inscribe.
-     * @param socio socio que se inscribe.
+     * Establece el socio que se inscribe.
+     *
+     * @param socio el socio que se inscribe
      */
     public void setSocio(Socio socio) {
         this.socio = socio;
     }
 
     /**
-     * Método get() nos devuelve la excursión a la que se inscribe.
-     * @return excursion a la que se inscribe.
+     * Obtiene la excursión a la que se inscribe.
+     *
+     * @return la excursión a la que se inscribe
      */
     public Excursion getExcursion() {
         return excursion;
     }
 
     /**
-     * Método get() nos devuelve la fecha de inscripción.
-     * @return fecha de inscripción.
-     */
-    public LocalDate getFecha() {
-        return fechaInscripcion;
-    }
-
-    /**
-     * Método set() para definir a la excursión a la que se inscribe.
-     * @param excursion excursión a la que se inscribe.
+     * Establece la excursión a la que se inscribe.
+     *
+     * @param excursion la excursión a la que se inscribe
      */
     public void setExcursion(Excursion excursion) {
         this.excursion = excursion;
     }
 
     /**
-     * Método set() para definir la fecha de inscripción.
-     * @param fechaInscripcion fecha de inscripción.
+     * Obtiene la fecha de inscripción.
+     *
+     * @return la fecha de inscripción
+     */
+    public LocalDate getFecha() {
+        return fechaInscripcion;
+    }
+
+    /**
+     * Establece la fecha de inscripción.
+     *
+     * @param fechaInscripcion la fecha de inscripción
      */
     public void setFecha(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 
     /**
-     * Método toString() de la clase inscripciones que nos devuelve los datos de la inscripción
-     * @return el número, el socio y la excursion a la que se inscribe.
+     * Método toString que devuelve una representación en cadena de los datos de la inscripción.
+     *
+     * @return una cadena con los datos de la inscripción
      */
     @Override
     public String toString() {
-        return "Número de la inscripción: "+ numero +
-                "\nSocio:" + socio +
+        return "Número de la inscripción: " + numero +
+                "\nSocio: " + socio +
                 "\n-- Excursion --\n" + excursion +
                 "\nFecha de inscripción: " + fechaInscripcion + "\n";
-
     }
 }

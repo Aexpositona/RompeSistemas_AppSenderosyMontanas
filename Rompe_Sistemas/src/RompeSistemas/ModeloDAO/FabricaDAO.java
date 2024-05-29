@@ -1,14 +1,14 @@
 package RompeSistemas.ModeloDAO;
 
-import java.sql.SQLException;
+import javax.persistence.PersistenceException;
 
 public interface FabricaDAO {
-    ExcursionDAO getExcursionDAO() throws SQLException;
-    InscripcionDAO getInscripcionDAO() throws SQLException;
-    SocioDAO getSocioDAO() throws SQLException;
-    FederacionDAO getFederacionDAO() throws SQLException;
-    SeguroDAO getSeguroDAO() throws SQLException;
-    InfantilDAO getInfantilDAO() throws SQLException;
-    FederadoDAO getFederadoDAO() throws SQLException;
-    EstandarDAO getEstandarDAO() throws SQLException;
+    ExcursionDAO getExcursionDAO() throws PersistenceException;
+    InscripcionDAO getInscripcionDAO() throws PersistenceException;
+    SocioDAO getSocioDAO() throws PersistenceException;
+    FederacionDAO getFederacionDAO() throws PersistenceException;
+    SeguroDAO getSeguroDAO() throws PersistenceException;
+    InfantilDAO getInfantilDAO() throws PersistenceException;
+    FederadoDAO getFederadoDAO() throws PersistenceException;
+    EstandarDAO getEstandarDAO() throws PersistenceException;
 }

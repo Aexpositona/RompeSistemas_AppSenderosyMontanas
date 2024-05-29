@@ -1,7 +1,15 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Entity
 public class Estandar extends Socio {
+
+    @Enumerated(EnumType.STRING)
     private Seguro seguro; // Enum Seguro
+
     private static final int tipo = 1;
 
     // Constructor

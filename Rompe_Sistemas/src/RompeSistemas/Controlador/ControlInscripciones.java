@@ -1,17 +1,19 @@
 package RompeSistemas.Controlador;
 
 import RompeSistemas.Modelo.Inscripcion;
+import RompeSistemas.Datos.SQLInscripcionDAO;
 import RompeSistemas.ModeloDAO.InscripcionDAO;
 import RompeSistemas.Vista.VistaInscripciones;
 import RompeSistemas.Vista.VistaAddInscripcion;
 import RompeSistemas.Vista.VistaListarInscripciones;
 
-import java.sql.ResultSet;
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 public class ControlInscripciones {
-    private APPSenderosMontanas app;
+    private EntityManager entityManager;
     private VistaInscripciones vInscripciones;
     private VistaAddInscripcion vAddInscripcion;
     private VistaListarInscripciones vListarInscripciones;
@@ -19,58 +21,30 @@ public class ControlInscripciones {
     private ControlDatos cDatos;
     private InscripcionDAO inscripcionDAO;
 
-    public ControlInscripciones(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
-        this.app = app;
+    public ControlInscripciones(EntityManager entityManager, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
+        this.entityManager = entityManager;
         this.cPeticiones = cPeticiones;
         this.cDatos = cDatos;
         this.vInscripciones = new VistaInscripciones(this);
         this.vAddInscripcion = new VistaAddInscripcion(this);
         this.vListarInscripciones = new VistaListarInscripciones(this);
-        this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
-
-    }
-
-
-
-    public void show() throws SQLException {
-        vInscripciones.show();
+        this.inscripcionDAO = new SQLInscripcionDAO(entityManager);
     }
 
     public void addInscripcion(Inscripcion inscripcion) throws SQLException {
-        if (inscripcion.getExcursion() == null) {
-            throw new IllegalArgumentException("La excursión no puede ser nula");
-        }
         inscripcionDAO.insertarInscripcion(inscripcion);
     }
 
     public void listInscripciones() throws SQLException {
-        ResultSet rs = inscripcionDAO.getAllInscripciones();
-        while (rs.next()) {
-            System.out.println("Código Inscripción: " + rs.getString("codigoInscripcion") +
-                    ", Fecha Inscripción: " + rs.getDate("fechaInscripcion").toLocalDate() +
-                    ", Código Socio: " + rs.getString("idSocio") +
-                    ", Código Excursión: " + rs.getString("idExcursion"));
-        }
+        inscripcionDAO.getAllInscripciones();
     }
 
     public void listInscripcionesSocio(String idSocio) throws SQLException {
-        ResultSet rs = inscripcionDAO.getInscripcionesPorSocio(idSocio);
-        while (rs.next()) {
-            System.out.println("Código Inscripción: " + rs.getString("codigoInscripcion") +
-                    ", Fecha Inscripción: " + rs.getDate("fechaInscripcion").toLocalDate() +
-                    ", Código Socio: " + rs.getString("idSocio") +
-                    ", Código Excursión: " + rs.getString("idExcursion"));
-        }
+        inscripcionDAO.getInscripcionesPorSocio(idSocio);
     }
 
     public void listInscripcionesFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
-        while (rs.next()) {
-            System.out.println("Código Inscripción: " + rs.getString("codigoInscripcion") +
-                    ", Fecha Inscripción: " + rs.getDate("fechaInscripcion").toLocalDate() +
-                    ", Código Socio: " + rs.getString("idSocio") +
-                    ", Código Excursión: " + rs.getString("idExcursion"));
-        }
+        inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
     }
 
     public void removeInscripcion(String codigo) throws SQLException {
@@ -87,7 +61,8 @@ public class ControlInscripciones {
         inscripcionDAO.modificarInscripcion(inscripcion);
     }
 
-    // Getters para vistas y controladores
+    // Getters y setters para vistas y controladores
+
     public VistaInscripciones getVistaInscripciones() {
         return vInscripciones;
     }
@@ -108,8 +83,12 @@ public class ControlInscripciones {
         return cDatos;
     }
 
-    public APPSenderosMontanas getApp() {
-        return app;
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     public void setVistaInscripciones(VistaInscripciones vInscripciones) {
@@ -122,5 +101,13 @@ public class ControlInscripciones {
 
     public void setVistaAddInscripcion(VistaAddInscripcion vAddInscripcion) {
         this.vAddInscripcion = vAddInscripcion;
+    }
+
+    public void show() throws ParseException, SQLException {
+        vInscripciones.show();
+    }
+
+    public boolean getInscripcion(String idInscripcion) {
+        return inscripcionDAO.getInscripcion(idInscripcion) != null;
     }
 }

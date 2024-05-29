@@ -1,10 +1,13 @@
 package RompeSistemas.Controlador;
 
+import RompeSistemas.Datos.SQLFabricaDAO;
 import RompeSistemas.Modelo.Datos;
+import RompeSistemas.ModeloDAO.FabricaDAO;
 import RompeSistemas.Vista.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -17,36 +20,33 @@ public class APPSenderosMontanas {
     private ControlExcursiones cExcursiones;
     private ControlDatos cDatos;
     private ControlPeticiones cPeticiones;
-    private Datos datos;
-    private VistaMenuPrincipal vMenuPrincipal;
-    private Connection conn;
-
-    // Métodos
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
 
     public static void main(String[] args) throws ParseException, SQLException {
         APPSenderosMontanas app = new APPSenderosMontanas();
-        Datos datos = new Datos(DriverManager.getConnection("jdbc:mysql://localhost:3306/appsenderosmontanas", "root", "admin"));
-        app.iniciar(datos);
+        app.iniciar();
         app.showVistaMenuPrincipal();
+        app.close();
     }
 
-    public void iniciar(Datos datos) throws SQLException {
-        this.datos = datos;
-        this.cPeticiones = new ControlPeticiones();
-        this.cDatos = new ControlDatos(datos, cPeticiones);
+    public void iniciar() throws SQLException {
+        entityManagerFactory = Persistence.createEntityManagerFactory("AppSenderosMontanasPU");
+        entityManager = entityManagerFactory.createEntityManager();
 
+        cPeticiones = new ControlPeticiones();
+        cDatos = new ControlDatos(entityManager);
 
-        // Inicializamos los controladores con sus vistas correspondientes
-        this.cInscripciones = new ControlInscripciones(this,cDatos, cPeticiones);
-        this.cSocios = new ControlSocios(this, cDatos, cPeticiones);
-        this.cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones);
-        this.cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones);
+        cInscripciones = new ControlInscripciones(entityManager, cDatos, cPeticiones);
+        cSocios = new ControlSocios(this, cDatos, cPeticiones, entityManager);
+        cExcursiones = new ControlExcursiones(this, cDatos, cPeticiones, entityManager);
+        cMenuPrincipal = new ControlMenuPrincipal(this, cDatos, cPeticiones, entityManager);
 
-        // Inicializamos y configuramos las vistas para ControlMenuPrincipal
-        vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);
+        // Configurar las vistas para ControlMenuPrincipal
+        VistaMenuPrincipal vMenuPrincipal = new VistaMenuPrincipal(cMenuPrincipal);
         cMenuPrincipal.setVistaMenuPrincipal(vMenuPrincipal);
 
-        // Configuramos ControlInscripciones con sus vistas
+        // Configurar las vistas para ControlInscripciones
         VistaInscripciones vInscripciones = new VistaInscripciones(cInscripciones);
         VistaListarInscripciones vListarInscripciones = new VistaListarInscripciones(cInscripciones);
         VistaAddInscripcion vAddInscripcion = new VistaAddInscripcion(cInscripciones);
@@ -55,7 +55,7 @@ public class APPSenderosMontanas {
         cInscripciones.setVistaListarInscripciones(vListarInscripciones);
         cInscripciones.setVistaAddInscripcion(vAddInscripcion);
 
-        // Configuramos ControlSocios con sus vistas
+        // Configurar las vistas para ControlSocios
         VistaSocios vSocios = new VistaSocios(cSocios);
         VistaListarSocios vListarSocios = new VistaListarSocios(cSocios);
         VistaAddSocio vAddSocio = new VistaAddSocio(cSocios);
@@ -66,7 +66,7 @@ public class APPSenderosMontanas {
         cSocios.setVistaAddSocio(vAddSocio);
         cSocios.setVistaModificarSeguro(vModificarSeguro);
 
-        // Configuramos ControlExcursiones con sus vistas
+        // Configurar las vistas para ControlExcursiones
         VistaExcursiones vExcursiones = new VistaExcursiones(cExcursiones);
         VistaListarExcursiones vListarExcursiones = new VistaListarExcursiones(cExcursiones);
         VistaAddExcursion vAddExcursion = new VistaAddExcursion(cExcursiones);
@@ -80,63 +80,12 @@ public class APPSenderosMontanas {
         cMenuPrincipal.show();
     }
 
-    public ControlMenuPrincipal getControlMenuPrincipal() {
-        return cMenuPrincipal;
-    }
-
-    public ControlInscripciones getControlInscripciones() {
-        return cInscripciones;
-    }
-
-    public ControlSocios getControlSocios() {
-        return cSocios;
-    }
-
-    public ControlExcursiones getControlExcursiones() {
-        return cExcursiones;
-    }
-
-    public ControlDatos getControlDatos() {
-        return cDatos;
-    }
-
-    public ControlPeticiones getControlPeticiones() {
-        return cPeticiones;
-    }
-
-    public Datos getDatos() {
-        return datos;
-    }
-
-    public VistaMenuPrincipal getVistaMenuPrincipal() {
-        return vMenuPrincipal;
-    }
-
-    public void setControlMenuPrincipal(ControlMenuPrincipal cMenuPrincipal) {
-        this.cMenuPrincipal = cMenuPrincipal;
-    }
-
-    public void setControlInscripciones(ControlInscripciones cInscripciones) {
-        this.cInscripciones = cInscripciones;
-    }
-
-    public void setControlSocios(ControlSocios cSocios) {
-        this.cSocios = cSocios;
-    }
-
-    public void setControlExcursiones(ControlExcursiones cExcursiones) {
-        this.cExcursiones = cExcursiones;
-    }
-
-    public void setControlDatos(ControlDatos cDatos) {
-        this.cDatos = cDatos;
-    }
-
-    public void setControlPeticiones(ControlPeticiones cPeticiones) {
-        this.cPeticiones = cPeticiones;
-    }
-
-    public void setDatos(Datos datos) {
-        this.datos = datos;
+    public void close() {
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close();
+        }
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
     }
 }

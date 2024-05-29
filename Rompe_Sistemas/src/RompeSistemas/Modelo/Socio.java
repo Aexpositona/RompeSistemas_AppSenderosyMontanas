@@ -1,16 +1,35 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
+
 /**
  * Clase Socio que define los atributos y métodos de un socio
  */
+@Entity
 public class Socio {
 
-    //Atributos
+    // Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private int tipo;
+
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false, unique = true)
     private String numero;
-    public String nif;
-    //Constructores
+
+    @Column(nullable = false, unique = true)
+    private String nif;
+
+    // Constructores
 
     /**
      * Constructor de la clase Socio
@@ -46,7 +65,7 @@ public class Socio {
         this.nif = "";
     }
 
-    //Métodos Getters
+    // Métodos Getters
     /**
      * Método get() de la clase Socio que nos devuelve el nombre del socio
      * @return El nombre del socio
@@ -81,7 +100,8 @@ public class Socio {
     public String getNif() {
         return nif;
     }
-    //Métodos Setters
+
+    // Métodos Setters
     /**
      * Método set() de la clase Socio que nos permite definir el nombre del socio
      * @param nombre Es el nombre del socio
@@ -121,15 +141,14 @@ public class Socio {
      * Método toString() de la clase Socio que nos devuelve un String con los datos del socio
      * @return Un String con los datos del socio, como el nombre, el domicilio, el NIF y el email
      */
+    @Override
     public String toString() {
         String tipoSocio = "";
         if (tipo == 1) {
             tipoSocio = "Estándar";
-        }
-        else if (tipo == 2) {
+        } else if (tipo == 2) {
             tipoSocio = "Federado";
-        }
-        else if (tipo == 3) {
+        } else if (tipo == 3) {
             tipoSocio = "Infantil";
         }
         return "Nombre: " + nombre +

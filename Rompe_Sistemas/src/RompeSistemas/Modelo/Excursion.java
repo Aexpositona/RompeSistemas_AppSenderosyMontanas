@@ -1,15 +1,30 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.time.LocalDate;
+import javax.persistence.Convert;
 
-/**
- * Clase que representa una excursión.
- */
+@Entity
+@Table(name = "excursiones") // Nombre de la tabla en la base de datos
 public class Excursion {
 
-    private String codigo, descripcion;
+    @Id
+    @Column(nullable = false, unique = true)
+    private String codigo;
+
+    @Column(nullable = false)
+    private String descripcion;
+
+    @Column(nullable = false)
     private LocalDate fecha;
+
+    @Column(nullable = false)
     private int duracion;
+
+    @Column(nullable = false)
     private float precio;
 
     // Métodos constructores
@@ -30,6 +45,7 @@ public class Excursion {
         this.duracion = duracion;
         this.precio = precio;
     }
+
     /**
      * Constructor de la clase Excursion que recibe un objeto de la misma clase para copiar los atributos.
      *
@@ -156,9 +172,9 @@ public class Excursion {
     @Override
     public String toString() {
         return "Código: " + codigo +
-               "\nDescripción: " + descripcion +
-               "\nFecha: " + fecha +
-               "\nDuración: " + duracion +
-               "\nPrecio: " + precio + " Euros.\n";
+                "\nDescripción: " + descripcion +
+                "\nFecha: " + fecha +
+                "\nDuración: " + duracion +
+                "\nPrecio: " + precio + " Euros.\n";
     }
 }

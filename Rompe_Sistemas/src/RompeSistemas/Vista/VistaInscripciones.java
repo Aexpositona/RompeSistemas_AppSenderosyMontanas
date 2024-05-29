@@ -52,7 +52,8 @@ public class VistaInscripciones {
         txtMostrarMensaje("\n-- Eliminando inscripción --\n\n");
         cInscripciones.listInscripciones();
         String idInscripcion = cPeticiones.pedirString("Introduzca el código de la inscripción a eliminar: ");
-        if (cInscripciones.getControlDatos().checkExistenciaObjeto(2, idInscripcion)) {
+
+        if (inscripcionExiste(idInscripcion)) {
             if (cPeticiones.pedirString("¿Está seguro de que desea eliminar la inscripción? (S/N): ").equalsIgnoreCase("S")) {
                 cInscripciones.removeInscripcion(idInscripcion);
                 txtMostrarMensaje("Inscripción eliminada correctamente.\n\n");
@@ -62,6 +63,10 @@ public class VistaInscripciones {
         } else {
             txtMostrarMensaje("El id introducido no es válido. Inténtelo de nuevo.\n\n");
         }
+    }
+
+    private boolean inscripcionExiste(String idInscripcion) throws SQLException {
+        return cInscripciones.getInscripcion(idInscripcion);
     }
 
     public void buttonMenuListInscripciones() throws SQLException {

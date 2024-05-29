@@ -1,19 +1,25 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Column;
+
+@Entity
 public class Infantil extends Socio {
 
+    @Column(nullable = false)
     private String numSocioTutor;
+
     private static final int tipo = 3;
 
-    //Métodos constructores
+    // Métodos constructores
     /**
      * Método constructor de la clase Infantil que recibe por parámetros el nombre, el número y el numero de socio del tutor
      * @param nombre es el nombre del socio
      * @param numero es el número del socio
      * @param numSocioTutor es el número de socio del tutor
      */
-    public Infantil(String nombre, String numero,String nif, String numSocioTutor){
-        super(nombre,numero,nif);
+    public Infantil(String nombre, String numero, String nif, String numSocioTutor){
+        super(nombre, numero, nif);
         this.numSocioTutor = numSocioTutor;
         super.setTipo(tipo);
     }
@@ -37,12 +43,11 @@ public class Infantil extends Socio {
         super.setTipo(tipo);
     }
 
-    //Métodos Getters
+    // Métodos Getters
     /**
      * Método que nos devuelve el número de socio del tutor
      * @return El número de socio del tutor
      */
-
     public String getNumSocioTutor() {
         return numSocioTutor;
     }
@@ -51,14 +56,11 @@ public class Infantil extends Socio {
         return tipo;
     }
 
-
-    //Métodos Setters
-
+    // Métodos Setters
     /**
      * Método que nos permite modificar el número de socio del tutor
      * @param numSocioTutor es el nuevo número de socio del tutor
      */
-
     public void setNumSocioTutor(String numSocioTutor) {
         this.numSocioTutor = numSocioTutor;
     }
@@ -68,8 +70,8 @@ public class Infantil extends Socio {
     }
 
     /**
-     * Método toString() de la clase Infantil que nos devuelve un String los datos del socio
-     * @return El nombre, el número del socio, el tipò de socio y el número de socio del tutor
+     * Método toString() de la clase Infantil que nos devuelve un String con los datos del socio
+     * @return El nombre, el número del socio, el tipo de socio y el número de socio del tutor
      */
     @Override
     public String toString(){

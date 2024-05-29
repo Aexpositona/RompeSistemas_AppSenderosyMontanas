@@ -1,13 +1,13 @@
 package RompeSistemas.ModeloDAO;
 
 import RompeSistemas.Modelo.Estandar;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public interface EstandarDAO {
-    ResultSet listarEstandares() throws SQLException;
-    Estandar getEstandar(String codigo) throws SQLException;
-    void modificarEstandar(Estandar estandar) throws SQLException;
-    void eliminarEstandar(Estandar estandar) throws SQLException;
-    void insertarEstandar(Estandar estandar) throws SQLException;
+    List<Estandar> listarEstandares();
+    Estandar getEstandar(String codigo);
+    void modificarEstandar(Estandar estandar);
+    void eliminarEstandar(Estandar estandar);
+    void insertarEstandar(Estandar estandar);
 }
+

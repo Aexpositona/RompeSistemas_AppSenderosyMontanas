@@ -1,31 +1,27 @@
 package RompeSistemas.Modelo;
 
-import RompeSistemas.Datos.DatabaseConnection;
 import RompeSistemas.Datos.SQLFabricaDAO;
 import RompeSistemas.ModeloDAO.FabricaDAO;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Datos {
-    private Connection conn;
+    private EntityManagerFactory emf;
+    private EntityManager em;
     private FabricaDAO fabricaDAO;
 
-    public Datos() throws SQLException {
-        this.conn = DatabaseConnection.getConnection();
-        this.fabricaDAO = new SQLFabricaDAO(conn);
+    public Datos() {
+        this.emf = Persistence.createEntityManagerFactory("AppSenderosMontanasPU");
+        this.em = emf.createEntityManager();
+        this.fabricaDAO = new SQLFabricaDAO(em);
     }
 
-    public Datos(Connection conn) {
-        this.conn = conn;
-        this.fabricaDAO = new SQLFabricaDAO(conn);
-    }
-
-    public Connection getConnection() {
-        return conn;
+    public EntityManager getEntityManager() {
+        return em;
     }
 
     public FabricaDAO getFabricaDAO() {
@@ -47,71 +43,92 @@ public class Datos {
 
     // Método para agregar un objeto
     public void addObjeto(int tipoObjeto, Object objeto) throws SQLException {
-        switch (tipoObjeto) {
-            case 1 -> fabricaDAO.getExcursionDAO().addExcursion((Excursion) objeto);
-            case 2 -> fabricaDAO.getInscripcionDAO().insertarInscripcion((Inscripcion) objeto);
-            case 3 -> {
-                if (objeto instanceof Infantil) {
-                    fabricaDAO.getInfantilDAO().insertarInfantil((Infantil) objeto);
-                } else if (objeto instanceof Federado) {
-                    fabricaDAO.getFederadoDAO().insertarFederado((Federado) objeto);
-                } else if (objeto instanceof Estandar) {
-                    fabricaDAO.getEstandarDAO().insertarEstandar((Estandar) objeto);
-                } else {
-                    fabricaDAO.getSocioDAO().insertarSocio((Socio) objeto);
+        em.getTransaction().begin();
+        try {
+            switch (tipoObjeto) {
+                case 1 -> fabricaDAO.getExcursionDAO().addExcursion((Excursion) objeto);
+                case 2 -> fabricaDAO.getInscripcionDAO().insertarInscripcion((Inscripcion) objeto);
+                case 3 -> {
+                    if (objeto instanceof Infantil) {
+                        fabricaDAO.getInfantilDAO().insertarInfantil((Infantil) objeto);
+                    } else if (objeto instanceof Federado) {
+                        fabricaDAO.getFederadoDAO().insertarFederado((Federado) objeto);
+                    } else if (objeto instanceof Estandar) {
+                        fabricaDAO.getEstandarDAO().insertarEstandar((Estandar) objeto);
+                    } else {
+                        fabricaDAO.getSocioDAO().insertarSocio((Socio) objeto);
+                    }
                 }
+                case 4 -> fabricaDAO.getFederacionDAO().insertarFederacion((Federacion) objeto);
             }
-            case 4 -> fabricaDAO.getFederacionDAO().insertarFederacion((Federacion) objeto);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
     }
 
     // Método para eliminar un objeto
     public void removeObjeto(int tipoObjeto, Object objeto) throws SQLException {
-        switch (tipoObjeto) {
-            case 1 -> fabricaDAO.getExcursionDAO().deleteExcursion((Excursion) objeto);
-            case 2 -> fabricaDAO.getInscripcionDAO().eliminarInscripcion((Inscripcion) objeto);
-            case 3 -> {
-                if (objeto instanceof Infantil) {
-                    fabricaDAO.getInfantilDAO().eliminarInfantil((Infantil) objeto);
-                } else if (objeto instanceof Federado) {
-                    fabricaDAO.getFederadoDAO().eliminarFederado((Federado) objeto);
-                } else if (objeto instanceof Estandar) {
-                    fabricaDAO.getEstandarDAO().eliminarEstandar((Estandar) objeto);
-                } else {
-                    fabricaDAO.getSocioDAO().eliminarSocio((Socio) objeto);
+        em.getTransaction().begin();
+        try {
+            switch (tipoObjeto) {
+                case 1 -> fabricaDAO.getExcursionDAO().deleteExcursion((Excursion) objeto);
+                case 2 -> fabricaDAO.getInscripcionDAO().eliminarInscripcion((Inscripcion) objeto);
+                case 3 -> {
+                    if (objeto instanceof Infantil) {
+                        fabricaDAO.getInfantilDAO().eliminarInfantil((Infantil) objeto);
+                    } else if (objeto instanceof Federado) {
+                        fabricaDAO.getFederadoDAO().eliminarFederado((Federado) objeto);
+                    } else if (objeto instanceof Estandar) {
+                        fabricaDAO.getEstandarDAO().eliminarEstandar((Estandar) objeto);
+                    } else {
+                        fabricaDAO.getSocioDAO().eliminarSocio((Socio) objeto);
+                    }
                 }
+                case 4 -> fabricaDAO.getFederacionDAO().eliminarFederacion((Federacion) objeto);
             }
-            case 4 -> fabricaDAO.getFederacionDAO().eliminarFederacion((Federacion) objeto);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
     }
 
     // Método para modificar un objeto
     public void modifyObjeto(int tipoObjeto, Object objeto) throws SQLException {
-        switch (tipoObjeto) {
-            case 1 -> fabricaDAO.getExcursionDAO().updateExcursion((Excursion) objeto);
-            case 2 -> fabricaDAO.getInscripcionDAO().modificarInscripcion((Inscripcion) objeto);
-            case 3 -> {
-                if (objeto instanceof Infantil) {
-                    fabricaDAO.getInfantilDAO().modificarInfantil((Infantil) objeto);
-                } else if (objeto instanceof Federado) {
-                    fabricaDAO.getFederadoDAO().modificarFederado((Federado) objeto);
-                } else if (objeto instanceof Estandar) {
-                    fabricaDAO.getEstandarDAO().modificarEstandar((Estandar) objeto);
-                } else {
-                    fabricaDAO.getSocioDAO().modificarSocio((Socio) objeto);
+        em.getTransaction().begin();
+        try {
+            switch (tipoObjeto) {
+                case 1 -> fabricaDAO.getExcursionDAO().updateExcursion((Excursion) objeto);
+                case 2 -> fabricaDAO.getInscripcionDAO().modificarInscripcion((Inscripcion) objeto);
+                case 3 -> {
+                    if (objeto instanceof Infantil) {
+                        fabricaDAO.getInfantilDAO().modificarInfantil((Infantil) objeto);
+                    } else if (objeto instanceof Federado) {
+                        fabricaDAO.getFederadoDAO().modificarFederado((Federado) objeto);
+                    } else if (objeto instanceof Estandar) {
+                        fabricaDAO.getEstandarDAO().modificarEstandar((Estandar) objeto);
+                    } else {
+                        fabricaDAO.getSocioDAO().modificarSocio((Socio) objeto);
+                    }
                 }
+                case 4 -> fabricaDAO.getFederacionDAO().modificarFederacion((Federacion) objeto);
             }
-            case 4 -> fabricaDAO.getFederacionDAO().modificarFederacion((Federacion) objeto);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
     }
 
     // Método para obtener el siguiente código
     public String getSiguienteCodigo(int tipoObjeto) {
         String query = switch (tipoObjeto) {
-            case 1 -> "SELECT codigoExcursion FROM Excursion ORDER BY codigoExcursion DESC LIMIT 1";
-            case 2 -> "SELECT codigoInscripcion FROM Inscripcion ORDER BY codigoInscripcion DESC LIMIT 1";
-            case 3 -> "SELECT codigoSocio FROM Socio ORDER BY codigoSocio DESC LIMIT 1";
-            case 4 -> "SELECT codigoFederacion FROM Federacion ORDER BY codigoFederacion DESC LIMIT 1";
+            case 1 -> "SELECT e FROM Excursion e ORDER BY e.codigo DESC";
+            case 2 -> "SELECT i FROM Inscripcion i ORDER BY i.numero DESC";
+            case 3 -> "SELECT s FROM Socio s ORDER BY s.id DESC";
+            case 4 -> "SELECT f FROM Federacion f ORDER BY f.codigo DESC";
             default -> throw new IllegalArgumentException("Tipo de objeto no válido");
         };
 
@@ -119,15 +136,22 @@ public class Datos {
     }
 
     private String generarSiguienteCodigo(String query, int tipoObjeto) {
-        try (Statement statement = conn.createStatement(); ResultSet resultSet = statement.executeQuery(query)) {
-            if (resultSet.next()) {
-                String ultimoCodigo = resultSet.getString(1);
+        try {
+            List<?> resultList = em.createQuery(query).setMaxResults(1).getResultList();
+            if (!resultList.isEmpty()) {
+                String ultimoCodigo = switch (tipoObjeto) {
+                    case 1 -> ((Excursion) resultList.get(0)).getCodigo();
+                    case 2 -> ((Inscripcion) resultList.get(0)).getNumero();
+                    case 3 -> String.valueOf(((Socio) resultList.get(0)).getNumero());
+                    case 4 -> ((Federacion) resultList.get(0)).getCodigo();
+                    default -> throw new IllegalArgumentException("Tipo de objeto no válido");
+                };
                 int numero = Integer.parseInt(ultimoCodigo.substring(3));
                 numero++;
                 String relleno = numero < 10 ? "000" : numero < 100 ? "00" : numero < 1000 ? "0" : "";
                 return ultimoCodigo.substring(0, 3) + relleno + numero;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error al obtener el siguiente código de la base de datos: " + e.getMessage());
         }
         return "";
@@ -136,10 +160,10 @@ public class Datos {
     // Método para listar objetos en formato String
     public String listToStringObjetos(int tipoObjeto) {
         String query = switch (tipoObjeto) {
-            case 1 -> "SELECT * FROM Excursion";
-            case 2 -> "SELECT * FROM Inscripcion";
-            case 3 -> "SELECT * FROM Socio";
-            case 4 -> "SELECT * FROM Federacion";
+            case 1 -> "SELECT e FROM Excursion e";
+            case 2 -> "SELECT i FROM Inscripcion i";
+            case 3 -> "SELECT s FROM Socio s";
+            case 4 -> "SELECT f FROM Federacion f";
             default -> throw new IllegalArgumentException("Tipo de objeto no válido");
         };
 
@@ -147,38 +171,83 @@ public class Datos {
     }
 
     // Método para listar objetos por fechas en formato String
-    public String listToStringObjetosFechas(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
+    public String listToStringObjetosFechas(int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal) {
         String query = switch (tipoObjeto) {
-            case 1 -> "SELECT * FROM Excursion WHERE fecha BETWEEN '" + fechaInicial + "' AND '" + fechaFinal + "'";
-            case 2 -> "SELECT * FROM Inscripcion WHERE fechaInscripcion BETWEEN '" + fechaInicial + "' AND '" + fechaFinal + "'";
+            case 1 -> "SELECT e FROM Excursion e WHERE e.fecha BETWEEN :fechaInicial AND :fechaFinal";
+            case 2 -> "SELECT i FROM Inscripcion i WHERE i.fechaInscripcion BETWEEN :fechaInicial AND :fechaFinal";
             default -> throw new IllegalArgumentException("Tipo de objeto no válido");
         };
 
-        return obtenerResultados(query, tipoObjeto);
+        return obtenerResultadosFechas(query, tipoObjeto, fechaInicial, fechaFinal);
     }
 
     private String obtenerResultados(String query, int tipoObjeto) {
         StringBuilder result = new StringBuilder();
-        try (Statement statement = conn.createStatement(); ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
+        try {
+            List<?> resultList = em.createQuery(query).getResultList();
+            for (Object obj : resultList) {
                 switch (tipoObjeto) {
-                    case 1 -> result.append("Excursion: ").append(resultSet.getString("codigoExcursion"))
-                            .append(", ").append(resultSet.getString("descripcion"))
-                            .append(", ").append(resultSet.getDate("fecha").toLocalDate())
-                            .append(", ").append(resultSet.getInt("duracion"))
-                            .append(", ").append(resultSet.getFloat("precio")).append("\n");
-                    case 2 -> result.append("Inscripcion: ").append(resultSet.getString("codigoInscripcion"))
-                            .append(", ").append(resultSet.getDate("fechaInscripcion").toLocalDate())
-                            .append(", ").append(resultSet.getString("idSocio"))
-                            .append(", ").append(resultSet.getString("idExcursion")).append("\n");
-                    case 3 -> result.append("Socio: ").append(resultSet.getString("nombreSocio"))
-                            .append(", ").append(resultSet.getString("codigoSocio"))
-                            .append(", ").append(resultSet.getString("nifSocio")).append("\n");
-                    case 4 -> result.append("Federacion: ").append(resultSet.getString("codigoFederacion"))
-                            .append(", ").append(resultSet.getString("nombreFederacion")).append("\n");
+                    case 1 -> {
+                        Excursion excursion = (Excursion) obj;
+                        result.append("Excursion: ").append(excursion.getCodigo())
+                                .append(", ").append(excursion.getDescripcion())
+                                .append(", ").append(excursion.getFecha())
+                                .append(", ").append(excursion.getDuracion())
+                                .append(", ").append(excursion.getPrecio()).append("\n");
+                    }
+                    case 2 -> {
+                        Inscripcion inscripcion = (Inscripcion) obj;
+                        result.append("Inscripcion: ").append(inscripcion.getNumero())
+                                .append(", ").append(inscripcion.getFecha())
+                                .append(", ").append(inscripcion.getSocio().getNumero())
+                                .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
+                    }
+                    case 3 -> {
+                        Socio socio = (Socio) obj;
+                        result.append("Socio: ").append(socio.getNombre())
+                                .append(", ").append(socio.getNumero())
+                                .append(", ").append(socio.getNif()).append("\n");
+                    }
+                    case 4 -> {
+                        Federacion federacion = (Federacion) obj;
+                        result.append("Federacion: ").append(federacion.getCodigo())
+                                .append(", ").append(federacion.getNombre()).append("\n");
+                    }
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            System.out.println("Error al obtener los datos de la base de datos: " + e.getMessage());
+        }
+        return result.toString();
+    }
+
+    private String obtenerResultadosFechas(String query, int tipoObjeto, LocalDate fechaInicial, LocalDate fechaFinal) {
+        StringBuilder result = new StringBuilder();
+        try {
+            List<?> resultList = em.createQuery(query)
+                    .setParameter("fechaInicial", fechaInicial)
+                    .setParameter("fechaFinal", fechaFinal)
+                    .getResultList();
+            for (Object obj : resultList) {
+                switch (tipoObjeto) {
+                    case 1 -> {
+                        Excursion excursion = (Excursion) obj;
+                        result.append("Excursion: ").append(excursion.getCodigo())
+                                .append(", ").append(excursion.getDescripcion())
+                                .append(", ").append(excursion.getFecha())
+                                .append(", ").append(excursion.getDuracion())
+                                .append(", ").append(excursion.getPrecio()).append("\n");
+                    }
+                    case 2 -> {
+                        Inscripcion inscripcion = (Inscripcion) obj;
+                        result.append("Inscripcion: ").append(inscripcion.getNumero())
+                                .append(", ").append(inscripcion.getFecha())
+                                .append(", ").append(inscripcion.getSocio().getNumero())
+                                .append(", ").append(inscripcion.getExcursion().getCodigo()).append("\n");
+                    }
+                }
+            }
+        } catch (Exception e) {
             System.out.println("Error al obtener los datos de la base de datos: " + e.getMessage());
         }
         return result.toString();

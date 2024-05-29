@@ -1,12 +1,12 @@
 package RompeSistemas.ModeloDAO;
 
 import RompeSistemas.Modelo.Seguro;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public interface SeguroDAO {
-        Seguro buscarSeguro(int id) throws SQLException;
-        ResultSet listarSeguros() throws SQLException;
-        Seguro getSeguro(int id) throws SQLException;
+        Seguro buscarSeguro(int id);
+        List<Seguro> listarSeguros();
+        Seguro getSeguro(int id);
 }
+
 

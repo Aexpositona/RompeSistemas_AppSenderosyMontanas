@@ -1,15 +1,23 @@
 package RompeSistemas.Modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Federado extends Socio {
 
     // Atributos
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "federacion_codigo")
     private Federacion federacion;
+
     private static final int tipo = 2;
 
     // Constructores
     /**
-     * Metodo constructor de la clase Estandar que recibe como parámetros el nombre, el número, el NIF y la federación a la que pertenece el socio
+     * Metodo constructor de la clase Federado que recibe como parámetros el nombre, el número, el NIF y la federación a la que pertenece el socio
      *
      * @param nombre        es el nombre del socio
      * @param numero        es el numero del socio
@@ -32,19 +40,26 @@ public class Federado extends Socio {
         super.setTipo(tipo);
     }
 
-    // Métodos Getters
-
     /**
-     * Método get() de la clase Federado que nos devuelve el tipo de socio
+     * Constructor vacío
+     */
+    public Federado() {
+        super();
+        this.federacion = null;
+        super.setTipo(tipo);
+    }
+
+    // Métodos Getters
+    /**
+     * Método get() de la clase Federado que nos devuelve la federación a la que pertenece el socio
      *
-     * @return El tipo de socio
+     * @return La federación a la que pertenece el socio
      */
     public Federacion getFederacion() {
         return federacion;
     }
 
     // Métodos Setters
-
     /**
      * Método set() de la clase Federado que nos permite definir la federación a la que pertenece el socio
      *
@@ -58,7 +73,6 @@ public class Federado extends Socio {
     public String toString() {
         super.setTipo(tipo);
         return super.toString() +
-                "Federación: " + federacion.getNombre() + "\n";
+                "Federación: " + (federacion != null ? federacion.getNombre() : "N/A") + "\n";
     }
 }
-

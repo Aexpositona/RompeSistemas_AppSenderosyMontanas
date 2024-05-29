@@ -1,20 +1,17 @@
 package RompeSistemas.ModeloDAO;
 
 import RompeSistemas.Modelo.Excursion;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ExcursionDAO {
-    ResultSet getAllExcursiones() throws SQLException;
-    Excursion getExcursion(String codigo) throws SQLException;
-    void addExcursion(Excursion excursion) throws SQLException;
-    void updateExcursion(Excursion excursion) throws SQLException;
-    void deleteExcursion(Excursion excursion) throws SQLException;
-    ResultSet getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException;
-    String getUltimoCodigo() throws SQLException;
-    ResultSet listarObjetosPorParametro(String parametro) throws SQLException;
-
-    Excursion getExcursionPorCodigo(String codigoExcursion) throws SQLException;
+    List<Excursion> getAllExcursiones();
+    Excursion getExcursion(String codigo);
+    void addExcursion(Excursion excursion);
+    void updateExcursion(Excursion excursion);
+    void deleteExcursion(Excursion excursion);
+    List<Excursion> getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal);
+    String getUltimoCodigo();
+    List<Excursion> listarObjetosPorParametro(String parametro);
+    Excursion getExcursionPorCodigo(String codigoExcursion);
 }

@@ -3,121 +3,93 @@ package RompeSistemas.Datos;
 import RompeSistemas.Modelo.Excursion;
 import RompeSistemas.ModeloDAO.ExcursionDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
+import java.util.List;
 
 public class SQLExcursionDAO implements ExcursionDAO {
-    private Connection conn;
+    private EntityManager em;
 
-    public SQLExcursionDAO(Connection conn) {
-        this.conn = conn;
+    public SQLExcursionDAO(EntityManager em) {
+        this.em = em;
     }
 
     @Override
-    public ResultSet getAllExcursiones() throws SQLException {
-        String query = "SELECT * FROM Excursion";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        return pstmt.executeQuery();
+    public List<Excursion> getAllExcursiones() {
+        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e", Excursion.class);
+        return query.getResultList();
     }
 
     @Override
-    public Excursion getExcursion(String codigo) throws SQLException {
-        String query = "SELECT * FROM Excursion WHERE codigoExcursion = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, codigo);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            return new Excursion(
-                    rs.getString("codigoExcursion"),
-                    rs.getString("descripcion"),
-                    rs.getDate("fecha").toLocalDate(),
-                    rs.getInt("duracion"),
-                    rs.getFloat("precio")
-            );
+    public Excursion getExcursion(String codigo) {
+        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e WHERE e.codigo = :codigo", Excursion.class);
+        query.setParameter("codigo", codigo);
+        List<Excursion> resultados = query.getResultList();
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public void addExcursion(Excursion excursion) {
+        em.getTransaction().begin();
+        try {
+            em.persist(excursion);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null;
     }
 
     @Override
-    public void addExcursion(Excursion excursion) throws SQLException {
-        String query = "INSERT INTO Excursion (codigoExcursion, descripcion, fecha, duracion, precio) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, excursion.getCodigo());
-        pstmt.setString(2, excursion.getDescripcion());
-        pstmt.setDate(3, java.sql.Date.valueOf(excursion.getFecha()));
-        pstmt.setInt(4, excursion.getDuracion());
-        pstmt.setFloat(5, excursion.getPrecio());
-        pstmt.executeUpdate();
-    }
-
-    @Override
-    public void updateExcursion(Excursion excursion) throws SQLException {
-        String query = "UPDATE Excursion SET descripcion = ?, fecha = ?, duracion = ?, precio = ? WHERE codigoExcursion = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, excursion.getDescripcion());
-        pstmt.setDate(2, java.sql.Date.valueOf(excursion.getFecha()));
-        pstmt.setInt(3, excursion.getDuracion());
-        pstmt.setFloat(4, excursion.getPrecio());
-        pstmt.setString(5, excursion.getCodigo());
-        pstmt.executeUpdate();
-    }
-
-    @Override
-    public void deleteExcursion(Excursion excursion) throws SQLException {
-        String query = "DELETE FROM Excursion WHERE codigoExcursion = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, excursion.getCodigo());
-        pstmt.executeUpdate();
-    }
-
-    @Override
-    public ResultSet getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        String query = "SELECT * FROM Excursion WHERE fecha BETWEEN ? AND ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setDate(1, java.sql.Date.valueOf(fechaInicial));
-        pstmt.setDate(2, java.sql.Date.valueOf(fechaFinal));
-        return pstmt.executeQuery();
-    }
-
-    @Override
-    public String getUltimoCodigo() throws SQLException {
-        String query = "SELECT codigoExcursion FROM Excursion ORDER BY codigoExcursion DESC LIMIT 1";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getString("codigoExcursion");
+    public void updateExcursion(Excursion excursion) {
+        em.getTransaction().begin();
+        try {
+            em.merge(excursion);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null;
     }
 
     @Override
-    public ResultSet listarObjetosPorParametro(String parametro) throws SQLException {
-        String query = "SELECT * FROM Excursion WHERE descripcion LIKE ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, "%" + parametro + "%");
-        return pstmt.executeQuery();
-    }
-
-
-    @Override
-    public Excursion getExcursionPorCodigo(String codigoExcursion) throws SQLException {
-        String query = "SELECT * FROM Excursion WHERE codigoExcursion = ?";
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, codigoExcursion);
-        ResultSet rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            return new Excursion(
-                    rs.getString("codigoExcursion"),
-                    rs.getString("descripcion"),
-                    rs.getDate("fecha").toLocalDate(),
-                    rs.getInt("duracion"),
-                    rs.getFloat("precio")
-            );
+    public void deleteExcursion(Excursion excursion) {
+        em.getTransaction().begin();
+        try {
+            Excursion excursionToDelete = em.contains(excursion) ? excursion : em.merge(excursion);
+            em.remove(excursionToDelete);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
         }
-        return null; // Asegurarse de devolver null si no se encuentra la excursión
+    }
+
+    @Override
+    public List<Excursion> getExcursionesPorFecha(LocalDate fechaInicial, LocalDate fechaFinal) {
+        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e WHERE e.fecha BETWEEN :fechaInicial AND :fechaFinal", Excursion.class);
+        query.setParameter("fechaInicial", fechaInicial);
+        query.setParameter("fechaFinal", fechaFinal);
+        return query.getResultList();
+    }
+
+    @Override
+    public String getUltimoCodigo() {
+        TypedQuery<String> query = em.createQuery("SELECT e.codigo FROM Excursion e ORDER BY e.codigo DESC", String.class);
+        List<String> resultados = query.setMaxResults(1).getResultList();
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public List<Excursion> listarObjetosPorParametro(String parametro) {
+        TypedQuery<Excursion> query = em.createQuery("SELECT e FROM Excursion e WHERE e.descripcion LIKE :parametro", Excursion.class);
+        query.setParameter("parametro", "%" + parametro + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public Excursion getExcursionPorCodigo(String codigoExcursion) {
+        return getExcursion(codigoExcursion);
     }
 }

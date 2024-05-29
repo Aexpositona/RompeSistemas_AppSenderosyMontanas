@@ -1,16 +1,15 @@
 package RompeSistemas.ModeloDAO;
 
 import RompeSistemas.Modelo.Federacion;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public interface FederacionDAO {
-    void insertarFederacion(Federacion federacion) throws SQLException;
-    void modificarFederacion(Federacion federacion) throws SQLException;
-    void eliminarFederacion(Federacion federacion) throws SQLException;
-    Federacion buscarFederacion(int id) throws SQLException;
-    Federacion buscarFederacion(String nombre) throws SQLException;
-    Federacion getFederacion(String codigo) throws SQLException;
-    ResultSet listarFederaciones() throws SQLException;
+    void insertarFederacion(Federacion federacion);
+    void modificarFederacion(Federacion federacion);
+    void eliminarFederacion(Federacion federacion);
+    Federacion buscarFederacion(int id);
+    Federacion buscarFederacion(String nombre);
+    Federacion getFederacion(String codigo);
+    List<Federacion> listarFederaciones();
 }
+

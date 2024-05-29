@@ -1,13 +1,15 @@
 package RompeSistemas.Controlador;
 
+import RompeSistemas.Datos.*;
 import RompeSistemas.Modelo.*;
 import RompeSistemas.ModeloDAO.*;
 import RompeSistemas.Vista.*;
 
-import java.sql.ResultSet;
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class ControlSocios {
     private APPSenderosMontanas app;
@@ -24,31 +26,31 @@ public class ControlSocios {
     private SeguroDAO seguroDAO;
     private ExcursionDAO excursionDAO;
     private InscripcionDAO inscripcionDAO;
+    private EntityManager em;
 
-    public ControlSocios(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones) throws SQLException {
+    public ControlSocios(APPSenderosMontanas app, ControlDatos cDatos, ControlPeticiones cPeticiones, EntityManager em) {
         this.app = app;
         this.cPeticiones = new ControlPeticiones();
-        this.cDatos = new ControlDatos(app.getDatos(), cPeticiones);
+        this.cDatos = cDatos;
+        this.em = em;
         this.vSocios = new VistaSocios(this);
         this.vModificarSeguro = new VistaModificarSeguro(this);
         this.vListarSocios = new VistaListarSocios(this);
         this.vAddSocio = new VistaAddSocio(this);
-        this.socioDAO = app.getDatos().getFabricaDAO().getSocioDAO();
-        this.infantilDAO = app.getDatos().getFabricaDAO().getInfantilDAO();
-        this.federadoDAO = app.getDatos().getFabricaDAO().getFederadoDAO();
-        this.estandarDAO = app.getDatos().getFabricaDAO().getEstandarDAO();
-        this.seguroDAO = app.getDatos().getFabricaDAO().getSeguroDAO();
-        this.excursionDAO = app.getDatos().getFabricaDAO().getExcursionDAO();
-        this.inscripcionDAO = app.getDatos().getFabricaDAO().getInscripcionDAO();
+        this.socioDAO = new SQLSocioDAO(em);
+        this.infantilDAO = new SQLInfantilDAO(em);
+        this.federadoDAO = new SQLFederadoDAO(em);
+        this.estandarDAO = new SQLEstandarDAO(em);
+        this.seguroDAO = new SQLSeguroDAO(em);
+        this.excursionDAO = new SQLExcursionDAO(em);
+        this.inscripcionDAO = new SQLInscripcionDAO(em);
     }
-
-
 
     public void show() throws ParseException, SQLException {
         vSocios.show();
     }
 
-    public void addSocio(Socio socio) throws SQLException {
+    public void addSocio(Socio socio) {
         if (socio instanceof Infantil) {
             infantilDAO.insertarInfantil((Infantil) socio);
         } else if (socio instanceof Federado) {
@@ -60,33 +62,40 @@ public class ControlSocios {
         }
     }
 
-    public void listTipoSocios(int tipo) throws SQLException {
-        ResultSet rs;
+    public void listTipoSocios(int tipo) {
         switch (tipo) {
             case 1:
-                rs = estandarDAO.listarEstandares();
+                List<Estandar> listEstandares = estandarDAO.listarEstandares();
+                for (Estandar estandar : listEstandares) {
+                    System.out.println("Nombre: " + estandar.getNombre() + ", Código: " + estandar.getNumero() + ", NIF: " + estandar.getNif());
+                }
                 break;
             case 2:
-                rs = federadoDAO.listarFederados();
+                List<Federado> listFederados = federadoDAO.listarFederados();
+                for (Federado federado : listFederados) {
+                    System.out.println("Nombre: " + federado.getNombre() + ", Código: " + federado.getNumero() + ", NIF: " + federado.getNif());
+                }
                 break;
             case 3:
-                rs = infantilDAO.listarInfantiles();
+                List<Infantil> listInfantiles = infantilDAO.listarInfantiles();
+                for (Infantil infantil : listInfantiles) {
+                    System.out.println("Nombre: " + infantil.getNombre() + ", Código: " + infantil.getNumero() + ", NIF: " + infantil.getNif());
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de socio no válido");
         }
-        while (rs.next()) {
-            System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio"));
-        }
-    }
-    public void listSocios() throws SQLException {
-        ResultSet rs = socioDAO.listarSocios();
-        while (rs.next()) {
-            System.out.println("Nombre: " + rs.getString("nombreSocio") + ", Código: " + rs.getString("codigoSocio") + ", NIF: " + rs.getString("nifSocio"));
-        }
     }
 
-    public void removeSocio(Socio socio) throws SQLException {
+    public List<Socio> listSocios() {
+        List<Socio> listSocios = socioDAO.listarSocios();
+        for (Socio socio : listSocios) {
+            System.out.println("Nombre: " + socio.getNombre() + ", Código: " + socio.getNumero() + ", NIF: " + socio.getNif());
+        }
+        return listSocios;
+    }
+
+    public void removeSocio(Socio socio) {
         if (socio != null) {
             socioDAO.eliminarSocio(socio);
             System.out.println("Socio eliminado correctamente.");
@@ -95,8 +104,7 @@ public class ControlSocios {
         }
     }
 
-
-    public void modificarSocio(Socio socio) throws SQLException {
+    public void modificarSocio(Socio socio) {
         if (socio instanceof Infantil) {
             infantilDAO.modificarInfantil((Infantil) socio);
         } else if (socio instanceof Federado) {
@@ -108,51 +116,51 @@ public class ControlSocios {
         }
     }
 
-    public Seguro buscarSeguro(int id) throws SQLException {
+    public Seguro buscarSeguro(int id) {
         return seguroDAO.buscarSeguro(id);
     }
 
-    public ResultSet listarSeguros() throws SQLException {
+    public List<Seguro> listarSeguros() {
         return seguroDAO.listarSeguros();
     }
 
-    public void showVistaAddSocio() throws SQLException, ParseException {
+    public void showVistaAddSocio() throws ParseException, SQLException {
         vAddSocio.show();
     }
 
-    public void showVistaListarSocios() throws SQLException, ParseException {
+    public void showVistaListarSocios() throws ParseException, SQLException {
         vListarSocios.show();
     }
 
-    public void showVistaModificarSeguro() throws SQLException, ParseException {
+    public void showVistaModificarSeguro() throws ParseException, SQLException {
         vModificarSeguro.show();
     }
 
     // Métodos de cálculo de facturas
 
-    public void calcularFacturaMensualSocios() throws SQLException {
+    public void calcularFacturaMensualSocios() {
         LocalDate fechaFinal = LocalDate.now();
         LocalDate fechaInicial = fechaFinal.minusMonths(1);
-        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+        List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
         float totalFactura = 0;
 
-        while (rs.next()) {
-            String codigoExcursion = rs.getString("idExcursion");
-            Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+        for (Inscripcion inscripcion : listInscripciones) {
+            Excursion codigoExcursion = inscripcion.getExcursion();
+            Excursion excursion = excursionDAO.getExcursion(codigoExcursion.getCodigo());
             totalFactura += excursion.getPrecio();
         }
 
         System.out.println("Total factura mensual de los socios: " + totalFactura + " euros.");
     }
 
-    public void calcularFacturaFechas(LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+    public void calcularFacturaFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
         float totalFactura = 0;
 
-        while (rs.next()) {
-            String codigoExcursion = rs.getString("codigoExcursion");
+        for (Inscripcion inscripcion : listInscripciones) {
+            Excursion codigoExcursion = inscripcion.getExcursion();
             System.out.println("Recuperado codigoExcursion: " + codigoExcursion);  // Añadir depuración
-            Excursion excursion = excursionDAO.getExcursionPorCodigo(codigoExcursion);
+            Excursion excursion = excursionDAO.getExcursionPorCodigo(codigoExcursion.getCodigo());
             if (excursion != null) {
                 totalFactura += excursion.getPrecio();
             } else {
@@ -163,18 +171,14 @@ public class ControlSocios {
         System.out.println("Total factura entre fechas de los socios: " + totalFactura + " euros.");
     }
 
-
-
-
-    public void calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) throws SQLException {
-        ResultSet rs = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
+    public void calcularFacturasFechasSocio(String numeroSocio, LocalDate fechaInicial, LocalDate fechaFinal) {
+        List<Inscripcion> listInscripciones = inscripcionDAO.getInscripcionesPorFecha(fechaInicial, fechaFinal);
         float totalFactura = 0;
 
-        while (rs.next()) {
-            String codigoSocio = rs.getString("idSocio");
-            if (codigoSocio.equals(numeroSocio)) {
-                String codigoExcursion = rs.getString("idExcursion");
-                Excursion excursion = excursionDAO.getExcursion(codigoExcursion);
+        for (Inscripcion inscripcion : listInscripciones) {
+            Socio codigoSocio = inscripcion.getSocio();
+            if (codigoSocio.getNumero().equals(numeroSocio)) {
+                Excursion excursion = excursionDAO.getExcursion(codigoSocio.getNumero());
                 totalFactura += excursion.getPrecio();
             }
         }
@@ -226,5 +230,9 @@ public class ControlSocios {
 
     public void setVistaModificarSeguro(VistaModificarSeguro vModificarSeguro) {
         this.vModificarSeguro = vModificarSeguro;
+    }
+
+    public Socio getSocio(String idSocio) {
+        return socioDAO.getSocio(idSocio);
     }
 }

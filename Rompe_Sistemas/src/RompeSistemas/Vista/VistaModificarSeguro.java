@@ -6,9 +6,9 @@ import RompeSistemas.Modelo.Seguro;
 import RompeSistemas.Modelo.Socio;
 import RompeSistemas.Modelo.Estandar;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * Clase VistaModificarSeguro que nos permite modificar un seguro
@@ -83,9 +83,9 @@ public class VistaModificarSeguro {
         } while (!valido);
 
         // Mostramos los seguros
-        ResultSet rsSeguros = cSocios.listarSeguros();
-        while (rsSeguros.next()) {
-            System.out.println("ID: " + rsSeguros.getInt("idSeguro") + ", Nombre: " + rsSeguros.getString("nombreSeguro") + ", Precio: " + rsSeguros.getFloat("precioSeguro"));
+        List<Seguro> seguros = cSocios.listarSeguros();
+        for (Seguro seguro : seguros) {
+            System.out.println("ID: " + seguro.getId() + ", Nombre: " + seguro.getNombre() + ", Precio: " + seguro.getPrecio());
         }
 
         // Solicitamos el tipo de seguro que se le va a asignar al socio
@@ -104,7 +104,6 @@ public class VistaModificarSeguro {
     public void buttonAtras() throws ParseException {
         txtMostrarMensaje("Volviendo a la vista anterior\n\n");
     }
-
 
     /**
      * Método para mostrar un mensaje.
@@ -130,7 +129,7 @@ public class VistaModificarSeguro {
                     buttonAtras();
                     running = false;
                 }
-                default -> txtMostrarMensaje("Opción no válida. Intente de nuevo.\n");
+                default -> txtMostrarMensaje("Opción no válida. Inténtelo de nuevo.\n");
             }
         }
     }
